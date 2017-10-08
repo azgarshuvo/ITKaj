@@ -17,11 +17,17 @@
 <script type="text/javascript" src="{{asset('assets/plugins/counter/waypoints.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/counter/jquery.counterup.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/owl-carousel/owl-carousel/owl.carousel.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/plugins/counter/waypoints.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/plugins/counter/jquery.counterup.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <!-- JS Customization -->
 <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
 <!-- JS Page Level -->
 <script type="text/javascript" src="{{asset('assets/js/app.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/owl-carousel.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/js/plugins/style-switcher.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/js/plugins/datepicker.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/style-switcher.js')}}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {

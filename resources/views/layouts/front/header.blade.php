@@ -37,6 +37,11 @@
     <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
         <div class="container">
             <ul class="nav navbar-nav">
+                <!-- Profile -->
+                <li><a href="{{route('profile')}}">Profile</a></li>
+                <!-- End Profile -->
+            </ul>
+            <ul class="nav navbar-nav">
                 <!-- Home -->
                 <li><a href="{{route('home')}}">Home</a></li>
                 <!-- End Home -->
