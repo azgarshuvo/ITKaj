@@ -53,6 +53,13 @@
                     <label>Email Address <span class="color-red">*</span></label>
                     <input {{old('email')}} name="email" type="text" class="form-control margin-bottom-20">
 
+                    <label>User Type</label>
+                        <select class="form-control margin-bottom-20" name="user_type">
+                            <option value="">Select One</option>
+                            <option value="freelancer">Freelancer</option>
+                            <option value="employer">employer</option>
+                        </select>
+
                     <div class="row">
                         <div class="col-sm-6">
                             <label>Password <span class="color-red">*</span></label>
