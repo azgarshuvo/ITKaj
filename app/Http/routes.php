@@ -24,7 +24,8 @@ Route::group(['prefix' => 'user'], function () {
 	
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
-    Route::get('verrify', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
+
+    Route::get('verrify/email', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
     
 
     Route::group(['prefix' => 'profile'], function(){
@@ -33,6 +34,10 @@ Route::group(['prefix' => 'user'], function () {
     	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
     	Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
     });
+
+   
+    
+
 });
 
 
@@ -41,5 +46,8 @@ Route::group(['prefix' => 'user'], function () {
 
 
 Route::group(['prefix' => 'admin'], function (){
-    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard']);
+    Route::get('login', ['as' =>'adminLogin', 'uses' => 'adminController\AdminLoginController@getLoginView']);
+    Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
+
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard','middleware' => 'auth']);
 });

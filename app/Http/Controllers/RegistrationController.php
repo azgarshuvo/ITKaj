@@ -66,6 +66,7 @@ class RegistrationController extends Controller{
             'lname' => $data['lname'],
             'username' => $userName,
             'email' => $data['email'],
+            'user_type' => $data['user_type'],
             'password' => bcrypt($data['password']),
             'verification_token' => $token,
         ]);
