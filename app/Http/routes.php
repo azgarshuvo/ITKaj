@@ -27,3 +27,11 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('verrify', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
 });
 
+
+
+
+
+
+Route::group(['prefix' => 'admin'], function (){
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard']);
+});
