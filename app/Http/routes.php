@@ -15,9 +15,11 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHome']);
 
 
 Route::get('/login', ['as'=>'login', 'uses' => 'LoginController@getLogin']);
+
 Route::get('/logout', ['as'=>'logout', 'uses' => 'LogoutController@getLogout']);
 
 Route::post('/login/execute', ['as'=>'postLogin', 'uses' => 'LoginController@postLogin']);
+
 Route::group(['prefix' => 'user'], function () {
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
@@ -25,3 +27,11 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('verrify/email', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
 });
 
+
+
+
+
+
+Route::group(['prefix' => 'admin'], function (){
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard']);
+});
