@@ -34,3 +34,11 @@ Route::group(['prefix' => 'user'], function () {
     });
 });
 
+
+
+
+
+
+Route::group(['prefix' => 'admin'], function (){
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard']);
+});
