@@ -15,8 +15,12 @@
 <body>
 <div class="wrapper">
     @include('layouts.front.header')
-    @include('layouts.front.profileleftbar')
-    @yield('content')
+    <div class="container content profile">
+        <div class="row">
+            @include('layouts.front.profileLeftBar')
+            @yield('content')
+        </div>
+    </div>
     @include('layouts.front.footer')
     @include('layouts.front.script')
 </div>
