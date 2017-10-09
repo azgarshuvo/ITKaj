@@ -18,9 +18,13 @@
         <!-- Topbar -->
         <div class="topbar">
             <ul class="loginbar pull-right">
-                <li><a href="{{route('registration')}}">Signup</a></li>
-                <li class="topbar-devider"></li>
-                <li><a href="{{route('login')}}">Login</a></li>
+                @if (Auth::check())
+                    <li><a href="{{route('logout')}}">Logout</a></li>
+                @else
+                    <li><a href="{{route('registration')}}">Signup</a></li>
+                    <li class="topbar-devider"></li>
+                    <li><a href="{{route('login')}}">Login</a></li>
+                @endif
             </ul>
         </div>
         <!-- End Topbar -->

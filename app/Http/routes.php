@@ -15,9 +15,13 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHome']);
 
 
 Route::get('/login', ['as'=>'login', 'uses' => 'LoginController@getLogin']);
-Route::get('/registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
+Route::get('/logout', ['as'=>'logout', 'uses' => 'LogoutController@getLogout']);
 
+Route::post('/login/execute', ['as'=>'postLogin', 'uses' => 'LoginController@postLogin']);
 Route::group(['prefix' => 'user'], function () {
+    Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
+    Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
     Route::get('profile', ['as' => 'profile', 'uses' => 'ProfileController@getProfile']);
+    Route::get('verrify', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
 });
 
