@@ -1,17 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: msi
- * Date: 07-Oct-17
- * Time: 6:11 PM
- */
 
-namespace App\Http\Controllers;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\Registrar;
+namespace App\Http\Controllers\adminController;
+
 use Illuminate\Http\Request;
 
-class LoginController extends Controller{
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\Registrar;
+
+class AdminLoginController extends Controller
+{
     protected $auth;
     protected $registrar;
 
@@ -22,10 +21,10 @@ class LoginController extends Controller{
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
-    public function getLogin(){
-        return view('front.login');
-    }
 
+    public function getLoginView(){
+        return view('admin.login');
+    }
 
     public function postLogin(Request $request){
         $this->validate($request,
@@ -38,9 +37,10 @@ class LoginController extends Controller{
 
         // let's set credentials with email/username
         if ( $login_type == 'email' ) {
-            $credentials = ['email'=>$request->input('username'),'password'=>$request->input('password'),'admin_user_type'=>-1];
+            $credentials = ['email'=>$request->input('username'),'password'=>$request->input('password'),'user_type'=>'admin'];
         } else {
-            $credentials = ['username'=>$request->input('username'),'password'=>$request->input('password'),'admin_user_type'=>-1];
+            $credentials = ['username'=>$request->input('username'),'password'=>$request->input('password'),'user_type'=>'admin'];
+            //$credentials = $request->only( 'username', 'password' );
         }
 
         //dd($credentials);
@@ -57,7 +57,7 @@ class LoginController extends Controller{
 
     #redirect when login success
     public function redirectPath(){
-        return route('profile');
+        return route('dashboard');
     }
 
     /**
@@ -67,7 +67,7 @@ class LoginController extends Controller{
      */
     public function loginPath()
     {
-        return property_exists($this, 'loginPath') ? $this->loginPath : '/login';
+        return property_exists($this, 'loginPath') ? $this->loginPath : route('adminLogin');
     }
 
     /**
@@ -79,5 +79,6 @@ class LoginController extends Controller{
     {
         return "Username or Password doesn't match";
     }
+
 
 }
