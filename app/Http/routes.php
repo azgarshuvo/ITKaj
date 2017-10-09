@@ -22,6 +22,6 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
     Route::get('profile', ['as' => 'profile', 'uses' => 'ProfileController@getProfile']);
-    Route::get('verrify', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
+    Route::get('verrify/email', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
 });
 
