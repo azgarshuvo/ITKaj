@@ -9,9 +9,6 @@
 @extends('layouts.front.profilemaster')
 
 @section('title', 'Profile')
-
-
-    <!--=== Profile ===-->
     <div class="container content profile">
         <div class="row">
            @section('content')
