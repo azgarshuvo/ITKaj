@@ -51,3 +51,10 @@ Route::group(['prefix' => 'admin'], function (){
 
     Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard','middleware' => 'auth']);
 });
+
+
+
+
+Route::group(['prefix' => 'job'], function (){
+    Route::get('post', ['as' =>'post', 'uses' => 'JobController@getPostJob']);
+});
