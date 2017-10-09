@@ -15,6 +15,7 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHome']);
 
 
 Route::get('/login', ['as'=>'login', 'uses' => 'LoginController@getLogin']);
+
 Route::group(['prefix' => 'user'], function () {
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
