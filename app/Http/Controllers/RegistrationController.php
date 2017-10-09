@@ -13,5 +13,8 @@ class RegistrationController extends Controller{
     public function getRegistration(){
         return view('front.registration');
     }
+    public function getjobpost(){
+        return view('front.jobPost');
+    }
 
 }
