@@ -15,7 +15,7 @@
             <a href="{{route('profile_overall')}}"><i class="fa fa-bar-chart-o"></i> Overall</a>
         </li>
         <li class="list-group-item">
-            <a href="javascript:void(0);"><i class="fa fa-user"></i> Profile</a>
+            <a href="{{route('myProfile')}}"><i class="fa fa-user"></i> Profile</a>
         </li>
         <li class="list-group-item">
             <a href="javascript:void(0);"><i class="fa fa-group"></i> Users</a>

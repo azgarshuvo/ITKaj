@@ -88,7 +88,7 @@
                         <div id="scrollbar3" class="panel-body no-padding mCustomScrollbar" data-mcs-theme="minimal-dark">
                             <div class="alert-blocks alert-blocks-pending alert-dismissable">
                                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                <img class="rounded-x" src="assets/img/testimonials/img3.jpg" alt="">
+                                <img class="rounded-x" src="{{asset('assets/img/testimonials/img3.jpg')}}" alt="">
                                 <div class="overflow-h">
                                     <strong class="color-yellow">Pending... <small class="pull-right"><em>Just now</em></small></strong>
                                     <p>Your friend request has been sent.</p>
@@ -96,7 +96,7 @@
                             </div>
                             <div class="alert-blocks alert-blocks-success alert-dismissable">
                                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                <img class="rounded-x" src="assets/img/testimonials/img2.jpg" alt="">
+                                <img class="rounded-x" src="{{asset('assets/img/testimonials/img2.jpg')}}" alt="">
                                 <div class="overflow-h">
                                     <strong class="color-green">Accepted. <small class="pull-right"><em>7 hours ago</em></small></strong>
                                     <p>Your friend request has been accepted.</p>
@@ -112,7 +112,7 @@
                             </div>
                             <div class="alert-blocks alert-blocks-error alert-dismissable">
                                 <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                <img class="rounded-x" src="assets/img/testimonials/img6.jpg" alt="">
+                                <img class="rounded-x" src="{{asset('assets/img/testimonials/img6.jpg')}}" alt="">
                                 <div class="overflow-h">
                                     <strong class="color-red">Denied! <small class="pull-right"><em>2 days ago</em></small></strong>
                                     <p>Your friend request has been denied.</p>
