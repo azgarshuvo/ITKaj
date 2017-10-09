@@ -30,7 +30,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::group(['prefix' => 'profile'], function(){
     	Route::get('overall', ['as' => 'profile_overall', 'uses' => 'ProfileController@getProfile']);
     	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
-    	Route::get('myProfile', ['as' => 'myProfile', 'uses' => 'ProfileController@getMyProfile']);
+    	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
+    	Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
     });
 });
 

@@ -18,7 +18,13 @@ class ProfileController extends Controller{
     public function getProfileSettings(){
     	return view('front.profileSettings');
     }
+
     public function getMyProfile(){
         return view('front.myProfile');
     }
+
+    public function getMyProjects(){
+    	return view('front.myProjects');
+    }
+    
 }
