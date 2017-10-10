@@ -106,24 +106,16 @@
                                     <h2 class="heading-md">Manage your Security Settings</h2>
                                     <p>Change your password.</p>
                                     <br>
-                                    <form class="sky-form" id="sky-form4" action="#">
+                                    <form method="POST" class="sky-form" id="password_change" action="{{route('changePassword')}}">
+                                        {{csrf_field()}}
                                         <dl class="dl-horizontal">
-                                            <dt>Username</dt>
+
+                                            <dt>Current Password</dt>
                                             <dd>
                                                 <section>
                                                     <label class="input">
-                                                        <i class="icon-append fa fa-user"></i>
-                                                        <input type="text" placeholder="Username" name="username">
-                                                        <b class="tooltip tooltip-bottom-right">Needed to enter the website</b>
-                                                    </label>
-                                                </section>
-                                            </dd>
-                                            <dt>Email address</dt>
-                                            <dd>
-                                                <section>
-                                                    <label class="input">
-                                                        <i class="icon-append fa fa-envelope"></i>
-                                                        <input type="email" placeholder="Email address" name="email">
+                                                        <i class="icon-append fa fa-lock"></i>
+                                                        <input type="password" placeholder="Current Password" name="c_password">
                                                         <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
                                                     </label>
                                                 </section>
@@ -143,19 +135,14 @@
                                                 <section>
                                                     <label class="input">
                                                         <i class="icon-append fa fa-lock"></i>
-                                                        <input type="password" name="passwordConfirm" placeholder="Confirm password">
+                                                        <input type="password" name="password_confirmation" placeholder="Confirm password">
                                                         <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
                                                     </label>
                                                 </section>
                                             </dd>
                                         </dl>
-                                        <label class="toggle toggle-change"><input type="checkbox" checked="" name="checkbox-toggle-1"><i class="no-rounded"></i>Remember password</label>
-                                        <br>
-                                        <section>
-                                            <label class="checkbox"><input type="checkbox" id="terms" name="terms"><i></i><a href="#">I agree with the Terms and Conditions</a></label>
-                                        </section>
-                                        <button type="button" class="btn-u btn-u-default">Cancel</button>
-                                        <button class="btn-u" type="submit">Save Changes</button>
+                                        <button type="reset" class="btn-u btn-u-default">Cancel</button>
+                                        <button id="password_submit" class="btn-u" type="submit">Save Changes</button>
                                     </form>
                                 </div>
 
@@ -250,5 +237,13 @@
                     </div>
                 </div>
                 <!-- End Profile Content -->
+    <script type="text/javascript">
+        $("password_submit").click(function(event){
+            event.preventDefault();
+            alert("Hello");
+        });
+
+
+    </script>
 @endsection
 
