@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 class AdminDashboardController extends Controller{
 
 
-    public function getDeshboard(){
+    public function getDashboard(){
         return view('admin.dashboard');
     }
 }
