@@ -34,8 +34,8 @@
             <li>
                 <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Admin</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{route('add')}}">Add Admin</a></li>
-                    <li><a href="{{route('list')}}">Admin List</a></li>
+                    <li><a href="{{route('adminAdd')}}">Add Admin</a></li>
+                    <li><a href="{{route('adminList')}}">Admin List</a></li>
                 </ul>
             </li>
             {{--<li>--}}

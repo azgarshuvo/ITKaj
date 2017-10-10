@@ -59,8 +59,8 @@ Route::group(['prefix' => 'admin'], function (){
 
 
 
-    Route::get('add', ['as' =>'add', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
-    Route::get('list', ['as' =>'list', 'uses' => 'adminController\AdminDashboardController@listOfAdmin']);
+    Route::get('add', ['as' =>'adminAdd', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
+    Route::get('list', ['as' =>'adminList', 'uses' => 'adminController\AdminDashboardController@listOfAdmin']);
 
 
 });
