@@ -83,7 +83,6 @@
                                     <option value="">Select One</option>
                                     <option value="">Pay the hour</option>
                                     <option value="">Pay the fixed Time</option>
-                                    
                             </select>
                         </div>
                         <div class="col-sm-6">
@@ -228,14 +227,8 @@
                     <hr>
 
                     <div class="row">
-                        <div class="col-lg-6 checkbox">
-                            <label>
-                                <input name="terms" type="checkbox">
-                                I read <a href="page_terms.html" class="color-green">Terms and Conditions</a>
-                            </label>
-                        </div>
-                        <div class="col-lg-6 text-right">
-                            <button class="btn-u" type="submit">Post</button>
+                        <div class="col-lg-6">
+                            <button class="btn-u" type="submit">Confirm Job Post</button>
                         </div>
                     </div>
                 </form>
@@ -243,14 +236,15 @@
         </div>
     </div><!--/container-->
     <!--=== End Content Part ===-->
+@endsection
 
+@section('script')
     <script type="text/javascript">
 
         $("select").select2({
-         tags: true,
-        tokenSeparators: [',', '.']
+            tags: true,
+            tokenSeparators: [',', '.']
         });
 
     </script>
 @endsection
-

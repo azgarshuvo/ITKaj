@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class JobController extends Controller
 {
-    public function getPostJob()
+    public function getJobPost()
     {
         return view('front.jobPost');
     }
