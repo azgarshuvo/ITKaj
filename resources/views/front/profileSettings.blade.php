@@ -20,91 +20,117 @@
                                 <li><a data-toggle="tab" href="#passwordTab">Change Password</a></li>
                                 <li><a data-toggle="tab" href="#payment">Payment Options</a></li>
                                 <li><a data-toggle="tab" href="#settings">Notification Settings</a></li>
+                                <li><a data-toggle="tab" href="#company_settings">Company Settings</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div id="profile" class="profile-edit tab-pane fade in active">
                                     <h2 class="heading-md">Manage your Name, ID and Email Addresses.</h2>
                                     <p>Below are the name and email addresses on file for your account.</p>
                                     <br>
+                                    <p id="profile_status"></p>
+                                    <form method="POST" class="" id="profile_change" action="{{route('changeProfile')}}">
+                                        {{csrf_field()}}
                                     <dl class="dl-horizontal">
-                                        <dt><strong>Your name </strong></dt>
+                                        <dt><strong>First name </strong></dt>
                                         <dd>
-                                            Edward Rooster
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div class="col-md-6" id="fname">{{$userProfile->fname}}</div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" value="{{$userProfile->fname}}" type="hidden" name="fname" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a id="name" onclick="changeData('fname')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </dd>
+
                                         <hr>
-                                        <dt><strong>Your ID </strong></dt>
+                                        <dt><strong>Last name </strong></dt>
                                         <dd>
-                                            FKJ-032440
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div class="col-md-6" id="lname">{{$userProfile->lname}}</div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" value="{{$userProfile->lname}}" type="hidden" name="lname" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a id="name" onclick="changeData('lname')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </dd>
+
                                         <hr>
-                                        <dt><strong>Company name </strong></dt>
+
+
+                                        <dt><strong>Email Address </strong></dt>
                                         <dd>
-                                            Htmlstream
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
-                                        </dd>
-                                        <hr>
-                                        <dt><strong>Primary Email Address </strong></dt>
-                                        <dd>
-                                            edward-rooster@gmail.com
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div  id="email" class="col-md-6">
+                                                    {{$userProfile->email}}
+                                                </div>
+
+
+                                            </div>
                                         </dd>
                                         <hr>
                                         <dt><strong>Phone Number </strong></dt>
                                         <dd>
-                                            (304) 33-2867-499
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div id="phone" class="col-md-10">
+                                                    {{$userProfile->phone_number}}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control"  type="hidden" value="{{$userProfile->phone_number}}" name="phone">
+                                                </div>
+                                                <div class="col-md-6">
+                                                <span>
+                                                    <a onclick="changeData('phone')" class="pull-right" href="javascript:void;">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                </span>
+                                                </div>
+                                            </div>
                                         </dd>
                                         <hr>
-                                        <dt><strong>Office Number </strong></dt>
-                                        <dd>
-                                            (304) 44-9810-296
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
-                                        </dd>
-                                        <hr>
+
                                         <dt><strong>Address </strong></dt>
                                         <dd>
-                                            California, US
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div class="col-md-8" id="address">
+                                                    {{$userProfile->address}}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="hidden" value="{{$userProfile->address}}" name="address">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('address')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                     </span>
+                                                </div>
+                                            </div>
+
                                         </dd>
                                         <hr>
                                     </dl>
                                     <button type="button" class="btn-u btn-u-default">Cancel</button>
-                                    <button type="button" class="btn-u">Save Changes</button>
+                                    <button id="infoUpdate" type="submit" class="btn-u">Save Changes</button>
+                                    </form>
                                 </div>
 
                                 <div id="passwordTab" class="profile-edit tab-pane fade">
                                     <h2 class="heading-md">Manage your Security Settings</h2>
                                     <p>Change your password.</p>
+
+                                    <p class="text-center" id="ajax_message"></p>
                                     <br>
                                     <form method="POST" class="sky-form" id="password_change" action="{{route('changePassword')}}">
                                         {{csrf_field()}}
@@ -115,7 +141,7 @@
                                                 <section>
                                                     <label class="input">
                                                         <i class="icon-append fa fa-lock"></i>
-                                                        <input type="password" placeholder="Current Password" name="c_password">
+                                                        <input id="c_password" type="password" placeholder="Current Password" name="c_password">
                                                         <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
                                                     </label>
                                                 </section>
@@ -135,7 +161,7 @@
                                                 <section>
                                                     <label class="input">
                                                         <i class="icon-append fa fa-lock"></i>
-                                                        <input type="password" name="password_confirmation" placeholder="Confirm password">
+                                                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm password">
                                                         <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
                                                     </label>
                                                 </section>
@@ -232,18 +258,235 @@
                                         <button class="btn-u" type="submit">Save Changes</button>
                                     </form>
                                 </div>
+
+                                {{--company setting start --}}
+                                <div id="company_settings" class="profile-edit tab-pane fade">
+                                    <div id="profile" class="profile-edit tab-pane fade in active">
+                                        <h2 class="heading-md">Manage your Company Name, ID and Email Addresses.</h2>
+                                        <p>Below are the name and email addresses on file for your account.</p>
+                                        <br>
+                                        <p id="company_status"></p>
+                                        <form method="POST" class="" id="profile_change" action="{{route('changeCompany')}}">
+                                            {{csrf_field()}}
+                                            <dl class="dl-horizontal">
+                                                <dt><strong>Company name </strong></dt>
+                                                <dd>
+                                                    <div class="row">
+                                                        <div class="col-md-6" id="cname">{{$userProfile->fname}}</div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" value="{{$userProfile->fname}}" type="hidden" name="cname" />
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                    <span>
+                                                        <a id="name" onclick="changeData('cname')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                        </div>
+                                                    </div>
+                                                </dd>
+
+                                                <hr>
+                                                <dt><strong>Company Email Address </strong></dt>
+                                                <dd>
+                                                    <div class="row">
+                                                        <div class="col-md-6" id="cEmail">{{$userProfile->lname}}</div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" value="{{$userProfile->lname}}" type="hidden" name="cEmail" />
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                    <span>
+                                                        <a id="name" onclick="changeData('cEmail')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                        </div>
+                                                    </div>
+                                                </dd>
+
+                                                <hr>
+                                                <dt><strong>Phone Number </strong></dt>
+                                                <dd>
+                                                    <div class="row">
+                                                        <div id="cphone" class="col-md-10">
+                                                            {{$userProfile->phone_number}}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control"  type="hidden" value="{{$userProfile->phone_number}}" name="cphone">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                <span>
+                                                    <a onclick="changeData('cphone')" class="pull-right" href="javascript:void;">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                </span>
+                                                        </div>
+                                                    </div>
+                                                </dd>
+                                                <hr>
+                                                <dt><strong>Web Site</strong></dt>
+                                                <dd>
+                                                    <div class="row">
+                                                        <div id="website" class="col-md-10">
+                                                            {{$userProfile->phone_number}}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control"  type="hidden" value="{{$userProfile->phone_number}}" name="website">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                <span>
+                                                    <a onclick="changeData('website')" class="pull-right" href="javascript:void;">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                </span>
+                                                        </div>
+                                                    </div>
+                                                </dd>
+                                                <hr>
+                                                <dt><strong>Country </strong></dt>
+                                                <dd>
+                                                    <div class="row">
+                                                        <div class="col-md-8" id="country">
+                                                            {{$userProfile->address}}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" type="hidden" value="{{$userProfile->address}}" name="country">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('country')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                     </span>
+                                                        </div>
+                                                    </div>
+
+                                                </dd>
+                                                <hr>
+                                                <dt><strong>City </strong></dt>
+                                                <dd>
+                                                    <div class="row">
+                                                        <div class="col-md-8" id="city">
+                                                            {{$userProfile->address}}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" type="hidden" value="{{$userProfile->address}}" name="city">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('city')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                     </span>
+                                                        </div>
+                                                    </div>
+
+                                                </dd>
+                                                <hr>
+                                                <dt><strong>Post Code </strong></dt>
+                                                <dd>
+                                                    <div class="row">
+                                                        <div class="col-md-8" id="postcode">
+                                                            {{$userProfile->address}}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" type="hidden" value="{{$userProfile->address}}" name="postcode">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('postcode')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                     </span>
+                                                        </div>
+                                                    </div>
+
+                                                </dd>
+                                                <hr>
+
+                                                <dt><strong>Address </strong></dt>
+                                                <dd>
+                                                    <div class="row">
+                                                        <div class="col-md-8" id="caddress">
+                                                            {{$userProfile->address}}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control" type="hidden" value="{{$userProfile->address}}" name="caddress">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('caddress')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                     </span>
+                                                        </div>
+                                                    </div>
+
+                                                </dd>
+                                                <hr>
+                                            </dl>
+                                            <button type="button" class="btn-u btn-u-default">Cancel</button>
+                                            <button id="infoUpdate" type="submit" class="btn-u">Save Changes</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                {{--company setting end--}}
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- End Profile Content -->
-    <script type="text/javascript">
-        $("password_submit").click(function(event){
-            event.preventDefault();
-            alert("Hello");
-        });
+                {{--this script use for update password--}}
+               <script type="text/javascript">
+                   $("#password_submit").click(function(event){
+                       event.preventDefault();
+                       var c_password = $("#c_password").val();
+                       var password = $("#password").val();
+                       var password_confirm = $("#password_confirmation").val();
+                       $.post("{{route('changePassword')}}",
+                           {
+                               _token: '{{csrf_token()}}',
+                               c_password: c_password,
+                               password: password,
+                               password_confirmation :password_confirm
+                           },
+                           function(data, status){
+                                $("#ajax_message").html(data);
+                               //alert("Data: " + data + "\nStatus: " + status);
+                           });
+                   });
+               </script>
+                <script type="text/javascript">
+                    function changeData(name){
+                        var value = $("input[name=name]").val();
+
+                        $("input[name="+name+"]").attr('type', 'text');
+                        $("#"+name).addClass('hidden');
+                        //$('input').attr('name', 'yourNewname');
+                    }
+
+                   $("#infoUpdate").click(function(event){
+                        event.preventDefault();
+
+                       var data = $( "#profile_change" ).serializeArray() ;
+                       $.post("{{route('changeProfile')}}",
+                           {
+                               _token: '{{csrf_token()}}',
+                               fname: $("input[name=fname]").val(),
+                               lname: $("input[name=lname]").val(),
+                               companyName: $("input[name=companyName]").val(),
+                               phone: $("input[name=phone]").val(),
+                               officePhone: $("input[name=officePhone]").val(),
+                               address: $("input[name=address]").val()
+                           },
+                           function(data, status){
+                               $("#profile_status").html(data);
+                               //alert("Data: " + data + "\nStatus: " + status);
+                           });
 
 
-    </script>
+
+                    });
+                </script>
 @endsection
 

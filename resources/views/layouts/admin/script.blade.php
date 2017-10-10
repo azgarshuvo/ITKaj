@@ -41,10 +41,20 @@
 <script src="{{asset('admin/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 
 <!-- Sparkline demo data  -->
-<script src="{{asset('admin/js/demo/sparkline-demo.js')}}"></script>
+<script src="{{asset('admin/s/demo/sparkline-demo.js')}}"></script>
 
 <!-- ChartJS-->
 <script src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
+
+<!-- Image cropper -->
+<script src="{{asset('js/plugins/cropper/cropper.min.js')}}"></script>
+
+<!-- Data Tables -->
+<script src="{{asset('admin/js/plugins/dataTables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('admin/js/plugins/dataTables/dataTables.bootstrap.js')}}"></script>
+<script src="{{asset('admin/js/plugins/dataTables/dataTables.responsive.js')}}"></script>
+<script src="{{asset('admin/js/plugins/dataTables/dataTables.tableTools.min.js')}}"></script>
+<!-- end of dataTables -->
 
 <script>
     $(document).ready(function() {
@@ -57,6 +67,34 @@
             { label: "Data 1", data: d1, color: '#17a084'},
             { label: "Data 2", data: d2, color: '#127e68' }
         ];
+
+        $('.dataTables-example').dataTable({
+            responsive: true,
+            "dom": 'T<"clear">lfrtip',
+            "tableTools": {
+                "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+            }
+        });
+        /* Init DataTables */
+        var oTable = $('#editable').dataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+        
         $.plot($("#flot-chart1"), data1, {
             xaxis: {
                 tickDecimals: 0
@@ -132,6 +170,8 @@
 
         var ctx = document.getElementById("lineChart").getContext("2d");
         var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+
+
 
     });
 </script>
