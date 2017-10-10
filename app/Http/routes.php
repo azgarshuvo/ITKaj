@@ -33,6 +33,8 @@ Route::group(['prefix' => 'user'], function () {
     	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
     	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
     	Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+
+    	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
     });
 
    
@@ -46,7 +48,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('login', ['as' =>'adminLogin', 'uses' => 'adminController\AdminLoginController@getLoginView']);
     Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
 
-    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard','middleware' => 'auth']);
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard']);
 });
 
 
