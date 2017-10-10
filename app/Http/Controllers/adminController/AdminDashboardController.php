@@ -19,10 +19,19 @@ class AdminDashboardController extends Controller{
     }
     public function addAdmin()
     {
-      return view('admin.add');
+      return view('admin.addAdmin');
     }
     public function listOfAdmin()
     {
-      return view('admin.list');
+      return view('admin.adminList');
+    }
+
+    public function addCategory()
+    {
+      return view('admin.addCategory');
+    }
+    public function listOfCategory()
+    {
+      return view('admin.categoryList');
     }
 }

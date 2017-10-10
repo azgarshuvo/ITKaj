@@ -41,19 +41,33 @@
 <script src="{{asset('admin/js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 
 <!-- Sparkline demo data  -->
-<script src="{{asset('admin/js/demo/sparkline-demo.js')}}"></script>
+<script src="{{asset('admin/s/demo/sparkline-demo.js')}}"></script>
 
 <!-- ChartJS-->
 <script src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
 
+<!-- Image cropper -->
+<script src="{{asset('js/plugins/cropper/cropper.min.js')}}"></script>
 
 <!-- Data Tables -->
 <script src="{{asset('admin/js/plugins/dataTables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('admin/js/plugins/dataTables/dataTables.bootstrap.js')}}"></script>
 <script src="{{asset('admin/js/plugins/dataTables/dataTables.responsive.js')}}"></script>
 <script src="{{asset('admin/js/plugins/dataTables/dataTables.tableTools.min.js')}}"></script>
+<!-- end of dataTables -->
+
 <script>
     $(document).ready(function() {
+
+
+        var d1 = [[1262304000000, 6], [1264982400000, 3057], [1267401600000, 20434], [1270080000000, 31982], [1272672000000, 26602], [1275350400000, 27826], [1277942400000, 24302], [1280620800000, 24237], [1283299200000, 21004], [1285891200000, 12144], [1288569600000, 10577], [1291161600000, 10295]];
+        var d2 = [[1262304000000, 5], [1264982400000, 200], [1267401600000, 1605], [1270080000000, 6129], [1272672000000, 11643], [1275350400000, 19055], [1277942400000, 30062], [1280620800000, 39197], [1283299200000, 37000], [1285891200000, 27000], [1288569600000, 21000], [1291161600000, 17000]];
+
+        var data1 = [
+            { label: "Data 1", data: d1, color: '#17a084'},
+            { label: "Data 2", data: d2, color: '#127e68' }
+        ];
+
         $('.dataTables-example').dataTable({
             responsive: true,
             "dom": 'T<"clear">lfrtip',
@@ -61,7 +75,6 @@
                 "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
             }
         });
-
         /* Init DataTables */
         var oTable = $('#editable').dataTable();
 
@@ -81,32 +94,7 @@
             "width": "90%",
             "height": "100%"
         } );
-
-
-    });
-
-    function fnClickAddRow() {
-        $('#editable').dataTable().fnAddData( [
-            "Custom row",
-            "New row",
-            "New row",
-            "New row",
-            "New row" ] );
-
-    }
-</script>
-<!-- end of dataTables -->
-<script>
-    $(document).ready(function() {
-
-
-        var d1 = [[1262304000000, 6], [1264982400000, 3057], [1267401600000, 20434], [1270080000000, 31982], [1272672000000, 26602], [1275350400000, 27826], [1277942400000, 24302], [1280620800000, 24237], [1283299200000, 21004], [1285891200000, 12144], [1288569600000, 10577], [1291161600000, 10295]];
-        var d2 = [[1262304000000, 5], [1264982400000, 200], [1267401600000, 1605], [1270080000000, 6129], [1272672000000, 11643], [1275350400000, 19055], [1277942400000, 30062], [1280620800000, 39197], [1283299200000, 37000], [1285891200000, 27000], [1288569600000, 21000], [1291161600000, 17000]];
-
-        var data1 = [
-            { label: "Data 1", data: d1, color: '#17a084'},
-            { label: "Data 2", data: d2, color: '#127e68' }
-        ];
+        
         $.plot($("#flot-chart1"), data1, {
             xaxis: {
                 tickDecimals: 0
@@ -182,6 +170,8 @@
 
         var ctx = document.getElementById("lineChart").getContext("2d");
         var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+
+
 
     });
 </script>
