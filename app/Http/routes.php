@@ -49,6 +49,20 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
 
     Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard']);
+
+
+
+
+
+
+
+
+
+
+    Route::get('add', ['as' =>'add', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
+    Route::get('list', ['as' =>'list', 'uses' => 'adminController\AdminDashboardController@listOfAdmin']);
+
+
 });
 
 

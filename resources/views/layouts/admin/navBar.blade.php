@@ -31,6 +31,13 @@
             <li class="">
                 <a href="{{route('dashboard')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
+            <li>
+                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Admin</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{route('add')}}">Add Admin</a></li>
+                    <li><a href="{{route('list')}}">Admin List</a></li>
+                </ul>
+            </li>
             {{--<li>--}}
                 {{--<a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span> <span class="label label-primary pull-right">NEW</span></a>--}}
             {{--</li>--}}
