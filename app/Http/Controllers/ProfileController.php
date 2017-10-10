@@ -12,6 +12,19 @@ namespace App\Http\Controllers;
 class ProfileController extends Controller{
 
     public function getProfile(){
-        return view('front.profile');
+        return view('front.overAll');
     }
+
+    public function getProfileSettings(){
+    	return view('front.profileSettings');
+    }
+
+    public function getMyProfile(){
+        return view('front.myProfile');
+    }
+
+    public function getMyProjects(){
+    	return view('front.myProjects');
+    }
+    
 }

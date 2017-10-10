@@ -21,10 +21,23 @@ Route::get('/logout', ['as'=>'logout', 'uses' => 'LogoutController@getLogout']);
 Route::post('/login/execute', ['as'=>'postLogin', 'uses' => 'LoginController@postLogin']);
 
 Route::group(['prefix' => 'user'], function () {
+	
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
-    Route::get('profile', ['as' => 'profile', 'uses' => 'ProfileController@getProfile']);
+
     Route::get('verrify/email', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
+    
+
+    Route::group(['prefix' => 'profile'], function(){
+    	Route::get('overall', ['as' => 'profile_overall', 'uses' => 'ProfileController@getProfile']);
+    	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
+    	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
+    	Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+    });
+
+   
+    
+
 });
 
 
@@ -34,4 +47,11 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
 
     Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard','middleware' => 'auth']);
+});
+
+
+
+
+Route::group(['prefix' => 'job'], function (){
+    Route::get('post', ['as' =>'post', 'uses' => 'JobController@getPostJob']);
 });

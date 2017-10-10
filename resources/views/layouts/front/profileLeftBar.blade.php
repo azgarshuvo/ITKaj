@@ -12,25 +12,16 @@
 
     <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
         <li class="list-group-item active">
-            <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i> Overall</a>
+            <a href="{{route('profile_overall')}}"><i class="fa fa-bar-chart-o"></i> Overall</a>
         </li>
         <li class="list-group-item">
-            <a href="javascript:void(0);"><i class="fa fa-user"></i> Profile</a>
+            <a href="{{route('my_profile')}}"><i class="fa fa-user"></i> Profile</a>
         </li>
         <li class="list-group-item">
-            <a href="javascript:void(0);"><i class="fa fa-group"></i> Users</a>
+            <a href="{{route('my_projects')}}"><i class="fa fa-cubes"></i> My Projects</a>
         </li>
         <li class="list-group-item">
-            <a href="javascript:void(0);"><i class="fa fa-cubes"></i> My Projects</a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:void(0);"><i class="fa fa-comments"></i> Comments</a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:void(0);"><i class="fa fa-history"></i> History</a>
-        </li>
-        <li class="list-group-item">
-            <a href="javascript:void(0);"><i class="fa fa-cog"></i> Settings</a>
+            <a href="{{route('profile_settings')}}"><i class="fa fa-cog"></i> Settings</a>
         </li>
     </ul>
 

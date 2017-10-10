@@ -54,7 +54,7 @@ class RegistrationController extends Controller{
             /*session(['user_id' =>  $user_id,'complete'=>1]);*/
             $email = Input::get('email');
             $this->sendTokenToMail($email,$userId,$token);
-            return redirect()->route('profile')->with('message', 'A confirmation email has been send to your email address');
+            return redirect()->route('overall')->with('message', 'A confirmation email has been send to your email address');
         }
 
     }

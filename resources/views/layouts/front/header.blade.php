@@ -42,7 +42,7 @@
         <div class="container">
             <ul class="nav navbar-nav">
                 <!-- Profile -->
-                <li><a href="{{route('profile')}}">Profile</a></li>
+                <li><a href="{{route('profile_overall')}}">Profile</a></li>
                 <!-- End Profile -->
             </ul>
             <ul class="nav navbar-nav">
