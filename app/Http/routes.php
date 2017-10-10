@@ -59,9 +59,10 @@ Route::group(['prefix' => 'admin'], function (){
 
 
 
-    Route::get('add', ['as' =>'adminAdd', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
-    Route::get('list', ['as' =>'adminList', 'uses' => 'adminController\AdminDashboardController@listOfAdmin']);
-
+    Route::get('addAdmin', ['as' =>'adminAdd', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
+    Route::get('adminList', ['as' =>'adminList', 'uses' => 'adminController\AdminDashboardController@listOfAdmin']);
+    Route::get('addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\AdminDashboardController@addCategory']);
+    Route::get('categoryList', ['as' =>'categoryList', 'uses' => 'adminController\AdminDashboardController@listOfCategory']);
 
 });
 

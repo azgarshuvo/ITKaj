@@ -24,3 +24,6 @@
 <link href="{{asset('admin/css/plugins/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet">
 <link href="{{asset('admin/css/plugins/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
 <link href="{{asset('admin/css/plugins/dataTables/dataTables.tableTools.min.css')}}" rel="stylesheet">
+
+<!-- cropper -->
+<link href="{{asset('css/plugins/cropper/cropper.min.css')}}" rel="stylesheet">
