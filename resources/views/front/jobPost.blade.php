@@ -43,30 +43,33 @@
                         <h2>Fill Up the Bellow Field to Post a New Job</h2>
                     </div>
 
-                    <label>Job Title</label>
+                    <label>Job Title<span class="color-red">*</span></label>
                     <input name="title" type="text" class="form-control margin-bottom-20">
 
-                    <label>Description</label>
+                    <label>Description<span class="color-red">*</span></label>
                     <input name="description" type="text" class="form-control margin-bottom-20">
 
                     <label>Category<span class="color-red">*</span></label>
                     <select class="form-control margin-bottom-20" name="category">
                             <option value="">Select One</option>
-                            <option value="freelancer">Freelancer</option>
-                            <option value="employer">employer</option>
+                            <option value="web">Web Development</option>
+                            <option value="desktop">Desktop Application</option>
+                            <option value="mobile">Mobile Application</option>
+                            <option value="image">Computer Vision</option>
+                            
                         </select>
 
                     <label>Sub Category</label>
                         <select class="form-control margin-bottom-20" name="subCategory">
                             <option value="">Select One</option>
-                            <option value="freelancer">Freelancer</option>
-                            <option value="employer">employer</option>
+                            <option value="">select1</option>
+                            <option value="">select2</option>
                         </select>
                     
-                    <label>Payment</label>
+                    <label>Payment<span class="color-red">*</span></label>
                     <input name="payment" type="number" class="form-control margin-bottom-20">
 
-                    <label>Duration</label>
+                    <label>Duration<span class="color-red">*</span></label>
                     <select class="form-control margin-bottom-20" name="subCategory">
                             <option value="">Select One</option>
                             <option value="freelancer">Freelancer</option>
