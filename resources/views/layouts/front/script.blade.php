@@ -7,7 +7,7 @@
  */
 ?>
 <!-- JS Global Compulsory -->
-<script type="text/javascript" src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('assets/plugins/jquery/jquery-migrate.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- JS Implementing Plugins -->
@@ -43,3 +43,4 @@
 <script src="{{asset('assets/plugins/html5shiv.js')}}"></script>
 <script src="{{asset('assets/plugins/placeholder-IE-fixes.js')}}"></script>
 <![endif]-->
+

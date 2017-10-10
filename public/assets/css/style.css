@@ -76,3 +76,6 @@ a:hover {
   margin-right: auto !important;
   background: url(../img/patterns/15.png) repeat;
 }
+.hidden {
+    display: none !important;
+}

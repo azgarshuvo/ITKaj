@@ -29,82 +29,126 @@
                                     <dl class="dl-horizontal">
                                         <dt><strong>Your name </strong></dt>
                                         <dd>
-                                            Edward Rooster
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div class="col-md-6" id="name">{{$userProfile->fname}}</div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" value="{{$userProfile->fname}}" type="hidden" name="name" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a id="name" onclick="changeData('name')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </dd>
-                                        <hr>
-                                        <dt><strong>Your ID </strong></dt>
-                                        <dd>
-                                            FKJ-032440
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
-                                        </dd>
+
                                         <hr>
                                         <dt><strong>Company name </strong></dt>
                                         <dd>
-                                            Htmlstream
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div class="col-md-6" id="companyName">Htmlstream</div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="hidden" value="Htmlstream" name="companyName">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('companyName')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </dd>
                                         <hr>
                                         <dt><strong>Primary Email Address </strong></dt>
                                         <dd>
-                                            edward-rooster@gmail.com
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div  id="email" class="col-md-6">
+                                                    edward-rooster@gmail.com
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="hidden" value="Htmlstream" name="email">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('email')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </dd>
                                         <hr>
                                         <dt><strong>Phone Number </strong></dt>
                                         <dd>
-                                            (304) 33-2867-499
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div id="phone" class="col-md-10">
+                                                    {{$userProfile->phone_number}}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control"  type="hidden" value="{{$userProfile->phone_number}}" name="phone">
+                                                </div>
+                                                <div class="col-md-6">
+                                                <span>
+                                                    <a onclick="changeData('phone')" class="pull-right" href="javascript:void;">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                </span>
+                                                </div>
+                                            </div>
                                         </dd>
                                         <hr>
                                         <dt><strong>Office Number </strong></dt>
                                         <dd>
-                                            (304) 44-9810-296
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div class="col-md-8" id="officePhone">
+                                                    (304) 33-2867-499
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="hidden" value="304) 33-2867-499 " name="officePhone">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('officePhone')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </dd>
                                         <hr>
                                         <dt><strong>Address </strong></dt>
                                         <dd>
-                                            California, US
-                                            <span>
-                                                <a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                            </span>
+                                            <div class="row">
+                                                <div class="col-md-8" id="address">
+                                                    {{$userProfile->address}}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="hidden" value="{{$userProfile->address}}" name="address">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('address')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                     </span>
+                                                </div>
+                                            </div>
+
                                         </dd>
                                         <hr>
                                     </dl>
                                     <button type="button" class="btn-u btn-u-default">Cancel</button>
-                                    <button type="button" class="btn-u">Save Changes</button>
+                                    <button id="infoUpdate" type="submit" class="btn-u">Save Changes</button>
                                 </div>
 
                                 <div id="passwordTab" class="profile-edit tab-pane fade">
                                     <h2 class="heading-md">Manage your Security Settings</h2>
                                     <p>Change your password.</p>
+
+                                    <p class="text-center" id="ajax_message"></p>
                                     <br>
                                     <form method="POST" class="sky-form" id="password_change" action="{{route('changePassword')}}">
                                         {{csrf_field()}}
@@ -115,7 +159,7 @@
                                                 <section>
                                                     <label class="input">
                                                         <i class="icon-append fa fa-lock"></i>
-                                                        <input type="password" placeholder="Current Password" name="c_password">
+                                                        <input id="c_password" type="password" placeholder="Current Password" name="c_password">
                                                         <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
                                                     </label>
                                                 </section>
@@ -135,7 +179,7 @@
                                                 <section>
                                                     <label class="input">
                                                         <i class="icon-append fa fa-lock"></i>
-                                                        <input type="password" name="password_confirmation" placeholder="Confirm password">
+                                                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm password">
                                                         <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
                                                     </label>
                                                 </section>
@@ -237,13 +281,38 @@
                     </div>
                 </div>
                 <!-- End Profile Content -->
-    <script type="text/javascript">
-        $("password_submit").click(function(event){
-            event.preventDefault();
-            alert("Hello");
-        });
+                {{--this script use for update password--}}
+               <script type="text/javascript">
+                   $("#password_submit").click(function(event){
+                       event.preventDefault();
+                       var c_password = $("#c_password").val();
+                       var password = $("#password").val();
+                       var password_confirm = $("#password_confirmation").val();
+                       $.post("{{route('changePassword')}}",
+                           {
+                               _token: '{{csrf_token()}}',
+                               c_password: c_password,
+                               password: password,
+                               password_confirmation :password_confirm
+                           },
+                           function(data, status){
+                                $("#ajax_message").html(data);
+                               //alert("Data: " + data + "\nStatus: " + status);
+                           });
+                   });
+               </script>
+                <script type="text/javascript">
+                    function changeData(name){
+                        var value = $("input[name=name]").val();
 
+                        $("input[name="+name+"]").attr('type', 'text');
+                        $("#"+name).addClass('hidden');
+                        //$('input').attr('name', 'yourNewname');
+                    }
 
-    </script>
+                    $("#infoUpdate").click(function(event){
+                        event.preventDefault();
+                    });
+                </script>
 @endsection
 
