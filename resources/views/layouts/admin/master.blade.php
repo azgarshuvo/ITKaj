@@ -16,7 +16,7 @@
     @include('layouts.admin.navBar')
     <div id="page-wrapper" class="gray-bg">
         @include('layouts.admin.topNavBar')
-        @yield('container')
+        @yield('content')
         @include('layouts.admin.footer')
     </div>
 </div>

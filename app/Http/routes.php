@@ -21,12 +21,12 @@ Route::get('/logout', ['as'=>'logout', 'uses' => 'LogoutController@getLogout']);
 Route::post('/login/execute', ['as'=>'postLogin', 'uses' => 'LoginController@postLogin']);
 
 Route::group(['prefix' => 'user'], function () {
-	
+
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
 
     Route::get('verrify/email', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
-    
+
 
     Route::group(['prefix' => 'profile'], function(){
     	Route::get('overall', ['as' => 'profile_overall', 'uses' => 'ProfileController@getProfile']);
@@ -37,8 +37,8 @@ Route::group(['prefix' => 'user'], function () {
     	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
     });
 
-   
-    
+
+
 
 });
 
@@ -48,7 +48,21 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('login', ['as' =>'adminLogin', 'uses' => 'adminController\AdminLoginController@getLoginView']);
     Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
 
-    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDeshboard']);
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard']);
+
+
+
+
+
+
+
+
+
+
+    Route::get('add', ['as' =>'adminAdd', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
+    Route::get('list', ['as' =>'adminList', 'uses' => 'adminController\AdminDashboardController@listOfAdmin']);
+
+
 });
 
 
