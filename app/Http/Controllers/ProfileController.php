@@ -87,10 +87,58 @@ class ProfileController extends Controller{
 
         }
         echo "</p>";
-    }
+}
 
     #get ajax post req to change profile information from profile setting
     public function changeProfile(Request $request){
-        dd($request->all());
+        $validate = Validator::make($request->all(), [
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'companyName' => 'string|min:3',
+            'phone' => 'required|string|min:11',
+            'officePhone' => 'string|min:3',
+            'address' => 'required|string|min:4',
+        ],[
+            'fname.required'    =>"First Name require",
+            'lname.required'    =>"Last Name require",
+            'phone.required'    =>"Phone Number is required",
+            'address.required'    =>"Address is required"
+        ]);
+
+        if($validate->fails()){
+            $errors = json_decode($validate->errors());
+            echo "<p class='alert alert-danger'>";
+            foreach ($errors as $error){
+                foreach ($error as $mes){
+                    echo $mes."<br/>";
+                }
+            }
+        }else{
+            if(auth()->user()->user_type=="freelancer"){
+                $fname = $request->input('fname');
+                $lname = $request->input('lname');
+                $phone = $request->input('phone');
+                $address = $request->input('address');
+
+
+                /*user table update start*/
+                $user = User::find(auth()->user()->id);
+                $user->fname = $fname;
+                $user->lname = $lname;
+                $user->save();
+                /*user table update end*/
+
+                /*user profile table update start*/
+                UserProfile::updateOrCreate(
+                    ['user_id' => $this->userId],
+                    ['phone_number' => $phone,'address'=>$address]);
+                /*user profile table update end*/
+
+                echo "<p class='alert alert-success'>";
+                echo "User profile Info updated";
+            }
+        }
+
+            echo "</p>";
     }
 }
