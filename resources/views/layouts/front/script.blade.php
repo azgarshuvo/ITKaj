@@ -23,6 +23,7 @@
 <script type="text/javascript" src="{{asset('assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <!-- JS Customization -->
 <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/js/select2.min.js')}}"></script>
 <!-- JS Page Level -->
 <script type="text/javascript" src="{{asset('assets/js/app.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/owl-carousel.js')}}"></script>
