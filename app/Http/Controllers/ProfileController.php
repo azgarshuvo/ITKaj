@@ -49,6 +49,7 @@ class ProfileController extends Controller{
     	return view('front.myProjects');
     }
 
+    #get ajax request to change password
     public function ChangePassword(Request $request){
 
         $validate = Validator::make($request->all(), [
@@ -86,5 +87,10 @@ class ProfileController extends Controller{
 
         }
         echo "</p>";
+    }
+
+    #get ajax post req to change profile information from profile setting
+    public function changeProfile(Request $request){
+        dd($request->all());
     }
 }

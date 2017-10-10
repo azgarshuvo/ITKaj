@@ -26,17 +26,37 @@
                                     <h2 class="heading-md">Manage your Name, ID and Email Addresses.</h2>
                                     <p>Below are the name and email addresses on file for your account.</p>
                                     <br>
+                                    <form method="POST" class="" id="profile_change" action="{{route('changeProfile')}}">
+                                        {{csrf_field()}}
                                     <dl class="dl-horizontal">
-                                        <dt><strong>Your name </strong></dt>
+                                        <dt><strong>First name </strong></dt>
                                         <dd>
                                             <div class="row">
-                                                <div class="col-md-6" id="name">{{$userProfile->fname}}</div>
+                                                <div class="col-md-6" id="fname">{{$userProfile->fname}}</div>
                                                 <div class="col-md-6">
-                                                    <input class="form-control" value="{{$userProfile->fname}}" type="hidden" name="name" />
+                                                    <input class="form-control" value="{{$userProfile->fname}}" type="hidden" name="fname" />
                                                 </div>
                                                 <div class="col-md-6">
                                                     <span>
-                                                        <a id="name" onclick="changeData('name')" class="pull-right" href="javascript:void;">
+                                                        <a id="name" onclick="changeData('fname')" class="pull-right" href="javascript:void;">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </dd>
+
+                                        <hr>
+                                        <dt><strong>Last name </strong></dt>
+                                        <dd>
+                                            <div class="row">
+                                                <div class="col-md-6" id="lname">{{$userProfile->lname}}</div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" value="{{$userProfile->lname}}" type="hidden" name="lname" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a id="name" onclick="changeData('lname')" class="pull-right" href="javascript:void;">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                     </span>
@@ -142,6 +162,7 @@
                                     </dl>
                                     <button type="button" class="btn-u btn-u-default">Cancel</button>
                                     <button id="infoUpdate" type="submit" class="btn-u">Save Changes</button>
+                                    </form>
                                 </div>
 
                                 <div id="passwordTab" class="profile-edit tab-pane fade">
@@ -310,8 +331,23 @@
                         //$('input').attr('name', 'yourNewname');
                     }
 
-                    $("#infoUpdate").click(function(event){
+                   $("#infoUpdate").click(function(event){
                         event.preventDefault();
+
+                        $.ajax({
+                            url: "{{route('changeProfile')}}", // Url to which the request is send
+                            type: "POST",             // Type of request to be send, called as method
+                            data: new FormData("#profile_change"), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                            contentType: false,       // The content type used when sending data to the server.
+                            cache: false,             // To unable request pages to be cached
+                            processData:false,        // To send DOMDocument or non processed data file it is set to false
+                            success: function(data)   // A function to be called if request succeeds
+                            {
+                                $('#loading').hide();
+                                $("#message").html(data);
+                            }
+                        });
+
                     });
                 </script>
 @endsection
