@@ -35,7 +35,10 @@ class ProfileController extends Controller{
                 'users.fname',
                 'users.lname',
                 'users.email',
+                'users.user_type',
                 'user_profiles.address',
+                'user_profiles.company_name',
+                'user_profiles.company_website',
             ]);
         //dd($userProfile);
     	return view('front.profileSettings',['userProfile'=>$userProfile]);
@@ -114,28 +117,39 @@ class ProfileController extends Controller{
                 }
             }
         }else{
+            $fname = $request->input('fname');
+            $lname = $request->input('lname');
+            $phone = $request->input('phone');
+            $address = $request->input('address');
+
+            /*user table update start*/
+            $user = User::find(auth()->user()->id);
+            $user->fname = $fname;
+            $user->lname = $lname;
+            $user->save();
+            /*user table update end*/
+
+
+            echo "<p class='alert alert-success'>";
+            echo "User profile Info updated";
+
+            /*Check use is freelancer or employer*/
             if(auth()->user()->user_type=="freelancer"){
-                $fname = $request->input('fname');
-                $lname = $request->input('lname');
-                $phone = $request->input('phone');
-                $address = $request->input('address');
-
-
-                /*user table update start*/
-                $user = User::find(auth()->user()->id);
-                $user->fname = $fname;
-                $user->lname = $lname;
-                $user->save();
-                /*user table update end*/
-
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
                     ['phone_number' => $phone,'address'=>$address]);
                 /*user profile table update end*/
 
-                echo "<p class='alert alert-success'>";
-                echo "User profile Info updated";
+            }else{
+                $web_address = $request->input('web_address');
+                $company_name = $request->input('company_name');
+
+                /*user profile table update start*/
+                UserProfile::updateOrCreate(
+                    ['user_id' => $this->userId],
+                    ['phone_number' => $phone,'address'=>$address,'company_name'=>$company_name,'company_website'=>$web_address]);
+                /*user profile table update end*/
             }
         }
 

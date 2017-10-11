@@ -25,7 +25,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
 
-    Route::get('verrify/email', ['as' => 'verifyEmail', 'uses' => 'ProfileController@verifyEmail']);
+
 
 
     Route::group(['prefix' => 'profile'], function(){
@@ -79,3 +79,10 @@ Route::group(['prefix' => 'job'], function (){
     Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
 
 });
+
+
+
+
+
+
+Route::get('email-confirmation-notification', ['as' => 'verifyEmail', 'uses' => 'RegistrationController@EmailConfirmation']);
