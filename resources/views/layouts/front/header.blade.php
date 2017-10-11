@@ -41,10 +41,21 @@
     <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
         <div class="container">
             <ul class="nav navbar-nav">
-                <!-- Profile -->
+                <!-- Freelancer Search -->
+                <li><a href="{{route('freelancerSearch')}}">Freelancer Search</a></li>
+                <!-- End Freelancer Search -->
+            </ul>
+            <ul class="nav navbar-nav">
+                <!-- Job Search -->
+                <li><a href="{{route('jobSearch')}}">Job Search</a></li>
+                <!-- End Job Search -->
+            </ul>
+            <ul class="nav navbar-nav">
+                <!-- Post Job -->
                 <li><a href="{{route('JobPost')}}">Post Job</a></li>
-                <!-- End Profile -->
-            </ul><ul class="nav navbar-nav">
+                <!-- End Post Job -->
+            </ul>
+            <ul class="nav navbar-nav">
                 <!-- Profile -->
                 <li><a href="{{route('profile_overall')}}">Profile</a></li>
                 <!-- End Profile -->

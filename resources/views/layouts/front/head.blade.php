@@ -31,6 +31,7 @@
 <!-- CSS Implementing Plugins -->
 
  <link rel="stylesheet" href="{{asset('assets/plugins/select2.min.css')}}">
+ <link rel="stylesheet" href="{{asset('assets/plugins/dropzone.css')}}">
 
 <link rel="stylesheet" href="{{asset('assets/plugins/animate.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/line-icons/line-icons.css')}}">
@@ -49,6 +50,9 @@
 
 <!-- CSS Page Style -->
 <link rel="stylesheet" href="{{asset('assets/css/pages/page_log_reg_v1.css')}}">
+
+<!-- CSS Page Style -->
+<link rel="stylesheet" href="{{asset('assets/css/pages/page_search_inner_tables.css')}}">
 
 <!-- CSS Theme -->
 <link rel="stylesheet" href="{{asset('assets/css/theme-colors/default.css')}}" id="style_color">

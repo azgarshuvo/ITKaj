@@ -7,7 +7,6 @@
  */
 ?>
 <!-- JS Global Compulsory -->
-
 <script type="text/javascript" src="{{asset('assets/plugins/jquery/jquery-migrate.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- JS Implementing Plugins -->
@@ -24,6 +23,7 @@
 <!-- JS Customization -->
 <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/select2.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/js/dropzone.js')}}"></script>
 <!-- JS Page Level -->
 <script type="text/javascript" src="{{asset('assets/js/app.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/owl-carousel.js')}}"></script>

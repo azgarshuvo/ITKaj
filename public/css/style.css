@@ -1,3 +1,8 @@
-.hidden {
-    display: none !important;
+.jobSearchDataTable{
+    height: 454px;
+    overflow: auto;
+}
+.freelancerSearchDataTable{
+    height: 454px;
+    overflow: auto;
 }

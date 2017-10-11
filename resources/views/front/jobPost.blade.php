@@ -50,12 +50,12 @@
                             <input type="text" class="form-control margin-bottom-20" name="title">
                         </div>
                         <div class="col-sm-6">
-                            <label>Category <span class="color-red">*</span></label>
-                                <select class="form-control margin-bottom-20" name="user_type">
+                        <label>Category<span class="color-red">*</span></label>
+                                <select class="form-control margin-bottom-20" name="subCategory">
                                     <option value="">Select One</option>
-                                    <option value="web">web development</option>
-                                    <option value="desktop">Desktop Application</option>
-                                    <option value="mobile">Mobile Application</option>
+                                    <option value="web">Web development</option>
+                                    <option value="mobile">Mobile App Development</option>
+                                    
                                 </select>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
                             <input type="number" class="form-control margin-bottom-20" name="duration">
                         </div>
                         <div class="col-sm-6">
-                            <label>Sub Category <span class="color-red">*</span></label>
-                                <select class="form-control margin-bottom-20" name="subCategory">
+                            <label >Sub Category <span class="color-red">*</span></label>
+                                <select class="form-control margin-bottom-20" name="subCategory" disabled="disabled">
                                     <option value="">Select One</option>
                                     <option value="">Select1</option>
                                     <option value="">Select2</option>
@@ -81,35 +81,66 @@
                             <label>Payment <span class="color-red">*</span></label>
                             <select class="form-control margin-bottom-20" name="payment">
                                     <option value="">Select One</option>
-                                    <option value="">Pay the hour</option>
-                                    <option value="">Pay the fixed Time</option>
+                                    <option value="hour">Pay the hour</option>
+                                    <option value="fixed time">Pay the fixed Time</option>
+                                    <option value="dont know">I don't know</option>
+
                             </select>
                         </div>
                         <div class="col-sm-6">
-                            <label>Skills <span class="color-red">*</span></label>
-                            <select multiple style="width: 20%;" class="form-control">
-                                 <option>sh</option>
+                            <label>Project Type <span class="color-red">*</span></label>
+                            <select class="form-control margin-bottom-20" name="type">
+                                    <option value="">Select One</option>
+                                    <option value="one time">One Time Project</option>
+                                    <option value="on going">On going</option>
+                                    <option value="dont know">I don't know</option>
                             </select>
                         </div>
                     </div>
 
+                    <label>Skills <span class="color-red">*</span></label>
+                        <select id="skill" multiple  class="form-control margin-bottom-20">
+                             
+                        </select>
+
                     <label>Job Description</label>
                     <textarea class="form-control margin-bottom-20" rows="4" name="description"></textarea>
 
+                    
+                    <label>job Attachment</label>
+                    <div class="col-md-6 form-control margin-bottom-20 dropzone"  action="/fileupload">
+
+                        <div class="fallback">
+                            <input name="file" type="file" multiple />
+                          </div>
+                    </div>
+                        
                         <!--Top-->
-                    <div class="panel panel-grey margin-bottom-40">
+
+                        
+                    <div class="col-md-5 col-md-offset-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Top Rated Freelancer">
+                            <span class="input-group-btn">
+                                <button class="btn-u" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                       
+                  
+
+                    <div class="panel panel-grey margin-bottom-40" >
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-globe"></i> Top Rated Freelancer</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="height: 200px; width: 880px; overflow: scroll;">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>First Name</th>
-                                        <th class="hidden-sm">Last Name</th>
                                         <th>Username</th>
-                                        <th>Status</th>
+                                        <th>Skill</th>
+                                        <th>Hourly Rate</th>  
                                         <th>Options</th>
                                     </tr>
                                 </thead>
@@ -118,7 +149,7 @@
                                         <td>1</td>
                                         <td>Mark</td>
                                         <td class="hidden-sm">Otto</td>
-                                        <td>@mdo</td>
+                                        
                                         <td>Active/Inactive</td>
                                         <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
@@ -128,7 +159,7 @@
                                         <td>2</td>
                                         <td>Jacob</td>
                                         <td class="hidden-sm">Thornton</td>
-                                        <td>@fat</td>
+                                      
                                         <td>Active/Inactive</td>
                                         <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
@@ -138,7 +169,7 @@
                                         <td>3</td>
                                         <td>Larry</td>
                                         <td class="hidden-sm">the Bird</td>
-                                        <td>@twitter</td>
+                                 
                                         <td>Active/Inactive</td>
                                         <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
@@ -148,7 +179,7 @@
                                         <td>4</td>
                                         <td>htmlstream</td>
                                         <td class="hidden-sm">Web Design</td>
-                                        <td>@htmlstream</td>
+                                       
                                         <td>Active/Inactive</td>
                                         <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
@@ -162,19 +193,31 @@
 
 
                     <!--Top-->
-                    <div class="panel panel-grey margin-bottom-40">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-globe"></i> Top Rated Freelancer</h3>
+
+                    <div class="col-md-5 col-md-offset-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Intermediate Freelancer">
+                            <span class="input-group-btn">
+                                <button class="btn-u" type="button"><i class="fa fa-search"></i></button>
+                            </span>
                         </div>
-                        <div class="panel-body">
+                    </div>
+
+                    <div class="panel panel-grey margin-bottom-40" >
+                        <div class="panel-heading">
+
+
+
+                            <h3 class="panel-title"><i class="fa fa-globe"></i> Intermediate Freelancer</h3>
+                        </div>
+                        <div class="panel-body" style="height: 200px; width: 880px; overflow: scroll;">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>First Name</th>
-                                        <th class="hidden-sm">Last Name</th>
                                         <th>Username</th>
-                                        <th>Status</th>
+                                        <th>Skill</th>
+                                        <th>Hourly Rate</th>  
                                         <th>Options</th>
                                     </tr>
                                 </thead>
@@ -183,7 +226,7 @@
                                         <td>1</td>
                                         <td>Mark</td>
                                         <td class="hidden-sm">Otto</td>
-                                        <td>@mdo</td>
+                                        
                                         <td>Active/Inactive</td>
                                         <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
@@ -193,7 +236,7 @@
                                         <td>2</td>
                                         <td>Jacob</td>
                                         <td class="hidden-sm">Thornton</td>
-                                        <td>@fat</td>
+                                       
                                         <td>Active/Inactive</td>
                                         <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
@@ -203,7 +246,7 @@
                                         <td>3</td>
                                         <td>Larry</td>
                                         <td class="hidden-sm">the Bird</td>
-                                        <td>@twitter</td>
+                                       
                                         <td>Active/Inactive</td>
                                         <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
@@ -213,7 +256,7 @@
                                         <td>4</td>
                                         <td>htmlstream</td>
                                         <td class="hidden-sm">Web Design</td>
-                                        <td>@htmlstream</td>
+                                       
                                         <td>Active/Inactive</td>
                                         <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
@@ -241,7 +284,7 @@
 @section('script')
     <script type="text/javascript">
 
-        $("select").select2({
+        $("#skill").select2({
             tags: true,
             tokenSeparators: [',', '.']
         });
