@@ -39,10 +39,16 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <span>
-                                                        <a id="name" onclick="changeData('fname')" class="pull-right" href="javascript:void;">
+                                                        <a onclick="changeData('fname')" class="pull-right fname_edit" href="javascript:void;">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                     </span>
+                                                    <span>
+                                                        <a onclick="resetData('fname')" class="pull-right fname hidden" href="javascript:void;">
+                                                            <i class="fa fa-times fa-lg"></i>
+                                                        </a>
+                                                    </span>
+
                                                 </div>
                                             </div>
                                         </dd>
@@ -57,8 +63,13 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <span>
-                                                        <a id="name" onclick="changeData('lname')" class="pull-right" href="javascript:void;">
+                                                        <a id="name" onclick="changeData('lname')" class="pull-right lname_edit" href="javascript:void;">
                                                             <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                    <span>
+                                                        <a onclick="resetData('lname')" class="pull-right lname hidden" href="javascript:void;">
+                                                            <i class="fa fa-times fa-lg"></i>
                                                         </a>
                                                     </span>
                                                 </div>
@@ -91,8 +102,13 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                 <span>
-                                                    <a onclick="changeData('phone')" class="pull-right" href="javascript:void;">
+                                                    <a onclick="changeData('phone')" class="pull-right phone_edit" href="javascript:void;">
                                                         <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                </span>
+                                                <span>
+                                                    <a onclick="resetData('phone')" class="pull-right phone hidden" href="javascript:void;">
+                                                        <i class="fa fa-times fa-lg"></i>
                                                     </a>
                                                 </span>
                                                 </div>
@@ -111,10 +127,15 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <span>
-                                                        <a onclick="changeData('address')" class="pull-right" href="javascript:void;">
+                                                        <a onclick="changeData('address')" class="pull-right address_edit" href="javascript:void;">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                      </span>
+                                                    <span>
+                                                        <a onclick="resetData('address')" class="pull-right address hidden" href="javascript:void;">
+                                                            <i class="fa fa-times fa-lg"></i>
+                                                        </a>
+                                                    </span>
                                                 </div>
                                             </div>
 
@@ -132,10 +153,15 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <span>
-                                                            <a onclick="changeData('company_name')" class="pull-right" href="javascript:void(0);">
+                                                            <a onclick="changeData('company_name')" class="pull-right company_name_edit" href="javascript:void(0);">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
                                                          </span>
+                                                        <span>
+                                                            <a onclick="resetData('company_name')" class="pull-right company_name hidden" href="javascript:void;">
+                                                                <i class="fa fa-times fa-lg"></i>
+                                                            </a>
+                                                        </span>
                                                     </div>
                                                 </div>
 
@@ -153,10 +179,15 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <span>
-                                                            <a onclick="changeData('web_address')" class="pull-right" href="javascript:void;">
+                                                            <a onclick="changeData('web_address')" class="pull-right web_address_edit" href="javascript:void;">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
                                                          </span>
+                                                        <span>
+                                                            <a onclick="resetData('web_address')" class="pull-right web_address hidden" href="javascript:void;">
+                                                                <i class="fa fa-times fa-lg"></i>
+                                                            </a>
+                                                        </span>
                                                     </div>
                                                 </div>
 
@@ -332,8 +363,18 @@
 
                         $("input[name="+name+"]").attr('type', 'text');
                         $("#"+name).addClass('hidden');
+                        $("."+name+"_edit").addClass('hidden');
+                        $("."+name).removeClass('hidden');
                         //$('input').attr('name', 'yourNewname');
                     }
+
+                    function resetData(name){
+                        $("input[name="+name+"]").attr('type', 'hidden');
+                        $("#"+name).removeClass('hidden');
+                        $("."+name+"_edit").removeClass('hidden');
+                        $("."+name).addClass('hidden');
+                    }
+                    
 
                    $("#infoUpdate").click(function(event){
                         event.preventDefault();

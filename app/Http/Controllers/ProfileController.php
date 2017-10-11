@@ -18,6 +18,7 @@ class ProfileController extends Controller{
     public  function __construct()
     {
         $this->userId =auth()->user()->id;
+
     }
 
     public function getProfile(){
