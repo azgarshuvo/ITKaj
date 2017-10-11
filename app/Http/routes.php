@@ -73,6 +73,7 @@ Route::group(['prefix' => 'admin'], function (){
 
 Route::group(['prefix' => 'job'], function (){
     Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost']);
+    Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch']);
 });
 
 
@@ -81,3 +82,13 @@ Route::group(['prefix' => 'job'], function (){
 
 
 Route::get('email-confirmation-notification', ['as' => 'verifyEmail', 'uses' => 'RegistrationController@EmailConfirmation']);
+
+
+
+
+
+
+
+Route::group(['prefix' => 'freelancer'], function (){
+   Route::get('search', ['as' => 'freelancerSearch', 'uses' => 'FreelancerController@getFreelancerSearch']);
+});

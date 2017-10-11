@@ -50,6 +50,9 @@
 <!-- CSS Page Style -->
 <link rel="stylesheet" href="{{asset('assets/css/pages/page_log_reg_v1.css')}}">
 
+<!-- CSS Page Style -->
+<link rel="stylesheet" href="{{asset('assets/css/pages/page_search_inner_tables.css')}}">
+
 <!-- CSS Theme -->
 <link rel="stylesheet" href="{{asset('assets/css/theme-colors/default.css')}}" id="style_color">
 <link rel="stylesheet" href="{{asset('assets/css/theme-skins/dark.css')}}">

@@ -13,4 +13,8 @@ class JobController extends Controller
     {
         return view('front.jobPost');
     }
+
+    public function getJobSearch(){
+        return view('front.jobSearch');
+    }
 }
