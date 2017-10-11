@@ -73,6 +73,7 @@ Route::group(['prefix' => 'admin'], function (){
 
 Route::group(['prefix' => 'job'], function (){
     Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost']);
+    Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost']);
     Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
     Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch']);
 
