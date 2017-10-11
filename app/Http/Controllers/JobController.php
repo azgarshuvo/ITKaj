@@ -15,10 +15,13 @@ class JobController extends Controller
     }
 
 
-    public function getJobDescription(){
+    public function getJobDescription()
+    {
     	return view('front.jobDescription');
+    }
 
-    public function getJobSearch(){
+    public function getJobSearch()
+    {
         return view('front.jobSearch');
     }
 }
