@@ -73,4 +73,9 @@ Route::group(['prefix' => 'admin'], function (){
 
 Route::group(['prefix' => 'job'], function (){
     Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost']);
+    
+
+
+    Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
+
 });
