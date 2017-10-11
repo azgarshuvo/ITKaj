@@ -16,7 +16,7 @@ use Session;
 
 class AdminDashboardController extends Controller{
 
-
+    //Admin
     public function getDashboard(){
         return view('admin.dashboard');
     }
@@ -43,7 +43,7 @@ class AdminDashboardController extends Controller{
         return redirect()->route('adminList');
     }
 
-
+    //Category
     public function addCategory()
     {
       return view('admin.addCategory');
@@ -53,6 +53,7 @@ class AdminDashboardController extends Controller{
       return view('admin.categoryList');
     }
 
+    //Users
     public function getFreelancerList(){
       return view('admin.freelancerList');
     }

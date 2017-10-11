@@ -169,6 +169,8 @@ h5 {
 }
 .nav.nav-second-level > li.active {
   border: none;
+  color: #fff;
+  position: absolute;
 }
 .nav.nav-second-level.collapse[style] {
   height: auto !important;
@@ -5031,4 +5033,9 @@ body.skin-3 {
 }
 
 
-.red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+.subcategory-btn{
+  width: auto;
+  padding: 10px;
+  height: 40px;
+  margin-left: 5px;
+}

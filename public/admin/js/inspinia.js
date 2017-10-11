@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // MetsiMenu
     $('#side-menu').metisMenu();
- 
+
     // Collapse ibox function
     $('.collapse-link:not(.binded)').addClass("binded").click( function() {
         var ibox = $(this).closest('div.ibox');
@@ -17,13 +17,13 @@ $(document).ready(function () {
             ibox.find('[id^=map-]').resize();
         }, 50);
     });
- 
+
     // Close ibox function
     $('.close-link:not(.binded)').addClass("binded").click( function() {
         var content = $(this).closest('div.ibox');
         content.remove();
     });
- 
+
     // Small todo handler
     $('.check-link:not(.binded)').addClass("binded").click( function(){
         var button = $(this).find('i');
@@ -32,37 +32,37 @@ $(document).ready(function () {
         label.toggleClass('todo-completed');
         return false;
     });
- 
+
     // Append config box / Only for demo purpose
     /*
     $.get("skin-config.html", function (data) {
         $('body').append(data);
     });
     */
- 
+
     // minimalize menu
     $('.navbar-minimalize:not(.binded)').addClass("binded").click(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
     })
- 
+
     // tooltips
     $('.tooltip-demo').tooltip({
         selector: "[data-toggle=tooltip]",
         container: "body"
     })
- 
+
     // Move modal to body
     // Fix Bootstrap backdrop issu with animation.css
     $('.modal').appendTo("body")
- 
+
     // Full height of sidebar
     function fix_height() {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;
         $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
     }
     fix_height();
- 
+
     // Fixed Sidebar
     // unComment this only whe you have a fixed-sidebar
             //    $(window).bind("load", function() {
@@ -73,13 +73,13 @@ $(document).ready(function () {
             //            });
             //        }
             //    })
- 
+
     $(window).bind("load resize click scroll", function() {
         if(!$("body").hasClass('body-small')) {
             fix_height();
         }
     })
- 
+
     $("[data-toggle=popover]")
         .popover();
 });
@@ -147,5 +147,3 @@ window.WinMove = function() {
         })
         .disableSelection();
 };
-
-

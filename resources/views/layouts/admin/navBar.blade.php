@@ -11,7 +11,7 @@
         <ul class="nav" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                            <img alt="image" class="img-circle" src="{{asset('admin/img/profile_small.jpg')}}" />
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
@@ -55,6 +55,7 @@
                     <li><a href="{{route('categoryList')}}">Category List</a></li>
                 </ul>
             </li>
+
         </ul>
 
     </div>

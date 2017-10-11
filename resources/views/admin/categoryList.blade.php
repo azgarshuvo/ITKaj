@@ -37,7 +37,7 @@
               <td>01</td>
               <td>Web Development</td>
               <td>
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover table-responsive">
                   <tr>
                     <th>Name</th>
                     <th>Action</th>
