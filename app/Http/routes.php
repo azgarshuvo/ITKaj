@@ -32,7 +32,15 @@ Route::group(['prefix' => 'user'], function () {
     	Route::get('overall', ['as' => 'profile_overall', 'uses' => 'ProfileController@getProfile']);
     	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
     	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
-    	Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+        Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+
+
+
+        Route::get('project/list', ['as' => 'my_project_list', 'uses' => 'ProfileController@getMyProjectList']);
+        Route::get('job/approvedList', ['as' => 'job_approved_list', 'uses' => 'ProfileController@getJobApprovedList']);
+        Route::get('job/disapprovedList', ['as' => 'job_disapproved_list', 'uses' => 'ProfileController@getJobDisapprovedList']);
+    	Route::get('job/doneList', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
+
 
     	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
     	Route::post('change/changeprofile', ['as' => 'changeProfile', 'uses' => 'ProfileController@changeProfile']);
@@ -68,6 +76,13 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('/adminDelete/{id}', ['as' =>'adminDelete', 'uses' => 'adminController\AdminDashboardController@adminDelete']);
     Route::get('addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\AdminDashboardController@addCategory']);
     Route::get('categoryList', ['as' =>'categoryList', 'uses' => 'adminController\AdminDashboardController@listOfCategory']);
+
+
+
+
+
+    Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
+    Route::get('employeer/list', ['as' =>'employeer_list', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
 
 });
 

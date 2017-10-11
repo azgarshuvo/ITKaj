@@ -57,7 +57,6 @@ class JobController extends Controller
         $this->jobToPost($title,$category,$duration,$projectCost,$projectType,$skill,$description,$freelancer_list,$inter_freelancer_list,$filesName);
         return redirect()->back()->with('message', 'Job insert successfully done, wait for admin approve!!! ');
 
-
     }
 
 
@@ -66,6 +65,7 @@ class JobController extends Controller
         return view('front.jobDescription');
     }
     public function getJobSearch(){
+
         return view('front.jobSearch');
     }
 

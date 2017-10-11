@@ -38,6 +38,16 @@
                     <li><a href="{{route('adminList')}}">Admin List</a></li>
                 </ul>
             </li>
+
+            <li class="">
+                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">User</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{route('freelancer_list')}}">Freelancer List</a></li>
+                    <li><a href="{{route('employeer_list')}}">Employer List</a></li>
+                </ul>
+            </li>
+
+
             <li>
                 <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Category</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

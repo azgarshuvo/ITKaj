@@ -53,5 +53,11 @@ class AdminDashboardController extends Controller{
       return view('admin.categoryList');
     }
 
+    public function getFreelancerList(){
+      return view('admin.freelancerList');
+    }
+    public function getEmployeerList(){
+      return view('admin.employeerList');
+    }
 
 }

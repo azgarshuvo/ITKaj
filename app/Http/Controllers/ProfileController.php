@@ -53,6 +53,22 @@ class ProfileController extends Controller{
     	return view('front.myProjects');
     }
 
+    public function getMyProjectList(){
+        return view('front.projectList');
+    }
+
+    public function getJobApprovedList(){
+        return view('front.jobApproveList');
+    }
+
+    public function getJobDisapprovedList(){
+        return view('front.jobDisapprovedList');
+    }
+
+    public function getJobDoneList(){
+        return view('front.jobDoneList');
+    }
+
     #get ajax request to change password
     public function ChangePassword(Request $request){
 

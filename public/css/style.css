@@ -1,8 +1,24 @@
 .jobSearchDataTable{
-    height: 454px;
+    height: 370px;
     overflow: auto;
 }
 .freelancerSearchDataTable{
-    height: 454px;
+    height: 370px;
+    overflow: auto;
+}
+.projectListTable{
+	height: 370px;
+    overflow: scroll;
+}
+.jobApproveListTable{
+	height: 370px;
+    overflow: auto;
+}
+.jobDisapproveListTable{
+	height: 370px;
+    overflow: auto;
+}
+.jobDoneListTable{
+	height: 370px;
     overflow: auto;
 }
