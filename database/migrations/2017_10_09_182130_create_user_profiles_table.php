@@ -21,6 +21,8 @@ class CreateUserProfilesTable extends Migration
             $table->integer('postcode');
             $table->string('address');
             $table->string('img_path');
+            $table->string('company_name');
+            $table->string('company_website');
             $table->string('skills');
             $table->string('experience_lavel');
             $table->string('professional_title');

@@ -13,10 +13,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Auth\Guard;
 use App\User;
 use Mail;
 
 class RegistrationController extends Controller{
+
+    public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+
+        $this->middleware('guest', ['except' => 'getLogout']);
+    }
+
+
     public function getRegistration(){
         return view('front.registration');
     }
@@ -53,8 +63,16 @@ class RegistrationController extends Controller{
             $userId = $this->create_register(Input::all(),$token,$userName);
             /*session(['user_id' =>  $user_id,'complete'=>1]);*/
             $email = Input::get('email');
+            $password = Input::get('password');
             $this->sendTokenToMail($email,$userId,$token);
-            return redirect()->route('profile_overall')->with('message', 'A confirmation email has been send to your email address');
+
+            $credentials = ['email'=>$email,'password'=>$password,'admin_user_type'=>-1];
+
+            //dd($credentials);
+            if ($this->auth->attempt($credentials))
+            {
+                return redirect()->route('profile_overall')->with('message', 'A confirmation email has been send to your email address');
+            }
         }
 
     }
