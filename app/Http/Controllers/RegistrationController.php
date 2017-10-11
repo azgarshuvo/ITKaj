@@ -102,4 +102,10 @@ class RegistrationController extends Controller{
         });
     }
 
+
+    #email confirmation view
+    public function EmailConfirmation(){
+        return view('front.emailConfirmationNotification');
+    }
+
 }
