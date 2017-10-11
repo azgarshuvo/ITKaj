@@ -24,6 +24,7 @@
 <!-- JS Customization -->
 <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/select2.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/js/dropzone.js')}}"></script>
 <!-- JS Page Level -->
 <script type="text/javascript" src="{{asset('assets/js/app.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/owl-carousel.js')}}"></script>
