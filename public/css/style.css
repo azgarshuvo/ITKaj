@@ -6,3 +6,11 @@
     height: 454px;
     overflow: auto;
 }
+.projectListTable{
+	height: 454px;
+    overflow: scroll;
+}
+.jobApproveListTable{
+	height: 454px;
+    overflow: auto;
+}
