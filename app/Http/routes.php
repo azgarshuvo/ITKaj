@@ -74,3 +74,14 @@ Route::group(['prefix' => 'admin'], function (){
 Route::group(['prefix' => 'job'], function (){
     Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost']);
 });
+
+
+
+
+
+
+
+
+Route::get('email-confirmation-notification', function (){
+   return view('front.emailConfirmationNotification');
+});
