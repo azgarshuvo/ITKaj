@@ -8,8 +8,11 @@
 
 namespace App\Http\Controllers\adminController;
 
-
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\User;
+use Session;
 
 class AdminDashboardController extends Controller{
 
@@ -23,8 +26,23 @@ class AdminDashboardController extends Controller{
     }
     public function listOfAdmin()
     {
-      return view('admin.adminList');
+      $users = User::orderBy('id','asc')->get();
+      return view('admin.adminList',['users' => $users]);
     }
+    public function adminDetails($id){
+        $users = User::findOrFail($id);
+        return view('admin.adminDetails', ['users' => $users]);
+    }
+    public function adminEdit($id){
+        $user = User::findOrFail($id);
+        return view('admin.adminEdit', ['users' => $user]);
+    }
+    public function adminDelete($id){
+        User::findOrFail($id)->delete();
+        Session::flash('success', 'User deleted successfully!');
+        return redirect()->route('adminList');
+    }
+
 
     public function addCategory()
     {
@@ -34,4 +52,6 @@ class AdminDashboardController extends Controller{
     {
       return view('admin.categoryList');
     }
+
+
 }

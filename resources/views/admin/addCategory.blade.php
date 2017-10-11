@@ -21,8 +21,16 @@
                 </a>
             </div>
         </div>
+        @if($errors->any())
+            <div class="alert alert-danger">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach()
+            </div>
+        @endif
         <div class="ibox-content">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="{{route('')}}">
+              {{ csrf_field() }}
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Category Name</label>
                     <div class="col-lg-10"><input type="text" name="category_name" placeholder="Category Name" class="form-control">
