@@ -19,6 +19,7 @@
 								<div class="col-md-5">
 									<img class="img-responsive md-margin-bottom-10" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
 									<a class="btn-u btn-u-sm" href="#">Change Picture</a>
+
 								</div>
 								<div class="col-md-7">
 									<h2>Edward Rooster</h2>

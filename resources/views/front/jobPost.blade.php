@@ -23,21 +23,20 @@
     <div class="container content">
         <div class="row">
             <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2">
-                <!-- @if(session()->has('message'))
+                @if(session()->has('message'))
                     <div class="alert alert-success">
                         {{ session()->get('message') }}
                     </div>
                 @endif
-                @if (count($errors) > 0)
+
+                @if($errors->has())
                     <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}</br>
+                    @endforeach
                     </div>
-                @endif -->
-                <form method="post" class="reg-page">
+                @endif
+                <form enctype="multipart/form-data" action="{{route('joabPost')}}" method="post" class="reg-page">
 
                     {{csrf_field()}}
                     <div class="reg-header">
@@ -47,14 +46,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <label>Job title <span class="color-red">*</span></label>
-                            <input type="text" class="form-control margin-bottom-20" name="title">
+                            <input value="{{old('title')}}"  type="text" class="form-control margin-bottom-20" name="title">
                         </div>
                         <div class="col-sm-6">
                         <label>Category<span class="color-red">*</span></label>
-                                <select class="form-control margin-bottom-20" name="subCategory">
+                                <select class="form-control margin-bottom-20" name="category">
                                     <option value="">Select One</option>
-                                    <option value="web">Web development</option>
-                                    <option value="mobile">Mobile App Development</option>
+                                    <option value="1">Web development</option>
+                                    <option value="2">Mobile App Development</option>
                                     
                                 </select>
                         </div>
@@ -63,7 +62,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <label>Duration<span class="color-red">*</span></label>
-                            <input type="number" class="form-control margin-bottom-20" name="duration">
+                            <input value="{{old('duration')}}"  type="number" class="form-control margin-bottom-20" name="duration">
                         </div>
                         <div class="col-sm-6">
                             <label >Sub Category <span class="color-red">*</span></label>
@@ -78,45 +77,45 @@
 
                      <div class="row">
                         <div class="col-sm-6">
-                            <label>Payment <span class="color-red">*</span></label>
-                            <select class="form-control margin-bottom-20" name="payment">
-                                    <option value="">Select One</option>
-                                    <option value="hour">Pay the hour</option>
-                                    <option value="fixed time">Pay the fixed Time</option>
-                                    <option value="dont know">I don't know</option>
-
-                            </select>
+                            <label>Project Cost <span class="color-red">*</span></label>
+                            <input value="{{old('projectCost')}}" type="number" name="projectCost" class="form-control">
                         </div>
                         <div class="col-sm-6">
                             <label>Project Type <span class="color-red">*</span></label>
-                            <select class="form-control margin-bottom-20" name="type">
+                            <select class="form-control margin-bottom-20" name="projectType">
                                     <option value="">Select One</option>
-                                    <option value="one time">One Time Project</option>
-                                    <option value="on going">On going</option>
-                                    <option value="dont know">I don't know</option>
+                                    <option value="1">One Time Project</option>
+                                    <option value="2">On going</option>
+                                    <option value="3">I don't know</option>
                             </select>
                         </div>
                     </div>
 
                     <label>Skills <span class="color-red">*</span></label>
-                        <select id="skill" multiple  class="form-control margin-bottom-20">
-                             
+                        <select value="{{old('skill[]')}}" id="skill" name="skill[]" multiple  class="form-control margin-bottom-20">
                         </select>
 
                     <label>Job Description</label>
-                    <textarea class="form-control margin-bottom-20" rows="4" name="description"></textarea>
+                    <textarea class="form-control margin-bottom-20" rows="4" name="description">{{old('description')}}</textarea>
 
                     
                     <label>job Attachment</label>
-                    <div class="col-md-6 form-control margin-bottom-20 dropzone"  action="/fileupload">
+                   {{-- <div class="col-md-6 form-control margin-bottom-20 dropzone"  action="/fileupload">
 
-                        <div class="fallback">
-                            <input name="file" type="file" multiple />
-                          </div>
-                    </div>
+                        <div class="fallback">--}}
+                            <input class="form-control" name="file[]" type="file"  multiple />
+                          {{--</div>
+                    </div>--}}
                         
                         <!--Top-->
+                    {{-- start div for selected freelancer list and add js hidden input type --}}
 
+                    <div class="row">
+                        <div class="col-md-12" id="freelancer_list">
+
+                        </div>
+                    </div>
+                    {{--end div for selected freelancer list and add js hidden input type --}}
                         
                     <div class="col-md-5 col-md-offset-7">
                         <div class="input-group">
@@ -126,8 +125,6 @@
                             </span>
                         </div>
                     </div>
-                       
-                  
 
                     <div class="panel panel-grey margin-bottom-40" >
                         <div class="panel-heading">
@@ -147,42 +144,43 @@
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>Mark</td>
+                                        <td id="1_username">Mark</td>
                                         <td class="hidden-sm">Otto</td>
                                         
                                         <td>Active/Inactive</td>
-                                        <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
+                                        <td>
+                                            <button type="button" onclick="getFreelancer(1)" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>Jacob</td>
+                                        <td id="2_username">Jacob</td>
                                         <td class="hidden-sm">Thornton</td>
                                       
                                         <td>Active/Inactive</td>
-                                        <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
+                                        <td><button onclick="getFreelancer(2)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td>Larry</td>
+                                        <td id="3_username">Larry</td>
                                         <td class="hidden-sm">the Bird</td>
                                  
                                         <td>Active/Inactive</td>
-                                        <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
+                                        <td><button onclick="getFreelancer(3)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>4</td>
-                                        <td>htmlstream</td>
+                                        <td id="4_username">htmlstream</td>
                                         <td class="hidden-sm">Web Design</td>
                                        
                                         <td>Active/Inactive</td>
-                                        <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
+                                        <td><button onclick="getFreelancer(4)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -191,14 +189,21 @@
                     </div>
                     <!--End Top-->
 
+                    {{-- start div for selected freelancer list and add js hidden input type --}}
 
+                    <div class="row">
+                        <div class="col-md-12" id="inter_freelancer_list">
+
+                        </div>
+                    </div>
+                {{--end div for selected freelancer list and add js hidden input type --}}
                     <!--Top-->
 
                     <div class="col-md-5 col-md-offset-7">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search Intermediate Freelancer">
                             <span class="input-group-btn">
-                                <button class="btn-u" type="button"><i class="fa fa-search"></i></button>
+                                <button type="button" class="btn-u" type="button"><i class="fa fa-search"></i></button>
                             </span>
                         </div>
                     </div>
@@ -224,41 +229,41 @@
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>Mark</td>
+                                        <td id="1_username_inter">Mark</td>
                                         <td class="hidden-sm">Otto</td>
                                         
                                         <td>Active/Inactive</td>
-                                        <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                        <td><button type="button" onclick="getInterFreelancer(1)" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>Jacob</td>
+                                        <td id="2_username_inter">Jacob</td>
                                         <td class="hidden-sm">Thornton</td>
                                        
                                         <td>Active/Inactive</td>
-                                        <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                        <td><button type="button" onclick="getInterFreelancer(2)" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td>Larry</td>
+                                        <td id="3_username_inter">Larry</td>
                                         <td class="hidden-sm">the Bird</td>
                                        
                                         <td>Active/Inactive</td>
-                                        <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                        <td><button class="btn btn-info btn-xs" onclick="getInterFreelancer(3)" type="button" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>4</td>
-                                        <td>htmlstream</td>
+                                        <td id="4_username_inter">htmlstream</td>
                                         <td class="hidden-sm">Web Design</td>
                                        
                                         <td>Active/Inactive</td>
-                                        <td><button class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                        <td><button type="button" onclick="getInterFreelancer(4)" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
@@ -289,5 +294,34 @@
             tokenSeparators: [',', '.']
         });
 
+    </script>
+
+    {{--This script add by polash for add freelancer list--}}
+    <script type="text/javascript">
+
+        function getFreelancer(id){
+        var input_field =   '<input id="freelancer_list" value="'+id+'" type="hidden" name="freelancer_list[]">';
+        var username = $("#"+id+"_username").text();
+            $("#freelancer_list").append(input_field);
+
+            $("#freelancer_list").append(username);
+           // alert(username);
+        }
+
+        function getInterFreelancer(id){
+
+            var input_field =   '<input id="inter_freelancer_list" value="'+id+'" type="hidden" name="inter_freelancer_list[]">';
+            var username = $("#"+id+"_username_inter").text();
+            var add_style = '<b class="make_border">'+username+'<button type="button" class="remover" onclick="removeInter('+id+')" aria-hidden="true">×</button></b>';
+
+
+            $("#inter_freelancer_list").append(input_field);
+
+            $("#inter_freelancer_list").append(add_style);
+            // alert(username);
+        }
+        function removeInter(id){
+            alert(id);
+        }
     </script>
 @endsection
