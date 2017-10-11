@@ -22,8 +22,7 @@ class RegistrationController extends Controller{
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
-
-        $this->middleware('guest', ['except' => 'getLogout']);
+        //$this->middleware('guest', ['except' => 'getLogout']);
     }
 
 
@@ -59,24 +58,36 @@ class RegistrationController extends Controller{
         }else{
             $token = bin2hex(openssl_random_pseudo_bytes(32));
             $firstName = Input::get('fname');
-            $userName = $firstName.'_'.time();
+            $lastName = Input::get('lname');
+            $userName = $this->MakeUsername(strtolower($firstName),strtolower($lastName));
             $userId = $this->create_register(Input::all(),$token,$userName);
             /*session(['user_id' =>  $user_id,'complete'=>1]);*/
             $email = Input::get('email');
             $password = Input::get('password');
-            $this->sendTokenToMail($email,$userId,$token);
+            //$this->sendTokenToMail($email,$userId,$token);
 
             $credentials = ['email'=>$email,'password'=>$password,'admin_user_type'=>-1];
-
-            //dd($credentials);
             if ($this->auth->attempt($credentials))
             {
-                return redirect()->route('profile_overall')->with('message', 'A confirmation email has been send to your email address');
+                return redirect()->route('verifyEmail')->with('message', 'A confirmation email has been send to your email address');
             }
         }
 
     }
 
+    #this return unique user name
+    private function MakeUsername($firstName,$lastName){
+        $firstName = str_replace(' ', '', $firstName);
+        $lastName = str_replace(' ', '', $lastName);
+        $userName = $firstName.".".$lastName;
+        $retrive_data = User::where('username', $userName);
+        $isHas = $retrive_data->count();
+        if($isHas==0){
+            return $userName;
+        }else{
+            return $userName.time();
+        }
+    }
     #enter registration data into db
     private function create_register($data,$token,$userName){
         $user = User::create([
