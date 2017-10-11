@@ -96,7 +96,7 @@
                         </select>
 
                     <label>Job Description</label>
-                    <textarea class="form-control margin-bottom-20" rows="4" name="description">{{old('description')}}"</textarea>
+                    <textarea class="form-control margin-bottom-20" rows="4" name="description">{{old('description')}}</textarea>
 
                     
                     <label>job Attachment</label>
@@ -312,10 +312,16 @@
 
             var input_field =   '<input id="inter_freelancer_list" value="'+id+'" type="hidden" name="inter_freelancer_list[]">';
             var username = $("#"+id+"_username_inter").text();
+            var add_style = '<b class="make_border">'+username+'<button type="button" class="remover" onclick="removeInter('+id+')" aria-hidden="true">×</button></b>';
+
+
             $("#inter_freelancer_list").append(input_field);
 
-            $("#inter_freelancer_list").append(username);
+            $("#inter_freelancer_list").append(add_style);
             // alert(username);
+        }
+        function removeInter(id){
+            alert(id);
         }
     </script>
 @endsection
