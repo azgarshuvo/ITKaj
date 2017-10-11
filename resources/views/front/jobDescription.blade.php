@@ -30,46 +30,7 @@
                     <!-- Left Inner -->
                     <div class="col-md-7">
                         <div class="left-inner">
-                            <img src="{{asset('assets/img/clients2/ea-canada.pn')}}g" alt="">
-                            <h3>EA Canada, Inc</h3>
-                            <a href="#"><i class="position-top fa fa-print"></i></a>
-                            <div class="overflow-h">
-                                <p class="hex">Worldwide, 16,329 Employees, Bentonville, Arkansas</p>
-                                <div class="star-vote">
-                                    <ul class="list-inline">
-                                        <li><i class="color-green fa fa-star"></i></li>
-                                        <li><i class="color-green fa fa-star"></i></li>
-                                        <li><i class="color-green fa fa-star"></i></li>
-                                        <li><i class="color-green fa fa-star-half-o"></i></li>
-                                        <li><i class="color-green fa fa-star-o"></i></li>
-                                    </ul>
-                                </div>
-                                <span><a href="#">34 reviews</a></span>
-                            </div>
-
-                            <hr>
-
-                            <div class="progression">
-                                <span>Revenue</span>
-                                <div class="progress progress-u progress-xs">
-                                    <div style="width: 88%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="88" role="progressbar" class="progress-bar progress-bar-u">
-                                    </div>
-                                </div>
-
-                                <span>Staff Salaries</span>
-                                <div class="progress progress-u progress-xs">
-                                    <div style="width: 76%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="76" role="progressbar" class="progress-bar progress-bar-u">
-                                    </div>
-                                </div>
-
-                                <span>Possibility of Dismissial</span>
-                                <div class="progress progress-u progress-xs">
-                                    <div style="width: 97%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="97" role="progressbar" class="progress-bar progress-bar-u">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr>
+                            
 
                             <h2>Job Description</h2>
                             <p>This job was a great job for the pay and benefits when compared to waiting table and working fast food. I also preferred working for the vs other stores like . The biggest problem was unreasonable expectations from management. Even as one of there top employees you feel taken advantage of and over worked. Dealing with the customers was the other issue.</p>
@@ -125,107 +86,7 @@
 
                             <hr>
 
-                            <ul class="list-unstyled save-job">
-                                <li><i class="fa fa-download"></i> <a href="#">Save job</a></li>
-                                <li><i class="fa fa-eye"></i> <a href="#">View saved jobs</a></li>
-                                <li><i class="fa fa-plus"></i> <a href="#">Follow us</a></li>
-                            </ul>
-
-                            <hr>
-
-                            <h3>Overview</h3>
-                            <div class="row">
-                                <!-- Begin Overview -->
-                                <div class="col-sm-6">
-                                    <div class="overview">
-                                        <i class="fa fa-user"></i>
-                                        <div class="overflow-h">
-                                            <small>Followers</small>
-                                            <small>2,1k</small>
-                                            <div class="progress progress-u progress-xxs">
-                                                <div style="width: 92%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="92" role="progressbar" class="progress-bar progress-bar-u">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Overview -->
-
-                                <!-- Begin Overview -->
-                                <div class="col-sm-6">
-                                    <div class="overview">
-                                        <i class="fa fa-share"></i>
-                                        <div class="overflow-h">
-                                            <small>VieSharews</small>
-                                            <small>749k</small>
-                                            <div class="progress progress-u progress-xxs">
-                                                <div style="width: 77%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="77" role="progressbar" class="progress-bar progress-bar-u">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Overview -->
                             </div>
-
-                            <div class="row margin-bottom-20">
-                                <!-- Begin Overview -->
-                                <div class="col-sm-6">
-                                    <div class="overview">
-                                        <i class="fa fa-eye"></i>
-                                        <div class="overflow-h">
-                                            <small>Views</small>
-                                            <small>15,7k</small>
-                                            <div class="progress progress-u progress-xxs">
-                                                <div style="width: 88%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="88" role="progressbar" class="progress-bar progress-bar-u">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Overview -->
-
-                                <!-- Begin Overview -->
-                                <div class="col-sm-6">
-                                    <div class="overview">
-                                        <i class="fa fa-group"></i>
-                                        <div class="overflow-h">
-                                            <small>Opportunity Views</small>
-                                            <small>202,8k</small>
-                                            <div class="progress progress-u progress-xxs">
-                                                <div style="width: 76%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="76" role="progressbar" class="progress-bar progress-bar-u">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Overview -->
-                            </div>
-
-                            <!-- Pie Chart Progress Bar -->
-                            <div class="row margin-bottom-20">
-                                <div class="p-chart col-sm-6 col-xs-6 sm-margin-bottom-10">
-                                    <h3>Engagement Score</h3>
-                                    <div class="circle" id="circle-4"></div>
-                                    <ul class="list-unstyled overflow-h">
-                                        <li><i> - </i><a href="#">Tips to Improve</a></li>
-                                        <li><i> - </i><a href="#">Compare to Others</a></li>
-                                        <li><i> - </i><a href="#">More Information</a></li>
-                                    </ul>
-                                </div>
-                                <div class="p-chart col-sm-6 col-xs-6">
-                                    <h3>Progfile Completness</h3>
-                                    <div class="circle" id="circle-5"></div>
-                                    <ul class="list-unstyled overflow-h">
-                                        <li><i> - </i><a href="#">Steps to Completion</a></li>
-                                        <li><i> - </i><a href="#">Compare to Others</a></li>
-                                        <li><i> - </i><a href="#">More Information</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- End Pie Chart Progress Bar -->
-
-                            <hr>
 
                             <h3>Latest Recommendations</h3>
                             <div class="people-say margin-bottom-20">
