@@ -17,6 +17,7 @@
         <div class="ibox float-e-margins">
           <div class="ibox-title">
               <h5>{{$users->fname." ".$users->lname}} Details</h5>
+
               <div class="ibox-tools">
                   <a class="collapse-link">
                       <i class="fa fa-chevron-up"></i>
@@ -27,8 +28,11 @@
               <img alt="image" class="img-responsive" src="{{asset('admin/img/profile_big.jpg')}}">
           </div>
           <div class="ibox-content profile-content">
-            <h4><strong>{{$users->fname." ".$users->lname}}</strong></h4>
+            <h4><strong>{{$users->fname." ".$users->lname}}</strong><span> ({{$users->username}})</span></h4>
+            <h5><i>Full Stack Developer</i></h5>
             <p><i class="fa fa-map-marker"></i> Dhaka, Bangladesh</p>
+            <p><i class="fa fa-envelope"></i> shafikshaon@gmail.com</p>
+            <p><i class="fa fa-phone"></i> 01705184686</p>
             <h5>
                 About me
             </h5>
@@ -36,26 +40,24 @@
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
             </p>
             <div class="row m-t-lg">
+              <div class="col-md-4">
+                <span style="color: #18AA8D"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></span>
+                <h5>Experianced in:</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi </p>
+              </div>
                 <div class="col-md-4">
-                    <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
-                    <h5><strong>169</strong> Posts</h5>
+                    <span style="color: #18AA8D"><i class="fa fa-money fa-2x" aria-hidden="true"></i></span>
+                    <h5><strong>$10</strong> Per Hour</h5>
                 </div>
                 <div class="col-md-4">
-                    <span class="line">5,3,9,6,5,9,7,3,5,2</span>
-                    <h5><strong>28</strong> Following</h5>
-                </div>
-                <div class="col-md-4">
-                    <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>
-                    <h5><strong>240</strong> Followers</h5>
+                    <span style="color: #18AA8D"><i class="fa fa-clock-o fa-2x" aria-hidden="true"></i></span>
+                    <h5><strong>30 Hours </strong> Available/Week</h5>
                 </div>
             </div>
             <div class="user-button">
                 <div class="row">
                     <div class="col-md-6">
                         <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-coffee"></i> Buy a coffee</button>
                     </div>
                 </div>
             </div>

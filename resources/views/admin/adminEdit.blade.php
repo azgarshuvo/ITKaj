@@ -84,14 +84,13 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Profile Picture</label>
-                    <div class="col-lg-10">
-                        <div class="img-preview img-preview-sm"></div>
-                        <div class="btn-group">
-                            <label title="Upload image file" for="inputImage" class="btn btn-white">
-                                <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
-                                Upload new image
-                            </label>
+                    <div class="col-lg-10 wizard-card">
+                      <div class="picture-container">
+                        <div class="picture">
+                            <img src="assets/img/avatar.png" class="picture-src" id="wizardPicturePreview" title=""/>
+                            <input type="file" id="wizard-picture">
                         </div>
+                      </div>
                     </div>
                 </div>
                 <div class="form-group">

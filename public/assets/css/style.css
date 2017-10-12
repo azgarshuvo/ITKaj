@@ -97,3 +97,34 @@ a:hover {
 .margin-top-20{
     margin-top: 20px;
 }
+
+.profiel-container .picture-container{
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+}
+.profiel-container .picture{
+    width: 220px;
+    height: 230px;
+    background-color: #808080;
+    border: 4px solid #CCC;
+    color: #FFF;
+    border-radius: 4px;
+    margin: 35px auto;
+    overflow: hidden;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+}
+.profiel-container .picture:hover{
+    border-color: #2ca8ff;
+}
+.profiel-container  .picture input[type="file"] {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    left: 0px;
+    opacity: 0 !important;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
