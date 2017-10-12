@@ -40,6 +40,12 @@ class ProfileController extends Controller{
                 'user_profiles.address',
                 'user_profiles.company_name',
                 'user_profiles.company_website',
+                'user_profiles.skills',
+                'user_profiles.experience_lavel',
+                'user_profiles.professional_title',
+                'user_profiles.professional_overview',
+                'user_profiles.hourly_rate',
+                'user_profiles.available_for_each_week',
             ]);
         //dd($userProfile);
     	return view('front.profileSettings',['userProfile'=>$userProfile]);
@@ -138,6 +144,9 @@ class ProfileController extends Controller{
             $lname = $request->input('lname');
             $phone = $request->input('phone');
             $address = $request->input('address');
+            $skills = $request->input('skills');
+            $experience_lavel = $request->input('experience_lavel');
+            $professional_title = $request->input('professional_title');
 
             /*user table update start*/
             $user = User::find(auth()->user()->id);
@@ -155,7 +164,7 @@ class ProfileController extends Controller{
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
-                    ['phone_number' => $phone,'address'=>$address]);
+                    ['phone_number' => $phone,'address'=>$address,'skills'=>$skills,'experience_lavel'=>$experience_lavel,'professional_title'=>$professional_title]);
                 /*user profile table update end*/
 
             }else{

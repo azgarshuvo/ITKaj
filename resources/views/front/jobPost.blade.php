@@ -234,8 +234,6 @@
                                         <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                     </td>
                                 </tr>
-
-
                                 </tbody>
                             </table>
                         </div>

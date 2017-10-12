@@ -45,19 +45,19 @@
                     </div>
 
                     <label>First Name</label>
-                    <input {{old('fname')}} name="fname" type="text" class="form-control margin-bottom-20">
+                    <input value="{{old('fname')}}" name="fname" type="text" class="form-control margin-bottom-20">
 
                     <label>Last Name</label>
-                    <input {{old('lname')}} name="lname" type="text" class="form-control margin-bottom-20">
+                    <input  value="{{old('lname')}}" name="lname" type="text" class="form-control margin-bottom-20">
 
                     <label>Email Address <span class="color-red">*</span></label>
-                    <input {{old('email')}} name="email" type="text" class="form-control margin-bottom-20">
+                    <input  value="{{old('email')}}" name="email" type="text" class="form-control margin-bottom-20">
 
                     <label>User Type</label>
                         <select class="form-control margin-bottom-20" name="user_type">
                             <option value="">Select One</option>
-                            <option value="freelancer">Freelancer</option>
-                            <option value="employer">Employer</option>
+                            <option value="freelancer"  @if (Input::old('user_type') == 'freelancer') selected="selected" @endif>Freelancer</option>
+                            <option value="employer" @if (Input::old('user_type') == 'employer') selected="selected" @endif>Employer</option>
                         </select>
 
                     <div class="row">
@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-lg-6 checkbox">
                             <label>
-                                <input name="terms" type="checkbox">
+                                <input name="terms" type="checkbox"  @if (Input::old('terms') == 'on') checked="checked" @endif>
                                 I read <a href="page_terms.html" class="color-green">Terms and Conditions</a>
                             </label>
                         </div>
