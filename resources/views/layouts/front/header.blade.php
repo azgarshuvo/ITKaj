@@ -40,26 +40,35 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
         <div class="container">
-            <ul class="nav navbar-nav">
-                <!-- Freelancer Search -->
-                <li><a href="{{route('freelancerSearch')}}">Freelancer Search</a></li>
-                <!-- End Freelancer Search -->
-            </ul>
-            <ul class="nav navbar-nav">
-                <!-- Job Search -->
-                <li><a href="{{route('jobSearch')}}">Job Search</a></li>
-                <!-- End Job Search -->
-            </ul>
-            <ul class="nav navbar-nav">
-                <!-- Post Job -->
-                <li><a href="{{route('JobPost')}}">Post Job</a></li>
-                <!-- End Post Job -->
-            </ul>
+            @if(auth()->check())
+                @if(Auth::user()->user_type=="employer")
+                    <ul class="nav navbar-nav">
+                        <!-- Freelancer Search -->
+                        <li><a href="{{route('freelancerSearch')}}">Freelancer Search</a></li>
+                        <!-- End Freelancer Search -->
+                    </ul>
+                @endif
+                @if(Auth::user()->user_type=="freelancer")
+                    <ul class="nav navbar-nav">
+                        <!-- Job Search -->
+                        <li><a href="{{route('jobSearch')}}">Job Search</a></li>
+                        <!-- End Job Search -->
+                    </ul>
+                @endif
+                @if(Auth::user()->user_type=="employer")
+                    <ul class="nav navbar-nav">
+                        <!-- Post Job -->
+                        <li><a href="{{route('JobPost')}}">Post Job</a></li>
+                        <!-- End Post Job -->
+                    </ul>
+                @endif
+
             <ul class="nav navbar-nav">
                 <!-- Profile -->
                 <li><a href="{{route('profile_overall')}}">Profile</a></li>
                 <!-- End Profile -->
             </ul>
+            @endif
             <ul class="nav navbar-nav">
                 <!-- Home -->
                 <li><a href="{{route('home')}}">Home</a></li>
@@ -67,5 +76,7 @@
             </ul>
         </div><!--/end container-->
     </div><!--/navbar-collapse-->
+
+
 </div>
 <!--=== End Header ===-->
