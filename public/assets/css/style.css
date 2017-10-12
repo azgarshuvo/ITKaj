@@ -97,6 +97,9 @@ a:hover {
 .margin-top-20{
     margin-top: 20px;
 }
-#freelancer_list{
+#freelancer_list,#inter_freelancer_list{
     padding-bottom: 10px;
+}
+.job-owner{
+    height: 200px !important;
 }

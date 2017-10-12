@@ -224,6 +224,8 @@
                                             <hr>
                                             {{--Professional title end--}}
 
+                                            {{--Skill  start--}}
+
                                             <dt><strong>Skill</strong></dt>
                                             <dd>
                                                 <div class="row">
@@ -249,7 +251,36 @@
 
                                             </dd>
                                             <hr>
+                                            {{--Skill  end--}}
 
+                                            {{--Hourly rate start--}}
+                                            <dt><strong>Hourly Rate</strong></dt>
+                                            <dd>
+                                                <div class="row">
+                                                    <div class="col-md-8 setText" id="hourly_rate">
+                                                        {{$userProfile->experience_lavel}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input class="form-control" type="hidden" value="{{$userProfile->experience_lavel}}" name="hourly_rate">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <span>
+                                                            <a onclick="changeData('hourly_rate')" class="pull-right hourly_rate_edit" href="javascript:void(0);">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                         </span>
+                                                        <span>
+                                                            <a onclick="resetData('hourly_rate')" class="pull-right hourly_rate hidden" href="javascript:void(0);">
+                                                                <i class="fa fa-times fa-lg"></i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                            <hr>
+                                            {{--Experience Level End--}}
+
+                                            {{--Experience Level start--}}
                                             <dt><strong>Experience Level</strong></dt>
                                             <dd>
                                                 <div class="row">
@@ -275,6 +306,7 @@
 
                                             </dd>
                                             <hr>
+                                            {{--Experience Level End--}}
                                         @endif
                                         {{--freelancer section end--}}
 
@@ -283,7 +315,7 @@
                                     <button id="infoUpdate" type="submit" class="btn-u">Save Changes</button>
                                     </form>
                                 </div>
-
+                                {{--Change password tab start here--}}
                                 <div id="passwordTab" class="profile-edit tab-pane fade">
                                     <h2 class="heading-md">Manage your Security Settings</h2>
                                     <p>Change your password.</p>
@@ -329,7 +361,9 @@
                                         <button id="password_submit" class="btn-u" type="submit">Save Changes</button>
                                     </form>
                                 </div>
+                                {{--Change password tab end here--}}
 
+                                {{--Payment method tab start--}}
                                 <div id="payment" class="profile-edit tab-pane fade">
                                     <h2 class="heading-md">Manage your Payment Settings</h2>
                                     <p>Below are the payment options for your account.</p>
@@ -396,7 +430,9 @@
                                         <!--End Checkout-Form-->
                                     </form>
                                 </div>
+                                {{--Payment method end--}}
 
+                                {{--Notification tab start--}}
                                 <div id="settings" class="profile-edit tab-pane fade">
                                     <h2 class="heading-md">Manage your Notifications.</h2>
                                     <p>Below are the notifications you may manage.</p>
@@ -416,6 +452,7 @@
                                         <button class="btn-u" type="submit">Save Changes</button>
                                     </form>
                                 </div>
+                                {{--notification tab end--}}
                             </div>
                         </div>
                     </div>
