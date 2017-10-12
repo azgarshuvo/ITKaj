@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Job;
-
+use Response;
 class JobController extends Controller
 {
     private  $userId = 0;
@@ -22,6 +22,8 @@ class JobController extends Controller
     }
 
     public  function PostJobPost(Request $request){
+
+
         //dd($request->all());
 
         $this->validate($request,[
@@ -61,13 +63,27 @@ class JobController extends Controller
     }
 
 
-    public function getJobDescription()
+    /*Job description view*/
+    public function getJobDescription(Request $request)
     {
-        return view('front.jobDescription');
+        $job_id = $request->input('job_number');
+        $job_details = Job::where('approved', 1)
+                        ->where('id', $job_id)
+                        ->first();
+        if($job_details){
+            return view('front.jobDescription',['job_details'=>$job_details]);
+        }else{
+            return redirect()->route('jobSearch');
+        }
+
     }
     public function getJobSearch(){
+        $job_list = Job::where('approved', 1)
+                        ->orderBy('id', 'desc')
+                        ->get();
 
-        return view('front.jobSearch');
+
+        return view('front.jobSearch',['job_list'=>$job_list]);
     }
 
     /*This upload image and return name*/
@@ -102,5 +118,17 @@ class JobController extends Controller
             'job_attachment' => $filesName,
             'type' => $projectType,
         ]);
+    }
+
+    #this function for create download link for attachments
+    public function getDownload(Request $request)
+    {
+        $attachment = $request->input('attachment');
+        //PDF file is stored under project/public/download/info.pdf
+        $file= public_path(). "/images/".$attachment;
+
+
+
+        return \Response::download($file, "document_".$attachment);
     }
 }

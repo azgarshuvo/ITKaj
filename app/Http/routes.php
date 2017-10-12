@@ -86,6 +86,7 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve']], function (
     Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost','middleware' => 'employer']);
     Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
     Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch','middleware' => 'freelancer']);
+    Route::get('attachment/download', ['as' => 'attachmentDownload', 'uses' => 'JobController@getDownload','middleware' => 'freelancer']);
 
 });
 
