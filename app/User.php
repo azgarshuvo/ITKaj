@@ -37,8 +37,7 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-   /* public function profile()
-    {
-        return $this->hasOne('App\UserProfile','id','user_id');
-    }*/
+    public function profile(){
+        return $this->hasOne('App\UserProfile');
+    }
 }

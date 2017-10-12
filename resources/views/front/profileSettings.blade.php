@@ -5,6 +5,7 @@
  * Date: 08-Oct-17
  * Time: 2:40 PM
  */
+//dd($userProfile);
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -75,19 +76,35 @@
                                                 </div>
                                             </div>
                                         </dd>
-
                                         <hr>
-
-
+                                        <dt><strong>User Name </strong></dt>
+                                        <dd>
+                                            <div class="row">
+                                                <div class="col-md-6 setText" id="username">{{$userProfile->username}}</div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" value="{{$userProfile->username}}" type="hidden" name="username" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a id="name" onclick="changeData('username')" class="pull-right lname_edit" href="javascript:void(0);">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                    </span>
+                                                    <span>
+                                                        <a onclick="resetData('username')" class="pull-right lname hidden" href="javascript:void(0);">
+                                                            <i class="fa fa-times fa-lg"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                        <hr>
                                         <dt><strong>Email Address </strong></dt>
                                         <dd>
                                             <div class="row">
                                                 <div  id="email" class="col-md-6">
                                                     {{$userProfile->email}}
-                                                    {{--{{$userProfile->user_type}}--}}
                                                 </div>
-
-
                                             </div>
                                         </dd>
                                         <hr>
@@ -95,10 +112,10 @@
                                         <dd>
                                             <div class="row">
                                                 <div id="phone" class="col-md-10 setText">
-                                                    {{$userProfile->phone_number}}
+                                                    {{$userProfile->profile->phone_number}}
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input class="form-control"  type="hidden" value="{{$userProfile->phone_number}}" name="phone">
+                                                    <input class="form-control"  type="hidden" value="{{$userProfile->profile->phone_number}}" name="phone">
                                                 </div>
                                                 <div class="col-md-6">
                                                 <span>
@@ -115,15 +132,45 @@
                                             </div>
                                         </dd>
                                         <hr>
+                                        <dt><strong>Country</strong></dt>
+                                        <dd>
+                                            <div class="row">
+                                                <div  class="col-md-8 setText" id="address">
+                                                    {{--{{$userProfile->profile->country}}--}}
+                                                    <select class="form-control margin-bottom-20" name="projectType">
+                                                        <option value="">Select One</option>
+                                                        @foreach($countries as $country)
+                                                            <option value="">{{$country->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input class="form-control" type="hidden" value="{{$userProfile->profile->country}}" name="address">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        <a onclick="changeData('address')" class="pull-right address_edit" href="javascript:void(0);">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                     </span>
+                                                    <span>
+                                                        <a onclick="resetData('address')" class="pull-right address hidden" href="javascript:void(0);">
+                                                            <i class="fa fa-times fa-lg"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
 
+                                        </dd>
+                                        <hr>
                                         <dt><strong>Address </strong></dt>
                                         <dd>
                                             <div class="row">
                                                 <div  class="col-md-8 setText" id="address">
-                                                    {{$userProfile->address}}
+                                                    {{$userProfile->profile->address}}
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input class="form-control" type="hidden" value="{{$userProfile->address}}" name="address">
+                                                    <input class="form-control" type="hidden" value="{{$userProfile->profile->address}}" name="address">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <span>
@@ -146,10 +193,10 @@
                                             <dd>
                                                 <div class="row">
                                                     <div class="col-md-8 setText" id="company_name">
-                                                        {{$userProfile->company_name}}
+                                                        {{$userProfile->profile->company_name}}
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input class="form-control" type="hidden" value="{{$userProfile->company_name}}" name="company_name">
+                                                        <input class="form-control" type="hidden" value="{{$userProfile->profile->company_name}}" name="company_name">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <span>
@@ -172,10 +219,10 @@
                                             <dd>
                                                 <div class="row">
                                                     <div class="col-md-8 setText" id="web_address">
-                                                        {{$userProfile->company_website}}
+                                                        {{$userProfile->profile->company_website}}
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input class="form-control" type="hidden" value="{{$userProfile->company_website}}" name="web_address">
+                                                        <input class="form-control" type="hidden" value="{{$userProfile->profile->company_website}}" name="web_address">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <span>
@@ -201,10 +248,10 @@
                                             <dd>
                                                 <div class="row">
                                                     <div class="col-md-8 setText" id="professional_title">
-                                                        {{$userProfile->professional_title}}
+                                                        {{$userProfile->profile->professional_title}}
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input class="form-control" type="hidden" value="{{$userProfile->professional_title}}" name="professional_title">
+                                                        <input class="form-control" type="hidden" value="{{$userProfile->profile->professional_title}}" name="professional_title">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <span>
@@ -228,10 +275,10 @@
                                             <dd>
                                                 <div class="row">
                                                     <div class="col-md-8 setText" id="skills">
-                                                        {{$userProfile->skills}}
+                                                        {{$userProfile->profile->skills}}
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input class="form-control" type="hidden" value="{{$userProfile->skills}}" name="skills">
+                                                        <input class="form-control" type="hidden" value="{{$userProfile->profile->skills}}" name="skills">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <span>
@@ -254,10 +301,10 @@
                                             <dd>
                                                 <div class="row">
                                                     <div class="col-md-8 setText" id="experience_lavel">
-                                                        {{$userProfile->experience_lavel}}
+                                                        {{$userProfile->profile->experience_lavel}}
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input class="form-control" type="hidden" value="{{$userProfile->experience_lavel}}" name="experience_lavel">
+                                                        <input class="form-control" type="hidden" value="{{$userProfile->profile->experience_lavel}}" name="experience_lavel">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <span>

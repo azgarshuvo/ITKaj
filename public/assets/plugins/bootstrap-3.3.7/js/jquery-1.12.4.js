@@ -9759,7 +9759,7 @@
                     return;
                 }
 
-                // State is "done" now
+                // States is "done" now
                 state = 2;
 
                 // Clear timeout if it exists

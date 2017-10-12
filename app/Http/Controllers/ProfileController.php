@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Countries;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
@@ -26,29 +27,10 @@ class ProfileController extends Controller{
     }
 
     public function getProfileSettings(){
-        $userProfile = User::leftJoin('user_profiles', function($join) {
-            $join->on('users.id', '=', 'user_profiles.user_id');
-        })
-            ->where('users.id',$this->userId)
-            ->first([
-                'users.id',
-                'user_profiles.phone_number',
-                'users.fname',
-                'users.lname',
-                'users.email',
-                'users.user_type',
-                'user_profiles.address',
-                'user_profiles.company_name',
-                'user_profiles.company_website',
-                'user_profiles.skills',
-                'user_profiles.experience_lavel',
-                'user_profiles.professional_title',
-                'user_profiles.professional_overview',
-                'user_profiles.hourly_rate',
-                'user_profiles.available_for_each_week',
-            ]);
-        //dd($userProfile);
-    	return view('front.profileSettings',['userProfile'=>$userProfile]);
+        $userProfile = User::with('profile')->first();
+        $countries = Countries::with('states')->get();
+//        dd($country);
+    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries]);
     }
 
     public function getMyProfile(){
