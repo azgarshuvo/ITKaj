@@ -116,7 +116,7 @@
                         </div>
                     </div>
                     {{--end div for selected freelancer list and add js hidden input type --}}
-                    
+
                     <div class="panel panel-grey margin-bottom-40" >
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-globe"></i> Top Rated Freelancer</h3>
