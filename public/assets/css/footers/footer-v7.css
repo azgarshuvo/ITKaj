@@ -143,7 +143,7 @@
 
 /*Sky Form
 ------------------------------------*/
-/*Error State*/
+/*Error States*/
 .sky-form .state-error input,
 .sky-form .state-error textarea {
   border-color: #e0aaaa;
@@ -163,17 +163,17 @@
   margin-bottom: 4px;
 }
 
-/*Success State*/
+/*Success States*/
 .sky-form .state-success input {
   border-color: #f0fff0;
 }
 
-/*Disabled State*/
+/*Disabled States*/
 .sky-form .input.state-disabled input {
   border-color: #f0fff0;
 }
 
-/*Submited State*/
+/*Submited States*/
 .sky-form .message {
   display: none;
   color: #6fb679;

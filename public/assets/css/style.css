@@ -94,3 +94,12 @@ a:hover {
     background: 0 0;
     border: 0;
 }
+.margin-top-20{
+    margin-top: 20px;
+}
+#freelancer_list,#inter_freelancer_list{
+    padding-bottom: 10px;
+}
+.job-owner{
+    height: 200px !important;
+}

@@ -48,9 +48,9 @@
                   <td>{{$user->created_at->diffForHumans()}}</td>
                   <td>{{$user->updated_at->diffForHumans()}}</td>
                   <td class="center">
-                    <a class="btn btn-sm btn-info" href="{{ route('adminDetails', [$user->id])}}" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>
+                    <a class="btn btn-sm btn-info" href="{{ route('adminDetails', [$user->id])}}" data-toggle="tooltip" data-placement="left" title="View"><i class="fa fa-eye"></i></a>
                     <a class="btn btn-sm btn-primary" href="{{ route('adminEdit', [$user->id])}}"  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-sm btn-danger" href="{{ route('adminDelete', [$user->id])}}"  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
+                    <a class="btn btn-sm btn-danger" href="{{ route('adminDelete', [$user->id])}}"  data-toggle="tooltip" title="Delete"><i class="fa fa-times" onclick="return confirm("Are you sure to delete?")"></i></a>
                   </td>
               </tr>
               @endforeach

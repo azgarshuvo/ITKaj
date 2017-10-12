@@ -1993,7 +1993,7 @@ body.dark .sky-form .ui-slider-handle {
 	border-color: #555;
 }
 
-/*Success State*/
+/*Success States*/
 body.dark .sky-form .state-success input, 
 body.dark .sky-form .state-success select, 
 body.dark .sky-form .state-success textarea, 
@@ -2012,7 +2012,7 @@ body.dark .sky-form .toggle.state-error i {
 	background: #fff0e0 !important;
 }
 
-/*Hover State*/
+/*Hover States*/
 body.dark .sky-form .radio:hover i,
 body.dark .sky-form .checkbox:hover i,
 body.dark .sky-form .toggle:hover i,

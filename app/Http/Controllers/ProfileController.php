@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Countries;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
@@ -26,23 +27,10 @@ class ProfileController extends Controller{
     }
 
     public function getProfileSettings(){
-        $userProfile = User::leftJoin('user_profiles', function($join) {
-            $join->on('users.id', '=', 'user_profiles.user_id');
-        })
-            ->where('users.id',$this->userId)
-            ->first([
-                'users.id',
-                'user_profiles.phone_number',
-                'users.fname',
-                'users.lname',
-                'users.email',
-                'users.user_type',
-                'user_profiles.address',
-                'user_profiles.company_name',
-                'user_profiles.company_website',
-            ]);
-        //dd($userProfile);
-    	return view('front.profileSettings',['userProfile'=>$userProfile]);
+        $userProfile = User::with('profile')->first();
+        $countries = Countries::with('states')->get();
+//        dd($country);
+    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries]);
     }
 
     public function getMyProfile(){
@@ -138,6 +126,9 @@ class ProfileController extends Controller{
             $lname = $request->input('lname');
             $phone = $request->input('phone');
             $address = $request->input('address');
+            $skills = $request->input('skills');
+            $experience_lavel = $request->input('experience_lavel');
+            $professional_title = $request->input('professional_title');
 
             /*user table update start*/
             $user = User::find(auth()->user()->id);
@@ -155,7 +146,7 @@ class ProfileController extends Controller{
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
-                    ['phone_number' => $phone,'address'=>$address]);
+                    ['phone_number' => $phone,'address'=>$address,'skills'=>$skills,'experience_lavel'=>$experience_lavel,'professional_title'=>$professional_title]);
                 /*user profile table update end*/
 
             }else{

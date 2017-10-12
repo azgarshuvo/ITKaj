@@ -28,7 +28,7 @@ Route::group(['prefix' => 'user'], function () {
 
 
 
-    Route::group(['prefix' => 'profile'], function(){
+    Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
     	Route::get('overall', ['as' => 'profile_overall', 'uses' => 'ProfileController@getProfile']);
     	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
     	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
@@ -58,15 +58,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('login', ['as' =>'adminLogin', 'uses' => 'adminController\AdminLoginController@getLoginView']);
     Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
 
-    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard']);
-
-
-
-
-
-
-
-
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard','middleware' => 'admin']);
 
 
     Route::get('addAdmin', ['as' =>'adminAdd', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
@@ -89,27 +81,27 @@ Route::group(['prefix' => 'admin'], function (){
 
 
 
-Route::group(['prefix' => 'job'], function (){
-    Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost']);
-    Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost']);
+Route::group(['prefix' => 'job','middleware' => ['auth', 'approve']], function (){
+    Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost','middleware' => 'employer']);
+    Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost','middleware' => 'employer']);
     Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
-    Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch']);
+    Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch','middleware' => 'freelancer']);
+    Route::get('attachment/download', ['as' => 'attachmentDownload', 'uses' => 'JobController@getDownload','middleware' => 'freelancer']);
 
 });
 
 
+Route::get('email/confirmation', ['as' => 'sendToken', 'uses' => 'RegistrationController@EmailToken']);
+Route::get('email-confirmation-notification', ['as' => 'verifyEmail', 'uses' => 'RegistrationController@EmailConfirmation','middleware' => 'auth']);
+Route::get('email-confirmation-success', ['as' => 'verifyEmailSuccess', 'uses' => 'RegistrationController@EmailConfirmationSuccess']);
+Route::get('email-confirmation-fail', ['as' => 'verifyEmailFail', 'uses' => 'RegistrationController@EmailConfirmationFail']);
 
 
 
 
-Route::get('email-confirmation-notification', ['as' => 'verifyEmail', 'uses' => 'RegistrationController@EmailConfirmation']);
 
 
 
-
-
-
-
-Route::group(['prefix' => 'freelancer'], function (){
-   Route::get('search', ['as' => 'freelancerSearch', 'uses' => 'FreelancerController@getFreelancerSearch']);
+Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], function (){
+   Route::get('search', ['as' => 'freelancerSearch', 'uses' => 'FreelancerController@getFreelancerSearch','middleware' => 'employer']);
 });

@@ -23,8 +23,8 @@
         <div class="job-description">
             <div class="container content">
                 <div class="title-box-v2">
-                    <h2>Job Description</h2>
-                    <p>Pellentesque et erat ac massa cursus porttitor eget sed magna.</p>
+                    <h2>Job Information</h2>
+                    <h3>{{$job_details->name}}</h3>
                 </div>
                 <div class="row">
                     <!-- Left Inner -->
@@ -33,20 +33,40 @@
                             
 
                             <h2>Job Description</h2>
-                            <p>This job was a great job for the pay and benefits when compared to waiting table and working fast food. I also preferred working for the vs other stores like . The biggest problem was unreasonable expectations from management. Even as one of there top employees you feel taken advantage of and over worked. Dealing with the customers was the other issue.</p>
+                            <p>
+                                {{$job_details->description}}
+                            </p>
 
                             <hr>
 
-                            <h2>Your Task</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius hendrerit nisl id condimentum. Sed bibendum ultricies erat a vulputate. Curabitur id ultricies eros, at ultricies dui.</p>
+                            <h2>Skill Needed</h2>
+                            {{--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius hendrerit nisl id condimentum. Sed bibendum ultricies erat a vulputate. Curabitur id ultricies eros, at ultricies dui.</p>--}}
                             <ul class="list-unstyled">
-                                <li><i class="fa fa-check color-green"></i> Nullam laoreet est sit amet felis tristique laoreet</li>
-                                <li><i class="fa fa-check color-green"></i> The biggest problem was unreasonable expectations from management</li>
-                                <li><i class="fa fa-check color-green"></i> Dealing with the customers was the other issue</li>
+                               {{--  //json_encode($job_details->skill_needed)--}}
+                                @foreach(json_decode($job_details->skill_needed, true) as $value)
+                                    <li><i class="fa fa-check color-green"></i> {{ ucfirst($value)}} </li>
+                                @endforeach
                             </ul>
 
                             <hr>
 
+                            <h2>Project Cost</h2>
+                            {{--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius hendrerit nisl id condimentum. Sed bibendum ultricies erat a vulputate. Curabitur id ultricies eros, at ultricies dui.</p>--}}
+                            <h4 class="text-center">Tk. {{$job_details->project_cost}}/=</h4>
+
+                            <hr>
+                            <h2>Attachment</h2>
+                            {{--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius hendrerit nisl id condimentum. Sed bibendum ultricies erat a vulputate. Curabitur id ultricies eros, at ultricies dui.</p>--}}
+                            <ul class="list-unstyled">
+                                {{--  //json_encode($job_details->skill_needed)--}}
+                                <?php $i=1; ?>
+                                @foreach(json_decode($job_details->job_attachment, true) as $value)
+
+                                    <li><i class="fa fa-check color-green"></i> <a href="{{ route('attachmentDownload',['attachment'=>$value]) }}" target="_blank">Attachment no . {{$i++}} </a></li>
+                                @endforeach
+                            </ul>
+
+                            {{--
                             <h2>Responsibility</h2>
                             <p>A Wal-Mart cashier is responsible for effectively executing and adhering to the “Basic Beliefs” of the founder, Sam Walton.</p>
                             <ul class="list-unstyled">
@@ -63,7 +83,7 @@
                                 <li><i class="fa fa-check color-green"></i> Nullam laoreet est sit amet felis tristique laoreet</li>
                                 <li><i class="fa fa-check color-green"></i> The biggest problem was unreasonable expectations from management</li>
                                 <li><i class="fa fa-check color-green"></i> Dealing with the customers was the other issue</li>
-                            </ul>
+                            </ul>--}}
                         </div>
                     </div>
                     <!-- End Left Inner -->
@@ -72,7 +92,7 @@
                     <div class="col-md-5">
                         <div class="right-inner">
                             <h3>Posted by</h3>
-                            <img src="{{asset('assets/img/testimonials/img1.jpg')}}" alt="">
+                            <img class="img-bordered img-center img-hover img img-responsive img-thumbnail job-owner" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="Clint Img">
                             <div class="overflow-h">
                                 <span class="font-s">Steve Andersson</span>
                                 <p class="color-green">Position: <span class="hex">Manager, Accounter</span></p>
@@ -87,7 +107,7 @@
                             <hr>
 
                             </div>
-
+{{--
                             <h3>Latest Recommendations</h3>
                             <div class="people-say margin-bottom-20">
                                 <img src="{{asset('assets/img/testimonials/img2.jpg')}}" alt="">
@@ -116,7 +136,7 @@
                                 </div>
                             </div>
 
-                            <hr>
+                            <hr>--}}
 
                             <button type="button" class="btn-u btn-block"> Apply with Resume</button>
                         </div>

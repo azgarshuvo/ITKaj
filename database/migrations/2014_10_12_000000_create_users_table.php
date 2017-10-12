@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->enum('user_type', ['freelancer', 'employer', 'admin']);
             $table->integer('admin_user_type')->default(-1);
             $table->string('password', 60);
-
+            $table->boolean('verified')->default(0);
             $table->string('verification_token');
             $table->rememberToken();
             $table->timestamps();

@@ -22,7 +22,6 @@ class RegistrationController extends Controller{
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
-        //$this->middleware('guest', ['except' => 'getLogout']);
     }
 
 
@@ -33,8 +32,9 @@ class RegistrationController extends Controller{
         return view('front.jobPost');
     }
 
-    public function postRegistration(){
-        $validate = Validator::make(Input::all(), [
+    public function postRegistration(Request $request){
+
+        $this->validate($request, [
                 'fname' => 'required|string',
                 'lname' => 'required',
                 'email' => 'required|email|unique:users|string',
@@ -53,9 +53,6 @@ class RegistrationController extends Controller{
                 'password.confirmed'    =>"Password confirm doesn't match",
                 'user_type.required'    =>"Select an user type",
             ]);
-        if($validate->fails()){
-            return Redirect::back()->withErrors($validate);
-        }else{
             $token = bin2hex(openssl_random_pseudo_bytes(32));
             $firstName = Input::get('fname');
             $lastName = Input::get('lname');
@@ -64,14 +61,14 @@ class RegistrationController extends Controller{
             /*session(['user_id' =>  $user_id,'complete'=>1]);*/
             $email = Input::get('email');
             $password = Input::get('password');
-            //$this->sendTokenToMail($email,$userId,$token);
+            $this->sendTokenToMail($email,$userId,$token);
 
             $credentials = ['email'=>$email,'password'=>$password,'admin_user_type'=>-1];
             if ($this->auth->attempt($credentials))
             {
                 return redirect()->route('verifyEmail')->with('message', 'A confirmation email has been send to your email address');
             }
-        }
+
 
     }
 
@@ -104,7 +101,7 @@ class RegistrationController extends Controller{
 
     #send activation link
     public function sendTokenToMail($email,$userId,$token){
-        $data = array('token'=>$token,'user_id'=>$userId);
+        $data = array('token'=>$token,'user_id'=>$userId,'usermail'=>$email);
         $this->register_email=$email;
         Mail::send('email.activation', $data, function($message) {
             $message->to($this->register_email, 'Upwork')->subject
@@ -118,5 +115,40 @@ class RegistrationController extends Controller{
     public function EmailConfirmation(){
         return view('front.emailConfirmationNotification');
     }
+
+    #get email token for validation
+    public function EmailToken(Request $request)
+    {
+        $user_id = $request->input('id');
+        $email = $request->input('email');
+        $token = $request->input('token');
+        $user_info = User::where(['id'=>$user_id,'email'=>$email,'verification_token'=>$token,'verified'=>0])->first();
+        //dd($user_info);
+
+        if ($user_info) {
+            /*user table update start*/
+            $user = User::find($user_id);
+            $user->verified = 1;
+            $user->verification_token = "";
+            $user->save();
+            /*user table update end*/
+
+            /*redirect when success*/
+            return redirect()->route('verifyEmailSuccess')->with('message', 'Email verification success');
+        }else{
+            /*redirect when fail*/
+            return redirect()->route('verifyEmailFail')->with('error', 'Email verification failed');
+        }
+    }
+    #show success message when email verification success
+    public function EmailConfirmationSuccess(){
+        return view('front.emailSuccessMessage');
+    }
+
+    #show success message when email verification success
+    public function EmailConfirmationFail(){
+        return view('front.emailFailMessage');
+    }
+
 
 }
