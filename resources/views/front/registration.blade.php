@@ -57,7 +57,7 @@
                         <select class="form-control margin-bottom-20" name="user_type">
                             <option value="">Select One</option>
                             <option value="freelancer">Freelancer</option>
-                            <option value="employer">employer</option>
+                            <option value="employer">Employer</option>
                         </select>
 
                     <div class="row">
