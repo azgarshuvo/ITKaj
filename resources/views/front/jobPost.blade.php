@@ -111,7 +111,7 @@
                     {{-- start div for selected freelancer list and add js hidden input type --}}
 
                     <div class="row">
-                        <div class="col-md-12" id="freelancer_list">
+                        <div class="col-md-12 margin-top-20" id="freelancer_list">
 
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr id="1_top_freelancer">
                                         <td>1</td>
                                         <td id="1_username">Mark</td>
                                         <td class="hidden-sm">Otto</td>
@@ -153,7 +153,7 @@
                                             <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="2_top_freelancer">
                                         <td>2</td>
                                         <td id="2_username">Jacob</td>
                                         <td class="hidden-sm">Thornton</td>
@@ -163,7 +163,7 @@
                                             <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="3_top_freelancer">
                                         <td>3</td>
                                         <td id="3_username">Larry</td>
                                         <td class="hidden-sm">the Bird</td>
@@ -173,7 +173,7 @@
                                             <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="4_top_freelancer">
                                         <td>4</td>
                                         <td id="4_username">htmlstream</td>
                                         <td class="hidden-sm">Web Design</td>
@@ -218,7 +218,7 @@
                         <div class="panel-body" style="height: 200px; width: 880px; overflow: scroll;">
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
+                                    <tr id="">
                                         <th>#</th>
                                         <th>Username</th>
                                         <th>Skill</th>
@@ -227,7 +227,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr id="1_inter_freelancer">
                                         <td>1</td>
                                         <td id="1_username_inter">Mark</td>
                                         <td class="hidden-sm">Otto</td>
@@ -237,7 +237,7 @@
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="2_inter_freelancer">
                                         <td>2</td>
                                         <td id="2_username_inter">Jacob</td>
                                         <td class="hidden-sm">Thornton</td>
@@ -247,7 +247,7 @@
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="3_inter_freelancer">
                                         <td>3</td>
                                         <td id="3_username_inter">Larry</td>
                                         <td class="hidden-sm">the Bird</td>
@@ -257,7 +257,7 @@
                                             <button class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="4_inter_freelancer">
                                         <td>4</td>
                                         <td id="4_username_inter">htmlstream</td>
                                         <td class="hidden-sm">Web Design</td>
@@ -300,28 +300,37 @@
     <script type="text/javascript">
 
         function getFreelancer(id){
-        var input_field =   '<input id="freelancer_list" value="'+id+'" type="hidden" name="freelancer_list[]">';
+        var input_field =   '<input id="freelancer_id_list_'+id+'" value="'+id+'" type="hidden" name="freelancer_list[]">';
         var username = $("#"+id+"_username").text();
+        var add_style = '<b id="top_level_freelancer'+id+'" class="make_border">'+username+'<button type="button" class="remover" onclick="removeFreelancer('+id+')" aria-hidden="true">×</button></b>';
             $("#freelancer_list").append(input_field);
 
-            $("#freelancer_list").append(username);
-           // alert(username);
+            $("#freelancer_list").append(add_style);
+            $( "#"+id+"_top_freelancer" ).addClass( "hidden" );
         }
 
         function getInterFreelancer(id){
 
-            var input_field =   '<input id="inter_freelancer_list" value="'+id+'" type="hidden" name="inter_freelancer_list[]">';
+            var input_field =   '<input id="inter_freelancer_list_id'+id+'" value="'+id+'" type="hidden" name="inter_freelancer_list[]">';
             var username = $("#"+id+"_username_inter").text();
-            var add_style = '<b class="make_border">'+username+'<button type="button" class="remover" onclick="removeInter('+id+')" aria-hidden="true">×</button></b>';
+            var add_style = '<b id="int_level_freelancer'+id+'" class="make_border">'+username+'<button type="button" class="remover" onclick="removeInterFreelancer('+id+')" aria-hidden="true">×</button></b>';
 
-
+            $( "#"+id+"_inter_freelancer" ).addClass( "hidden" );
             $("#inter_freelancer_list").append(input_field);
 
             $("#inter_freelancer_list").append(add_style);
-            // alert(username);
+
+
         }
-        function removeInter(id){
-            alert(id);
+        function removeInterFreelancer(id){
+            $( "#"+id+"_inter_freelancer" ).removeClass( "hidden" );
+            $( "#inter_freelancer_list_id"+id ).remove();
+            $( "#int_level_freelancer"+id ).remove();
+        }
+        function removeFreelancer(id){
+            $( "#"+id+"_top_freelancer" ).removeClass( "hidden" );
+            $( "#freelancer_id_list_"+id ).remove();
+            $( "#top_level_freelancer"+id ).remove();
         }
     </script>
 @endsection

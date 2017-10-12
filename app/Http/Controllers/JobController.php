@@ -22,6 +22,7 @@ class JobController extends Controller
     }
 
     public  function PostJobPost(Request $request){
+        //dd($request->all());
 
         $this->validate($request,[
             'title'=>'required|string|max:255|min:6',

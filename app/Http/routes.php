@@ -58,15 +58,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('login', ['as' =>'adminLogin', 'uses' => 'adminController\AdminLoginController@getLoginView']);
     Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
 
-    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard']);
-
-
-
-
-
-
-
-
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard','middleware' => 'admin']);
 
 
     Route::get('addAdmin', ['as' =>'adminAdd', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
