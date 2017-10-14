@@ -14,4 +14,5 @@ class Job extends Model
     {
         return $query->where('user_id', '=', $user_id);
     }
+     
 }

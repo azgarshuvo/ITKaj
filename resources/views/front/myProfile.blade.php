@@ -20,7 +20,7 @@
 						<div class="profile-bio">
 							<div class="row">
 								<div class="col-md-5 text-center">
-									<img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
+									<img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" alt="">
 									{{--<a class="btn-u btn-u-sm" href="#">Change Picture</a>--}}
 									<form action="{{route('changeProfileImg')}}" id="example-form" method="post" enctype="multipart/form-data">
 										{{csrf_field()}}

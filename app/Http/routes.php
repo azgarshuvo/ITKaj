@@ -33,6 +33,7 @@ Route::group(['prefix' => 'user'], function () {
     	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
     	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
         Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+        Route::get('view', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
 
 
 
@@ -40,6 +41,10 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('job/approvedList', ['as' => 'job_approved_list', 'uses' => 'ProfileController@getJobApprovedList']);
         Route::get('job/disapprovedList', ['as' => 'job_disapproved_list', 'uses' => 'ProfileController@getJobDisapprovedList']);
     	Route::get('job/doneList', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
+        Route::get('job/doneList', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
+        Route::get('job/interestedList', ['as' => 'job_interested_list', 'uses' => 'ProfileController@getJobInterestedList']);
+        Route::get('job/ongoingList', ['as' => 'job_ongoing_list', 'uses' => 'ProfileController@getJobOngoingList']);
+        Route::get('job/freelancerDoneList', ['as' => 'freelancer_job_done_list', 'uses' => 'ProfileController@getFreelancerJobDoneList']);
 
 
     	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);

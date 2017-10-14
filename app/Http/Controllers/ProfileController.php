@@ -13,6 +13,8 @@ use App\States;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
+use App\Job;
+use DB;
 use App\User;
 use App\UserProfile;
 class ProfileController extends Controller{
@@ -40,7 +42,11 @@ class ProfileController extends Controller{
     }
 
     public function getMyProjects(){
-    	return view('front.myProjects');
+    	$job = Job::Popular(auth()->user()->id)->get();
+        $user = User::find(auth()->user()->id)
+        ->where('user_type', 'employer')
+        ->first();
+        return view('front.myProjects', ['job' => $job, 'user' => $user]);
     }
 
     public function getMyProjectList(){
@@ -57,6 +63,19 @@ class ProfileController extends Controller{
 
     public function getJobDoneList(){
         return view('front.jobDoneList');
+    }
+    
+    public function getJobInterestedList(){
+        return view('front.jobInterestedList');
+    }
+    public function getJobOngoingList(){
+        return view('front.jobOngoingList');
+    }
+    public function getFreelancerJobDoneList(){
+        return view('front.freelancerjobDoneList');
+    }
+    public function getMyProfileView(){
+        return view('front.profileView');
     }
 
     #get ajax request to change password
