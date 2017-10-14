@@ -15,13 +15,6 @@
         <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
     @endif
 
-
-    <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
-
-        <li class="list-group-item">
-
-
-
         <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
         <li class="list-group-item">
             <a href="{{route('profile_overall')}}"><i class="fa fa-bar-chart-o"></i> Overall</a>
