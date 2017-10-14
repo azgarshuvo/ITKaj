@@ -38,8 +38,8 @@ class ProfileController extends Controller{
     }
 
     public function getMyProfile(){
-
-        return view('front.myProfile');
+        $userProfile = UserProfile::where('user_id',Auth::user()->id)->first();
+        return view('front.myProfile',['userProfile'=>$userProfile]);
     }
 
     public function getMyProjects(){
