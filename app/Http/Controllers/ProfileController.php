@@ -184,4 +184,70 @@ class ProfileController extends Controller{
 
             echo "</p>";
     }
+    public function ChangeProfileImg(Request $request){
+
+
+        $rules = array(
+
+            'file_' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if (!$validator->fails()) {
+
+            if($request->hasFile('file_')) {
+
+                $file = $request->file('file_');
+
+                $filename = $file->getClientOriginalName();
+
+                //$extension = $file->getClientOriginalExtension();
+
+                $picture = date('His').$filename;
+
+                $destinationPath = base_path() . '\public\profile_img';
+
+                $file->move($destinationPath, $picture);
+
+
+                /*File delete start*/
+
+                $dropFile =$destinationPath.DIRECTORY_SEPARATOR.UserProfile::where('user_id',Auth::user()->id)->first()->img_path;
+
+                \File::delete($dropFile);
+
+                /*File delete end*/
+
+                /*user profile table update start*/
+
+                UserProfile::updateOrCreate(
+
+                    ['user_id' => $this->userId],
+
+                    ['img_path' => $picture]);
+
+                /*user profile table update end*/
+
+
+                echo $picture;
+
+
+            }else{
+
+                echo false;
+
+            }
+
+        }else{
+
+            echo false;
+
+        }
+
+        //var_dump($request->all());
+
+    }
+
 }
