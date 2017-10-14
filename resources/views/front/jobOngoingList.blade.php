@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: Shuvo
- * Date: 11-Oct-17
- * Time: 05:00 PM
+ * Date: 14-Oct-17
+ * Time: 04:46 PM
  */
 ?>
 @extends('layouts.front.profileMaster')
 
-@section('title', 'Job Approved List')
+@section('title', 'Job Ongoing List')
 
 @section('content')
    <div class="col-md-9">
@@ -29,8 +29,8 @@
     <div class="content-sm">
         <!-- Begin Table Search Panel v1 -->
         <div class="table-search-v1 panel panel-dark margin-bottom-40" >
-            <div class="panel-heading jobDisapprovedTableHeadingBlack">
-                <h3 class="panel-title"><i class="fa fa-globe"></i> Disapproved Job Search Results</h3>
+            <div class="panel-heading jobOngoingTableHeadingBlack">
+                <h3 class="panel-title"><i class="fa fa-globe"></i> Ongoing Job Search Results</h3>
             </div>
             <div class="panel-body">
                 {{--<table class="table table-bordered table-striped">--}}

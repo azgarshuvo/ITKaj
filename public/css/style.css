@@ -1,24 +1,25 @@
-.jobSearchDataTable{
-    height: 370px;
-    overflow: auto;
+.jobDoneTableHeadingBlack{
+    background: #555 !important;
+    color: #fff !important;
 }
-.freelancerSearchDataTable{
-    height: 370px;
-    overflow: auto;
+.jobApprovedTableHeadingBlack{
+    background: #555 !important;
+    color: #fff !important;
 }
-.projectListTable{
-	height: 370px;
-    overflow: scroll;
+.jobDisapprovedTableHeadingBlack{
+    background: #555 !important;
+    color: #fff !important;
 }
-.jobApproveListTable{
-	height: 370px;
-    overflow: auto;
+.jobInterestedTableHeadingBlack{
+    background: #555 !important;
+    color: #fff !important;
 }
-.jobDisapproveListTable{
-	height: 370px;
-    overflow: auto;
+.jobOngoingTableHeadingBlack
+{
+    background: #555 !important;
+    color: #fff !important;
 }
-.jobDoneListTable{
-	height: 370px;
-    overflow: auto;
+.freelancerJobDoneTableHeadingBlack{
+    background: #555 !important;
+    color: #fff !important;
 }
