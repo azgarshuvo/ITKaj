@@ -143,7 +143,7 @@
                                                     @if($userProfile->profile->country == $country->id)
                                                         <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
                                                     @endif
-                                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                                    <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
