@@ -33,7 +33,6 @@ Route::group(['prefix' => 'user'], function () {
     	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
     	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
         Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
-        Route::post('change-rofile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
 
 
 
