@@ -88,7 +88,7 @@
                       <div class="picture-container">
                         <div class="picture">
                             <img src="assets/img/avatar.png" class="picture-src" id="wizardPicturePreview" title=""/>
-                            <input type="file" id="wizard-picture">
+                            <input type="file" accept="image/jpeg" id="wizard-picture">
                         </div>
                       </div>
                     </div>

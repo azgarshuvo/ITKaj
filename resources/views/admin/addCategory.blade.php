@@ -29,7 +29,7 @@
             </div>
         @endif
         <div class="ibox-content">
-            <form class="form-horizontal" action="">
+            <form class="form-horizontal" action="{{'insertCategory'}}">
               {{ csrf_field() }}
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Category Name</label>
@@ -39,10 +39,10 @@
                 <div class="form-group">
                   <label class="col-lg-2 control-label">Is have subcategory?</label>
                   <label class="checkbox-inline">
-                    <input type="radio" value="1" name="isHaveSubcategory" onclick="javascript:yesnoCheck();" id="yesCheck"> Yes
+                    <input type="radio" value="1" name="is_subcategory" onclick="javascript:yesnoCheck();" id="yesCheck"> Yes
                   </label>
                   <label class="checkbox-inline">
-                    <input type="radio" value="0" name="isHaveSubcategory" onclick="javascript:yesnoCheck();" id="yesCheck" checked> No
+                    <input type="radio" value="0" name="is_subcategory" onclick="javascript:yesnoCheck();" id="yesCheck" checked> No
                   </label>
                 </div>
                 <div class="form-group" id="ifYes" style="display:none">
