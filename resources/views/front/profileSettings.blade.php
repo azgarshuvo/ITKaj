@@ -12,6 +12,7 @@
 @section('title', 'Profile')
 
 @section('content')
+
     <!-- Profile Content -->
     {{--<div>--}}
     <div class="col-md-9">
@@ -134,6 +135,7 @@
                                 </dd>
                                 <hr>
                                 <dt><strong>Country</strong></dt>
+                                
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="country">

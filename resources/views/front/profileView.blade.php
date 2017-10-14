@@ -21,10 +21,7 @@
 
 <div class="job-description">
             <div class="container content">
-                <div class="title-box-v2">
-                    <h2>Job Description</h2>
-                    <p>Pellentesque et erat ac massa cursus porttitor eget sed magna.</p>
-                </div>
+                
                 <div class="row">
                     <!-- Left Inner -->
                     <div class="col-md-10">
