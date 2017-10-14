@@ -16,22 +16,33 @@
         </li>
         <li class="list-group-item">
             <a href="{{route('my_profile')}}"><i class="fa fa-user"></i> Profile</a>
-        </li>
-        <li class="list-group-item">
-            <a href="{{route('my_projects')}}"><i class="fa fa-cubes"></i> My Projects</a>
-        </li>
-
-        
-      <!-- nav bar -->
-        <!-- <li class="active">
-            <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-                <li class="active"><a href="index.html">Dashboard v.1</a></li>
-                <li ><a href="dashboard_2.html">Dashboard v.2</a></li>
-                <li ><a href="dashboard_3.html">Dashboard v.3</a></li>
-                <li ><a href="dashboard_4_1.html">Dashboard v.4</a></li>
-            </ul>
-        </li> -->
+        </li> 
+      <li class="list-group-item list-toggle">
+        <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-buttons"><i class="fa fa-cubes"></i>My Project</a>
+        <ul id="collapse-buttons" class="collapse">
+            <li>
+                <a href="{{route('my_projects')}}"><i class="fa fa-flask"></i> Job List</a>
+            </li>           
+            <li>
+                <a href="{{route('job_approved_list')}}"><i class="fa fa-flask"></i> Job Approved</a>
+            </li>
+            <li>
+                <a href="{{route('job_disapproved_list')}}"><i class="fa fa-flask"></i> Job Disapproved</a>
+            </li>
+            <li>
+                <a href="{{route('job_done_list')}}"><i class="fa fa-flask"></i> Job Done</a>
+            </li>
+            <li>
+                <a href="{{route('job_interested_list')}}"><i class="fa fa-flask"></i> Job Interested List</a>
+            </li>
+            <li>
+                <a href="{{route('job_ongoing_list')}}"><i class="fa fa-flask"></i> Job Ongoing List</a>
+            </li>
+            <li>
+                <a href="{{route('freelancer_job_done_list')}}"><i class="fa fa-flask"></i> Job Done List</a>
+            </li>
+        </ul>
+    </li>
 
 
         <li class="list-group-item">
