@@ -21,8 +21,16 @@
                 </a>
             </div>
         </div>
-        <div class="ibox-content">
-            <form class="form-horizontal">
+        @if($errors->any())
+            <div class="alert alert-danger">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach()
+            </div>
+        @endif
+        <div class="ibox-content wizard-card">
+            <form class="form-horizontal" action="{{route('insertAdmin')}}">
+              {{ csrf_field() }}
                 <div class="form-group">
                     <label class="col-lg-2 control-label">First Name</label>
                     <div class="col-lg-10"><input type="text" name="fname" placeholder="First Name" class="form-control">
@@ -40,7 +48,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">User Name</label>
-                    <div class="col-lg-10"><input type="text" name="user_name" placeholder="User Name" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="username" placeholder="User Name" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -50,7 +58,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Admin User Type</label>
                     <div class="col-sm-10">
-                      <select class="form-control" name="addminUserType">
+                      <select class="form-control" name="admin_user_type">
                         <option value="1">Super Admin</option>
                         <option value="2">Mid Level Admin</option>
                         <option value="3">Third Level Admin</option>
@@ -74,7 +82,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Post Code</label>
-                    <div class="col-lg-10"><input type="text" name="post_code" placeholder="Post Code" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="postcode" placeholder="Post Code" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -84,11 +92,11 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Profile Picture</label>
-                    <div class="col-lg-10 wizard-card">
+                    <div class="col-lg-10 ">
                       <div class="picture-container">
                         <div class="picture">
                             <img src="assets/img/avatar.png" class="picture-src" id="wizardPicturePreview" title=""/>
-                            <input type="file" id="wizard-picture">
+                            <input type="file" accept="image/*" id="wizard-picture">
                         </div>
                       </div>
                     </div>

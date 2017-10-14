@@ -41,11 +41,10 @@
 								</div>
 								<div class="col-md-7">
 									<h2>{{Auth::user()->fname}} {{Auth::user()->lname}}</h2>
-									<span><strong>Skills:</strong> {{$userProfile->professional_title}}</span>
-									<span><strong>Position:</strong> Web Designer</span>
+									<span><strong>Skills:</strong> {{$userProfile->skills}}</span>
+									<span><strong>Position:</strong>  {{$userProfile->professional_title}}</span>
 									<hr>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget massa nec turpis congue bibendum. Integer nulla felis, porta suscipit nulla et, dignissim commodo nunc. Morbi a semper nulla.</p>
-									<p>Proin mauris odio, pharetra quis ligula non, vulputate vehicula quam. Nunc in libero vitae nunc ultricies tincidunt ut sed leo. Sed luctus dui ut congue consequat. Cras consequat nisl ante, nec malesuada velit pellentesque ac. Pellentesque nec arcu in ipsum iaculis convallis.</p>
+									<p>{{$userProfile->professional_overview}}</p>
 								</div>
 							</div>
 						</div><!--/end row-->

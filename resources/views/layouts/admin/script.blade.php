@@ -83,8 +83,8 @@
         //Function to show image before upload
 
         function readURL(input) {
+          var reader = new FileReader();
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
 
                 reader.onload = function (e) {
                     $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
@@ -92,6 +92,7 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
         // $().tooltip();
         // $(selector).on('click', function(){
         //   $(selector).removeClass('active');
@@ -201,6 +202,5 @@
             document.getElementById('ifYes').style.display = 'block';
         }
         else document.getElementById('ifYes').style.display = 'none';
-
     }
 </script>
