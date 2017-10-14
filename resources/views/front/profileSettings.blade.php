@@ -571,7 +571,11 @@
 
         $(".country").change(function() {
             var Selected_id = $('.country option:selected').val();
-            $("select#cityOptions").html("");
+            var Cities = JSON.parse($('#userCities').val());
+            $.each(Cities, function( index, value ) {
+                console.log( index + ": " + value.name );
+            });
+//            $("select#cityOptions").html("");
         });
 
         $("#password_submit").click(function(event){
