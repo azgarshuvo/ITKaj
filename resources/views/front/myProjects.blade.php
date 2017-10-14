@@ -13,13 +13,16 @@
 @section('title', 'Profile')
 
 @section('content')
+<!-- Profile Content -->
                 <div class="col-md-9">
                     <div class="profile-body">
+                        <!--Projects-->
                        
-                        @foreach ($job as $job) 
                         <div class="row">
+                        @foreach ($job as $job) 
+
                             <div class="col-sm-6">
-                                <div class="projects">
+                                 <div class="projects">
                                     <h2><a class="color-dark" href="#">{{$job->name}}</a></h2>
                                     <ul class="list-unstyled list-inline blog-info-v2">
                                        
@@ -31,14 +34,23 @@
                                     <br>
                                 </div>
                             </div>
-                        
-                        @endforeach
-                    </div>
 
-                        <hr>    
+                        @endforeach
+
+                        </div><!--/end row--> 
+                        <!--End Projects-->
+                        
+                        <hr>
+
                         <button type="button" class="btn-u btn-u-default btn-u-sm btn-block">Load More</button>
                     </div>
                 </div>
-               
+                <!-- End Profile Content -->                 
 @endsection
+
+
+
+
+
+
 
