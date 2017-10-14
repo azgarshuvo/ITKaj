@@ -13,6 +13,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\User;
 use App\UserProfile;
+use App\Categories;
 use Session;
 
 class AdminDashboardController extends Controller{
@@ -72,7 +73,8 @@ class AdminDashboardController extends Controller{
     //Category
     public function addCategory()
     {
-      return view('admin.addCategory');
+      $items = Categories::where('is_subcategory', 0)->orderBy('category_name')->get();
+      return view('admin.addCategory', compact('items'));
     }
     public function insertCategory(Request $request)
     {
@@ -80,10 +82,10 @@ class AdminDashboardController extends Controller{
           'category_name' => 'required',
           'is_subcategory' => 'required'
       ]);
-      $userData = $request->all();
+      $userData = $request->only('category_name', 'is_subcategory', 'parent_category');
       Categories::create($userData);
       Session::flash('success', 'Category added successfully!');
-      return redirect()->route('admin.categoryList',['users' => $userData]);
+      return view('admin.categoryList');
     }
     public function listOfCategory()
     {

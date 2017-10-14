@@ -16,7 +16,7 @@ class CategoriesTable extends Migration
         $table->increments('id');
         $table->string('category_name');
         $table->string('is_subcategory')->enum();
-        $table->string('parent_category')->nullable();
+        $table->int('parent_category')->default(0);
         $table->timestamps();
       });
     }

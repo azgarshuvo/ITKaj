@@ -47,7 +47,12 @@
                 </div>
                 <div class="form-group" id="ifYes" style="display:none">
                     <label class="col-lg-2 control-label">Parent Category</label>
-                    <div class="col-lg-10"><input type="text" name="parent_category" placeholder="Parent Category" class="form-control">
+                    <div class="col-lg-10">
+                      <select class="form-control" name="parent_category">
+                        @foreach($items as $item)
+                        <option value="{{$item->id}}">{{$item->category_name}}</option>
+                        @endforeach
+                      </select>
                     </div>
                 </div>
                 <div class="form-group">
