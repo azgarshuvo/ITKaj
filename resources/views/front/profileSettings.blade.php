@@ -13,6 +13,7 @@
 
 @section('content')
     <!-- Profile Content -->
+    {{--<div>--}}
     <div class="col-md-9">
         <div class="profile-body margin-bottom-20">
             <div class="tab-v1">
