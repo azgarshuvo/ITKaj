@@ -8,7 +8,7 @@
 ?>
 <!--Left Sidebar-->
 <div class="col-md-3 md-margin-bottom-40">
-    <img class="img-responsive profile-img margin-bottom-20" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
+    <img class="img-responsive profile-img margin-bottom-20 left-profile" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
 
     <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
         <li class="list-group-item">
