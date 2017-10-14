@@ -11,6 +11,7 @@
 @section('title', 'Profile')
 
 @section('content')
+
 <!-- Profile Content -->
 				<div class="col-md-9">
 					<p class="alert-danger alert hidden" id="error">
@@ -20,8 +21,17 @@
 						<div class="profile-bio">
 							<div class="row">
 								<div class="col-md-5 text-center">
-									<img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" alt="">
-									{{--<a class="btn-u btn-u-sm" href="#">Change Picture</a>--}}
+									@if(App\UserProfile::where('user_id',Auth::user()->id)->first()!=null)
+										<img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
+									@else
+										<img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
+									@endif
+									<ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+
+										<li class="list-group-item">
+
+
+										{{--<a class="btn-u btn-u-sm" href="#">Change Picture</a>--}}
 									<form action="{{route('changeProfileImg')}}" id="example-form" method="post" enctype="multipart/form-data">
 										{{csrf_field()}}
 										<div class="btn-u btn-u-sm new_Btn btn-block text-center">Change Image</div><br>
@@ -211,7 +221,7 @@
                         var APP_URL = '{{ url('/') }}';
                         var img_ser = APP_URL + "/profile_img/" + data;
 
-                        $('#image-profile').attr("src", img_ser);
+                        $('.profile-imge').attr("src", img_ser);
                         $('.left-profile').attr("src", img_ser);
                         $("#error").addClass('hidden');
                     }else{

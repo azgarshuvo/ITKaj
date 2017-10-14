@@ -38,6 +38,7 @@ class ProfileController extends Controller{
     }
 
     public function getMyProfile(){
+
         return view('front.myProfile');
     }
 
@@ -213,11 +214,11 @@ class ProfileController extends Controller{
 
 
                 /*File delete start*/
-
-                $dropFile =$destinationPath.DIRECTORY_SEPARATOR.UserProfile::where('user_id',Auth::user()->id)->first()->img_path;
-
-                \File::delete($dropFile);
-
+                if(UserProfile::where('user_id',Auth::user()->id)->first()):
+                    $deleteFileName = UserProfile::where('user_id',Auth::user()->id)->first()->img_path;
+                    $dropFile =$destinationPath.DIRECTORY_SEPARATOR.$deleteFileName;
+                    \File::delete($dropFile);
+                endif;
                 /*File delete end*/
 
                 /*user profile table update start*/
