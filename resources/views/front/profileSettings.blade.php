@@ -179,12 +179,12 @@
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="city">
                                             {{--{{$userProfile->profile->country}}--}}
-                                            <select class="form-control margin-bottom-20" name="city" id="cityOptions" disabled>
+                                            <select class="form-control margin-bottom-20 cityOptions" name="city" disabled>
 
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <select class="form-control margin-bottom-20" name="city" id="cityOptions">
+                                            <select class="form-control margin-bottom-20 cityOptions" name="city">
 
                                             </select>
                                         </div>
@@ -282,35 +282,64 @@
                                     </dd>
                                     <hr>
                                 @endif
-                                {{--This section start for frellancer--}}
-                                @if($userProfile->user_type=="freelancer")
-                                    {{--Professional title start--}}
-                                    <dt><strong>Professional Title</strong></dt>
-                                    <dd>
-                                        <div class="row">
-                                            <div class="col-md-8 setText" id="professional_title">
-                                                {{$userProfile->profile->professional_title}}
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->profile->professional_title}}" name="professional_title">
-                                            </div>
-                                            <div class="col-md-6">
+
+                                {{--Professional title start--}}
+                                <dt><strong>Professional Title</strong></dt>
+                                <dd>
+                                    <div class="row">
+                                        <div class="col-md-8 setText" id="professional_title">
+                                            {{$userProfile->profile->professional_title}}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control" type="hidden" value="{{$userProfile->profile->professional_title}}" name="professional_title">
+                                        </div>
+                                        <div class="col-md-6">
                                                 <span>
                                                     <a onclick="changeData('professional_title')" class="pull-right professional_title_edit" href="javascript:void(0);">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </span>
-                                                <span>
+                                            <span>
                                                     <a onclick="resetData('professional_title')" class="pull-right professional_title hidden" href="javascript:void(0);">
                                                         <i class="fa fa-times fa-lg"></i>
                                                     </a>
                                                 </span>
-                                            </div>
                                         </div>
+                                    </div>
 
-                                    </dd>
-                                    <hr>
-                                    {{--Professional title end--}}
+                                </dd>
+                                <hr>
+                                {{--Professional title end--}}
+                                {{--Professional Overview start--}}
+                                <dt><strong>Professional Overview</strong></dt>
+                                <dd>
+                                    <div class="row">
+                                        <div class="col-md-8 setText" id="professional_overview">
+                                            {{$userProfile->profile->professional_overview}}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control" type="hidden" value="{{$userProfile->profile->professional_title}}" name="professional_overview">
+                                        </div>
+                                        <div class="col-md-6">
+                                                <span>
+                                                    <a onclick="changeData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                </span>
+                                            <span>
+                                                    <a onclick="resetData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
+                                                        <i class="fa fa-times fa-lg"></i>
+                                                    </a>
+                                                </span>
+                                        </div>
+                                    </div>
+
+                                </dd>
+                                <hr>
+                                {{--Professional title end--}}
+                                {{--This section start for frellancer--}}
+                                @if($userProfile->user_type=="freelancer")
+
 
                                     {{--Skill  start--}}
 
@@ -372,8 +401,13 @@
                                     <dt><strong>Experience Level</strong></dt>
                                     <dd>
                                         <div class="row">
-                                            <div class="col-md-8 setText" id="experience_lavel">
-                                                {{$userProfile->profile->experience_lavel}}
+                                            <div class="col-md-6 setText" id="experience_lavel">
+                                                <select class="form-control margin-bottom-20" name="experience_lavel">
+                                                    <option value="">Select One</option>
+                                                    <option value="1">Entry Level</option>
+                                                    <option value="2">Intermediate Level</option>
+                                                    <option value="3">Expart Level</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-6">
                                                 <input class="form-control" type="hidden" value="{{$userProfile->profile->experience_lavel}}" name="experience_lavel">
@@ -555,7 +589,7 @@
 
         $(document).ready(function(){
             if($('#userCountryId').val() != null && $('#userCountryId').val() != ''){
-                $("select#cityOptions").html("<option value=\"\">Select One</option>" +
+                $("select.cityOptions").html("<option value=\"\">Select One</option>" +
                     "@foreach($cities as $city)\n" +
                     "@if($userProfile->profile->country == $city->countries_id)\n" +
                     "@if($userProfile->profile->city == $city->id)" +
@@ -565,13 +599,22 @@
                     "@endif\n" +
                     "@endforeach");
             }else{
-                $('select#cityOptions').html("<option value=\"\">Select One</option>");
+                $('select.cityOptions').html("<option value=\"\">Select One</option>");
             }
         });
 
         $(".country").change(function() {
             var Selected_id = $('.country option:selected').val();
-            $("select#cityOptions").html("");
+            var Cities = JSON.parse($('#userCities').val());
+            $("select.cityOptions").html("<option value=\"\">Select One</option>");
+            $.each(Cities, function( index, value ) {
+                if(value.countries_id == Selected_id){
+                    $('.cityOptions').append($('<option>', {
+                        value: value.id,
+                        text : value.name
+                    }));
+                }
+            });
         });
 
         $("#password_submit").click(function(event){

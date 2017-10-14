@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Countries;
+use App\States;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
@@ -30,12 +31,14 @@ class ProfileController extends Controller{
 
     public function getProfileSettings(){
         $userProfile = User::with('profile')->first();
-        $countries = Countries::with('states')->get();
+        $countries = Countries::all();
+        $cities = States::all();
 //        dd($country);
-    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries]);
+    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);
     }
 
     public function getMyProfile(){
+
         return view('front.myProfile');
     }
 
@@ -211,11 +214,11 @@ class ProfileController extends Controller{
 
 
                 /*File delete start*/
-
-                $dropFile =$destinationPath.DIRECTORY_SEPARATOR.UserProfile::where('user_id',Auth::user()->id)->first()->img_path;
-
-                \File::delete($dropFile);
-
+                if(UserProfile::where('user_id',Auth::user()->id)->first()):
+                    $deleteFileName = UserProfile::where('user_id',Auth::user()->id)->first()->img_path;
+                    $dropFile =$destinationPath.DIRECTORY_SEPARATOR.$deleteFileName;
+                    \File::delete($dropFile);
+                endif;
                 /*File delete end*/
 
                 /*user profile table update start*/
