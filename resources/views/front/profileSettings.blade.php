@@ -12,6 +12,7 @@
 @section('title', 'Profile')
 
 @section('content')
+
     <!-- Profile Content -->
     <div class="col-md-9">
         <div class="profile-body margin-bottom-20">
@@ -133,6 +134,7 @@
                                 </dd>
                                 <hr>
                                 <dt><strong>Country</strong></dt>
+                                
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="country">
@@ -143,7 +145,7 @@
                                                     @if($userProfile->profile->country == $country->id)
                                                         <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
                                                     @endif
-                                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                                    <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
