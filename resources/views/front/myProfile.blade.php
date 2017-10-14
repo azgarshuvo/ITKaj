@@ -13,12 +13,20 @@
 @section('content')
 <!-- Profile Content -->
 				<div class="col-md-9">
+					<p class="alert-danger alert hidden" id="error">
+
+					</p>
 					<div class="profile-body">
 						<div class="profile-bio">
 							<div class="row">
-								<div class="col-md-5">
-									<img class="img-responsive md-margin-bottom-10" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
-									<a class="btn-u btn-u-sm" href="#">Change Picture</a>
+								<div class="col-md-5 text-center">
+									<img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
+									{{--<a class="btn-u btn-u-sm" href="#">Change Picture</a>--}}
+									<form action="{{route('changeProfileImg')}}" id="example-form" method="post" enctype="multipart/form-data">
+										{{csrf_field()}}
+										<div class="btn-u btn-u-sm new_Btn btn-block text-center">Change Image</div><br>
+										<input id="images" type="file" name="file" multiple="" />
+									</form>
 
 								</div>
 								<div class="col-md-7">
@@ -177,4 +185,49 @@
 					</div>
 				</div>
 				<!-- End Profile Content -->
+
+	<script type="text/javascript">
+        $("input:file").change(function (){
+            //event.preventDefault();
+            var fd = new FormData();
+            var file_data = $('input[type="file"]')[0].files; // for multiple files
+            fd.append("file_", file_data[0]);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'{{ route('changeProfileImg') }}',
+                type: 'POST',
+                data: fd,
+
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+					if(data.length>0) {
+                        var APP_URL = '{{ url('/') }}';
+                        var img_ser = APP_URL + "/profile_img/" + data;
+
+                        $('#image-profile').attr("src", img_ser);
+                        $('.left-profile').attr("src", img_ser);
+                        $("#error").addClass('hidden');
+                    }else{
+					    //alert("Hello");
+						$("#error").removeClass('hidden');
+						$("#error").html('Something wrong while profile image uploadmin');
+					}
+                },
+            });
+
+
+        });
+
+
+        $('.new_Btn').bind("click" , function () {
+            $('#images').click();
+        });
+	</script>
 @endsection
