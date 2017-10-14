@@ -40,8 +40,8 @@
 
 								</div>
 								<div class="col-md-7">
-									<h2>Edward Rooster</h2>
-									<span><strong>Job:</strong> Web Developer</span>
+									<h2>{{Auth::user()->fname}} {{Auth::user()->lname}}</h2>
+									<span><strong>Skills:</strong> {{$userProfile->professional_title}}</span>
 									<span><strong>Position:</strong> Web Designer</span>
 									<hr>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget massa nec turpis congue bibendum. Integer nulla felis, porta suscipit nulla et, dignissim commodo nunc. Morbi a semper nulla.</p>
