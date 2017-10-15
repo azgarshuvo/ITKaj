@@ -73,9 +73,10 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('/adminDetails/{id}', ['as' =>'adminDetails', 'uses' => 'adminController\AdminDashboardController@adminDetails']);
     Route::get('/adminEdit/{id}', ['as' =>'adminEdit', 'uses' => 'adminController\AdminDashboardController@adminEdit']);
     Route::get('/adminDelete/{id}', ['as' =>'adminDelete', 'uses' => 'adminController\AdminDashboardController@adminDelete']);
-    Route::get('addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\AdminDashboardController@addCategory']);
-    Route::get('/insertCategory', ['as' =>'insertCategory', 'uses' => 'adminController\AdminDashboardController@insertCategory']);
+    Route::get('/addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\AdminDashboardController@addCategory']);
+    Route::post('/insertCategory', ['as' =>'insertCategory', 'uses' => 'adminController\AdminDashboardController@insertCategory']);
     Route::get('categoryList', ['as' =>'categoryList', 'uses' => 'adminController\AdminDashboardController@listOfCategory']);
+    Route::get('/categoryDelete/{id}', ['as' =>'categoryDelete', 'uses' => 'adminController\AdminDashboardController@deleteCategory']);
 
 
 

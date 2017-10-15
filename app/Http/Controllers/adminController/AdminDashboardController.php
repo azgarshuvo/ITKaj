@@ -73,23 +73,32 @@ class AdminDashboardController extends Controller{
     //Category
     public function addCategory()
     {
-      $items = Categories::where('is_subcategory', 0)->orderBy('category_name')->get();
+      $items = Categories::where('is_parent', 0)->orderBy('category_name')->get();
       return view('admin.addCategory', compact('items'));
     }
     public function insertCategory(Request $request)
     {
       $this->validate($request, [
           'category_name' => 'required',
-          'is_subcategory' => 'required'
+          'is_parent' => 'required'
       ]);
-      $userData = $request->only('category_name', 'is_subcategory', 'parent_category');
-      Categories::create($userData);
+      $category_items = $request->only('category_name', 'is_parent', 'parent_category');
+      Categories::create($category_items);
+      $items = Categories::where('is_parent', 0)->orderBy('category_name')->get();
       Session::flash('success', 'Category added successfully!');
-      return view('admin.categoryList');
+      return back()->withInput();
     }
     public function listOfCategory()
     {
+      //$parent_category = Categories::where('is_parent', 0)->orderBy('id','dsc')->get();
+      //$sub_category = Categories::where('is_parent', 1)->orderBy('category_name')->get();
       return view('admin.categoryList');
+    }
+    public function deleteCategory($id)
+    {
+      Categories::findOrFail($id)->delete();
+      Session::flash('success', 'Admin deleted successfully!');
+      return redirect()->route('categoryList');
     }
 
     //Users

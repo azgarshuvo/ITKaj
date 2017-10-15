@@ -179,11 +179,15 @@
 
 
     });
-    function yesnoCheck() {
-        if (document.getElementById('yesCheck').checked) {
+    
+    function yesnoCheck(rad){
+        if(rad.value == "0"){
+            document.getElementById("mySelect").disabled=true;
+            document.getElementById('ifYes').style.display = 'none';
+        }else{
+            document.getElementById("mySelect").disabled=false;
             document.getElementById('ifYes').style.display = 'block';
         }
-        else document.getElementById('ifYes').style.display = 'none';
     }
 
     //Function to show image before upload
@@ -197,4 +201,5 @@
      }
      reader.readAsDataURL(event.target.files[0]);
     }
+    $(".alert").alert()
 </script>
