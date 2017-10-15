@@ -17,8 +17,14 @@
                 <div class="col-md-9">
                     <div class="profile-body">
                         <!--Projects-->
+
                        
                         <div class="row">
+                        @if(session()->has('message'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
                         @foreach ($job as $job) 
 
                             <div class="col-sm-6">

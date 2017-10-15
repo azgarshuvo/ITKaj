@@ -43,11 +43,18 @@ class ProfileController extends Controller{
     }
 
     public function getMyProjects(){
+        $count = Job::get()->count();
+        //dd($count);
+        if($count == 0){
+            return redirect()->route('my_projects')->with('message', 'No job posted yet!!!');
+        }
+        else{
     	$job = Job::Popular(auth()->user()->id)->get();
         $user = User::find(auth()->user()->id)
         ->where('user_type', 'employer')
         ->first();
         return view('front.myProjects', ['job' => $job, 'user' => $user]);
+        }
     }
 
     public function getMyProjectList(){
