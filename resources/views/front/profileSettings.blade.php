@@ -536,7 +536,7 @@
                         </div>
                                 
                             </dl>
-                            <button type="button" class="btn-u" data-toggle="modal" data-target="#responsive">Modal Form Sample</button>
+                            <button type="button" class="btn-u" data-toggle="modal" data-target="#educationModal">Add More</button>
                         </form>
                     </div>
                      {{--education end here--}}
@@ -546,12 +546,12 @@
                     
 
     
-                            <div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="educationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel4">Responsive Modal</h4>
+                                            <h4 class="modal-title" id="myModalLabel4">Add Education</h4>
                                         </div>
                                         <div class="modal-body">
                                             <form action="assets/php/demo-order.php" method="post" enctype="multipart/form-data" id="sky-form1" class="sky-form">
@@ -561,62 +561,23 @@
                                                     <div class="row">
                                                         <section class="col col-6">
                                                             <label class="input">
-                                                                <i class="icon-append fa fa-user"></i>
-                                                                <input type="text" name="name" placeholder="Name">
+                                                                <input type="text" name="name" placeholder="Institution Name">
                                                             </label>
                                                         </section>
                                                         <section class="col col-6">
                                                             <label class="input">
-                                                                <i class="icon-append fa fa-briefcase"></i>
-                                                                <input type="text" name="company" placeholder="Company">
-                                                            </label>
-                                                        </section>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <section class="col col-6">
-                                                            <label class="input">
-                                                                <i class="icon-append fa fa-envelope"></i>
-                                                                <input type="email" name="email" placeholder="E-mail">
+                                                                <input type="text" name="degree" placeholder="Degree">
                                                             </label>
                                                         </section>
                                                         <section class="col col-6">
                                                             <label class="input">
-                                                                <i class="icon-append fa fa-phone"></i>
-                                                                <input type="tel" name="phone" placeholder="Phone">
+                                                                <input type="text" name="study_area" placeholder="Area of Study">
                                                             </label>
                                                         </section>
                                                     </div>
                                                 </fieldset>
 
-                                                <fieldset>
-                                                    <div class="row">
-                                                        <section class="col col-6">
-                                                            <label class="select">
-                                                                <select name="interested">
-                                                                    <option value="none" selected disabled>Interested in</option>
-                                                                    <option value="design">design</option>
-                                                                    <option value="development">development</option>
-                                                                    <option value="illustration">illustration</option>
-                                                                    <option value="branding">branding</option>
-                                                                    <option value="video">video</option>
-                                                                </select>
-                                                                <i></i>
-                                                            </label>
-                                                        </section>
-                                                        <section class="col col-6">
-                                                            <label class="select">
-                                                                <select name="budget">
-                                                                    <option value="0" selected disabled>Budget</option>
-                                                                    <option value="less than 5000$">less than 5000$</option>
-                                                                    <option value="5000$ - 10000$">5000$ - 10000$</option>
-                                                                    <option value="10000$ - 20000$">10000$ - 20000$</option>
-                                                                    <option value="more than 20000$">more than 20000$</option>
-                                                                </select>
-                                                                <i></i>
-                                                            </label>
-                                                        </section>
-                                                    </div>
+                                                <fieldset>      
 
                                                     <div class="row">
                                                         <section class="col col-6">
@@ -633,33 +594,22 @@
                                                         </section>
                                                     </div>
 
-                                                    <section>
-                                                        <label for="file" class="input input-file">
-                                                            <div class="button"><input type="file" name="file" multiple onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" placeholder="Include some file" readonly>
-                                                        </label>
-                                                    </section>
+                                                    
 
                                                     <section>
                                                         <label class="textarea">
-                                                            <i class="icon-append fa fa-comment"></i>
-                                                            <textarea rows="5" name="comment" placeholder="Tell us about your project"></textarea>
+                                                            <textarea rows="5" name="comment" placeholder="Tell us about your Experience"></textarea>
                                                         </label>
                                                     </section>
                                                 </fieldset>
                                                 <footer>
-                                                    <button type="submit" class="btn-u">Send request</button>
-                                                    <div class="progress"></div>
+                                                    <button type="button" class="btn-u">Add</button>
                                                 </footer>
-                                                <div class="message">
-                                                    <i class="rounded-x fa fa-check"></i>
-                                                    <p>Thanks for your order!<br>We'll contact you very soon.</p>
-                                                </div>
                                             </form>
                                             <!-- End Order Form -->
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn-u btn-u-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn-u btn-u-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
