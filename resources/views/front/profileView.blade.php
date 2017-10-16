@@ -20,104 +20,75 @@
         </div>
 
 
+            <!--=== Job Description ===-->
+        <div class="job-description">
             <div class="container content">
+                <div class="title-box-v2">
+                    <h2>Your Profile</h2>
+                </div>
                 <div class="row">
-                    <div class="profile-body margin-bottom-20">
-                    <div class="tab-v1">
-                    <div class="tab-content">
-                    <div id="profile" class="profile-edit tab-pane fade in active">
-                                    
-                                    <dl class="dl-horizontal">
-                                        <div class="picture">
-                                        <img src="{{asset('assets/img/testimonials/img1.jpg')}}" alt="">
-                                            <div class="overflow-h">
-                                                <span class="font-s">Steve Andersson</span>
-                                                <p class="color-green">Position: <span class="hex">Manager, Accounter</span></p>
-                                                
-                                            </div>
-                                        </div>
-                                        <dt><strong>Your name </strong></dt>
-                                        <dd>
-                                            Edward Rooster
-                                        </dd>
-                                        <hr>
-                                        <dt><strong>Your ID </strong></dt>
-                                        <dd>
-                                            FKJ-032440
-                                        </dd>
-                                        <hr>
-                                        <dt><strong>Company name </strong></dt>
-                                        <dd>
-                                            Htmlstream
-                                        </dd>
-                                            
-                                        <hr>
-                                        <dt><strong>Phone Number </strong></dt>
-                                        <dd>
-                                            (304) 33-2867-499
-                                        </dd>
-                                        <hr>
+                    <!-- Left Inner -->
+                    <div class="col-md-7">
+                        <div class="left-inner">
 
-                                        <dt><strong>Country </strong></dt>
-                                        <dd>
-                                            Bangladseh
-                                        </dd>
-                                        <hr>
+                            <h3>First Name</h3>
+                            <p>Alex</p>
+                            <hr>
 
-                                        <dt><strong>City </strong></dt>
-                                        <dd>
-                                            Dhaka
-                                        </dd>
-                                        <hr>
+                            <h3>Last Name</h3>
+                            <p>John</p>
+                            <hr>
 
-                                        <dt><strong>Address </strong></dt>
-                                        <dd>
-                                            Dhaka, Bangladesh
-                                        </dd>
-                                        <hr>
-                                        <dt><strong>Company Web Address </strong></dt>
-                                        <dd>
-                                            www.example.com
-                                        </dd>
-                                        <hr>
+                            <h3>Country</h3>
+                            <p>America</p>
+                            <hr>
 
-                                        <dt><strong>Professional Title </strong></dt>
-                                        <dd>
-                                            Manager
-                                        </dd>
-                                        <hr>
+                            <h3>City</h3>
+                            <p>New York</p>
+                            <hr>
 
-                                        <dt><strong>Professional Overview </strong></dt>
-                                        <dd>
-                                            Something 
-                                        </dd>
-                                        <hr>
+                            <h3>Professional Title</h3>
+                            <p>Web Developer</p>
+                            <hr>
 
-                                        <dt><strong>Skill </strong></dt>
-                                        <dd>
-                                            Programming Language
-                                        </dd>
-                                        <hr>
+                            <h3>Professional Overview</h2>
+                            <p>Work with laravel Framework</p>
+                            <hr>
 
-                                        <dt><strong>Hourly Rate </strong></dt>
-                                        <dd>
-                                            10$
-                                        </dd>
-                                        <hr>
+                            <h3>Skills</h3>                           
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-check color-green"></i> PHP</li>
+                                <li><i class="fa fa-check color-green"></i> Javascript</li>
+                                <li><i class="fa fa-check color-green"></i> Laravel</li>
+                            </ul>
+                            <hr>
 
-                                        <dt><strong>Experience Level </strong></dt>
-                                        <dd>
-                                            Expert
-                                        </dd>
-                                        <hr>
-                                    </dl>
-                                    
-                                </div>
+                            <h3>Protfolio</h3>
+                            <p>URL link</p>
+                            <hr>
+
+                        </div>
+                    </div>
+                    <!-- End Left Inner -->
+
+                    <!-- Right Inner -->
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <div class="right-inner">
+                            <h3>Posted by</h3>
+                            <img src="{{asset('assets/img/testimonials/img1.jpg')}}" alt="">
+                            <div class="overflow-h">
+                                <span class="font-s">Steve Andersson</span>
+                                <p class="color-green">Position: <span class="hex">Manager, Accounter</span></p>
+                                
                             </div>
                         </div>
                     </div>
+                    <!-- End Right Inner -->
                 </div>
             </div>
+        </div>
+        <!--=== End Job Description ===-->
        
         <!--=== End Job Description ===-->
  @endsection       
