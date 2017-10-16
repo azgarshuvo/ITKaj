@@ -88,6 +88,16 @@ class ProfileController extends Controller{
     //Add Education
     public function postEducationAdd(){
 
+        // $validate = Validator::make(Input::all(), array(
+        //         'institution' => 'required',
+        //         'degree' => 'required',
+        //         'study_area' => 'required',
+        //         'start' => 'required',
+        //         'finish' => 'required',
+        //         'description' => 'required',
+        //     ));
+        // If($validate->fails())
+
         
 
         $originalStartDate =  Input::get('start');
