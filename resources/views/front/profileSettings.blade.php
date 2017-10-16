@@ -554,15 +554,108 @@
                                             <h4 class="modal-title" id="myModalLabel4">Responsive Modal</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label class="input">
-                                                        <i class="icon-append fa fa-user"></i>
-                                                        <input type="text" name="name" placeholder="Name">
-                                                    </label>
+                                            <form action="assets/php/demo-order.php" method="post" enctype="multipart/form-data" id="sky-form1" class="sky-form">
+                                                <header>Order Form</header>
+
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="input">
+                                                                <i class="icon-append fa fa-user"></i>
+                                                                <input type="text" name="name" placeholder="Name">
+                                                            </label>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="input">
+                                                                <i class="icon-append fa fa-briefcase"></i>
+                                                                <input type="text" name="company" placeholder="Company">
+                                                            </label>
+                                                        </section>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="input">
+                                                                <i class="icon-append fa fa-envelope"></i>
+                                                                <input type="email" name="email" placeholder="E-mail">
+                                                            </label>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="input">
+                                                                <i class="icon-append fa fa-phone"></i>
+                                                                <input type="tel" name="phone" placeholder="Phone">
+                                                            </label>
+                                                        </section>
+                                                    </div>
+                                                </fieldset>
+
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="select">
+                                                                <select name="interested">
+                                                                    <option value="none" selected disabled>Interested in</option>
+                                                                    <option value="design">design</option>
+                                                                    <option value="development">development</option>
+                                                                    <option value="illustration">illustration</option>
+                                                                    <option value="branding">branding</option>
+                                                                    <option value="video">video</option>
+                                                                </select>
+                                                                <i></i>
+                                                            </label>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="select">
+                                                                <select name="budget">
+                                                                    <option value="0" selected disabled>Budget</option>
+                                                                    <option value="less than 5000$">less than 5000$</option>
+                                                                    <option value="5000$ - 10000$">5000$ - 10000$</option>
+                                                                    <option value="10000$ - 20000$">10000$ - 20000$</option>
+                                                                    <option value="more than 20000$">more than 20000$</option>
+                                                                </select>
+                                                                <i></i>
+                                                            </label>
+                                                        </section>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="input">
+                                                                <i class="icon-append fa fa-calendar"></i>
+                                                                <input type="text" name="start" id="start" placeholder="Expected start date">
+                                                            </label>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="input">
+                                                                <i class="icon-append fa fa-calendar"></i>
+                                                                <input type="text" name="finish" id="finish" placeholder="Expected finish date">
+                                                            </label>
+                                                        </section>
+                                                    </div>
+
+                                                    <section>
+                                                        <label for="file" class="input input-file">
+                                                            <div class="button"><input type="file" name="file" multiple onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" placeholder="Include some file" readonly>
+                                                        </label>
+                                                    </section>
+
+                                                    <section>
+                                                        <label class="textarea">
+                                                            <i class="icon-append fa fa-comment"></i>
+                                                            <textarea rows="5" name="comment" placeholder="Tell us about your project"></textarea>
+                                                        </label>
+                                                    </section>
+                                                </fieldset>
+                                                <footer>
+                                                    <button type="submit" class="btn-u">Send request</button>
+                                                    <div class="progress"></div>
+                                                </footer>
+                                                <div class="message">
+                                                    <i class="rounded-x fa fa-check"></i>
+                                                    <p>Thanks for your order!<br>We'll contact you very soon.</p>
                                                 </div>
-                                              
-                                            </div>
+                                            </form>
+                                            <!-- End Order Form -->
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn-u btn-u-default" data-dismiss="modal">Close</button>
