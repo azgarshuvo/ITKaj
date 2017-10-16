@@ -59,8 +59,9 @@ class ProfileController extends Controller{
         return view('front.projectList');
     }
 
-    public function getJobApprovedList(){
-        return view('front.jobApproveList');
+    public function getProjectApprovedList(){
+        $approveProjectList = Job::ProjectApproveList(Auth::User()->id)->get();
+        return view('front.jobApproveList', ['approveProjectList' => $approveProjectList]);
     }
 
     public function getJobDisapprovedList(){
