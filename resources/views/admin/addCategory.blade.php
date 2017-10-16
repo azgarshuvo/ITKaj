@@ -57,7 +57,7 @@
                 <div class="form-group" id="ifYes" style="display:none;">
                     <label class="col-lg-2 control-label">Parent Category</label>
                     <div class="col-lg-10">
-                      <select class="form-control" name="parent_category" id="mySelect">
+                      <select class="form-control" name="parent_category_id" id="mySelect">
                         @foreach($items as $item)
                         <option value="{{$item->id}}">{{$item->category_name}}</option>
                         @endforeach
