@@ -30,10 +30,10 @@ class ProfileController extends Controller{
     }
 
     public function getProfileSettings(){
-        $userProfile = User::with('profile')->first();
+        $userProfile = Auth::User();
+//        dd($userProfile);
         $countries = Countries::all();
         $cities = States::all();
-//        dd($country);
     	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);
     }
 

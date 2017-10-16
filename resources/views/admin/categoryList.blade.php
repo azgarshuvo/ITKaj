@@ -12,6 +12,9 @@
 
 @section('content')
     <div class="wrapper wrapper-content">
+      @if(Session::has('success'))
+      <div class="alert alert-success">{{ Session::get('success') }}</div>
+      @endif
       <div class="ibox">
         <div class="ibox-title">
             <h5>Category List</h5>
@@ -33,23 +36,28 @@
         </tr>
         </thead>
           <tbody>
+            <?php  $count = 1;
+            $parent_category = App\Categories::where('is_parent', 0)->where('parent_category', NULL)->orderBy('id','dsc')->get();
+            ?>
+            @foreach($parent_category as $pc)
             <tr class="gradeX">
-              <td>01</td>
-              <td>Web Development</td>
+              <td>{{$count++}}</td>
+              <td>{{$pc->category_name}}</td>
               <td>
                 <table class="table table-striped table-bordered table-hover table-responsive">
                   <tr>
                     <th>Name</th>
                     <th>Action</th>
                   </tr>
+                  <?php $sub_category = App\Categories::where('parent_category', $pc->id)->where('is_parent', 1)->orderBy('category_name')->get(); ?>
+                  @foreach($sub_category as $sc)
                   <tr>
-                    <td>HTML</td>
+                    <td>{{$sc->category_name}}</td>
                     <td>
-                      <a class="btn btn-sm btn-info" href="" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
+                      <a class="btn btn-sm btn-danger" href="{{ route('categoryDelete', [$sc->id])}}"  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
                     </td>
                   </tr>
+                  @endforeach
                 </table>
               </td>
               <td class="center">
@@ -58,180 +66,7 @@
                 <a class="btn btn-sm btn-danger" href=""  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
               </td>
             </tr>
-
-            <tr class="gradeX">
-              <td>01</td>
-              <td>Web Development</td>
-              <td>
-                <table class="table table-striped table-bordered table-hover">
-                  <tr>
-                    <th>Name</th>
-                    <th>Action</th>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              <td class="center">
-                <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-              </td>
-            </tr>
-
-            <tr class="gradeX">
-              <td>01</td>
-              <td>Web Development</td>
-              <td>
-                <table class="table table-striped table-bordered table-hover">
-                  <tr>
-                    <th>Name</th>
-                    <th>Action</th>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              <td class="center">
-                <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-              </td>
-            </tr>
-
-            <tr class="gradeX">
-              <td>01</td>
-              <td>Web Development</td>
-              <td>
-                <table class="table table-striped table-bordered table-hover">
-                  <tr>
-                    <th>Name</th>
-                    <th>Action</th>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>HTML</td>
-                    <td>
-                      <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                      <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              <td class="center">
-                <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"></i></a>
-                <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-              </td>
-            </tr>
+            @endforeach
           </tbody>
         </table>
 
