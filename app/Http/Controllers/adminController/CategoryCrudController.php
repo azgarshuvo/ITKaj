@@ -30,7 +30,7 @@ class CategoryCrudController extends Controller
      public function addCategory()
      {
        $items = Categories::where('is_parent', 0)->orderBy('category_name')->get();
-       return view('admin.addCategory', compact('items'));
+       return view('admin.category.addCategory', compact('items'));
      }
 
      public function insertCategory(Request $request)
@@ -50,7 +50,7 @@ class CategoryCrudController extends Controller
      {
        //$parent_category = Categories::where('is_parent', 0)->orderBy('id','dsc')->get();
        //$sub_category = Categories::where('is_parent', 1)->orderBy('category_name')->get();
-       return view('admin.categoryList');
+       return view('admin.category.categoryList');
      }
 
      public function deleteCategory($id)
@@ -58,6 +58,10 @@ class CategoryCrudController extends Controller
        Categories::findOrFail($id)->delete();
        Session::flash('success', 'Category deleted successfully!');
        return redirect()->route('categoryList');
+     }
+     public function editCategory($id){
+         $category = Categories::findOrFail($id);
+         return view('admin.category.editCategory', ['category' => $category]);
      }
     public function destroy($id)
     {
