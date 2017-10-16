@@ -5,13 +5,14 @@
  * Date: 08-Oct-17
  * Time: 2:40 PM
  */
+
 ?>
 @extends('layouts.front.profileMaster')
 
 @section('title', 'Profile')
 
 @section('content')
-
+{{--{{dd($countries[17]->name)}}--}}
     <!-- Profile Content -->
     <div class="col-md-9">
         <div class="profile-body margin-bottom-20">
@@ -139,21 +140,12 @@
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="country">
                                             {{--{{$userProfile->profile->country}}--}}
-                                            <select class="form-control margin-bottom-20" name="country" disabled>
-                                                <option value="">Select One</option>
-                                                @foreach($countries as $country)
-                                                    @if($userProfile->profile != null && $userProfile->profile != '')
-                                                        @if($userProfile->profile->country == $country->id)
-                                                            <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
-                                                        @endif
-                                                    @endif
-                                                    <option value="{{$country->id}}">{{$country->name}}</option>
-                                                @endforeach
-                                            </select>
+
+                                            {{$countries[$userProfile->profile->country-1]->name}}
                                         </div>
                                         <div class="col-md-6">
                                             {{--<input class="form-control" type="hidden" value="{{$userProfile->profile->country}}" name="country">--}}
-                                            <select class="form-control margin-bottom-20 country" name="country">
+                                            <select class="form-control margin-bottom-20 country hidden" name="country">
                                                 <option value="">Select One</option>
                                                 @foreach($countries as $country)
                                                     @if($userProfile->profile != null && $userProfile->profile != '')
@@ -167,12 +159,12 @@
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <a onclick="changeData('country')" class="pull-right address_edit" href="javascript:void(0);">
+                                                <a onclick="changeData('country')" class="pull-right country_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetData('country')" class="pull-right address hidden" href="javascript:void(0);">
+                                                <a onclick="resetData('country')" class="pull-right country hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -183,25 +175,25 @@
                                 <dt><strong>City</strong></dt>
                                 <dd>
                                     <div class="row">
-                                        <div  class="col-md-6 setText" id="city">
+                                        <div  class="col-md-6 setText" id="cityOptions">
                                             {{--{{$userProfile->profile->country}}--}}
-                                            <select class="form-control margin-bottom-20 cityOptions" name="city" disabled>
+                                            <select id="cityDropdown" class="form-control margin-bottom-20 cityOptions" name="cityOptions" disabled>
 
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
-                                            <select class="form-control margin-bottom-20 cityOptions" name="city">
+                                        {{--<div class="col-md-6">
+                                            <select class="hidden form-control margin-bottom-20 cityOptions" name="cityOptions">
 
                                             </select>
-                                        </div>
+                                        </div>--}}
                                         <div class="col-md-6">
-                                            <span>
-                                                <a onclick="changeData('city')" class="pull-right address_edit" href="javascript:void(0);">
+                                            <span id="cityEdit">
+                                                <a onclick="changeDropDown('city')" class="pull-right" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetData('city')" class="pull-right address hidden" href="javascript:void(0);">
+                                                <a onclick="resetCityDropDown('city')" class="pull-right city hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -407,16 +399,25 @@
                                     <dt><strong>Experience Level</strong></dt>
                                     <dd>
                                         <div class="row">
-                                            <div class="col-md-6 setText" id="experience_lavel">
-                                                <select class="form-control margin-bottom-20" name="experience_lavel">
+                                            <div class="col-md-6 setText hidden experience_lavel" >
+                                                <select id="experience_lavel_value" class="form-control margin-bottom-20" name="experience_lavel">
                                                     <option value="">Select One</option>
-                                                    <option value="1">Entry Level</option>
-                                                    <option value="2">Intermediate Level</option>
-                                                    <option value="3">Expart Level</option>
+                                                    <option @if($userProfile->profile->experience_lavel=="1") selected @endif value="1">Entry Level</option>
+                                                    <option @if($userProfile->profile->experience_lavel=="2") selected @endif value="2">Intermediate Level</option>
+                                                    <option @if($userProfile->profile->experience_lavel=="3") selected @endif value="3">Expart Level</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">
+                                            <div id="experience_lavel" class="col-md-6">
+                                                @if($userProfile->profile->experience_lavel=="1")
+                                                    Entry Level
+                                                @elseif($userProfile->profile->experience_lavel == '2')
+                                                    Intermediate Level
+                                                @elseif($userProfile->profile->experience_lavel=="3")
+                                                    Expart Level
+                                                @else
+
+                                                @endif
+                                                {{--<input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">--}}
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -425,7 +426,7 @@
                                                     </a>
                                                 </span>
                                                 <span>
-                                                    <a onclick="resetData('experience_lavel')" class="pull-right experience_lavel hidden" href="javascript:void(0);">
+                                                    <a onclick="resetDropDown('experience_lavel')" class="pull-right experience_lavel hidden" href="javascript:void(2);">
                                                         <i class="fa fa-times fa-lg"></i>
                                                     </a>
                                                 </span>
@@ -715,7 +716,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
     {{--Education Modal End Here--}}
 
 
@@ -797,6 +798,33 @@
             $("."+name).addClass('hidden');
         }
 
+        function resetDropDown(name){
+
+            $("#"+name).removeClass('hidden');
+            $("."+name+"_edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+            var desiredValue = $("#experience_lavel").text();
+            var value = $.trim(desiredValue);
+
+            $('[name=experience_lavel] option').filter(function() {
+                return ($(this).text() == value); //To select Blue
+            }).prop('selected', true);
+
+        }
+
+        /*use for city and country name change*/
+        function changeDropDown(name){
+            $("#"+name+"Dropdown").removeAttr('disabled');
+            $("."+name).removeClass('hidden');
+           $("#cityEdit").addClass('hidden');
+        }
+
+        /*use for city dropdown reset*/
+        function resetCityDropDown(name){
+            $("#"+name+"Edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+            $('#cityDropdown').prop("disabled", true);
+        }
 
         $("#infoUpdate").click(function(event){
             event.preventDefault();
@@ -814,8 +842,10 @@
                     company_name: $("input[name=company_name]").val(),
                     web_address: $("input[name=web_address]").val(),
                     skills: $("input[name=skills]").val(),
-                    experience_lavel: $("input[name=experience_lavel]").val(),
-                    professional_title: $("input[name=professional_title]").val()
+                    hourly_rate: $("input[name=hourly_rate]").val(),
+                    experience_lavel: $("#experience_lavel_value").val(),
+                    professional_title: $("input[name=professional_title]").val(),
+                    professional_overview: $("input[name=professional_overview]").val()
                 },
                 function(data, status){
                     $("#profile_status").html(data);
@@ -827,6 +857,8 @@
             $("input[type='text']").attr('type', 'hidden');
             $( "div.hidden" ).removeClass('hidden');
             $( ".fa-pencil" ).parent().removeClass('hidden');
+            $( ".experience_lavel" ).addClass('hidden');
+            $( "#experience_lavel" ).text($("select[name='experience_lavel']").find('option:selected').text());
             $( ".fa-times" ).parent().addClass('hidden');
         });
     </script>

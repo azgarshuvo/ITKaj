@@ -41,20 +41,17 @@ class ProfileController extends Controller{
     }
 
     public function getMyProfile(){
-        $userProfile = UserProfile::where('user_id',Auth::user()->id)->first();
+        $userProfile = Auth::User();
         return view('front.myProfile',['userProfile'=>$userProfile]);
     }
 
-    public function getMyProjects(){
-        $count = Job::get()->count();
-        //dd($count);
-        if($count == 0){
-            return redirect()->route('my_projects')->with('message', 'No job posted yet!!!');
-        }
-        else{
-    	$job = Job::Popular(auth()->user()->id)->get();
-        $user = User::find(auth()->user()->id);
-        return view('front.myProjects', ['job' => $job, 'user' => $user]);
+    public function getProjectsList(){
+    	$job = Job::ProjectList(Auth::User()->id)->get();
+    	if($job != null or $job != ''){
+            $user = Auth::User();
+            return view('front.myProjects', ['job' => $job, 'user' => $user]);
+        }else{
+    	    Return Redirect::route('projectsList')->with('message', 'No Project Posted yet');
         }
     }
 
@@ -161,6 +158,7 @@ class ProfileController extends Controller{
             'phone' => 'required|string|min:11',
             'officePhone' => 'string|min:3',
             'address' => 'required|string|min:4',
+            'address' => 'required|string|min:4',
         ],[
             'fname.required'    =>"First Name require",
             'lname.required'    =>"Last Name require",
@@ -184,6 +182,8 @@ class ProfileController extends Controller{
             $skills = $request->input('skills');
             $experience_lavel = $request->input('experience_lavel');
             $professional_title = $request->input('professional_title');
+            $hourly_rate = $request->input('hourly_rate');
+            $professional_overview = $request->input('professional_overview');
 
             /*user table update start*/
             $user = User::find(auth()->user()->id);
@@ -201,7 +201,15 @@ class ProfileController extends Controller{
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
-                    ['phone_number' => $phone,'address'=>$address,'skills'=>$skills,'experience_lavel'=>$experience_lavel,'professional_title'=>$professional_title]);
+                    [
+                        'phone_number' => $phone,
+                        'address'=>$address,
+                        'skills'=>$skills,
+                        'experience_lavel'=>$experience_lavel,
+                        'professional_title'=>$professional_title,
+                        'hourly_rate'=>$hourly_rate,
+                        'professional_overview'=>$professional_overview,
+                    ]);
                 /*user profile table update end*/
 
             }else{
