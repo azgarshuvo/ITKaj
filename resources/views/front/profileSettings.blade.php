@@ -492,7 +492,7 @@
 
                     {{--Education Start here--}}
                     <div id="education" class="profile-edit tab-pane fade">
-                        <h2 class="heading-md">Add Education</h2>
+                        <h2 class="heading-md">Education List</h2>
              
                         <p class="text-center" id="ajax_message"></p>
                         <br>
@@ -500,72 +500,42 @@
                             {{csrf_field()}}
                             <dl class="dl-horizontal">
 
-                                <dt>School</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                            
-                                            <input id="school" type="text" placeholder="School" name="school"> 
-                                        </label>
-                                    </section>
-                                </dd>
-                                <dt>Start Date</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                           
-                                            <input id="date_start" type="text" class="date form-control" name="date_start" />
-                                        </label>
-                                    </section>
-                                </dd>
-                                <dt>End Date</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                           
-                                            <input id="date_end" type="text" class="date form-control" name="date_end" />
 
-                                                <script type="text/javascript">
-                                                    $('.date').datepicker({
-                                                        dateFormat: "yy-mm-dd"
-                                                    });
-                                                </script>
-                                        </label>
-                                    </section>
-                                </dd>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                 <div class="projects">
+                                    <h2><a class="color-dark" href="#"></a>Name of the Institute</h2>
+                                    <ul class="list-unstyled list-inline blog-info-v2">
+                                       
+                                        <li><i class="fa fa-clock-o"></i>Graduation Start Date</li>
 
-                                <dt>Degree</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                            
-                                            <input id="degree" type="text" placeholder="degree" name="degree"> 
-                                        </label>
-                                    </section>
-                                </dd>
+                                        <li><i class="fa fa-clock-o"></i>Graduation End Date</li>
+                                    </ul>
+                                    <h5><a class="color-dark">Degree</a></h5>
+                                    <h5><a class="color-dark"></a>Area of Study</h5>
+                                    <h5><a class="color-dark"></a>Description</h5>
+                                    <br>
+                                </div>
+                            </div>
 
-                                <dt>Area of Study</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                            
-                                            <input id="study" type="text" placeholder="Area of Study" name="study"> 
-                                        </label>
-                                    </section>
-                                </dd>
+                            <div class="col-sm-6">
+                                 <div class="projects">
+                                    <h2><a class="color-dark"></a>Name of the Institute</h2>
+                                    <ul class="list-unstyled list-inline blog-info-v2">
+                                       
+                                        <li><i class="fa fa-clock-o"></i>Graduation Start Date</li>
 
-                                <dt>Description</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                            
-                                            <textarea name="description" class="form-control" rows="4" id="description"></textarea> 
-                                        </label>
-                                    </section>
-                                </dd>
+                                        <li><i class="fa fa-clock-o"></i>Graduation End Date</li>
+                                    </ul>
+                                    <h5><a class="color-dark">Degree</a></h5>
+                                    <h5><a class="color-dark"></a>Area of Study</h5>
+                                    <h5><a class="color-dark"></a>Description</h5>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                                
                             </dl>
-                            <button type="reset" class="btn-u btn-u-default">Cancel</button>
-                            <button id="password_submit" class="btn-u" type="submit">Save Changes</button>
                             <button type="button" class="btn-u btn-info" data-toggle="modal" data-target="#myModal">Add More</button>
                         </form>
                     </div>
@@ -593,21 +563,19 @@
                                      <div class="form-group">
                                          <label class="col-md-4 control-label margin-bottom-10">Date Start</label>
                                          <div class="col-md-6">
-                                             <input id="date_start" type="text" class="date form-control margin-bottom-10" name="date_start" />
-
+                                                <input type="text" name="finish" id="datepicker" placeholder="Expected finish date" 
                                          </div>
                                      </div>
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label margin-bottom-10">Date End</label>
                                         <div class="col-md-6">
-                                            <input id="date_end" type="text" class="date form-control margin-bottom-10" name="date_end" />
+                                            <label class="input">
+                                        <i class="icon-append fa fa-calendar"></i>
+                                        <input type="text" name="finish" id="finish" placeholder="Expected finish date" class="hasDatepicker">
+                                    </label>
 
-                                            <script type="text/javascript">
-                                                $('.date').datepicker({
-                                                    dateFormat: "yy-mm-dd"
-                                                });
-                                            </script>
+                                            
                                         </div>
                                     </div>
 
@@ -635,7 +603,7 @@
 
                                     <div class="form-group">
                                         <div class="col-md-6 col-md-offset-4 margin-bottom-10">
-                                            <button data-dismiss="modal" onclick="addEducation()" type="button" class="btn btn-primary">Add</button>
+                                            <button data-dismiss="modal" onclick="addEducation()" type="button" class="btn-u btn-info">Add</button>
                                             
                                         </div>
                                     </div>

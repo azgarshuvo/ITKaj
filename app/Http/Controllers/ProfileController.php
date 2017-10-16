@@ -50,9 +50,7 @@ class ProfileController extends Controller{
         }
         else{
     	$job = Job::Popular(auth()->user()->id)->get();
-        $user = User::find(auth()->user()->id)
-        ->where('user_type', 'employer')
-        ->first();
+        $user = User::find(auth()->user()->id);
         return view('front.myProjects', ['job' => $job, 'user' => $user]);
         }
     }
