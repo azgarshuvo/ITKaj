@@ -13,7 +13,10 @@ use App\States;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use App\Job;
+use App\Education;
 use DB;
 use App\User;
 use App\UserProfile;
@@ -83,6 +86,31 @@ class ProfileController extends Controller{
     public function getMyProfileView(){
         return view('front.profileView');
     }
+
+    //Add Education
+    public function postEducationAdd(){
+
+        
+
+        $originalStartDate =  Input::get('start');
+        $startDate = date("Y-m-d", strtotime($originalStartDate));
+
+        $originalFinishDate = Input::get('finish');
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));       
+
+        Education::Create(
+                    [   'user_id' => $this->userId,
+                        'institution' => Input::get('institution'),
+                        'degree'=>Input::get('degree'),
+                        'area_of_study'=>Input::get('study_area'),
+                        'start_date'=>$startDate,
+                        'end_date'=>$finishDate,
+                        'description'=>Input::get('description')
+                    ]);
+        echo "<p class='alert alert-success'> Education Add Success</p>";
+    }
+
+
 
     #get ajax request to change password
     public function ChangePassword(Request $request){
