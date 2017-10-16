@@ -15,7 +15,7 @@ class CategoriesTable extends Migration
       Schema::create('categories', function (Blueprint $table) {
         $table->increments('id');
         $table->string('category_name');
-        $table->string('is_subcategory')->enum();
+        $table->integer('is_parent');
         $table->string('parent_category')->nullable();
         $table->timestamps();
       });

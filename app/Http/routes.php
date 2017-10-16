@@ -33,6 +33,7 @@ Route::group(['prefix' => 'user'], function () {
     	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
     	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
         Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+        Route::get('view', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
         Route::post('change-rofile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
 
 
@@ -70,9 +71,15 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('/adminDetails/{id}', ['as' =>'adminDetails', 'uses' => 'adminController\AdminDashboardController@adminDetails']);
     Route::get('/adminEdit/{id}', ['as' =>'adminEdit', 'uses' => 'adminController\AdminDashboardController@adminEdit']);
     Route::get('/adminDelete/{id}', ['as' =>'adminDelete', 'uses' => 'adminController\AdminDashboardController@adminDelete']);
-    Route::get('addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\AdminDashboardController@addCategory']);
-    Route::get('/insertCategory', ['as' =>'insertCategory', 'uses' => 'adminController\AdminDashboardController@insertCategory']);
+    Route::get('/addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\AdminDashboardController@addCategory']);
+    Route::post('/insertCategory', ['as' =>'insertCategory', 'uses' => 'adminController\AdminDashboardController@insertCategory']);
     Route::get('categoryList', ['as' =>'categoryList', 'uses' => 'adminController\AdminDashboardController@listOfCategory']);
+    Route::get('/categoryDelete/{id}', ['as' =>'categoryDelete', 'uses' => 'adminController\AdminDashboardController@deleteCategory']);
+
+
+
+
+
     Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
     Route::get('employeer/list', ['as' =>'employeer_list', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
 
