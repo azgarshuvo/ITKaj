@@ -133,6 +133,7 @@ class ProfileController extends Controller{
             'phone' => 'required|string|min:11',
             'officePhone' => 'string|min:3',
             'address' => 'required|string|min:4',
+            'address' => 'required|string|min:4',
         ],[
             'fname.required'    =>"First Name require",
             'lname.required'    =>"Last Name require",
@@ -156,6 +157,8 @@ class ProfileController extends Controller{
             $skills = $request->input('skills');
             $experience_lavel = $request->input('experience_lavel');
             $professional_title = $request->input('professional_title');
+            $hourly_rate = $request->input('hourly_rate');
+            $professional_overview = $request->input('professional_overview');
 
             /*user table update start*/
             $user = User::find(auth()->user()->id);
@@ -173,7 +176,15 @@ class ProfileController extends Controller{
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
-                    ['phone_number' => $phone,'address'=>$address,'skills'=>$skills,'experience_lavel'=>$experience_lavel,'professional_title'=>$professional_title]);
+                    [
+                        'phone_number' => $phone,
+                        'address'=>$address,
+                        'skills'=>$skills,
+                        'experience_lavel'=>$experience_lavel,
+                        'professional_title'=>$professional_title,
+                        'hourly_rate'=>$hourly_rate,
+                        'professional_overview'=>$professional_overview,
+                    ]);
                 /*user profile table update end*/
 
             }else{
