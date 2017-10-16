@@ -5,7 +5,7 @@
  * Date: 08-Oct-17
  * Time: 2:40 PM
  */
-
+$edus = (Auth::User()->education);
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -21,6 +21,7 @@
                     <li class="active"><a data-toggle="tab" href="#profile">Edit Profile</a></li>
                     <li><a data-toggle="tab" href="#passwordTab">Change Password</a></li>
                     <li><a data-toggle="tab" href="#education">Education</a></li>
+                    <li><a data-toggle="tab" href="#employment">Employment</a></li>
                     <li><a data-toggle="tab" href="#payment">Payment Options</a></li>
                     <li><a data-toggle="tab" href="#settings">Notification Settings</a></li>
                 </ul>
@@ -502,55 +503,38 @@
 
 
                     {{--Education Start here--}}
+
+
                     <div id="education" class="profile-edit tab-pane fade">
                         <h2 class="heading-md">Education List</h2>
 
                         <div id="message"></div>
                         <p class="text-center" id="ajax_message"></p>
                         <br>
-                        <form method="POST" class="sky-form" id="add_education" action="">
-                            {{csrf_field()}}
                             <dl class="dl-horizontal">
-
-
                                 <div class="row">
+                                    @foreach ($edus as $edu)
                                     <div class="col-sm-6">
                                         <div class="projects">
-                                            <h2><a class="color-dark" href="#"></a>Name of the Institute</h2>
+                                            <h2><a class="color-dark" href="#"></a>{{$edu->institution}}</h2>
                                             <ul class="list-unstyled list-inline blog-info-v2">
 
-                                                <li><i class="fa fa-clock-o"></i>Graduation Start Date</li>
+                                                <li><i class="fa fa-clock-o"></i>{{$edu->start_date}}</li>
 
-                                                <li><i class="fa fa-clock-o"></i>Graduation End Date</li>
+                                                <li><i class="fa fa-clock-o"></i>{{$edu->end_date}}</li>
                                             </ul>
-                                            <h5><a class="color-dark">Degree</a></h5>
-                                            <h5><a class="color-dark"></a>Area of Study</h5>
-                                            <h5><a class="color-dark"></a>Description</h5>
+                                            <h5><a class="color-dark">{{$edu->degree}}</a></h5>
+                                            <h5><a class="color-dark"></a>{{$edu->area_of_study}}</h5>
+                                            <h5><a class="color-dark"></a>{{$edu->description}}</h5>
                                             <br>
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-6">
-                                        <div class="projects">
-                                            <h2><a class="color-dark"></a>Name of the Institute</h2>
-                                            <ul class="list-unstyled list-inline blog-info-v2">
-
-                                                <li><i class="fa fa-clock-o"></i>Graduation Start Date</li>
-
-                                                <li><i class="fa fa-clock-o"></i>Graduation End Date</li>
-                                            </ul>
-                                            <h5><a class="color-dark">Degree</a></h5>
-                                            <h5><a class="color-dark"></a>Area of Study</h5>
-                                            <h5><a class="color-dark"></a>Description</h5>
-                                            <br>
-                                        </div>
-                                    </div>
+                                     @endforeach
                                 </div>
+                               
 
                             </dl>
-                            <button type="button" class="btn-u" data-toggle="modal" data-target="#educationModal">Add More</button>
-
-                        </form>
+                            <button type="button" class="btn-u" data-toggle="modal" data-target="#educationModal">Add More</button>                       
                     </div>
 
                      {{--education end here--}}
