@@ -22,5 +22,9 @@ class Job extends Model
     {
         return $query->where(['user_id' => $user_id , 'approved' => 0]);
     }
+    public function scopeProjectDoneList($query, $user_id)
+    {
+        return $query->where(['user_id' => $user_id , 'approved' => 0]);
+    }
 
 }

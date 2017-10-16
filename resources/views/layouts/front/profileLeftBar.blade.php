@@ -31,22 +31,22 @@
             </li>
             @if(Auth::User()->user_type == 'employer')
             <li>
-                <a href="{{route('job_approved_list')}}"> Project Approved List</a>
+                <a href="{{route('projectApprovedList')}}"> Project Approved List</a>
             </li>
             <li>
-                <a href="{{route('job_disapproved_list')}}"> Project Disapproved List</a>
+                <a href="{{route('projectDisapprovedList')}}"> Project Disapproved List</a>
             </li>
             @endif
             <li>
-                <a href="{{route('job_done_list')}}"> Project Done List</a>
+                <a href="{{route('projectDoneList')}}"> Project Done List</a>
             </li>
             @if(Auth::User()->user_type == 'freelancer')
             <li>
-                <a href="{{route('job_interested_list')}}"> Project Interested List</a>
+                <a href="{{route('projectInterestedList')}}"> Project Interested List</a>
             </li>
             @endif
             <li>
-                <a href="{{route('job_ongoing_list')}}"> Project Ongoing List</a>
+                <a href="{{route('projectOngoingList')}}"> Project Ongoing List</a>
             </li>
         </ul>
     </li>
