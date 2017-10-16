@@ -139,8 +139,8 @@
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="country">
-                                            @if($userProfile->profile != null || $userProfile->profile != '')
-                                                {{$countries[$userProfile->profile->country-1]->name}}
+                                            @if($userProfile->profile != null && $userProfile->profile != '')
+                                            
                                             @endif
                                         </div>
                                         <div class="col-md-6">
@@ -718,10 +718,6 @@
         </div>
 
     {{--Education Modal End Here--}}
-
-
-
-
 @endsection
 @section('script')
     {{--this script use for update password--}}
