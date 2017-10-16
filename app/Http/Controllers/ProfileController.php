@@ -9,9 +9,12 @@
 namespace App\Http\Controllers;
 
 use App\Countries;
+use App\States;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
+use App\Job;
+use DB;
 use App\User;
 use App\UserProfile;
 class ProfileController extends Controller{
@@ -28,17 +31,27 @@ class ProfileController extends Controller{
 
     public function getProfileSettings(){
         $userProfile = User::with('profile')->first();
-        $countries = Countries::with('states')->get();
+        $countries = Countries::all();
+        $cities = States::all();
 //        dd($country);
-    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries]);
+    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);
     }
 
     public function getMyProfile(){
-        return view('front.myProfile');
+        $userProfile = UserProfile::where('user_id',Auth::user()->id)->first();
+        return view('front.myProfile',['userProfile'=>$userProfile]);
     }
 
     public function getMyProjects(){
-    	return view('front.myProjects');
+        $count = Job::get()->count();
+        if($count == 0){
+            return redirect()->route('my_projects')->with('message', 'No Job Posted Yet');
+                   }
+        $job = Job::Popular(auth()->user()->id)->get();
+        $user = User::find(auth()->user()->id)
+        ->where('user_type', 'employer')
+        ->first();
+        return view('front.myProjects', ['job' => $job, 'user' => $user]);
     }
 
     public function getMyProjectList(){
@@ -55,6 +68,19 @@ class ProfileController extends Controller{
 
     public function getJobDoneList(){
         return view('front.jobDoneList');
+    }
+    
+    public function getJobInterestedList(){
+        return view('front.jobInterestedList');
+    }
+    public function getJobOngoingList(){
+        return view('front.jobOngoingList');
+    }
+    public function getFreelancerJobDoneList(){
+        return view('front.freelancerjobDoneList');
+    }
+    public function getMyProfileView(){
+        return view('front.profileView');
     }
 
     #get ajax request to change password
@@ -163,4 +189,70 @@ class ProfileController extends Controller{
 
             echo "</p>";
     }
+    public function ChangeProfileImg(Request $request){
+
+
+        $rules = array(
+
+            'file_' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if (!$validator->fails()) {
+
+            if($request->hasFile('file_')) {
+
+                $file = $request->file('file_');
+
+                $filename = $file->getClientOriginalName();
+
+                //$extension = $file->getClientOriginalExtension();
+
+                $picture = date('His').$filename;
+
+                $destinationPath = base_path() . '\public\profile_img';
+
+                $file->move($destinationPath, $picture);
+
+
+                /*File delete start*/
+                if(UserProfile::where('user_id',Auth::user()->id)->first()):
+                    $deleteFileName = UserProfile::where('user_id',Auth::user()->id)->first()->img_path;
+                    $dropFile =$destinationPath.DIRECTORY_SEPARATOR.$deleteFileName;
+                    \File::delete($dropFile);
+                endif;
+                /*File delete end*/
+
+                /*user profile table update start*/
+
+                UserProfile::updateOrCreate(
+
+                    ['user_id' => $this->userId],
+
+                    ['img_path' => $picture]);
+
+                /*user profile table update end*/
+
+
+                echo $picture;
+
+
+            }else{
+
+                echo false;
+
+            }
+
+        }else{
+
+            echo false;
+
+        }
+
+        //var_dump($request->all());
+
+    }
+
 }

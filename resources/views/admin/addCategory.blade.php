@@ -29,7 +29,7 @@
             </div>
         @endif
         <div class="ibox-content">
-            <form class="form-horizontal" action="">
+            <form class="form-horizontal" action="{{'insertCategory'}}">
               {{ csrf_field() }}
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Category Name</label>
@@ -39,15 +39,20 @@
                 <div class="form-group">
                   <label class="col-lg-2 control-label">Is have subcategory?</label>
                   <label class="checkbox-inline">
-                    <input type="radio" value="1" name="isHaveSubcategory" onclick="javascript:yesnoCheck();" id="yesCheck"> Yes
+                    <input type="radio" value="1" name="is_subcategory" onclick="javascript:yesnoCheck();" id="yesCheck"> Yes
                   </label>
                   <label class="checkbox-inline">
-                    <input type="radio" value="0" name="isHaveSubcategory" onclick="javascript:yesnoCheck();" id="yesCheck" checked> No
+                    <input type="radio" value="0" name="is_subcategory" onclick="javascript:yesnoCheck();" id="yesCheck" checked> No
                   </label>
                 </div>
                 <div class="form-group" id="ifYes" style="display:none">
                     <label class="col-lg-2 control-label">Parent Category</label>
-                    <div class="col-lg-10"><input type="text" name="parent_category" placeholder="Parent Category" class="form-control">
+                    <div class="col-lg-10">
+                      <select class="form-control" name="parent_category">
+                        @foreach($items as $item)
+                        <option value="{{$item->id}}">{{$item->category_name}}</option>
+                        @endforeach
+                      </select>
                     </div>
                 </div>
                 <div class="form-group">

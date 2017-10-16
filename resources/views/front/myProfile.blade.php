@@ -11,23 +11,40 @@
 @section('title', 'Profile')
 
 @section('content')
+
 <!-- Profile Content -->
 				<div class="col-md-9">
+					<p class="alert-danger alert hidden" id="error">
+
+					</p>
 					<div class="profile-body">
 						<div class="profile-bio">
 							<div class="row">
-								<div class="col-md-5">
-									<img class="img-responsive md-margin-bottom-10" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
-									<a class="btn-u btn-u-sm" href="#">Change Picture</a>
+								<div class="col-md-5 text-center">
+									@if(App\UserProfile::where('user_id',Auth::user()->id)->first()!=null)
+										<img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
+									@else
+										<img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
+									@endif
+									<ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+
+										<li class="list-group-item">
+
+
+										{{--<a class="btn-u btn-u-sm" href="#">Change Picture</a>--}}
+									<form action="{{route('changeProfileImg')}}" id="example-form" method="post" enctype="multipart/form-data">
+										{{csrf_field()}}
+										<div class="btn-u btn-u-sm new_Btn btn-block text-center">Change Image</div><br>
+										<input id="images" type="file" name="file" multiple="" />
+									</form>
 
 								</div>
 								<div class="col-md-7">
-									<h2>Edward Rooster</h2>
-									<span><strong>Job:</strong> Web Developer</span>
-									<span><strong>Position:</strong> Web Designer</span>
+									<h2>{{Auth::user()->fname}} {{Auth::user()->lname}}</h2>
+									<span><strong>Skills:</strong> {{$userProfile->skills}}</span>
+									<span><strong>Position:</strong>  {{$userProfile->professional_title}}</span>
 									<hr>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eget massa nec turpis congue bibendum. Integer nulla felis, porta suscipit nulla et, dignissim commodo nunc. Morbi a semper nulla.</p>
-									<p>Proin mauris odio, pharetra quis ligula non, vulputate vehicula quam. Nunc in libero vitae nunc ultricies tincidunt ut sed leo. Sed luctus dui ut congue consequat. Cras consequat nisl ante, nec malesuada velit pellentesque ac. Pellentesque nec arcu in ipsum iaculis convallis.</p>
+									<p>{{$userProfile->professional_overview}}</p>
 								</div>
 							</div>
 						</div><!--/end row-->
@@ -177,4 +194,49 @@
 					</div>
 				</div>
 				<!-- End Profile Content -->
+
+	<script type="text/javascript">
+        $("input:file").change(function (){
+            //event.preventDefault();
+            var fd = new FormData();
+            var file_data = $('input[type="file"]')[0].files; // for multiple files
+            fd.append("file_", file_data[0]);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'{{ route('changeProfileImg') }}',
+                type: 'POST',
+                data: fd,
+
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+					if(data.length>0) {
+                        var APP_URL = '{{ url('/') }}';
+                        var img_ser = APP_URL + "/profile_img/" + data;
+
+                        $('.profile-imge').attr("src", img_ser);
+                        $('.left-profile').attr("src", img_ser);
+                        $("#error").addClass('hidden');
+                    }else{
+					    //alert("Hello");
+						$("#error").removeClass('hidden');
+						$("#error").html('Something wrong while profile image uploadmin');
+					}
+                },
+            });
+
+
+        });
+
+
+        $('.new_Btn').bind("click" , function () {
+            $('#images').click();
+        });
+	</script>
 @endsection

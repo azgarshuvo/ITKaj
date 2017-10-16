@@ -14,4 +14,9 @@ use Illuminate\Database\Eloquent\Model;
 class States extends Model{
     protected $table = 'states';
 
+
+    public function scopeFindStates($query, $id)
+    {
+        return $query->where('countries_id', '=', $id);
+    }
 }

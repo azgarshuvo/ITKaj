@@ -100,6 +100,19 @@ a:hover {
 #freelancer_list,#inter_freelancer_list{
     padding-bottom: 10px;
 }
-.job-owner{
+.job-owner {
     height: 200px !important;
+}
+.new_Btn {
+// your css propterties
+}
+
+#images {
+    display:none;
+}
+.left-profile{
+    width: 260px;
+}
+.profile-imge{
+    width: 280px;
 }

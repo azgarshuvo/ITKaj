@@ -8,30 +8,46 @@
 ?>
 <!--Left Sidebar-->
 <div class="col-md-3 md-margin-bottom-40">
-    <img class="img-responsive profile-img margin-bottom-20" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
+    {{--<img class="img-responsive profile-img margin-bottom-20 left-profile" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">--}}
+    @if(App\UserProfile::where('user_id',Auth::user()->id)->first()!=null)
+        <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
+    @else
+        <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
+    @endif
 
-    <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+        <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
         <li class="list-group-item">
             <a href="{{route('profile_overall')}}"><i class="fa fa-bar-chart-o"></i> Overall</a>
         </li>
         <li class="list-group-item">
             <a href="{{route('my_profile')}}"><i class="fa fa-user"></i> Profile</a>
-        </li>
-        <li class="list-group-item">
-            <a href="{{route('my_projects')}}"><i class="fa fa-cubes"></i> My Projects</a>
-        </li>
-
-        
-      <!-- nav bar -->
-        <!-- <li class="active">
-            <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-                <li class="active"><a href="index.html">Dashboard v.1</a></li>
-                <li ><a href="dashboard_2.html">Dashboard v.2</a></li>
-                <li ><a href="dashboard_3.html">Dashboard v.3</a></li>
-                <li ><a href="dashboard_4_1.html">Dashboard v.4</a></li>
-            </ul>
-        </li> -->
+        </li> 
+      <li class="list-group-item list-toggle">
+        <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-buttons"><i class="fa fa-cubes"></i>My Project</a>
+        <ul id="collapse-buttons" class="collapse">
+            <li>
+                <a href="{{route('my_projects')}}"><i class="fa fa-flask"></i> Job List</a>
+            </li>           
+            <li>
+                <a href="{{route('job_approved_list')}}"><i class="fa fa-flask"></i> Job Approved</a>
+            </li>
+            <li>
+                <a href="{{route('job_disapproved_list')}}"><i class="fa fa-flask"></i> Job Disapproved</a>
+            </li>
+            <li>
+                <a href="{{route('job_done_list')}}"><i class="fa fa-flask"></i> Job Done</a>
+            </li>
+            <li>
+                <a href="{{route('job_interested_list')}}"><i class="fa fa-flask"></i> Job Interested List</a>
+            </li>
+            <li>
+                <a href="{{route('job_ongoing_list')}}"><i class="fa fa-flask"></i> Job Ongoing List</a>
+            </li>
+            <li>
+                <a href="{{route('freelancer_job_done_list')}}"><i class="fa fa-flask"></i> Job Done List</a>
+            </li>
+        </ul>
+    </li>
 
 
         <li class="list-group-item">
