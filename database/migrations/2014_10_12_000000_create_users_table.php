@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('fname');
             $table->string('lname');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->enum('user_type', ['freelancer', 'employer', 'admin']);
             $table->integer('admin_user_type')->default(-1);

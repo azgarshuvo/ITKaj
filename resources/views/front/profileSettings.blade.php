@@ -139,9 +139,17 @@
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="country">
-                                            @if($userProfile->profile != null && $userProfile->profile != '')
-                                            
-                                            @endif
+                                            <select class="form-control margin-bottom-20 country" name="country">
+                                                <option value="">Select One</option>
+                                                @foreach($countries as $country)
+                                                    @if($userProfile->profile != null && $userProfile->profile != '')
+                                                        @if($userProfile->profile->country == $country->id)
+                                                            <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
+                                                        @endif
+                                                    @endif
+                                                    <option value="{{$country->id}}">{{$country->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-md-6">
                                             {{--<input class="form-control" type="hidden" value="{{$userProfile->profile->country}}" name="country">--}}
@@ -716,6 +724,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
     {{--Education Modal End Here--}}
 @endsection
