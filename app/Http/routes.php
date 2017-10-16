@@ -82,6 +82,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('category/categoryList', ['as' =>'categoryList', 'uses' => 'adminController\CategoryCrudController@listOfCategory']);
     Route::get('category/categoryDelete/{id}', ['as' =>'categoryDelete', 'uses' => 'adminController\CategoryCrudController@deleteCategory']);
     Route::get('category/categoryEdit/{id}', ['as' =>'categoryEdit', 'uses' => 'adminController\CategoryCrudController@editCategory']);
+    Route::post('category/categoryUpdate/{id}', ['as' =>'categoryUpdate', 'uses' => 'adminController\CategoryCrudController@updateCategory']);
 
 
     Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);

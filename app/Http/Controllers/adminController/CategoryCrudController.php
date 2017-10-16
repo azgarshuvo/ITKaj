@@ -63,6 +63,18 @@ class CategoryCrudController extends Controller
          $category = Categories::findOrFail($id);
          return view('admin.category.editCategory', ['category' => $category]);
      }
+     public function updateCategory($id, Request $request){
+         $this->validate($request, [
+           'category_name' => 'required',
+           'is_parent' => 'required',
+           'parent_category_id'
+         ]);
+         $categoryData = $request->all();
+         Categories::findOrFail($id)->update($categoryData);
+         Session::flash('success', 'Category updated successfully!');
+         //return redirect('admin/category/categoryList');
+         return redirect()->route('categoryList');
+     }
     public function destroy($id)
     {
         //
