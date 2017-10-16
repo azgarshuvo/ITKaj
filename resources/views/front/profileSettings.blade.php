@@ -139,9 +139,9 @@
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="country">
-                                            {{--{{$userProfile->profile->country}}--}}
-
-                                            {{$countries[$userProfile->profile->country-1]->name}}
+                                            @if($userProfile->profile != null || $userProfile->profile != '')
+                                                {{$countries[$userProfile->profile->country-1]->name}}
+                                            @endif
                                         </div>
                                         <div class="col-md-6">
                                             {{--<input class="form-control" type="hidden" value="{{$userProfile->profile->country}}" name="country">--}}
