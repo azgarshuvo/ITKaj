@@ -26,4 +26,13 @@ class AdminJobController extends Controller
     public function getJobDelete($id){
         echo $id;
     }
+
+    public function getApproveJoblist(){
+        $jobList = Job::where('approved',1)->get();
+        dd($jobList);
+    }
+
+    public function getDisapproveJoblist(){
+
+    }
 }
