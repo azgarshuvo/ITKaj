@@ -54,17 +54,16 @@
                   <tr>
                     <td>{{$sc->category_name}}</td>
                     <td>
-                      <a class="btn btn-sm btn-primary" href="{{ route('categoryEdit', [$sc->id])}}"  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-sm btn-danger" href="{{ route('categoryDelete', [$sc->id])}}"  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
+                      <a class="btn btn-sm btn-primary" href="{{ route('categoryEdit', $sc->id)}}"  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+                      <a class="btn btn-sm btn-danger" href="{{ route('categoryDelete', $sc->id)}}"  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
                     </td>
                   </tr>
                   @endforeach
                 </table>
               </td>
               <td class="center">
-                <a class="btn btn-sm btn-info" href=""  data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>
-                <a class="btn btn-sm btn-primary" href=""  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
-                <a class="btn btn-sm btn-danger" href=""  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
+                <a class="btn btn-sm btn-primary" href="{{ route('categoryEdit', $pc->id)}}"  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-sm btn-danger" href="{{ route('categoryDelete', $pc->id)}}"  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
               </td>
             </tr>
             @endforeach
