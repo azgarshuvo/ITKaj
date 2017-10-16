@@ -85,6 +85,9 @@ Route::group(['prefix' => 'admin'], function (){
 
     /*admin job controller start*/
     Route::get('job/list', ['as' =>'jobList', 'uses' => 'adminController\AdminJobController@getJoblist']);
+    Route::get('job/details/{id}', ['as' =>'jobDetails', 'uses' => 'adminController\AdminJobController@getJobDetails']);
+    Route::get('job/edit/{id}', ['as' =>'jobEdit', 'uses' => 'adminController\AdminJobController@getJobEditView']);
+    Route::get('job/delete/{id}', ['as' =>'jobDelete', 'uses' => 'adminController\AdminJobController@getJobDelete']);
 
     /*admin job controller end*/
 
