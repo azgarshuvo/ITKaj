@@ -54,6 +54,7 @@
                   <tr>
                     <td>{{$sc->category_name}}</td>
                     <td>
+                      <a class="btn btn-sm btn-primary" href="{{ route('categoryEdit', [$sc->id])}}"  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
                       <a class="btn btn-sm btn-danger" href="{{ route('categoryDelete', [$sc->id])}}"  data-toggle="tooltip" title="Delete"><i class="fa fa-times"></i></a>
                     </td>
                   </tr>
