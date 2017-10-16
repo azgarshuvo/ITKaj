@@ -177,7 +177,7 @@
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="cityOptions">
                                             {{--{{$userProfile->profile->country}}--}}
-                                            <select class="form-control margin-bottom-20 cityOptions" name="cityOptions" disabled>
+                                            <select id="cityDropdown" class="form-control margin-bottom-20 cityOptions" name="cityOptions" disabled>
 
                                             </select>
                                         </div>
@@ -187,13 +187,13 @@
                                             </select>
                                         </div>--}}
                                         <div class="col-md-6">
-                                            <span>
-                                                <a onclick="changeDropDown('cityOptions')" class="pull-right cityOptions_edit" href="javascript:void(0);">
+                                            <span id="cityEdit">
+                                                <a onclick="changeDropDown('city')" class="pull-right" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetDropDown('cityOptions')" class="pull-right cityOptions hidden" href="javascript:void(0);">
+                                                <a onclick="resetCityDropDown('city')" class="pull-right city hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -740,8 +740,16 @@
 
         /*use for city and country name change*/
         function changeDropDown(name){
-            alert("Hello");
-            $("input[name=cityOptions]").removeAttr('disabled');
+            $("#"+name+"Dropdown").removeAttr('disabled');
+            $("."+name).removeClass('hidden');
+           $("#cityEdit").addClass('hidden');
+        }
+
+        /*use for city dropdown reset*/
+        function resetCityDropDown(name){
+            $("#"+name+"Edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+            $('#cityDropdown').prop("disabled", true);
         }
 
         $("#infoUpdate").click(function(event){
