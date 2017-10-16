@@ -30,10 +30,10 @@ class ProfileController extends Controller{
     }
 
     public function getProfileSettings(){
-        $userProfile = User::with('profile')->first();
+        $userProfile = Auth::User();
+//        dd($userProfile);
         $countries = Countries::all();
         $cities = States::all();
-//        dd($country);
     	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);
     }
 
@@ -50,9 +50,7 @@ class ProfileController extends Controller{
         }
         else{
     	$job = Job::Popular(auth()->user()->id)->get();
-        $user = User::find(auth()->user()->id)
-        ->where('user_type', 'employer')
-        ->first();
+        $user = User::find(auth()->user()->id);
         return view('front.myProjects', ['job' => $job, 'user' => $user]);
         }
     }
