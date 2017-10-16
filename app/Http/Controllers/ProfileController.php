@@ -31,6 +31,7 @@ class ProfileController extends Controller{
 
     public function getProfileSettings(){
         $userProfile = Auth::User();
+//        dd($userProfile);
         $countries = Countries::all();
         $cities = States::all();
     	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);

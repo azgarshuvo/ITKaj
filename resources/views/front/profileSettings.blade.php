@@ -5,7 +5,6 @@
  * Date: 08-Oct-17
  * Time: 2:40 PM
  */
-//dd($cities);
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -115,10 +114,10 @@
                                 <dd>
                                     <div class="row">
                                         <div id="phone" class="col-md-10 setText">
-                                            @if($userProfile->profile->phone_number != null && $userProfile->profile->phone_number != ''){{$userProfile->profile->phone_number}}@endif
+                                            @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->phone_number}}@endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control"  type="hidden" @if($userProfile->profile->phone_number != null && $userProfile->profile->phone_number != '') value="{{$userProfile->profile->phone_number}}" @endif name="phone">
+                                            <input class="form-control"  type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->phone_number}}" @endif name="phone">
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -144,7 +143,7 @@
                                             <select class="form-control margin-bottom-20" name="country" disabled>
                                                 <option value="">Select One</option>
                                                 @foreach($countries as $country)
-                                                    @if($userProfile->profile->country != null && $userProfile->profile->country != '')
+                                                    @if($userProfile->profile != null && $userProfile->profile != '')
                                                         @if($userProfile->profile->country == $country->id)
                                                             <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
                                                         @endif
@@ -158,7 +157,7 @@
                                             <select class="form-control margin-bottom-20 country" name="country">
                                                 <option value="">Select One</option>
                                                 @foreach($countries as $country)
-                                                    @if($userProfile->profile->country != null && $userProfile->profile->country != '')
+                                                    @if($userProfile->profile != null && $userProfile->profile != '')
                                                         @if($userProfile->profile->country == $country->id)
                                                             <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
                                                         @endif
@@ -216,10 +215,10 @@
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-8 setText" id="address">
-                                            @if($userProfile->profile->address != null && $userProfile->profile->address != ''){{$userProfile->profile->address}} @endif
+                                            @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->address}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" @if($userProfile->profile->address != null && $userProfile->profile->address != '') value="{{$userProfile->profile->address}}" @endif name="address">
+                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->address}}" @endif name="address">
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -242,10 +241,10 @@
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="company_name">
-                                                @if($userProfile->profile->company_name != null && $userProfile->profile->company_name != ''){{$userProfile->profile->company_name}} @endif
+                                                @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->company_name}} @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" @if($userProfile->profile->company_name != null && $userProfile->profile->company_name != '') value="{{$userProfile->profile->company_name}}" @endif name="company_name">
+                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->company_name}}" @endif name="company_name">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -268,10 +267,10 @@
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="web_address">
-                                                @if($userProfile->profile->company_website != null && $userProfile->profile->company_website != '') {{$userProfile->profile->company_website}}@endif
+                                                @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->company_website}}@endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" @if($userProfile->profile->company_website != null && $userProfile->profile->company_website != '') value="{{$userProfile->profile->company_website}}" @endif name="web_address">
+                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->company_website}}" @endif name="web_address">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -296,10 +295,10 @@
                                 <dd>
                                     <div class="row">
                                         <div class="col-md-8 setText" id="professional_title">
-                                            @if($userProfile->profile->professional_title != null && $userProfile->profile->professional_title != ''){{$userProfile->profile->professional_title}} @endif
+                                            @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->professional_title}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" @if($userProfile->profile->professional_title != null && $userProfile->profile->professional_title != '') value="{{$userProfile->profile->professional_title}}" @endif name="professional_title">
+                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->professional_title}}" @endif name="professional_title">
                                         </div>
                                         <div class="col-md-6">
                                                 <span>
@@ -323,10 +322,10 @@
                                 <dd>
                                     <div class="row">
                                         <div class="col-md-8 setText" id="professional_overview">
-                                            {{$userProfile->profile->professional_overview}}
+                                            @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->professional_overview}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" value="{{$userProfile->profile->professional_title}}" name="professional_overview">
+                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->professional_overview}}" @endif name="professional_overview">
                                         </div>
                                         <div class="col-md-6">
                                                 <span>
@@ -355,10 +354,10 @@
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="skills">
-                                                {{$userProfile->profile->skills}}
+                                                @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->skills}} @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->profile->skills}}" name="skills">
+                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->skills}}" @endif name="skills">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -383,10 +382,10 @@
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="hourly_rate">
-                                                {{$userProfile->experience_lavel}}
+                                                @if($userProfile->profile != null && $userProfile->profile ){{$userProfile->profile->hourly_rate}} @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->experience_lavel}}" name="hourly_rate">
+                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile ) value="{{$userProfile->profile->hourly_rate}}"  @endif name="hourly_rate">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -418,7 +417,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->profile->experience_lavel}}" name="experience_lavel">
+                                                <input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -753,7 +752,7 @@
         </div>
     </div>
     <!-- End Profile Content -->
-    <input type="hidden" value="{{$userProfile->profile->country}}" id="userCountryId">
+    <input type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->country}}" @endif id="userCountryId">
     <input type="hidden" value="{{$cities}}" id="userCities">
 @endsection
 @section('script')
@@ -764,9 +763,11 @@
             if($('#userCountryId').val() != null && $('#userCountryId').val() != ''){
                 $("select.cityOptions").html("<option value=\"\">Select One</option>" +
                     "@foreach($cities as $city)\n" +
+                    "@if($userProfile->profile != null && $userProfile->profile != '')\n" +
                     "@if($userProfile->profile->country == $city->countries_id)\n" +
                     "@if($userProfile->profile->city == $city->id)" +
                     "<option value=\"{{$city->id}}\" selected = 'selected'>{{$city->name}}</option>\n" +
+                    "@endif" +
                     "@endif" +
                     "<option value=\"{{$city->id}}\">{{$city->name}}</option>\n" +
                     "@endif\n" +
