@@ -95,8 +95,8 @@
                     <div class="col-lg-10 ">
                       <div class="picture-container">
                         <div class="picture">
-                            <img src="assets/img/avatar.png" class="picture-src" id="wizardPicturePreview" title=""/>
-                            <input type="file" accept="image/*" id="wizard-picture">
+                            <img src="assets/img/avatar.png" class="picture-src" id="output_image"/>
+                            <input type="file" accept="image/*" onchange="preview_image(event)">
                         </div>
                       </div>
                     </div>

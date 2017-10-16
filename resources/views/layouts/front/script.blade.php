@@ -14,6 +14,7 @@
 <script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/bootstrap.min.js')}}"></script>
 
 <!-- JS Implementing Plugins -->
+
 <script type="text/javascript" src="{{asset('assets/plugins/back-to-top.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/smoothScroll.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/jquery.parallax.js')}}"></script>
@@ -34,6 +35,7 @@
 <script type="text/javascript" src="{{asset('assets/js/plugins/style-switcher.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/datepicker.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/plugins/style-switcher.js')}}"></script>
+
 <script type="text/javascript">
     jQuery(document).ready(function() {
         App.init();
