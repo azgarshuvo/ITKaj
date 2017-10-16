@@ -29,24 +29,24 @@ Route::group(['prefix' => 'user'], function () {
 
 
     Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
-    	Route::get('overall', ['as' => 'profile_overall', 'uses' => 'ProfileController@getProfile']);
-    	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
-    	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
-        Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+
+        Route::get('', ['as' => 'myProfile', 'uses' => 'ProfileController@getMyProfile']);
+
+    	Route::get('overall', ['as' => 'profileOverall', 'uses' => 'ProfileController@getProfile']);
+    	Route::get('settings', ['as' => 'profileSettings', 'uses' => 'ProfileController@getProfileSettings']);
+        Route::get('projects/list', ['as' => 'projectsList', 'uses' => 'ProfileController@getProjectsList']);
         Route::get('view', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
-        Route::post('change-rofile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
+        Route::post('change-profile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
 
 
-
-        Route::get('project/list', ['as' => 'my_project_list', 'uses' => 'ProfileController@getMyProjectList']);
-        Route::get('job/approvedList', ['as' => 'job_approved_list', 'uses' => 'ProfileController@getJobApprovedList']);
-        Route::get('job/disapprovedList', ['as' => 'job_disapproved_list', 'uses' => 'ProfileController@getJobDisapprovedList']);
-    	Route::get('job/doneList', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
-        Route::get('job/doneList', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
-        Route::get('job/interestedList', ['as' => 'job_interested_list', 'uses' => 'ProfileController@getJobInterestedList']);
-        Route::get('job/ongoingList', ['as' => 'job_ongoing_list', 'uses' => 'ProfileController@getJobOngoingList']);
-        Route::get('job/freelancerDoneList', ['as' => 'freelancer_job_done_list', 'uses' => 'ProfileController@getFreelancerJobDoneList']);
-
+        Route::group(['prefix' => 'project'], function(){
+            Route::get('list', ['as' => 'my_project_list', 'uses' => 'ProfileController@getMyProjectList']);
+            Route::get('approved/list', ['as' => 'job_approved_list', 'uses' => 'ProfileController@getJobApprovedList']);
+            Route::get('disapproved/list', ['as' => 'job_disapproved_list', 'uses' => 'ProfileController@getJobDisapprovedList']);
+            Route::get('done/list', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
+            Route::get('interested/list', ['as' => 'job_interested_list', 'uses' => 'ProfileController@getJobInterestedList']);
+            Route::get('ongoing/list', ['as' => 'job_ongoing_list', 'uses' => 'ProfileController@getJobOngoingList']);
+        });
 
     	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
     	Route::post('change/changeprofile', ['as' => 'changeProfile', 'uses' => 'ProfileController@changeProfile']);
@@ -80,6 +80,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('category/categoryList', ['as' =>'categoryList', 'uses' => 'adminController\CategoryCrudController@listOfCategory']);
     Route::get('category/categoryDelete/{id}', ['as' =>'categoryDelete', 'uses' => 'adminController\CategoryCrudController@deleteCategory']);
     Route::get('category/categoryEdit/{id}', ['as' =>'categoryEdit', 'uses' => 'adminController\CategoryCrudController@editCategory']);
+    Route::post('category/categoryUpdate/{id}', ['as' =>'categoryUpdate', 'uses' => 'adminController\CategoryCrudController@updateCategory']);
 
 
     Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);

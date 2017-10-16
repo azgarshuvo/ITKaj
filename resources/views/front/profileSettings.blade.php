@@ -23,7 +23,6 @@
                     <li><a data-toggle="tab" href="#education">Education</a></li>
                     <li><a data-toggle="tab" href="#payment">Payment Options</a></li>
                     <li><a data-toggle="tab" href="#settings">Notification Settings</a></li>
-                    
                 </ul>
                 <div class="tab-content">
                     <div id="profile" class="profile-edit tab-pane fade in active">
@@ -293,16 +292,16 @@
                                             <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->professional_title}}" @endif name="professional_title">
                                         </div>
                                         <div class="col-md-6">
-                                                <span>
-                                                    <a onclick="changeData('professional_title')" class="pull-right professional_title_edit" href="javascript:void(0);">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                </span>
                                             <span>
-                                                    <a onclick="resetData('professional_title')" class="pull-right professional_title hidden" href="javascript:void(0);">
-                                                        <i class="fa fa-times fa-lg"></i>
-                                                    </a>
-                                                </span>
+                                                <a onclick="changeData('professional_title')" class="pull-right professional_title_edit" href="javascript:void(0);">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a onclick="resetData('professional_title')" class="pull-right professional_title hidden" href="javascript:void(0);">
+                                                    <i class="fa fa-times fa-lg"></i>
+                                                </a>
+                                            </span>
                                         </div>
                                     </div>
 
@@ -320,16 +319,16 @@
                                             <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->professional_overview}}" @endif name="professional_overview">
                                         </div>
                                         <div class="col-md-6">
-                                                <span>
-                                                    <a onclick="changeData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                </span>
                                             <span>
-                                                    <a onclick="resetData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
-                                                        <i class="fa fa-times fa-lg"></i>
-                                                    </a>
-                                                </span>
+                                                <a onclick="changeData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a onclick="resetData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
+                                                    <i class="fa fa-times fa-lg"></i>
+                                                </a>
+                                            </span>
                                         </div>
                                     </div>
 
@@ -497,7 +496,7 @@
                     {{--Education Start here--}}
                     <div id="education" class="profile-edit tab-pane fade">
                         <h2 class="heading-md">Education List</h2>
-             
+
                         <p class="text-center" id="ajax_message"></p>
                         <br>
                         <form method="POST" class="sky-form" id="add_education" action="">
@@ -505,127 +504,46 @@
                             <dl class="dl-horizontal">
 
 
-                        <div class="row">
-                            <div class="col-sm-6">
-                                 <div class="projects">
-                                    <h2><a class="color-dark" href="#"></a>Name of the Institute</h2>
-                                    <ul class="list-unstyled list-inline blog-info-v2">
-                                       
-                                        <li><i class="fa fa-clock-o"></i>Graduation Start Date</li>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="projects">
+                                            <h2><a class="color-dark" href="#"></a>Name of the Institute</h2>
+                                            <ul class="list-unstyled list-inline blog-info-v2">
 
-                                        <li><i class="fa fa-clock-o"></i>Graduation End Date</li>
-                                    </ul>
-                                    <h5><a class="color-dark">Degree</a></h5>
-                                    <h5><a class="color-dark"></a>Area of Study</h5>
-                                    <h5><a class="color-dark"></a>Description</h5>
-                                    <br>
+                                                <li><i class="fa fa-clock-o"></i>Graduation Start Date</li>
+
+                                                <li><i class="fa fa-clock-o"></i>Graduation End Date</li>
+                                            </ul>
+                                            <h5><a class="color-dark">Degree</a></h5>
+                                            <h5><a class="color-dark"></a>Area of Study</h5>
+                                            <h5><a class="color-dark"></a>Description</h5>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="projects">
+                                            <h2><a class="color-dark"></a>Name of the Institute</h2>
+                                            <ul class="list-unstyled list-inline blog-info-v2">
+
+                                                <li><i class="fa fa-clock-o"></i>Graduation Start Date</li>
+
+                                                <li><i class="fa fa-clock-o"></i>Graduation End Date</li>
+                                            </ul>
+                                            <h5><a class="color-dark">Degree</a></h5>
+                                            <h5><a class="color-dark"></a>Area of Study</h5>
+                                            <h5><a class="color-dark"></a>Description</h5>
+                                            <br>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-6">
-                                 <div class="projects">
-                                    <h2><a class="color-dark"></a>Name of the Institute</h2>
-                                    <ul class="list-unstyled list-inline blog-info-v2">
-                                       
-                                        <li><i class="fa fa-clock-o"></i>Graduation Start Date</li>
-
-                                        <li><i class="fa fa-clock-o"></i>Graduation End Date</li>
-                                    </ul>
-                                    <h5><a class="color-dark">Degree</a></h5>
-                                    <h5><a class="color-dark"></a>Area of Study</h5>
-                                    <h5><a class="color-dark"></a>Description</h5>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                                
                             </dl>
-                            <button type="button" class="btn-u btn-info" data-toggle="modal" data-target="#myModal">Add More</button>
+                            <button type="button" class="btn-u" data-toggle="modal" data-target="#educationModal">Add More</button>
+
                         </form>
                     </div>
-                     {{--education end here--}}
-
-                    {{--education modal--}}
-
-                    <div id="myModal" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="row">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">School</label>
-                                        <div class="col-md-6">
-                                            <input id="school" type="text" class="form-control margin-bottom-10" name="school" value="">
-                                        </div>
-                                    </div>
-                                     <div class="form-group">
-                                         <label class="col-md-4 control-label margin-bottom-10">Date Start</label>
-                                         <div class="col-md-6">
-                                                <input type="text" name="finish" id="datepicker" placeholder="Expected finish date" 
-                                         </div>
-                                     </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">Date End</label>
-                                        <div class="col-md-6">
-                                            <label class="input">
-                                        <i class="icon-append fa fa-calendar"></i>
-                                        <input type="text" name="finish" id="finish" placeholder="Expected finish date" class="hasDatepicker">
-                                    </label>
-
-                                            
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">Degree</label>
-                                        <div class="col-md-6">
-                                            <input id="degree" type="text" class="form-control margin-bottom-10" name="degree" value="">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">Area of Study</label>
-                                        <div class="col-md-6">
-                                            <input id="area" type="text" class="form-control margin-bottom-10" name="area" value="">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">Description</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="description" class="form-control margin-bottom-10" name="description" value="">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <div class="col-md-6 col-md-offset-4 margin-bottom-10">
-                                            <button data-dismiss="modal" onclick="addEducation()" type="button" class="btn-u btn-info">Add</button>
-                                            
-                                        </div>
-                                    </div>
-
-                                </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-
-                    {{--education Modal end here--}}
-
-
-
+                    {{--Education end here--}}
                     {{--Payment method tab start--}}
                     <div id="payment" class="profile-edit tab-pane fade">
                         <h2 class="heading-md">Manage your Payment Settings</h2>
@@ -723,6 +641,13 @@
     <!-- End Profile Content -->
     <input type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->country}}" @endif id="userCountryId">
     <input type="hidden" value="{{$cities}}" id="userCities">
+
+    {{--Education Modal--}}
+
+    <div id="myModal" class="modal fade" role="dialog">
+
+    </div>
+    {{--Education Modal End Here--}}
 @endsection
 @section('script')
     {{--this script use for update password--}}

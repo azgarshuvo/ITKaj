@@ -4,7 +4,9 @@
  * User: shuvo
  * Date: 05-Oct-17
  * Time: 4:15 PM
- */?>
+ */
+//dd($userProfile->profile)
+?>
 
 @extends('layouts.front.profileMaster')
 
@@ -37,14 +39,16 @@
 										<div class="btn-u btn-u-sm new_Btn btn-block text-center">Change Image</div><br>
 										<input id="images" type="file" name="file" multiple="" />
 									</form>
+										</li>
+									</ul>
 
 								</div>
 								<div class="col-md-7">
-									<h2>{{Auth::user()->fname}} {{Auth::user()->lname}}</h2>
-									<span><strong>Skills:</strong> {{$userProfile->skills}}</span>
-									<span><strong>Position:</strong>  {{$userProfile->professional_title}}</span>
+									<h2>{{$userProfile->fname}} {{$userProfile->lname}}</h2>
+									<span><strong>Skills:</strong> @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->skills}} @endif</span>
+									<span><strong>Position:</strong> @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->professional_title}} @endif</span>
 									<hr>
-									<p>{{$userProfile->professional_overview}}</p>
+									<p>@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->professional_overview}} @endif</p>
 								</div>
 							</div>
 						</div><!--/end row-->

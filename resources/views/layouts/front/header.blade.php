@@ -65,7 +65,7 @@
 
             <ul class="nav navbar-nav">
                 <!-- Profile -->
-                <li><a href="{{route('profile_overall')}}">Profile</a></li>
+                <li><a href="{{route('profileOverall')}}">Profile</a></li>
                 <!-- End Profile -->
             </ul>
             @endif
