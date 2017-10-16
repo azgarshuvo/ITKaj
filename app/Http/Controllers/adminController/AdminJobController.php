@@ -29,10 +29,11 @@ class AdminJobController extends Controller
 
     public function getApproveJoblist(){
         $jobList = Job::where('approved',1)->get();
-        dd($jobList);
+        return view('admin.jobListApprove',['jobList'=>$jobList]);
     }
 
     public function getDisapproveJoblist(){
-
+        $jobList = Job::where('approved',0)->get();
+        return view('admin.jobListApprove',['jobList'=>$jobList]);
     }
 }
