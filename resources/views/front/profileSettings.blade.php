@@ -291,6 +291,7 @@
                                 @endif
 
                                 {{--Professional title start--}}
+                                @if($userProfile->user_type!="admin")
                                 <dt><strong>Professional Title</strong></dt>
                                 <dd>
                                     <div class="row">
@@ -316,6 +317,7 @@
 
                                 </dd>
                                 <hr>
+
                                 {{--Professional title end--}}
                                 {{--Professional Overview start--}}
                                 <dt><strong>Professional Overview</strong></dt>
@@ -343,7 +345,8 @@
 
                                 </dd>
                                 <hr>
-                                {{--Professional title end--}}
+                                @endif
+                                {{--Professional Overview end--}}
                                 {{--This section start for frellancer--}}
                                 @if($userProfile->user_type=="freelancer")
 
@@ -417,7 +420,16 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">
+                                                @if($userProfile->profile->experience_lavel==1)
+                                                    Entry Level
+                                                @elseif($userProfile->profile->experience_lavel==2)
+                                                    Intermediate Level
+                                                @elseif($userProfile->profile->experience_lavel==3)
+                                                    Expart Level
+                                                @else
+
+                                                @endif
+                                                {{--<input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">--}}
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
