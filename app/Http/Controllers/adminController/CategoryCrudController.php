@@ -72,7 +72,8 @@ class CategoryCrudController extends Controller
          $categoryData = $request->all();
          Categories::findOrFail($id)->update($categoryData);
          Session::flash('success', 'Category updated successfully!');
-         return view('admin.category.categoryList');
+         //return redirect('admin/category/categoryList');
+         return redirect()->route('categoryList');
      }
     public function destroy($id)
     {
