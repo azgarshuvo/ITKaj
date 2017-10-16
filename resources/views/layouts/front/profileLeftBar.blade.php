@@ -5,53 +5,55 @@
  * Date: 09-Oct-17
  * Time: 01:45 PM
  */
+//dd(Auth::User())
 ?>
 <!--Left Sidebar-->
 <div class="col-md-3 md-margin-bottom-40">
     {{--<img class="img-responsive profile-img margin-bottom-20 left-profile" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">--}}
-    @if(App\UserProfile::where('user_id',Auth::user()->id)->first()!=null)
-        <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
+    @if(Auth::User()->profile != null)
+        <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(Auth::User()->profile->img_path != null && Auth::User()->profile->img_path != '' )  src="{{asset('profile_img/'.Auth::User()->profile->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
     @else
         <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
     @endif
 
         <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
         <li class="list-group-item">
-            <a href="{{route('profile_overall')}}"><i class="fa fa-bar-chart-o"></i> Overall</a>
+            <a href="{{route('profileOverall')}}"><i class="fa fa-bar-chart-o"></i> Overall</a>
         </li>
         <li class="list-group-item">
-            <a href="{{route('my_profile')}}"><i class="fa fa-user"></i> Profile</a>
-        </li> 
+            <a href="{{route('myProfile')}}"><i class="fa fa-user"></i> Profile</a>
+        </li>
       <li class="list-group-item list-toggle">
         <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-buttons"><i class="fa fa-cubes"></i>My Project</a>
         <ul id="collapse-buttons" class="collapse">
             <li>
-                <a href="{{route('my_projects')}}"><i class="fa fa-flask"></i> Job List</a>
-            </li>           
+                <a href="{{route('projectsList')}}">Project List </a>
+            </li>
+            @if(Auth::User()->user_type == 'employer')
             <li>
-                <a href="{{route('job_approved_list')}}"><i class="fa fa-flask"></i> Job Approved</a>
+                <a href="{{route('job_approved_list')}}"> Project Approved List</a>
             </li>
             <li>
-                <a href="{{route('job_disapproved_list')}}"><i class="fa fa-flask"></i> Job Disapproved</a>
+                <a href="{{route('job_disapproved_list')}}"> Project Disapproved List</a>
             </li>
+            @endif
             <li>
-                <a href="{{route('job_done_list')}}"><i class="fa fa-flask"></i> Job Done</a>
+                <a href="{{route('job_done_list')}}"> Project Done List</a>
             </li>
+            @if(Auth::User()->user_type == 'freelancer')
             <li>
-                <a href="{{route('job_interested_list')}}"><i class="fa fa-flask"></i> Job Interested List</a>
+                <a href="{{route('job_interested_list')}}"> Project Interested List</a>
             </li>
+            @endif
             <li>
-                <a href="{{route('job_ongoing_list')}}"><i class="fa fa-flask"></i> Job Ongoing List</a>
-            </li>
-            <li>
-                <a href="{{route('freelancer_job_done_list')}}"><i class="fa fa-flask"></i> Job Done List</a>
+                <a href="{{route('job_ongoing_list')}}"> Project Ongoing List</a>
             </li>
         </ul>
     </li>
 
 
         <li class="list-group-item">
-            <a href="{{route('profile_settings')}}"><i class="fa fa-cog"></i> Settings</a>
+            <a href="{{route('profileSettings')}}"><i class="fa fa-cog"></i> Settings</a>
         </li>
     </ul>
 
