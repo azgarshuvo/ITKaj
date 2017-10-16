@@ -46,9 +46,6 @@
 <!-- ChartJS-->
 <script src="{{asset('admin/js/plugins/chartJs/Chart.min.js')}}"></script>
 
-<!-- Image cropper -->
-<script src="{{asset('js/plugins/cropper/cropper.min.js')}}"></script>
-
 <!-- Data Tables -->
 <script src="{{asset('admin/js/plugins/dataTables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('admin/js/plugins/dataTables/dataTables.bootstrap.js')}}"></script>
@@ -76,46 +73,32 @@
             }
         });
 
-        // Prepare the preview for profile picture
-        $("#wizard-picture").change(function () {
-            readURL(this);
-        });
-        //Function to show image before upload
 
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
         // $().tooltip();
         // $(selector).on('click', function(){
         //   $(selector).removeClass('active');
         //   $(this).addClass('active');
         // });
         /* Init DataTables */
-        var oTable = $('#editable').dataTable();
-
-        /* Apply the jEditable handlers to the table */
-        oTable.$('td').editable( '../example_ajax.php', {
-            "callback": function( sValue, y ) {
-                var aPos = oTable.fnGetPosition( this );
-                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-            },
-            "submitdata": function ( value, settings ) {
-                return {
-                    "row_id": this.parentNode.getAttribute('id'),
-                    "column": oTable.fnGetPosition( this )[2]
-                };
-            },
-
-            "width": "90%",
-            "height": "100%"
-        } );
+        // var oTable = $('#editable').dataTable();
+        //
+        // /* Apply the jEditable handlers to the table */
+        // oTable.$('td').editable( '../example_ajax.php', {
+        //     "callback": function( sValue, y ) {
+        //         var aPos = oTable.fnGetPosition( this );
+        //         oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+        //     },
+        //     "submitdata": function ( value, settings ) {
+        //         return {
+        //             "row_id": this.parentNode.getAttribute('id'),
+        //             "column": oTable.fnGetPosition( this )[2]
+        //         };
+        //     },
+        //
+        //     "width": "90%",
+        //     "height": "100%"
+        // } );
 
         $.plot($("#flot-chart1"), data1, {
             xaxis: {
@@ -196,11 +179,27 @@
 
 
     });
-    function yesnoCheck() {
-        if (document.getElementById('yesCheck').checked) {
+    
+    function yesnoCheck(rad){
+        if(rad.value == "0"){
+            document.getElementById("mySelect").disabled=true;
+            document.getElementById('ifYes').style.display = 'none';
+        }else{
+            document.getElementById("mySelect").disabled=false;
             document.getElementById('ifYes').style.display = 'block';
         }
-        else document.getElementById('ifYes').style.display = 'none';
-
     }
+
+    //Function to show image before upload
+    function preview_image(event)
+    {
+     var reader = new FileReader();
+     reader.onload = function()
+     {
+      var output = document.getElementById('output_image');
+      output.src = reader.result;
+     }
+     reader.readAsDataURL(event.target.files[0]);
+    }
+    $(".alert").alert()
 </script>

@@ -12,6 +12,7 @@
 @section('title', 'Profile')
 
 @section('content')
+
     <!-- Profile Content -->
     <div class="col-md-9">
         <div class="profile-body margin-bottom-20">
@@ -19,8 +20,10 @@
                 <ul class="nav nav-justified nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#profile">Edit Profile</a></li>
                     <li><a data-toggle="tab" href="#passwordTab">Change Password</a></li>
+                    <li><a data-toggle="tab" href="#education">Education</a></li>
                     <li><a data-toggle="tab" href="#payment">Payment Options</a></li>
                     <li><a data-toggle="tab" href="#settings">Notification Settings</a></li>
+                    
                 </ul>
                 <div class="tab-content">
                     <div id="profile" class="profile-edit tab-pane fade in active">
@@ -133,6 +136,7 @@
                                 </dd>
                                 <hr>
                                 <dt><strong>Country</strong></dt>
+                                
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="country">
@@ -145,7 +149,7 @@
                                                             <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
                                                         @endif
                                                     @endif
-                                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                                    <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -488,6 +492,171 @@
                         </form>
                     </div>
                     {{--Change password tab end here--}}
+
+
+                    {{--Education Start here--}}
+                    <div id="education" class="profile-edit tab-pane fade">
+                        <h2 class="heading-md">Add Education</h2>
+             
+                        <p class="text-center" id="ajax_message"></p>
+                        <br>
+                        <form method="POST" class="sky-form" id="add_education" action="">
+                            {{csrf_field()}}
+                            <dl class="dl-horizontal">
+
+                                <dt>School</dt>
+                                <dd>
+                                    <section>
+                                        <label class="input">
+                                            
+                                            <input id="school" type="text" placeholder="School" name="school"> 
+                                        </label>
+                                    </section>
+                                </dd>
+                                <dt>Start Date</dt>
+                                <dd>
+                                    <section>
+                                        <label class="input">
+                                           
+                                            <input id="date_start" type="text" class="date form-control" name="date_start" />
+                                        </label>
+                                    </section>
+                                </dd>
+                                <dt>End Date</dt>
+                                <dd>
+                                    <section>
+                                        <label class="input">
+                                           
+                                            <input id="date_end" type="text" class="date form-control" name="date_end" />
+
+                                                <script type="text/javascript">
+                                                    $('.date').datepicker({
+                                                        dateFormat: "yy-mm-dd"
+                                                    });
+                                                </script>
+                                        </label>
+                                    </section>
+                                </dd>
+
+                                <dt>Degree</dt>
+                                <dd>
+                                    <section>
+                                        <label class="input">
+                                            
+                                            <input id="degree" type="text" placeholder="degree" name="degree"> 
+                                        </label>
+                                    </section>
+                                </dd>
+
+                                <dt>Area of Study</dt>
+                                <dd>
+                                    <section>
+                                        <label class="input">
+                                            
+                                            <input id="study" type="text" placeholder="Area of Study" name="study"> 
+                                        </label>
+                                    </section>
+                                </dd>
+
+                                <dt>Description</dt>
+                                <dd>
+                                    <section>
+                                        <label class="input">
+                                            
+                                            <textarea name="description" class="form-control" rows="4" id="description"></textarea> 
+                                        </label>
+                                    </section>
+                                </dd>
+                            </dl>
+                            <button type="reset" class="btn-u btn-u-default">Cancel</button>
+                            <button id="password_submit" class="btn-u" type="submit">Save Changes</button>
+                            <button type="button" class="btn-u btn-info" data-toggle="modal" data-target="#myModal">Add More</button>
+                        </form>
+                    </div>
+                     {{--education end here--}}
+
+                    {{--education modal--}}
+
+                    <div id="myModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label margin-bottom-10">School</label>
+                                        <div class="col-md-6">
+                                            <input id="school" type="text" class="form-control margin-bottom-10" name="school" value="">
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                         <label class="col-md-4 control-label margin-bottom-10">Date Start</label>
+                                         <div class="col-md-6">
+                                             <input id="date_start" type="text" class="date form-control margin-bottom-10" name="date_start" />
+
+                                         </div>
+                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label margin-bottom-10">Date End</label>
+                                        <div class="col-md-6">
+                                            <input id="date_end" type="text" class="date form-control margin-bottom-10" name="date_end" />
+
+                                            <script type="text/javascript">
+                                                $('.date').datepicker({
+                                                    dateFormat: "yy-mm-dd"
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label margin-bottom-10">Degree</label>
+                                        <div class="col-md-6">
+                                            <input id="degree" type="text" class="form-control margin-bottom-10" name="degree" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label margin-bottom-10">Area of Study</label>
+                                        <div class="col-md-6">
+                                            <input id="area" type="text" class="form-control margin-bottom-10" name="area" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label margin-bottom-10">Description</label>
+                                        <div class="col-md-6">
+                                            <input type="text" id="description" class="form-control margin-bottom-10" name="description" value="">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-4 margin-bottom-10">
+                                            <button data-dismiss="modal" onclick="addEducation()" type="button" class="btn btn-primary">Add</button>
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    {{--education Modal end here--}}
+
+
 
                     {{--Payment method tab start--}}
                     <div id="payment" class="profile-edit tab-pane fade">

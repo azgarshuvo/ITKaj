@@ -21,7 +21,7 @@
                 </a>
             </div>
         </div>
-        <div class="ibox-content">
+        <div class="ibox-content wizard-card">
             <form class="form-horizontal">
                 <div class="form-group">
                     <label class="col-lg-2 control-label">First Name</label>
@@ -84,11 +84,11 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Profile Picture</label>
-                    <div class="col-lg-10 wizard-card">
+                    <div class="col-lg-10 ">
                       <div class="picture-container">
                         <div class="picture">
-                            <img src="assets/img/avatar.png" class="picture-src" id="wizardPicturePreview" title=""/>
-                            <input type="file" id="wizard-picture">
+                            <img src="assets/img/avatar.png" class="picture-src" id="output_image"/>
+                            <input type="file" accept="image/*" onchange="preview_image(event)">
                         </div>
                       </div>
                     </div>
