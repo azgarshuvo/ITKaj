@@ -16,8 +16,8 @@
             <div class="alert alert-success">{{ Session::get('success') }}</div>
         @endif
         <div class="ibox float-e-margins">
-            <!-- admin list -->
-            @if(!empty($users))
+            <!-- Job list -->
+            @if(!empty($jobList))
                 <div class="ibox-title">
                     <h5>Admin List</h5>
                     <div class="ibox-tools">
@@ -34,23 +34,23 @@
                             <th>Job Title</th>
                             <th>Description</th>
                             <th>Category</th>
-                            <th>Job Type</th>
                             <th>Approve</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php  $count = 1; ?>
-                        @foreach($users as $user)
+                        @foreach($jobList as $job)
                             <tr class="gradeX">
                                 <td>{{$count++}}</td>
-                                <td>{{$user->fname." ".$user->lname}}</td>
-                                <td>{{$user->admin_user_type}}</td>
-                                <td>{{$user->created_at->diffForHumans()}}</td>
-                                <td>{{$user->updated_at->diffForHumans()}}</td>
+                                <td>{{$job->name}}</td>
+                                <td>{{$job->description}}</td>
+                                <td>{{$job->category_id}}</td>
+                                <td>@if($job->approved==0) Approved @else Not Approve @endif</td>
                                 <td class="center">
-                                    <a class="btn btn-sm btn-info" href="{{ route('adminDetails', [$user->id])}}" data-toggle="tooltip" data-placement="left" title="View"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('adminEdit', [$user->id])}}"  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
-                                    <a class="btn btn-sm btn-danger" href="{{ route('adminDelete', [$user->id])}}"  data-toggle="tooltip" title="Delete"><i class="fa fa-times" onclick="return confirm("Are you sure to delete?")"></i></a>
+                                    <a class="btn btn-sm btn-info" href="{{ route('jobDetails', [$job->id])}}" data-toggle="tooltip" data-placement="left" title="Job Details"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('jobEdit', [$job->id])}}"  data-toggle="tooltip" title="Job Edit"><i class="fa fa-edit"></i></a>
+                                    <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('jobDelete', [$job->id])}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
                                 </td>
                             </tr>
                         @endforeach

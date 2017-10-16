@@ -65,27 +65,37 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
 
     Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard','middleware' => 'admin']);
-    Route::get('addAdmin', ['as' =>'adminAdd', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
-    Route::get('adminList', ['as' =>'adminList', 'uses' => 'adminController\AdminDashboardController@listOfAdmin']);
-    Route::get('/insertAdmin', ['as' =>'insertAdmin', 'uses' => 'adminController\AdminDashboardController@insertAdmin']);
-    Route::get('/adminDetails/{id}', ['as' =>'adminDetails', 'uses' => 'adminController\AdminDashboardController@adminDetails']);
-    Route::get('/adminEdit/{id}', ['as' =>'adminEdit', 'uses' => 'adminController\AdminDashboardController@adminEdit']);
-    Route::get('/adminDelete/{id}', ['as' =>'adminDelete', 'uses' => 'adminController\AdminDashboardController@adminDelete']);
-    Route::get('/addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\AdminDashboardController@addCategory']);
-    Route::post('/insertCategory', ['as' =>'insertCategory', 'uses' => 'adminController\AdminDashboardController@insertCategory']);
-    Route::get('categoryList', ['as' =>'categoryList', 'uses' => 'adminController\AdminDashboardController@listOfCategory']);
-    Route::get('/categoryDelete/{id}', ['as' =>'categoryDelete', 'uses' => 'adminController\AdminDashboardController@deleteCategory']);
 
+    //Admin
+    Route::get('addAdmin', ['as' =>'adminAdd', 'uses' => 'adminController\AdminCrudController@addAdmin']);
+    Route::get('adminList', ['as' =>'adminList', 'uses' => 'adminController\AdminCrudController@listOfAdmin']);
+    Route::get('/insertAdmin', ['as' =>'insertAdmin', 'uses' => 'adminController\AdminCrudController@insertAdmin']);
+    Route::get('/adminDetails/{id}', ['as' =>'adminDetails', 'uses' => 'adminController\AdminCrudController@adminDetails']);
+    Route::get('/adminEdit/{id}', ['as' =>'adminEdit', 'uses' => 'adminController\AdminCrudController@adminEdit']);
+    Route::get('/adminDelete/{id}', ['as' =>'adminDelete', 'uses' => 'adminController\AdminCrudController@adminDelete']);
 
-
+    //Category
+    Route::get('category/addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\CategoryCrudController@addCategory']);
+    Route::post('category/insertCategory', ['as' =>'insertCategory', 'uses' => 'adminController\CategoryCrudController@insertCategory']);
+    Route::get('category/categoryList', ['as' =>'categoryList', 'uses' => 'adminController\CategoryCrudController@listOfCategory']);
+    Route::get('category/categoryDelete/{id}', ['as' =>'categoryDelete', 'uses' => 'adminController\CategoryCrudController@deleteCategory']);
+    Route::get('category/categoryEdit/{id}', ['as' =>'categoryEdit', 'uses' => 'adminController\CategoryCrudController@editCategory']);
 
 
     Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
     Route::get('employeer/list', ['as' =>'employeer_list', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
 
-    /*admin job controller start*/
-    Route::get('job/list', ['as' =>'jobList', 'uses' => 'adminController\AdminJobController@getJoblist']);
 
+    /*admin job controller start*/
+    Route::group(['prefix' => 'job'], function (){
+
+        Route::get('list', ['as' =>'jobList', 'uses' => 'adminController\AdminJobController@getJoblist']);
+        Route::get('list/approve', ['as' =>'jobApproveList', 'uses' => 'adminController\AdminJobController@getApproveJoblist']);
+        Route::get('list/disapprove', ['as' =>'jobDisApproveList', 'uses' => 'adminController\AdminJobController@getDisapproveJoblist']);
+        Route::get('details/{id}', ['as' =>'jobDetails', 'uses' => 'adminController\AdminJobController@getJobDetails']);
+        Route::get('edit/{id}', ['as' =>'jobEdit', 'uses' => 'adminController\AdminJobController@getJobEditView']);
+        Route::get('delete/{id}', ['as' =>'jobDelete', 'uses' => 'adminController\AdminJobController@getJobDelete']);
+    });
     /*admin job controller end*/
 
 });

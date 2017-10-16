@@ -12,33 +12,17 @@
 
 @section('content')
     <div class="wrapper wrapper-content">
-      @if(Session::has('success'))
-      <div class="alert alert-success alert-dismissible " role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        {{ Session::get('success') }}
-      </div>
-      @endif
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>Add Admin</h5>
+            <h5>Add Admin Just Templating</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
                 </a>
             </div>
         </div>
-        @if($errors->any())
-            <div class="alert alert-danger">
-            @foreach($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach()
-            </div>
-        @endif
         <div class="ibox-content wizard-card">
-            <form class="form-horizontal" action="{{route('insertAdmin')}}">
-              {{ csrf_field() }}
+            <form class="form-horizontal">
                 <div class="form-group">
                     <label class="col-lg-2 control-label">First Name</label>
                     <div class="col-lg-10"><input type="text" name="fname" placeholder="First Name" class="form-control">
@@ -56,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">User Name</label>
-                    <div class="col-lg-10"><input type="text" name="username" placeholder="User Name" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="user_name" placeholder="User Name" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -66,7 +50,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Admin User Type</label>
                     <div class="col-sm-10">
-                      <select class="form-control" name="admin_user_type">
+                      <select class="form-control" name="addminUserType">
                         <option value="1">Super Admin</option>
                         <option value="2">Mid Level Admin</option>
                         <option value="3">Third Level Admin</option>
@@ -90,7 +74,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Post Code</label>
-                    <div class="col-lg-10"><input type="text" name="postcode" placeholder="Post Code" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="post_code" placeholder="Post Code" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
