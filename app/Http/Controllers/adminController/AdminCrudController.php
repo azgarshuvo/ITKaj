@@ -41,14 +41,15 @@ class AdminCrudController extends Controller
           'fname' => 'required|string',
           'lname' => 'required|string',
           'username' => 'required',
-          'email' => 'required|email|string',
+          'email' => 'required|email|string|unique:users',
           'admin_user_type' => 'required',
           'password' => 'required|string|min:6',
           'phone_number' => 'required|string',
           'country' => 'required|string',
           'city' => 'required|string',
           'postcode' => 'required',
-          'address' => 'required'
+          'address' => 'required',
+          'img_path' => 'required|max:1024'
       ],[
         'fname.required'    =>"First Name is required",
         'lname.required'    =>"Last Name is required",
@@ -63,6 +64,7 @@ class AdminCrudController extends Controller
         'country.required'    =>"Country is required",
         'postcode.required'    =>"Postcode is required",
         'address.required'    =>"Address is required",
+        'img_path.required'    =>"Profile Picture is required",
       ]);
       $user = new User();
       $user->fname = Input::get('fname');
@@ -81,6 +83,11 @@ class AdminCrudController extends Controller
       $profile->city = Input::get('city');
       $profile->postcode = Input::get('postcode');
       $profile->address = Input::get('address');
+
+
+      $avatar = Input::get('img_path');
+      $filename = time() . '.' . $avatar;
+      $profile->img_path = $filename;
       $profile->save();
 
       Session::flash('success', 'User added successfully!');
