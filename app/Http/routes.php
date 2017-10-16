@@ -41,7 +41,7 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::group(['prefix' => 'project'], function(){
             Route::get('list', ['as' => 'my_project_list', 'uses' => 'ProfileController@getMyProjectList']);
-            Route::get('approved/list', ['as' => 'job_approved_list', 'uses' => 'ProfileController@getJobApprovedList']);
+            Route::get('approved/list', ['as' => 'job_approved_list', 'uses' => 'ProfileController@getProjectApprovedList']);
             Route::get('disapproved/list', ['as' => 'job_disapproved_list', 'uses' => 'ProfileController@getJobDisapprovedList']);
             Route::get('done/list', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
             Route::get('interested/list', ['as' => 'job_interested_list', 'uses' => 'ProfileController@getJobInterestedList']);
