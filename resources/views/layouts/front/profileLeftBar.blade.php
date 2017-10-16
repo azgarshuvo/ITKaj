@@ -5,12 +5,13 @@
  * Date: 09-Oct-17
  * Time: 01:45 PM
  */
+//dd(Auth::User())
 ?>
 <!--Left Sidebar-->
 <div class="col-md-3 md-margin-bottom-40">
     {{--<img class="img-responsive profile-img margin-bottom-20 left-profile" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">--}}
-    @if(App\UserProfile::where('user_id',Auth::user()->id)->first()!=null)
-        <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen(App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)>3)  src="{{asset('profile_img/'.App\UserProfile::where('user_id',Auth::user()->id)->first()->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
+    @if(Auth::User()->profile != null)
+        <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(Auth::User()->profile->img_path != null && Auth::User()->profile->img_path != '' )  src="{{asset('profile_img/'.Auth::User()->profile->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
     @else
         <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
     @endif
@@ -42,9 +43,6 @@
             </li>
             <li>
                 <a href="{{route('job_ongoing_list')}}"> Project Ongoing List</a>
-            </li>
-            <li>
-                <a href="{{route('freelancer_job_done_list')}}"> Project Done List</a>
             </li>
         </ul>
     </li>
