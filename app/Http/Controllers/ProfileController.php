@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 use App\Countries;
 use App\States;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Http\Request;
 use App\Job;
@@ -38,20 +39,17 @@ class ProfileController extends Controller{
     }
 
     public function getMyProfile(){
-        $userProfile = UserProfile::where('user_id',Auth::user()->id)->first();
+        $userProfile = Auth::User();
         return view('front.myProfile',['userProfile'=>$userProfile]);
     }
 
-    public function getMyProjects(){
-        $count = Job::get()->count();
-        //dd($count);
-        if($count == 0){
-            return redirect()->route('my_projects')->with('message', 'No job posted yet!!!');
-        }
-        else{
-    	$job = Job::Popular(auth()->user()->id)->get();
-        $user = User::find(auth()->user()->id);
-        return view('front.myProjects', ['job' => $job, 'user' => $user]);
+    public function getProjectsList(){
+    	$job = Job::ProjectList(Auth::User()->id)->get();
+    	if($job != null or $job != ''){
+            $user = Auth::User();
+            return view('front.myProjects', ['job' => $job, 'user' => $user]);
+        }else{
+    	    Return Redirect::route('projectsList')->with('message', 'No Project Posted yet');
         }
     }
 

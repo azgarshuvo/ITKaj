@@ -29,12 +29,14 @@ Route::group(['prefix' => 'user'], function () {
 
 
     Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
-    	Route::get('overall', ['as' => 'profile_overall', 'uses' => 'ProfileController@getProfile']);
-    	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
-    	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
-        Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+
+        Route::get('', ['as' => 'myProfile', 'uses' => 'ProfileController@getMyProfile']);
+
+    	Route::get('overall', ['as' => 'profileOverall', 'uses' => 'ProfileController@getProfile']);
+    	Route::get('settings', ['as' => 'profileSettings', 'uses' => 'ProfileController@getProfileSettings']);
+        Route::get('projects/list', ['as' => 'projectsList', 'uses' => 'ProfileController@getProjectsList']);
         Route::get('view', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
-        Route::post('change-rofile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
+        Route::post('change-profile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
 
 
 

@@ -644,7 +644,7 @@
     {{--Education Modal--}}
 
     <div id="myModal" class="modal fade" role="dialog">
-        
+
     </div>
     {{--Education Modal End Here--}}
 @endsection
