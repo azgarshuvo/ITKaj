@@ -68,7 +68,7 @@ class ProfileController extends Controller{
     public function getJobDoneList(){
         return view('front.jobDoneList');
     }
-    
+
     public function getJobInterestedList(){
         return view('front.jobInterestedList');
     }
@@ -95,13 +95,13 @@ class ProfileController extends Controller{
         //     ));
         // If($validate->fails())
 
-        
+
 
         $originalStartDate =  Input::get('start');
         $startDate = date("Y-m-d", strtotime($originalStartDate));
 
         $originalFinishDate = Input::get('finish');
-        $finishDate = date("Y-m-d", strtotime($originalFinishDate));       
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));
 
         Education::Create(
                     [   'user_id' => $this->userId,

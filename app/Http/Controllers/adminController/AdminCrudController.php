@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Auth;
-use Image;
 use App\User;
 use App\UserProfile;
 use App\Categories;
 use Session;
 use Input;
+Use Validator;
 
 class AdminCrudController extends Controller
 {
@@ -38,18 +38,18 @@ class AdminCrudController extends Controller
     public function insertAdmin(Request $request)
     {
       $this->validate($request, [
-          'fname' => 'required|string',
-          'lname' => 'required|string',
-          'username' => 'required',
-          'email' => 'required|email|string|unique:users',
-          'admin_user_type' => 'required',
-          'password' => 'required|string|min:6',
-          'phone_number' => 'required|string',
-          'country' => 'required|string',
-          'city' => 'required|string',
-          'postcode' => 'required',
-          'address' => 'required',
-          'img_path' => 'required|max:1024'
+          // 'fname' => 'required|string',
+          // 'lname' => 'required|string',
+          // 'username' => 'required',
+          // 'email' => 'required|email|string|unique:users',
+          // 'admin_user_type' => 'required',
+          // 'password' => 'required|string|min:6',
+          // 'phone_number' => 'required|string',
+          // 'country' => 'required|string',
+          // 'city' => 'required|string',
+          // 'postcode' => 'required',
+          // 'address' => 'required',
+          // 'img_path' => 'required|max:1024'
       ],[
         'fname.required'    =>"First Name is required",
         'lname.required'    =>"Last Name is required",
@@ -85,10 +85,17 @@ class AdminCrudController extends Controller
       $profile->address = Input::get('address');
 
 
-      $avatar = Input::get('img_path');
-      $filename = time() . '.' . $avatar;
-      $profile->img_path = $filename;
-      $profile->save();
+
+
+
+        $image = Input::get('img_path');
+        $upload = base_path().'/public/uploads/admin';
+        $filename = time().$image;
+        $image->move($upload, $filename);
+        $path = $upload.$filename;
+        dd($path);
+$profile->img_path= $path;
+        $profile->save();
 
       Session::flash('success', 'User added successfully!');
       return back()->withInput();
