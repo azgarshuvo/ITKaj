@@ -37,7 +37,7 @@
             </div>
         @endif
         <div class="ibox-content wizard-card">
-            <form class="form-horizontal" action="{{route('insertAdmin')}}" enctype="multipart/form-data">
+            <form class="form-horizontal" action="{{route('insertAdmin')}}" method="post" enctype="multipart/form-data">
               {{ csrf_field() }}
                 <div class="form-group">
                     <label class="col-lg-2 control-label">First Name</label>
@@ -104,7 +104,7 @@
                       <div class="picture-container">
                         <div class="picture">
                             <img src="{{asset('assets/img/avatar.png')}}" class="picture-src" id="output_image"/>
-                            <input type="file" name='img_path' accept="image/*" onchange="preview_image(event)">
+                            <input type="file" name='image' accept="image/*" onchange="preview_image(event)">
                         </div>
                       </div>
                     </div>

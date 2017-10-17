@@ -45,4 +45,8 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Education');
     }
 
+    public function scopeFindUser($query, $id){
+      return $query->where('id', '=', $id);
+    }
+
 }
