@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Job;
 use App\Education;
+use App\Employments;
 use DB;
 use App\User;
 use App\UserProfile;
@@ -113,6 +114,27 @@ class ProfileController extends Controller{
                         'description'=>Input::get('description')
                     ]);
         echo "<p class='alert alert-success'> Education Add Success</p>";
+    }
+
+    public function postEmploymentAdd(){
+        $originalStartDate =  Input::get('start_date');
+        $startDate = date("Y-m-d", strtotime($originalStartDate));
+
+        $originalFinishDate = Input::get('finish_date');
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));
+
+        Employments::Create(
+            [
+                'user_id' => $this->userId,
+                'company_name'=>Input::get('company_name'),
+                'country'=>Input::get('country'),
+                'city'=>Input::get('city'),
+                'postal_code'=>Input::get('postal_code'),
+                'start_date'=>$startDate,
+                'finish_date'=>$finishDate,
+                'designation'=>Input::get('designation')
+            ]);
+        echo "<p class='alert alert-success'>Employment Added Successfuly</p>";
     }
 
 

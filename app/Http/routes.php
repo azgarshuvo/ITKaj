@@ -56,6 +56,7 @@ Route::group(['prefix' => 'user'], function () {
 
 
         Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
+        Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
     });
 
 
