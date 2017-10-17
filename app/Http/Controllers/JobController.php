@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
+use App\FreelancerSelectedForJob;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,13 +21,12 @@ class JobController extends Controller
     }
     public function getJobPost()
     {
-        return view('front.jobPost');
+        $categories = Categories::with('subcategory')->get();
+        $freelancers = User::with(['profile'])->freelancer()->get();
+        return view('front.jobPost', ['categories' => $categories, 'freelancers' => $freelancers]);
     }
 
     public  function PostJobPost(Request $request){
-
-
-        //dd($request->all());
 
         $this->validate($request,[
             'title'=>'required|string|max:255|min:6',
@@ -34,9 +36,8 @@ class JobController extends Controller
             'projectType'=>'required',
             'skill'=>'required',
             'file'=>'required',
-            'file.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file.*' => 'image|mimes:jpeg,png,jpg,gif,svg,pdf',
             'description'=>'required|min:6|max:255',
-            'freelancer_list'=>'required',
             'inter_freelancer_list'=>'required',
             ]
         );
@@ -44,7 +45,7 @@ class JobController extends Controller
         $fileList = $this->fileUpload($request);
         $filesName = json_encode($fileList);
 
-        //$subCategory = $request->input('subCategory');
+        $subCategory = $request->input('subCategory');
 
         $title = $request->input('title');
         $category = $request->input('category');
@@ -54,10 +55,12 @@ class JobController extends Controller
         $projectType = $request->input('projectType');
         $skill = json_encode($request->input('skill'));
         $description = $request->input('description');
-        $freelancer_list = json_encode($request->input('freelancer_list'));
-        $inter_freelancer_list = json_encode($request->input('inter_freelancer_list'));
+        $freelancer_list = $request->input('inter_freelancer_list');
 
-        $this->jobToPost($title,$category,$duration,$projectCost,$projectType,$skill,$description,$freelancer_list,$inter_freelancer_list,$filesName);
+        if($subCategory){ $category =$subCategory; }
+
+        $jobId = $this->jobToPost($title,$category,$duration,$projectCost,$projectType,$skill,$description,$filesName);
+        $this->insertFreelancer($jobId,$freelancer_list);
         return redirect()->back()->with('message', 'Job insert successfully done, wait for admin approve!!! ');
 
     }
@@ -104,20 +107,19 @@ class JobController extends Controller
     }
 
     /*This is for insert job post*/
-    private function jobToPost($title,$category,$duration,$projectCost,$projectType,$skill,$description,$freelancer_list,$inter_freelancer_list,$filesName){
+    private function jobToPost($title,$category,$duration,$projectCost,$projectType,$skill,$description,$filesName){
         $user = Job::create([
             'user_id' => $this->userId,
             'name' => $title,
             'project_cost' => $projectCost,
             'project_time' => $duration,
             'description' => $description,
-            'selected_freelancer' => $freelancer_list,
-            'intermediate_freelancer' => $inter_freelancer_list,
             'category_id' => $category,
             'skill_needed' => $skill,
             'job_attachment' => $filesName,
             'type' => $projectType,
         ]);
+        return $user->id;
     }
 
     #this function for create download link for attachments
@@ -126,9 +128,13 @@ class JobController extends Controller
         $attachment = $request->input('attachment');
         //PDF file is stored under project/public/download/info.pdf
         $file= public_path(). "/images/".$attachment;
-
-
-
         return \Response::download($file, "document_".$attachment);
+    }
+
+    /*insert freelancer of job*/
+    function insertFreelancer($jobId,$freelancer_list){
+        foreach ($freelancer_list as $freelancer) {
+            FreelancerSelectedForJob::create(['job_id' => $jobId, 'freelancer_id' => $freelancer, 'status' => 0]);
+        }
     }
 }

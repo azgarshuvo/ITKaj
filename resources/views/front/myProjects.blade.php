@@ -17,13 +17,11 @@
                 <div class="col-md-9">
                     <div class="profile-body">
                         <!--Projects-->
-<<<<<<< HEAD
+
                         @if(Session::has('message'))
                         <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                         @endif
-=======
 
->>>>>>> 741b65f7fb11d774e7f873a0f7152c3ccd5dc56c
                        
                         <div class="row">
                         @if(session()->has('message'))

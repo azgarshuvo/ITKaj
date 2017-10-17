@@ -37,7 +37,7 @@
         </thead>
           <tbody>
             <?php  $count = 1;
-            $parent_category_id = App\Categories::where('is_parent', 0)->where('parent_category_id', 0)->orderBy('id','dsc')->get();
+            $parent_category_id = App\Categories::where('is_parent', 1)->where('parent_category_id', 0)->orderBy('id','dsc')->get();
             ?>
             @foreach($parent_category_id as $pc)
             <tr class="gradeX">
@@ -49,7 +49,7 @@
                     <th>Name</th>
                     <th>Action</th>
                   </tr>
-                  <?php $sub_category = App\Categories::where('parent_category_id', $pc->id)->where('is_parent', 1)->orderBy('category_name')->get(); ?>
+                  <?php $sub_category = App\Categories::where('parent_category_id', $pc->id)->where('is_parent', 0)->orderBy('category_name')->get(); ?>
                   @foreach($sub_category as $sc)
                   <tr>
                     <td>{{$sc->category_name}}</td>
@@ -71,27 +71,27 @@
         </table>
 
         <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+          <div class="modal-dialog">
+              <div class="modal-content">
 
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-                </div>
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                  </div>
 
-                <div class="modal-body">
-                    <p>You are about to delete one track, this procedure is irreversible.</p>
-                    <p>Do you want to proceed?</p>
-                    <p class="debug-url"></p>
-                </div>
+                  <div class="modal-body">
+                      <p>You are about to delete one track, this procedure is irreversible.</p>
+                      <p>Do you want to proceed?</p>
+                      <p class="debug-url"></p>
+                  </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger btn-ok">Delete</a>
-                </div>
-            </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <a class="btn btn-danger btn-ok">Delete</a>
+                  </div>
+              </div>
+          </div>
         </div>
-    </div>
 
         </div>
     </div>

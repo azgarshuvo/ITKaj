@@ -181,7 +181,7 @@
     });
 
     function yesnoCheck(rad){
-        if(rad.value == "0"){
+        if(rad.value == "1"){
             document.getElementById("mySelect").disabled=true;
             document.getElementById('ifYes').style.display = 'none';
         }else{

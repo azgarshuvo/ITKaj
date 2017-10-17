@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Job;
 use App\Education;
+use App\Employments;
 use DB;
 use App\User;
 use App\UserProfile;
@@ -68,7 +69,7 @@ class ProfileController extends Controller{
     public function getJobDoneList(){
         return view('front.jobDoneList');
     }
-    
+
     public function getJobInterestedList(){
         return view('front.jobInterestedList');
     }
@@ -78,8 +79,18 @@ class ProfileController extends Controller{
     public function getFreelancerJobDoneList(){
         return view('front.freelancerjobDoneList');
     }
-    public function getMyProfileView(){
-        return view('front.profileView');
+
+    #profile view as other
+    public function getMyProfileView($id){
+        $city = null;
+        $country = null;
+        $freeLancer=User::with('profile')->where(['user_type'=>'freelancer','id'=>$id])->first();
+        if($freeLancer->profile){
+            $city =  States::where(['id'=>$freeLancer->profile->city])->first();
+            $country = Countries::find($freeLancer->profile->country);
+        }
+
+        return view('front.profileView',['freeLancer'=>$freeLancer,'country'=>$country,'city'=>$city]);
     }
 
     //Add Education
@@ -95,13 +106,13 @@ class ProfileController extends Controller{
         //     ));
         // If($validate->fails())
 
-        
+
 
         $originalStartDate =  Input::get('start');
         $startDate = date("Y-m-d", strtotime($originalStartDate));
 
         $originalFinishDate = Input::get('finish');
-        $finishDate = date("Y-m-d", strtotime($originalFinishDate));       
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));
 
         Education::Create(
                     [   'user_id' => $this->userId,
@@ -113,6 +124,27 @@ class ProfileController extends Controller{
                         'description'=>Input::get('description')
                     ]);
         echo "<p class='alert alert-success'> Education Add Success</p>";
+    }
+
+    public function postEmploymentAdd(){
+        $originalStartDate =  Input::get('start_date');
+        $startDate = date("Y-m-d", strtotime($originalStartDate));
+
+        $originalFinishDate = Input::get('finish_date');
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));
+
+        Employments::Create(
+            [
+                'user_id' => $this->userId,
+                'company_name'=>Input::get('company_name'),
+                'country'=>Input::get('country'),
+                'city'=>Input::get('city'),
+                'postal_code'=>Input::get('postal_code'),
+                'start_date'=>$startDate,
+                'finish_date'=>$finishDate,
+                'designation'=>Input::get('designation')
+            ]);
+        echo "<p class='alert alert-success'>Employment Added Successfuly</p>";
     }
 
 
@@ -166,12 +198,15 @@ class ProfileController extends Controller{
             'phone' => 'required|string|min:11',
             'officePhone' => 'string|min:3',
             'address' => 'required|string|min:4',
-            'address' => 'required|string|min:4',
+            'country' => 'required',
+            'city' => 'required',
         ],[
-            'fname.required'    =>"First Name require",
-            'lname.required'    =>"Last Name require",
-            'phone.required'    =>"Phone Number is required",
-            'address.required'    =>"Address is required"
+            'fname.required'        =>"First Name require",
+            'lname.required'        =>"Last Name require",
+            'phone.required'        =>"Phone Number is required",
+            'address.required'      =>"Address is required",
+            'country.required'      =>"Country name is required",
+            'city.required'         =>"City name is required",
         ]);
 
         if($validate->fails()){
@@ -188,10 +223,12 @@ class ProfileController extends Controller{
             $phone = $request->input('phone');
             $address = $request->input('address');
             $skills = $request->input('skills');
-            $experience_lavel = $request->input('experience_lavel');
+            $experience_level = $request->input('experience_level');
             $professional_title = $request->input('professional_title');
             $hourly_rate = $request->input('hourly_rate');
             $professional_overview = $request->input('professional_overview');
+            $country = $request->input('country');
+            $city = $request->input('city');
 
             /*user table update start*/
             $user = User::find(auth()->user()->id);
@@ -213,10 +250,12 @@ class ProfileController extends Controller{
                         'phone_number' => $phone,
                         'address'=>$address,
                         'skills'=>$skills,
-                        'experience_lavel'=>$experience_lavel,
+                        'experience_level'=>$experience_level,
                         'professional_title'=>$professional_title,
                         'hourly_rate'=>$hourly_rate,
                         'professional_overview'=>$professional_overview,
+                        'country'=>$country,
+                        'city'=>$city,
                     ]);
                 /*user profile table update end*/
 
@@ -227,7 +266,7 @@ class ProfileController extends Controller{
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
-                    ['phone_number' => $phone,'address'=>$address,'company_name'=>$company_name,'company_website'=>$web_address]);
+                    ['phone_number' => $phone,'address'=>$address,'company_name'=>$company_name,'company_website'=>$web_address,'country'=>$country,'city'=>$city]);
                 /*user profile table update end*/
             }
         }

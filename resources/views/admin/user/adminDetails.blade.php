@@ -24,46 +24,71 @@
                   </a>
               </div>
           </div>
+          <?php
+            $user_profile = App\UserProfile::where('user_id', $users->id)->get();
+          ?>
+          @foreach($user_profile as $up)
+
           <div class="ibox-content no-padding border-left-right">
-              <img alt="image" class="img-responsive" src="{{asset('admin/img/profile_big.jpg')}}">
+              <img alt="image" class="img-responsive" src="{{ asset('uploads/admin/' . $up->img_path) }}">
           </div>
           <div class="ibox-content profile-content">
             <h4><strong>{{$users->fname." ".$users->lname}}</strong><span> ({{$users->username}})</span></h4>
-            <h5><i>Full Stack Developer</i></h5>
-            <p><i class="fa fa-map-marker"></i> Dhaka, Bangladesh</p>
-            <p><i class="fa fa-envelope"></i> shafikshaon@gmail.com</p>
-            <p><i class="fa fa-phone"></i> 01705184686</p>
             <h5>
-                About me
+              <span>
+                <i>
+                  @if($users->admin_user_type == 1)
+                    Super Admin
+                  @elseif($users->admin_user_type == 2)
+                    Mid Level Admin
+                  @elseif($users->admin_user_type == 3)
+                    Third Level Admin
+                  @else
+                    Something went wrong
+                  @endif
+                </i>
+              </span>
             </h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
-            </p>
-            <div class="row m-t-lg">
-              <div class="col-md-4">
-                <span style="color: #18AA8D"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></span>
-                <h5>Experianced in:</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi </p>
-              </div>
-                <div class="col-md-4">
-                    <span style="color: #18AA8D"><i class="fa fa-money fa-2x" aria-hidden="true"></i></span>
-                    <h5><strong>$10</strong> Per Hour</h5>
-                </div>
-                <div class="col-md-4">
-                    <span style="color: #18AA8D"><i class="fa fa-clock-o fa-2x" aria-hidden="true"></i></span>
-                    <h5><strong>30 Hours </strong> Available/Week</h5>
-                </div>
-            </div>
+            <p><i class="fa fa-map-marker"></i> {{$up->city}}, {{$up->country}}</p>
+            <p><i class="fa fa-envelope"></i> {{$users->email}}</p>
+            <p><i class="fa fa-phone"></i> {{$up->phone_number}}</p>
+
             <div class="user-button">
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>
+                        <a type="button" href="{{ route('adminEdit',$users->id)}}"  data-toggle="tooltip" title="Edit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                        <a type="button" class="btn btn-danger" href="javascript:void()" data-href="{{ route('adminDelete', $users->id)}}"  data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times"></i>Delete</a>
                     </div>
                 </div>
             </div>
           </div>
         </div>
+        @endforeach
         @endif
       </div>
     </div>
+
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>You are about to delete one track, this procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+  </div>
 @endsection
