@@ -57,7 +57,7 @@ class LoginController extends Controller{
 
     #redirect when login success
     public function redirectPath(){
-        return route('profile_overall');
+        return route('myProfile');
     }
 
     /**
