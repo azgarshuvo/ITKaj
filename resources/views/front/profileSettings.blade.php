@@ -141,8 +141,8 @@ $emps = (Auth::User()->employment);
                                 
                                 <dd>
                                     <div class="row">
-                                        <div  class="col-md-6 setText" id="country">
-                                            <select class="form-control margin-bottom-20 country" name="country">
+                                        <div  class="col-md-6 setText" id="">
+                                            <select id="countryDropdown" class="form-control margin-bottom-20 country" name="country" disabled>
                                                 <option value="">Select One</option>
                                                 @foreach($countries as $country)
                                                     @if($userProfile->profile != null && $userProfile->profile != '')
@@ -156,8 +156,8 @@ $emps = (Auth::User()->employment);
                                         </div>
                                         <div class="col-md-6">
                                             {{--<input class="form-control" type="hidden" value="{{$userProfile->profile->country}}" name="country">--}}
-                                            <select class="form-control margin-bottom-20 country hidden" name="country">
-                                                <option value="">Select One</option>
+                                            {{--<select  class="form-control margin-bottom-20 country hidden" name="country">
+                                                <option value="0">Select One</option>
                                                 @foreach($countries as $country)
                                                     @if($userProfile->profile != null && $userProfile->profile != '')
                                                         @if($userProfile->profile->country == $country->id)
@@ -166,16 +166,16 @@ $emps = (Auth::User()->employment);
                                                     @endif
                                                     <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
-                                            </select>
+                                            </select>--}}
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <a onclick="changeData('country')" class="pull-right country_edit" href="javascript:void(0);">
+                                                <a onclick="changeCountry()" class="pull-right country_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
-                                            <span>
-                                                <a onclick="resetData('country')" class="pull-right country hidden" href="javascript:void(0);">
+                                            <span class="country_cancle hidden">
+                                                <a onclick="resetCountry()" class="pull-right " href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -413,20 +413,28 @@ $emps = (Auth::User()->employment);
                                             <div class="col-md-6 setText hidden experience_lavel" >
                                                 <select id="experience_lavel_value" class="form-control margin-bottom-20" name="experience_lavel">
                                                     <option value="">Select One</option>
-                                                    <option @if($userProfile->profile->experience_lavel=="1") selected @endif value="1">Entry Level</option>
-                                                    <option @if($userProfile->profile->experience_lavel=="2") selected @endif value="2">Intermediate Level</option>
-                                                    <option @if($userProfile->profile->experience_lavel=="3") selected @endif value="3">Expart Level</option>
+                                                    @if($userProfile->profile!=null)
+                                                        <option @if($userProfile->profile->experience_lavel=="1") selected @endif value="1">Entry Level</option>
+                                                        <option @if($userProfile->profile->experience_lavel=="2") selected @endif value="2">Intermediate Level</option>
+                                                        <option @if($userProfile->profile->experience_lavel=="3") selected @endif value="3">Expart Level</option>
+                                                    @else
+                                                        <option value="1">Entry Level</option>
+                                                        <option value="2">Intermediate Level</option>
+                                                        <option value="3">Expart Level</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                             <div id="experience_lavel" class="col-md-6">
-                                                @if($userProfile->profile->experience_lavel=="1")
-                                                    Entry Level
-                                                @elseif($userProfile->profile->experience_lavel == '2')
-                                                    Intermediate Level
-                                                @elseif($userProfile->profile->experience_lavel=="3")
-                                                    Expart Level
-                                                @else
+                                                @if($userProfile->profile!=null)
+                                                    @if($userProfile->profile->experience_lavel=="1")
+                                                        Entry Level
+                                                    @elseif($userProfile->profile->experience_lavel == '2')
+                                                        Intermediate Level
+                                                    @elseif($userProfile->profile->experience_lavel=="3")
+                                                        Expart Level
+                                                    @else
 
+                                                    @endif
                                                 @endif
                                                 {{--<input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">--}}
                                             </div>
@@ -916,7 +924,7 @@ $emps = (Auth::User()->employment);
             var value = $.trim(desiredValue);
 
             $('[name=experience_lavel] option').filter(function() {
-                return ($(this).text() == value); //To select Blue
+                return ($(this).text() == value);
             }).prop('selected', true);
 
         }
@@ -935,10 +943,25 @@ $emps = (Auth::User()->employment);
             $('#cityDropdown').prop("disabled", true);
         }
 
+        /*Enable country dropdown*/
+        function changeCountry(){
+            $("#countryDropdown").removeAttr('disabled');
+            $(".country_edit").parent().addClass('hidden');
+            $(".country_cancle").removeClass('hidden');
+        }
+
+        /*Country update cancle */
+        function resetCountry(){
+            $("#countryDropdown").prop("disabled", true);
+            $(".country_edit").parent().removeClass('hidden');
+            $(".country_cancle").addClass('hidden');
+        }
+
+        /*update whole info in edit profile setting*/
+
         $("#infoUpdate").click(function(event){
             event.preventDefault();
 
-            var data = $( "#profile_change" ).serializeArray() ;
             $.post("{{route('changeProfile')}}",
                 {
                     _token: '{{csrf_token()}}',
@@ -946,6 +969,8 @@ $emps = (Auth::User()->employment);
                     lname: $("input[name=lname]").val(),
                     companyName: $("input[name=companyName]").val(),
                     phone: $("input[name=phone]").val(),
+                    country: $("#countryDropdown").val(),
+                    city: $("#cityDropdown").val(),
                     officePhone: $("input[name=officePhone]").val(),
                     address: $("input[name=address]").val(),
                     company_name: $("input[name=company_name]").val(),

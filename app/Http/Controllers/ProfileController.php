@@ -69,7 +69,7 @@ class ProfileController extends Controller{
     public function getJobDoneList(){
         return view('front.jobDoneList');
     }
-    
+
     public function getJobInterestedList(){
         return view('front.jobInterestedList');
     }
@@ -96,13 +96,13 @@ class ProfileController extends Controller{
         //     ));
         // If($validate->fails())
 
-        
+
 
         $originalStartDate =  Input::get('start');
         $startDate = date("Y-m-d", strtotime($originalStartDate));
 
         $originalFinishDate = Input::get('finish');
-        $finishDate = date("Y-m-d", strtotime($originalFinishDate));       
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));
 
         Education::Create(
                     [   'user_id' => $this->userId,
@@ -188,12 +188,15 @@ class ProfileController extends Controller{
             'phone' => 'required|string|min:11',
             'officePhone' => 'string|min:3',
             'address' => 'required|string|min:4',
-            'address' => 'required|string|min:4',
+            'country' => 'required',
+            'city' => 'required',
         ],[
-            'fname.required'    =>"First Name require",
-            'lname.required'    =>"Last Name require",
-            'phone.required'    =>"Phone Number is required",
-            'address.required'    =>"Address is required"
+            'fname.required'        =>"First Name require",
+            'lname.required'        =>"Last Name require",
+            'phone.required'        =>"Phone Number is required",
+            'address.required'      =>"Address is required",
+            'country.required'      =>"Country name is required",
+            'city.required'         =>"City name is required",
         ]);
 
         if($validate->fails()){
@@ -214,6 +217,8 @@ class ProfileController extends Controller{
             $professional_title = $request->input('professional_title');
             $hourly_rate = $request->input('hourly_rate');
             $professional_overview = $request->input('professional_overview');
+            $country = $request->input('country');
+            $city = $request->input('city');
 
             /*user table update start*/
             $user = User::find(auth()->user()->id);
@@ -239,6 +244,8 @@ class ProfileController extends Controller{
                         'professional_title'=>$professional_title,
                         'hourly_rate'=>$hourly_rate,
                         'professional_overview'=>$professional_overview,
+                        'country'=>$country,
+                        'city'=>$city,
                     ]);
                 /*user profile table update end*/
 
@@ -249,7 +256,7 @@ class ProfileController extends Controller{
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
-                    ['phone_number' => $phone,'address'=>$address,'company_name'=>$company_name,'company_website'=>$web_address]);
+                    ['phone_number' => $phone,'address'=>$address,'company_name'=>$company_name,'company_website'=>$web_address,'country'=>$country,'city'=>$city]);
                 /*user profile table update end*/
             }
         }

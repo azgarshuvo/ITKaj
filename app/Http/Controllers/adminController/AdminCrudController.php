@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Auth;
-use Image;
 use App\User;
 use App\UserProfile;
 use App\Categories;
 use Session;
 use Input;
+Use Validator;
 
 class AdminCrudController extends Controller
 {
@@ -49,7 +49,7 @@ class AdminCrudController extends Controller
           'city' => 'required|string',
           'postcode' => 'required',
           'address' => 'required',
-          'img_path' => 'required|max:1024'
+          'image' => 'required|max:1024'
       ],[
         'fname.required'    =>"First Name is required",
         'lname.required'    =>"Last Name is required",
@@ -64,7 +64,7 @@ class AdminCrudController extends Controller
         'country.required'    =>"Country is required",
         'postcode.required'    =>"Postcode is required",
         'address.required'    =>"Address is required",
-        'img_path.required'    =>"Profile Picture is required",
+        'image.required'    =>"Profile Picture is required",
       ]);
       $user = new User();
       $user->fname = Input::get('fname');
@@ -85,10 +85,33 @@ class AdminCrudController extends Controller
       $profile->address = Input::get('address');
 
 
-      $avatar = Input::get('img_path');
-      $filename = time() . '.' . $avatar;
-      $profile->img_path = $filename;
-      $profile->save();
+      $errors= array();
+      $file_name = time().$_FILES['image']['name'];
+      $file_size =$_FILES['image']['size'];
+      $file_tmp =$_FILES['image']['tmp_name'];
+      $file_type=$_FILES['image']['type'];
+
+
+      if($file_size > 2097152){
+         $errors[]='File size must be excately 2 MB';
+      }
+
+      if(empty($errors)==true){
+         move_uploaded_file($file_tmp,base_path()."/public/uploads/admin/".$file_name);
+      }
+      // if(Input::get('img_path')){
+      //   $file = Input::get('img_path');
+      //   $picture = date('His').$file;
+      //
+      //
+      //   $destinationPath = base_path() . '\public\uploads';
+      //
+      //   $picture->move($destinationPath, $picture);
+      //   $profile->img_path= $picture;
+      // }
+      $profile->img_path = $file_name;
+
+        $profile->save();
 
       Session::flash('success', 'User added successfully!');
       return back()->withInput();
@@ -107,14 +130,22 @@ class AdminCrudController extends Controller
     }
     public function adminDetails($id){
         $users = User::findOrFail($id);
+        if($users == null){
+          Session::flash('success', 'Admin not found!');
+          return back();
+        }
         return view('admin.user.adminDetails', ['users' => $users]);
     }
     public function adminEdit($id){
-        $user = User::findOrFail($id);
+      $user = User::FindUser($id)->first();
+      $userPrfile = UserProfile::FindUserProfile($id)->first();
         return view('admin.user.adminEdit');
     }
     public function adminDelete($id){
-        User::findOrFail($id)->delete();
+        $user = User::FindUser($id)->first();
+        $userPrfile = UserProfile::FindUserProfile($id)->first();
+        $user->delete();
+        $userPrfile->delete();
         Session::flash('success', 'Admin deleted successfully!');
         return redirect()->route('adminList');
     }
