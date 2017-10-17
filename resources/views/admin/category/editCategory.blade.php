@@ -48,7 +48,7 @@
               <div class="form-group">
                 <label class="col-lg-2 control-label">Is have parent category?</label>
                 <label class="checkbox-inline">
-                  <input type="radio" value="1" name="is_parent" onclick="yesnoCheck(this);" id="yesCheck" {{($category->is_parent != "0" && $category->parent_category_id != "0") ? "checked" : ""}}> Yes
+                  <input type="radio" value="1" name="is_parent" onclick="yesnoCheck(this);" id="yesCheck" {{($category->is_parent != "1" && $category->parent_category_id != "0") ? "checked" : ""}}> Yes
                 </label>
                 <label class="checkbox-inline">
                   <input type="radio" value="0" name="is_parent" onclick="yesnoCheck(this);" id="yesCheck" {{($category->is_parent == "0" && $category->parent_category_id == "0") ? "checked" : ""}}> No
@@ -59,7 +59,7 @@
                   <div class="col-lg-10">
                     <select class="form-control" name="parent_category_id">
                       <option value="0">Please Select</option>
-                      <?php $items = Categories::where('is_parent', 0)->orderBy('category_name')->get(); ?>
+                      <?php $items = Categories::where('is_parent', 1)->orderBy('category_name')->get(); ?>
                       @foreach($items as $item)
                       <option value="{{$item->id}}" {{($category->parent_category_id == $item->id  && $item->id == "$item->id") ? "selected" : ""}}>{{$item->category_name}}</option>
                       @endforeach

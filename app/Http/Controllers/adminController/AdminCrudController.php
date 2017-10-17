@@ -40,7 +40,6 @@ class AdminCrudController extends Controller
       $this->validate($request, [
           'fname' => 'required|string',
           'lname' => 'required|string',
-          'username' => 'required',
           'email' => 'required|email|string|unique:users',
           'admin_user_type' => 'required',
           'password' => 'required|string|min:6',
@@ -87,31 +86,14 @@ class AdminCrudController extends Controller
 
       $errors= array();
       $file_name = time().$_FILES['image']['name'];
-      $file_size =$_FILES['image']['size'];
       $file_tmp =$_FILES['image']['tmp_name'];
-      $file_type=$_FILES['image']['type'];
-
-
-      if($file_size > 2097152){
-         $errors[]='File size must be excately 2 MB';
-      }
 
       if(empty($errors)==true){
          move_uploaded_file($file_tmp,base_path()."/public/uploads/admin/".$file_name);
       }
-      // if(Input::get('img_path')){
-      //   $file = Input::get('img_path');
-      //   $picture = date('His').$file;
-      //
-      //
-      //   $destinationPath = base_path() . '\public\uploads';
-      //
-      //   $picture->move($destinationPath, $picture);
-      //   $profile->img_path= $picture;
-      // }
       $profile->img_path = $file_name;
 
-        $profile->save();
+      $profile->save();
 
       Session::flash('success', 'User added successfully!');
       return back()->withInput();
@@ -125,21 +107,90 @@ class AdminCrudController extends Controller
         if($isHas==0){
             return $userName;
         }else{
-            return $userName.time();
+            return $userName.rand(1, 1000);
         }
     }
     public function adminDetails($id){
         $users = User::findOrFail($id);
-        if($users == null){
-          Session::flash('success', 'Admin not found!');
-          return back();
-        }
+
         return view('admin.user.adminDetails', ['users' => $users]);
     }
     public function adminEdit($id){
       $user = User::FindUser($id)->first();
-      $userPrfile = UserProfile::FindUserProfile($id)->first();
-        return view('admin.user.adminEdit');
+      $userProfile = UserProfile::FindUserProfile($id)->first();
+        return view('admin.user.adminEdit',['users' => $user, 'usersProfile' => $userProfile]);
+    }
+    public function adminUpdate($id, Request $request){
+      $this->validate($request, [
+          'fname' => 'required|string',
+          'lname' => 'required|string',
+          'username' => 'required|string',
+          'email' => 'required|email|string|unique:users,id, $id',
+          'admin_user_type' => 'required',
+          'password' => 'required|string|min:6',
+          'phone_number' => 'required|string',
+          'country' => 'required|string',
+          'city' => 'required|string',
+          'postcode' => 'required',
+          'address' => 'required'
+      ],[
+        'fname.required'    =>"First Name is required",
+        'lname.required'    =>"Last Name is required",
+        'email.required'    =>"Email is required",
+        'email.email'    =>"You enter invalid email address",
+        'email.unique'    =>"The email has already been taken",
+        'password.required'    =>"Password is required",
+        'password.min'    =>"Password length must be at least 6",
+        'password.confirmed'    =>"Password confirm doesn't match",
+        'admin_user_type.required'    =>"Select an admin type",
+        'phone_number.required'    =>"Phone number is required",
+        'country.required'    =>"Country is required",
+        'postcode.required'    =>"Postcode is required",
+        'address.required'    =>"Address is required"
+      ]);
+        $fname = $request->input('fname');
+        $lname = $request->input('lname');
+        $username = $request->input('username');
+        $email = $request->input('email');
+        $admin_user_type = $request->input('admin_user_type');
+        $password = $request->input('password');
+        $phone_number = $request->input('phone_number');
+        $address = $request->input('address');
+        $country = $request->input('country');
+        $city = $request->input('city');
+        $postcode = $request->input('postcode');
+        $image = $request->input('image');
+
+        $have_img = $_FILES['image']['name'];
+
+
+        $user = User::FindUser($id)->first();
+        $userProfile = UserProfile::FindUserProfile($id)->first();
+        $user->fname = $fname;
+        $user->lname = $lname;
+        $user->username = $username;
+        $user->email = $email;
+        $user->admin_user_type = $admin_user_type;
+        $user->password = $password;
+        $userProfile->phone_number = $phone_number;
+        $userProfile->address = $address;
+        $userProfile->country = $country;
+        $userProfile->city = $city;
+        $userProfile->postcode = $postcode;
+        if($have_img != null){
+          $errors= array();
+          $file_name = time().$_FILES['image']['name'];
+          $file_tmp =$_FILES['image']['tmp_name'];
+
+          if(empty($errors)==true){
+             move_uploaded_file($file_tmp,base_path()."/public/uploads/admin/".$file_name);
+          }
+          $userProfile->img_path = $file_name;
+        }
+        $user->save();
+        $userProfile->save();
+        Session::flash('success', 'Admin information updated successfully!');
+        return redirect()->route('adminList');
     }
     public function adminDelete($id){
         $user = User::FindUser($id)->first();
