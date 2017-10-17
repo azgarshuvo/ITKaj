@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="ibox-content wizard-card">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="{{route('adminUpdate', $users->id)}}" method="post">
                 <div class="form-group">
                     <label class="col-lg-2 control-label">First Name</label>
                     <div class="col-lg-10"><input type="text" name="fname" placeholder="First Name" class="form-control">

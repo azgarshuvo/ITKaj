@@ -6,6 +6,8 @@
  * Time: 2:40 PM
  */
 $edus = (Auth::User()->education);
+$emps = (Auth::User()->employment);
+//dd($emps);
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -524,16 +526,16 @@ $edus = (Auth::User()->education);
                                     @foreach ($edus as $edu)
                                     <div class="col-sm-6">
                                         <div class="projects">
-                                            <h2><a class="color-dark" href="#"></a>{{$edu->institution}}</h2>
+                                            <h2><a class="color-dark" href="#"></a>@if($edu->institution != null && $edu->institution != ''){{$edu->institution}}@endif</h2>
                                             <ul class="list-unstyled list-inline blog-info-v2">
 
-                                                <li><i class="fa fa-clock-o"></i>{{$edu->start_date}}</li>
+                                                <li><i class="fa fa-clock-o"></i>@if($edu->start_date != null && $edu->start_date != ''){{$edu->start_date}}@endif</li>
 
-                                                <li><i class="fa fa-clock-o"></i>{{$edu->end_date}}</li>
+                                                <li><i class="fa fa-clock-o"></i>@if($edu->end_date != null && $edu->end_date != ''){{$edu->end_date}}@endif</li>
                                             </ul>
-                                            <h5><a class="color-dark">{{$edu->degree}}</a></h5>
-                                            <h5><a class="color-dark"></a>{{$edu->area_of_study}}</h5>
-                                            <h5><a class="color-dark"></a>{{$edu->description}}</h5>
+                                            <h5><a class="color-dark">@if($edu->degree != null && $edu->degree != ''){{$edu->degree}}@endif</a></h5>
+                                            <h5><a class="color-dark"></a>@if($edu->area_of_study != null && $edu->area_of_study != ''){{$edu->area_of_study}}@endif</h5>
+                                            <h5><a class="color-dark"></a>@if($edu->description != null && $edu->description != ''){{$edu->description}}@endif </h5>
                                             <br>
                                         </div>
                                     </div>
@@ -546,6 +548,46 @@ $edus = (Auth::User()->education);
                     </div>
 
                      {{--education end here--}}
+
+
+                    {{--Employment Start Here--}}
+                    <div id="employment" class="profile-edit tab-pane fade">
+                        <h2 class="heading-md">Employment List</h2>
+
+                        <div id="employmentMessage"></div>
+                        <p class="text-center" id="ajax_message"></p>
+                        <br>
+                        <dl class="dl-horizontal">
+                            <div class="row">
+                                @foreach ($emps as $emp)
+                                <div class="col-sm-6">
+                                    <div class="projects">
+                                        <h2><a class="color-dark" href="#"></a> @if($emp->company_name != null && $emp->company_name != '') {{$emp->company_name}} @endif</h2>
+                                        <ul class="list-unstyled list-inline blog-info-v2">
+
+                                            <li><i class="fa fa-clock-o"></i>@if($emp->start_date != null && $emp->start_date != '') {{$emp->start_date}} @endif</li>
+
+                                            <li><i class="fa fa-clock-o"></i>@if($emp->finish_date != null && $emp->finish_date != '') {{$emp->finish_date}} @endif</li>
+                                        </ul>
+                                        <h5><a class="color-dark"></a>@if($emp->country != null && $emp->country != '') {{$emp->country}} @endif</h5>
+                                        <h5><a class="color-dark"></a>@if($emp->city != null && $emp->city != '') {{$emp->city}} @endif</h5>
+                                        <h5><a class="color-dark"></a>@if($emp->postal_code != null && $emp->postal_code != '') {{$emp->postal_code}} @endif</h5>
+                                        <h5><a class="color-dark"></a>@if($emp->designation != null && $emp->designation != '') {{$emp->designation}} @endif</h5>
+                                        <br>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+
+
+                        </dl>
+                        <button type="button" class="btn-u" data-toggle="modal" data-target="#employmentModal">Add More</button>
+                    </div>
+
+                    {{--Employment End Here--}}
+
+
+
 
                     {{--Payment method tab start--}}
                     <div id="payment" class="profile-edit tab-pane fade">
@@ -719,6 +761,84 @@ $edus = (Auth::User()->education);
     </div>
 
     {{--Education Modal End Here--}}
+
+    {{--Employment Modal Start Here--}}
+
+    <div class="margin-bottom-40">
+        <div class="modal fade" id="employmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel4">Add Employment</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Employment Form -->
+                        <form action="{{route('addEmployment')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">
+                            {{csrf_field()}}
+                            <fieldset>
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" id="company" name="company" placeholder="Company Name">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" id="country_name" name="country_name" placeholder="Country">
+                                        </label>
+                                    </section>
+                                </div>
+
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" name="city" id="city" placeholder="City">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="number" name="postal_code" id="postal_code" placeholder="Postal code">
+                                        </label>
+                                    </section>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <i class="icon-append fa fa-calendar"></i>
+                                            <input type="text" name="start_date" id="start_date" placeholder="Expected start date">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <i class="icon-append fa fa-calendar"></i>
+                                            <input type="text" name="finish_date" id="finish_date" placeholder="Expected finish date">
+                                        </label>
+                                    </section>
+                                </div>
+                                <section>
+                                    <label class="textarea">
+                                        <textarea rows="5"  id = "designation" name="designation" placeholder="Tell us about your designation"></textarea>
+                                    </label>
+                                </section>
+                            </fieldset>
+                            <footer>
+                                <button type="submit" id="addEmployment" class="btn-u">Add</button>
+                            </footer>
+                        </form>
+                        <!-- End Education Form -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeEmploymentModal" class="btn-u btn-u-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--Employment Modal End Here--}}
 @endsection
 @section('script')
     {{--this script use for update password--}}
@@ -912,5 +1032,46 @@ $edus = (Auth::User()->education);
                     $("#closeModal").click();
                 });
         });
+    </script>
+
+    {{--Add Emplyment Script--}}
+    <script type="text/javascript">
+        $("#addEmployment").click(function(e){
+            e.preventDefault();
+            var company_name = $('#company').val();
+            var country = $('#country_name').val();
+            var city = $('#city').val();
+            var postal_code = $('#postal_code').val();
+            var start_date = $('#start_date').val();
+            var finish_date = $('#finish_date').val();
+            var designation = $('#designation').val();
+
+            $.post("{{route('addEmployment')}}",
+                {
+                    _token: '{{csrf_token()}}',
+                    company_name: company_name,
+                    country: country,
+                    city: city,
+                    postal_code: postal_code,
+                    start_date: start_date,
+                    finish_date: finish_date,
+                    designation: designation,
+                },
+
+            function(data, status) {
+                $("#employmentMessage").html(data);
+
+                $('#company').val("");
+                $('#country').val("");
+                $('#city').val("");
+                $('#postal_code').val("");
+                $('#start_date').val("");
+                $('#finish_date').val("");
+                $('#designation').val("");
+
+                $('#closeEmploymentModal').click();
+            });
+        });
+
     </script>
 @endsection

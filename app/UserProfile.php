@@ -14,4 +14,8 @@ class UserProfile extends Model
     {
         return $this->belongsTO('User', 'user_id', 'id');
     }
+
+    public function scopeFindUserProfile($query, $id){
+      return $query->where('user_id', '=', $id);
+    }
 }
