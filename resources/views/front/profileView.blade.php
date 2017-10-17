@@ -91,8 +91,9 @@
                             @endif
                             <div class="overflow-h text-center">
                                 <span class="font-s text-center">{{$freeLancer->fname." ".$freeLancer->lname}}</span>
+                                @if($freeLancer->profile)
                                 <p class="color-green text-center">Position: <span class="hex">{{$freeLancer->profile->professional_title}}</span></p>
-                                
+                                @endif
                             </div>
                         </div>
                     </div>

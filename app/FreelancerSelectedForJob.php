@@ -8,5 +8,5 @@ class FreelancerSelectedForJob extends Model
 {
     protected $table = 'freelancer_selected_for_jobs';
 
-    protected $fillable = ['job_id','user_id','status',];
+    protected $fillable = ['job_id','freelancer_id','status'];
 }

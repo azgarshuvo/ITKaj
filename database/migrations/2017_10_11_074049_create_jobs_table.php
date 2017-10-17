@@ -19,8 +19,6 @@ class CreateJobsTable extends Migration
             $table->integer('project_cost');
             $table->integer('project_time');
             $table->text('description');
-            $table->string('selected_freelancer');
-            $table->string('intermediate_freelancer');
             $table->integer('category_id');
             $table->boolean('status')->default(0);
             $table->boolean('verified')->default(0);
