@@ -259,17 +259,19 @@
                                         @foreach($freelancers as $freelancer)
                                         <tr id="{{$freelancer->id}}_inter_freelancer">
                                             <td id="{{$freelancer->id}}_username_inter">{{$freelancer->fname}} {{$freelancer->lname}}</td>
-                                            <td>{{$freelancer->profile->professional_title}}</td>
-                                            @if($freelancer->profile->experience_level == 1)
-                                                <td>Entry</td>
+                                            @if($freelancer->profile != null || $freelancer->profile != '')
+                                                <td>{{$freelancer->profile->professional_title}}</td>
+                                                @if($freelancer->profile->experience_level == 1)
+                                                    <td>Entry</td>
+                                                @endif
+                                                @if($freelancer->profile->experience_level == 2)
+                                                    <td>Intermediate</td>
+                                                @endif
+                                                @if($freelancer->profile->experience_level == 3)
+                                                    <td>Expart</td>
+                                                @endif
+                                                <td>{{$freelancer->profile->skills}}</td>
                                             @endif
-                                            @if($freelancer->profile->experience_level == 2)
-                                                <td>Intermediate</td>
-                                            @endif
-                                            @if($freelancer->profile->experience_level == 3)
-                                                <td>Expart</td>
-                                            @endif
-                                            <td>{{$freelancer->profile->skills}}</td>
                                             <td><button onclick="getInterFreelancer(1)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                                 <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
                                             </td>
