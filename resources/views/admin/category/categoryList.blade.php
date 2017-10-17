@@ -37,7 +37,7 @@
         </thead>
           <tbody>
             <?php  $count = 1;
-            $parent_category_id = App\Categories::where('is_parent', 0)->where('parent_category_id', 0)->orderBy('id','dsc')->get();
+            $parent_category_id = App\Categories::where('is_parent', 1)->where('parent_category_id', 0)->orderBy('id','dsc')->get();
             ?>
             @foreach($parent_category_id as $pc)
             <tr class="gradeX">
@@ -49,7 +49,7 @@
                     <th>Name</th>
                     <th>Action</th>
                   </tr>
-                  <?php $sub_category = App\Categories::where('parent_category_id', $pc->id)->where('is_parent', 1)->orderBy('category_name')->get(); ?>
+                  <?php $sub_category = App\Categories::where('parent_category_id', $pc->id)->where('is_parent', 0)->orderBy('category_name')->get(); ?>
                   @foreach($sub_category as $sc)
                   <tr>
                     <td>{{$sc->category_name}}</td>

@@ -55,11 +55,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">User Name</label>
-                    <div class="col-lg-10"><input type="text" name="username" placeholder="User Name" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10"><input type="password" name="password" placeholder="Password" class="form-control"></div>
                 </div>

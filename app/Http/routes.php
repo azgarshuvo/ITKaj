@@ -78,6 +78,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('user/adminDetails/{id}', ['as' =>'adminDetails', 'uses' => 'adminController\AdminCrudController@adminDetails']);
     Route::get('user/adminEdit/{id}', ['as' =>'adminEdit', 'uses' => 'adminController\AdminCrudController@adminEdit']);
     Route::get('user/adminDelete/{id}', ['as' =>'adminDelete', 'uses' => 'adminController\AdminCrudController@adminDelete']);
+    Route::post('user/adminUpdate/{id}', ['as' =>'adminUpdate', 'uses' => 'adminController\AdminCrudController@adminUpdate']);
 
     //Category
     Route::get('category/addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\CategoryCrudController@addCategory']);
