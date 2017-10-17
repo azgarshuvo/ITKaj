@@ -9,9 +9,13 @@
 namespace App\Http\Controllers;
 
 
+use App\User;
+
 class FreelancerController extends Controller{
 
     public function getFreelancerSearch(){
-        return view('front.freelancerSearch');
+
+        $freeLancerList=User::with('profile')->where(['user_type'=>'freelancer'])->get();
+        return view('front.freelancerSearch',['freeLancerList'=>$freeLancerList]);
     }
 }

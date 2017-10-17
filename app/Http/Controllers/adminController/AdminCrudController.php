@@ -38,18 +38,18 @@ class AdminCrudController extends Controller
     public function insertAdmin(Request $request)
     {
       $this->validate($request, [
-          // 'fname' => 'required|string',
-          // 'lname' => 'required|string',
-          // 'username' => 'required',
-          // 'email' => 'required|email|string|unique:users',
-          // 'admin_user_type' => 'required',
-          // 'password' => 'required|string|min:6',
-          // 'phone_number' => 'required|string',
-          // 'country' => 'required|string',
-          // 'city' => 'required|string',
-          // 'postcode' => 'required',
-          // 'address' => 'required',
-          // 'img_path' => 'required|max:1024'
+          'fname' => 'required|string',
+          'lname' => 'required|string',
+          'username' => 'required',
+          'email' => 'required|email|string|unique:users',
+          'admin_user_type' => 'required',
+          'password' => 'required|string|min:6',
+          'phone_number' => 'required|string',
+          'country' => 'required|string',
+          'city' => 'required|string',
+          'postcode' => 'required',
+          'address' => 'required',
+          'image' => 'required|max:1024'
       ],[
         'fname.required'    =>"First Name is required",
         'lname.required'    =>"Last Name is required",
@@ -64,7 +64,7 @@ class AdminCrudController extends Controller
         'country.required'    =>"Country is required",
         'postcode.required'    =>"Postcode is required",
         'address.required'    =>"Address is required",
-        'img_path.required'    =>"Profile Picture is required",
+        'image.required'    =>"Profile Picture is required",
       ]);
       $user = new User();
       $user->fname = Input::get('fname');
@@ -85,16 +85,32 @@ class AdminCrudController extends Controller
       $profile->address = Input::get('address');
 
 
+      $errors= array();
+      $file_name = time().$_FILES['image']['name'];
+      $file_size =$_FILES['image']['size'];
+      $file_tmp =$_FILES['image']['tmp_name'];
+      $file_type=$_FILES['image']['type'];
 
 
+      if($file_size > 2097152){
+         $errors[]='File size must be excately 2 MB';
+      }
 
-        $image = Input::get('img_path');
-        $upload = base_path().'/public/uploads/admin';
-        $filename = time().$image;
-        $image->move($upload, $filename);
-        $path = $upload.$filename;
-        dd($path);
-$profile->img_path= $path;
+      if(empty($errors)==true){
+         move_uploaded_file($file_tmp,base_path()."/public/uploads/admin/".$file_name);
+      }
+      // if(Input::get('img_path')){
+      //   $file = Input::get('img_path');
+      //   $picture = date('His').$file;
+      //
+      //
+      //   $destinationPath = base_path() . '\public\uploads';
+      //
+      //   $picture->move($destinationPath, $picture);
+      //   $profile->img_path= $picture;
+      // }
+      $profile->img_path = $file_name;
+
         $profile->save();
 
       Session::flash('success', 'User added successfully!');
@@ -114,14 +130,22 @@ $profile->img_path= $path;
     }
     public function adminDetails($id){
         $users = User::findOrFail($id);
+        if($users == null){
+          Session::flash('success', 'Admin not found!');
+          return back();
+        }
         return view('admin.user.adminDetails', ['users' => $users]);
     }
     public function adminEdit($id){
-        $user = User::findOrFail($id);
+      $user = User::FindUser($id)->first();
+      $userPrfile = UserProfile::FindUserProfile($id)->first();
         return view('admin.user.adminEdit');
     }
     public function adminDelete($id){
-        User::findOrFail($id)->delete();
+        $user = User::FindUser($id)->first();
+        $userPrfile = UserProfile::FindUserProfile($id)->first();
+        $user->delete();
+        $userPrfile->delete();
         Session::flash('success', 'Admin deleted successfully!');
         return redirect()->route('adminList');
     }
