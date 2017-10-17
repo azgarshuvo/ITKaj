@@ -261,18 +261,33 @@
                                             <td id="{{$freelancer->id}}_username_inter">{{$freelancer->fname}} {{$freelancer->lname}}</td>
                                             @if($freelancer->profile != null || $freelancer->profile != '')
                                                 <td>{{$freelancer->profile->professional_title}}</td>
+                                            @else
+                                                <td></td>
+                                            @endif
+                                            @if($freelancer->profile != null || $freelancer->profile != '')
                                                 @if($freelancer->profile->experience_level == 1)
                                                     <td>Entry</td>
                                                 @endif
+                                            @else
+                                                <td></td>
+                                            @endif
+                                            @if($freelancer->profile != null || $freelancer->profile != '')
                                                 @if($freelancer->profile->experience_level == 2)
                                                     <td>Intermediate</td>
                                                 @endif
+                                            @else
+                                                <td></td>
+                                            @endif
+                                            @if($freelancer->profile != null || $freelancer->profile != '')
                                                 @if($freelancer->profile->experience_level == 3)
                                                     <td>Expart</td>
                                                 @endif
-                                                <td>{{$freelancer->profile->skills}}</td>
                                             @else
                                                 <td></td>
+                                            @endif
+                                            @if($freelancer->profile != null || $freelancer->profile != '')
+                                                <td>{{$freelancer->profile->skills}}</td>
+                                            @else
                                                 <td></td>
                                             @endif
                                             <td><button onclick="getInterFreelancer(1)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
