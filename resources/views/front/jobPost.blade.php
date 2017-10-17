@@ -271,6 +271,9 @@
                                                     <td>Expart</td>
                                                 @endif
                                                 <td>{{$freelancer->profile->skills}}</td>
+                                            @else
+                                                <td></td>
+                                                <td></td>
                                             @endif
                                             <td><button onclick="getInterFreelancer(1)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
                                                 <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
