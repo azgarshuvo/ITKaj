@@ -268,17 +268,9 @@
                                                 @if($freelancer->profile->experience_level == 1)
                                                     <td>Entry</td>
                                                 @endif
-                                            @else
-                                                <td></td>
-                                            @endif
-                                            @if($freelancer->profile != null || $freelancer->profile != '')
                                                 @if($freelancer->profile->experience_level == 2)
                                                     <td>Intermediate</td>
                                                 @endif
-                                            @else
-                                                <td></td>
-                                            @endif
-                                            @if($freelancer->profile != null || $freelancer->profile != '')
                                                 @if($freelancer->profile->experience_level == 3)
                                                     <td>Expart</td>
                                                 @endif
