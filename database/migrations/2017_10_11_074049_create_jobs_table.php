@@ -18,7 +18,7 @@ class CreateJobsTable extends Migration
             $table->string('name');
             $table->integer('project_cost');
             $table->integer('project_time');
-            $table->string('description');
+            $table->text('description');
             $table->string('selected_freelancer');
             $table->string('intermediate_freelancer');
             $table->integer('category_id');

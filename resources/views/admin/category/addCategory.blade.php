@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-lg-2 control-label">Is have parent category?</label>
+                  <label class="col-lg-2 control-label">Is parent category?</label>
                   <label class="checkbox-inline">
                     <input type="radio" value="1" name="is_parent" onclick="yesnoCheck(this);" id="yesCheck"> Yes
                   </label>

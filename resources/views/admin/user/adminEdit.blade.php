@@ -21,65 +21,73 @@
                 </a>
             </div>
         </div>
+        @if($errors->any())
+            <div class="alert alert-danger">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach()
+            </div>
+        @endif
         <div class="ibox-content wizard-card">
-            <form class="form-horizontal" action="{{route('adminUpdate', $users->id)}}" method="post">
+            <form class="form-horizontal" action="{{route('adminUpdate', $users->id)}}" method="post" enctype="multipart/form-data">
+              {{ csrf_field() }}
                 <div class="form-group">
                     <label class="col-lg-2 control-label">First Name</label>
-                    <div class="col-lg-10"><input type="text" name="fname" placeholder="First Name" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="fname" value="{{$users->fname}}" placeholder="First Name" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Last Name</label>
-                    <div class="col-lg-10"><input type="text" name="lname" placeholder="Last Name" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Email</label>
-                    <div class="col-lg-10"><input type="email" name="email" placeholder="Email" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="lname" value="{{$users->lname}}" placeholder="Last Name" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">User Name</label>
-                    <div class="col-lg-10"><input type="text" name="user_name" placeholder="User Name" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="username" value="{{$users->username}}" placeholder="Email" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10"><input type="email" name="email" value="{{$users->email}}" placeholder="Email" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Password</label>
-                    <div class="col-lg-10"><input type="password" name="password" placeholder="Password" class="form-control"></div>
+                    <div class="col-lg-10"><input type="password" name="password" value="{{$users->password}}" placeholder="Password" class="form-control"></div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Admin User Type</label>
                     <div class="col-sm-10">
-                      <select class="form-control" name="addminUserType">
-                        <option value="1">Super Admin</option>
-                        <option value="2">Mid Level Admin</option>
-                        <option value="3">Third Level Admin</option>
+                      <select class="form-control" name="admin_user_type">
+                        <option value="1" {{($users->admin_user_type == 1) ? "selected" : ""}}>Super Admin</option>
+                        <option value="2" {{($users->admin_user_type == 2) ? "selected" : ""}}>Mid Level Admin</option>
+                        <option value="3" {{($users->admin_user_type == 3) ? "selected" : ""}}>Third Level Admin</option>
                       </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Phone Number</label>
-                    <div class="col-lg-10"><input type="text" name="phone_number" placeholder="Phone Numbere" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="phone_number" value="{{$usersProfile->phone_number}}" placeholder="Phone Number" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Country</label>
-                    <div class="col-lg-10"><input type="text" name="country" placeholder="Country" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="country" value="{{$usersProfile->country}}" placeholder="Country" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">City</label>
-                    <div class="col-lg-10"><input type="text" name="city" placeholder="City" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="city" value="{{$usersProfile->city}}" placeholder="City" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Post Code</label>
-                    <div class="col-lg-10"><input type="text" name="post_code" placeholder="Post Code" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="postcode" value="{{$usersProfile->postcode}}" placeholder="Post Code" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Address</label>
-                    <div class="col-lg-10"><textarea type="text" name="address" placeholder="Address" class="form-control"></textarea>
+                    <div class="col-lg-10"><textarea type="text" name="address" value="" placeholder="Address" class="form-control">{{$usersProfile->address}}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -87,8 +95,8 @@
                     <div class="col-lg-10 ">
                       <div class="picture-container">
                         <div class="picture">
-                            <img src="assets/img/avatar.png" class="picture-src" id="output_image"/>
-                            <input type="file" accept="image/*" onchange="preview_image(event)">
+                            <img src="{{ asset('uploads/admin/' . $usersProfile->img_path) }}" class="picture-src" id="output_image"/>
+                            <input type="file" name='image' accept="image/*" onchange="preview_image(event)">
                         </div>
                       </div>
                     </div>
