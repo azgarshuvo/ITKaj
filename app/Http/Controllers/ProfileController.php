@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Job;
 use App\Education;
+use App\Employments;
 use DB;
 use App\User;
 use App\UserProfile;
@@ -78,8 +79,27 @@ class ProfileController extends Controller{
     public function getFreelancerJobDoneList(){
         return view('front.freelancerjobDoneList');
     }
-    public function getMyProfileView(){
-        return view('front.profileView');
+
+    #profile view as other
+    public function getMyProfileView($id){
+
+        //User::with('profile')->where(['user_type'=>'freelancer'])->get();
+       // $comment = States::with('country')->where(['id'=>348]);
+
+        $city = null;
+        $country = null;
+
+        $freeLancer=User::with('profile')->where(['user_type'=>'freelancer','id'=>$id])->first();
+
+        if($freeLancer->profile){
+            $city =  States::find($freeLancer->profile->ciry)->get();
+            $country = Countries::find($freeLancer->profile->country);
+        }
+
+       // $country = Countries::find(318);
+        dd($city);
+
+        return view('front.profileView',['freeLancer'=>$freeLancer]);
     }
 
     //Add Education
@@ -113,6 +133,27 @@ class ProfileController extends Controller{
                         'description'=>Input::get('description')
                     ]);
         echo "<p class='alert alert-success'> Education Add Success</p>";
+    }
+
+    public function postEmploymentAdd(){
+        $originalStartDate =  Input::get('start_date');
+        $startDate = date("Y-m-d", strtotime($originalStartDate));
+
+        $originalFinishDate = Input::get('finish_date');
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));
+
+        Employments::Create(
+            [
+                'user_id' => $this->userId,
+                'company_name'=>Input::get('company_name'),
+                'country'=>Input::get('country'),
+                'city'=>Input::get('city'),
+                'postal_code'=>Input::get('postal_code'),
+                'start_date'=>$startDate,
+                'finish_date'=>$finishDate,
+                'designation'=>Input::get('designation')
+            ]);
+        echo "<p class='alert alert-success'>Employment Added Successfuly</p>";
     }
 
 
@@ -191,7 +232,7 @@ class ProfileController extends Controller{
             $phone = $request->input('phone');
             $address = $request->input('address');
             $skills = $request->input('skills');
-            $experience_lavel = $request->input('experience_lavel');
+            $experience_level = $request->input('experience_level');
             $professional_title = $request->input('professional_title');
             $hourly_rate = $request->input('hourly_rate');
             $professional_overview = $request->input('professional_overview');
@@ -218,7 +259,7 @@ class ProfileController extends Controller{
                         'phone_number' => $phone,
                         'address'=>$address,
                         'skills'=>$skills,
-                        'experience_lavel'=>$experience_lavel,
+                        'experience_level'=>$experience_level,
                         'professional_title'=>$professional_title,
                         'hourly_rate'=>$hourly_rate,
                         'professional_overview'=>$professional_overview,

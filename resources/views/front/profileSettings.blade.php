@@ -6,6 +6,8 @@
  * Time: 2:40 PM
  */
 $edus = (Auth::User()->education);
+$emps = (Auth::User()->employment);
+//dd($emps);
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -408,13 +410,13 @@ $edus = (Auth::User()->education);
                                     <dt><strong>Experience Level</strong></dt>
                                     <dd>
                                         <div class="row">
-                                            <div class="col-md-6 setText hidden experience_lavel" >
-                                                <select id="experience_lavel_value" class="form-control margin-bottom-20" name="experience_lavel">
+                                            <div class="col-md-6 setText hidden experience_level" >
+                                                <select id="experience_level_value" class="form-control margin-bottom-20" name="experience_level">
                                                     <option value="">Select One</option>
                                                     @if($userProfile->profile!=null)
-                                                        <option @if($userProfile->profile->experience_lavel=="1") selected @endif value="1">Entry Level</option>
-                                                        <option @if($userProfile->profile->experience_lavel=="2") selected @endif value="2">Intermediate Level</option>
-                                                        <option @if($userProfile->profile->experience_lavel=="3") selected @endif value="3">Expart Level</option>
+                                                        <option @if($userProfile->profile->experience_level=="1") selected @endif value="1">Entry Level</option>
+                                                        <option @if($userProfile->profile->experience_level=="2") selected @endif value="2">Intermediate Level</option>
+                                                        <option @if($userProfile->profile->experience_level=="3") selected @endif value="3">Expart Level</option>
                                                     @else
                                                         <option value="1">Entry Level</option>
                                                         <option value="2">Intermediate Level</option>
@@ -422,28 +424,28 @@ $edus = (Auth::User()->education);
                                                     @endif
                                                 </select>
                                             </div>
-                                            <div id="experience_lavel" class="col-md-6">
+                                            <div id="experience_level" class="col-md-6">
                                                 @if($userProfile->profile!=null)
-                                                    @if($userProfile->profile->experience_lavel=="1")
+                                                    @if($userProfile->profile->experience_level=="1")
                                                         Entry Level
-                                                    @elseif($userProfile->profile->experience_lavel == '2')
+                                                    @elseif($userProfile->profile->experience_level == '2')
                                                         Intermediate Level
-                                                    @elseif($userProfile->profile->experience_lavel=="3")
+                                                    @elseif($userProfile->profile->experience_level=="3")
                                                         Expart Level
                                                     @else
 
                                                     @endif
                                                 @endif
-                                                {{--<input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">--}}
+                                                {{--<input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_level}}" @endif name="experience_level">--}}
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
-                                                    <a onclick="changeData('experience_lavel')" class="pull-right experience_lavel_edit" href="javascript:void(0);">
+                                                    <a onclick="changeData('experience_level')" class="pull-right experience_level_edit" href="javascript:void(0);">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </span>
                                                 <span>
-                                                    <a onclick="resetDropDown('experience_lavel')" class="pull-right experience_lavel hidden" href="javascript:void(2);">
+                                                    <a onclick="resetDropDown('experience_level')" class="pull-right experience_level hidden" href="javascript:void(2);">
                                                         <i class="fa fa-times fa-lg"></i>
                                                     </a>
                                                 </span>
@@ -524,16 +526,16 @@ $edus = (Auth::User()->education);
                                     @foreach ($edus as $edu)
                                     <div class="col-sm-6">
                                         <div class="projects">
-                                            <h2><a class="color-dark" href="#"></a>{{$edu->institution}}</h2>
+                                            <h2><a class="color-dark" href="#"></a>@if($edu->institution != null && $edu->institution != ''){{$edu->institution}}@endif</h2>
                                             <ul class="list-unstyled list-inline blog-info-v2">
 
-                                                <li><i class="fa fa-clock-o"></i>{{$edu->start_date}}</li>
+                                                <li><i class="fa fa-clock-o"></i>@if($edu->start_date != null && $edu->start_date != ''){{$edu->start_date}}@endif</li>
 
-                                                <li><i class="fa fa-clock-o"></i>{{$edu->end_date}}</li>
+                                                <li><i class="fa fa-clock-o"></i>@if($edu->end_date != null && $edu->end_date != ''){{$edu->end_date}}@endif</li>
                                             </ul>
-                                            <h5><a class="color-dark">{{$edu->degree}}</a></h5>
-                                            <h5><a class="color-dark"></a>{{$edu->area_of_study}}</h5>
-                                            <h5><a class="color-dark"></a>{{$edu->description}}</h5>
+                                            <h5><a class="color-dark">@if($edu->degree != null && $edu->degree != ''){{$edu->degree}}@endif</a></h5>
+                                            <h5><a class="color-dark"></a>@if($edu->area_of_study != null && $edu->area_of_study != ''){{$edu->area_of_study}}@endif</h5>
+                                            <h5><a class="color-dark"></a>@if($edu->description != null && $edu->description != ''){{$edu->description}}@endif </h5>
                                             <br>
                                         </div>
                                     </div>
@@ -546,6 +548,46 @@ $edus = (Auth::User()->education);
                     </div>
 
                      {{--education end here--}}
+
+
+                    {{--Employment Start Here--}}
+                    <div id="employment" class="profile-edit tab-pane fade">
+                        <h2 class="heading-md">Employment List</h2>
+
+                        <div id="employmentMessage"></div>
+                        <p class="text-center" id="ajax_message"></p>
+                        <br>
+                        <dl class="dl-horizontal">
+                            <div class="row">
+                                @foreach ($emps as $emp)
+                                <div class="col-sm-6">
+                                    <div class="projects">
+                                        <h2><a class="color-dark" href="#"></a> @if($emp->company_name != null && $emp->company_name != '') {{$emp->company_name}} @endif</h2>
+                                        <ul class="list-unstyled list-inline blog-info-v2">
+
+                                            <li><i class="fa fa-clock-o"></i>@if($emp->start_date != null && $emp->start_date != '') {{$emp->start_date}} @endif</li>
+
+                                            <li><i class="fa fa-clock-o"></i>@if($emp->finish_date != null && $emp->finish_date != '') {{$emp->finish_date}} @endif</li>
+                                        </ul>
+                                        <h5><a class="color-dark"></a>@if($emp->country != null && $emp->country != '') {{$emp->country}} @endif</h5>
+                                        <h5><a class="color-dark"></a>@if($emp->city != null && $emp->city != '') {{$emp->city}} @endif</h5>
+                                        <h5><a class="color-dark"></a>@if($emp->postal_code != null && $emp->postal_code != '') {{$emp->postal_code}} @endif</h5>
+                                        <h5><a class="color-dark"></a>@if($emp->designation != null && $emp->designation != '') {{$emp->designation}} @endif</h5>
+                                        <br>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+
+
+                        </dl>
+                        <button type="button" class="btn-u" data-toggle="modal" data-target="#employmentModal">Add More</button>
+                    </div>
+
+                    {{--Employment End Here--}}
+
+
+
 
                     {{--Payment method tab start--}}
                     <div id="payment" class="profile-edit tab-pane fade">
@@ -719,6 +761,84 @@ $edus = (Auth::User()->education);
     </div>
 
     {{--Education Modal End Here--}}
+
+    {{--Employment Modal Start Here--}}
+
+    <div class="margin-bottom-40">
+        <div class="modal fade" id="employmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel4">Add Employment</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Employment Form -->
+                        <form action="{{route('addEmployment')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">
+                            {{csrf_field()}}
+                            <fieldset>
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" id="company" name="company" placeholder="Company Name">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" id="country_name" name="country_name" placeholder="Country">
+                                        </label>
+                                    </section>
+                                </div>
+
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" name="city" id="city" placeholder="City">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="number" name="postal_code" id="postal_code" placeholder="Postal code">
+                                        </label>
+                                    </section>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <i class="icon-append fa fa-calendar"></i>
+                                            <input type="text" name="start_date" id="start_date" placeholder="Expected start date">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <i class="icon-append fa fa-calendar"></i>
+                                            <input type="text" name="finish_date" id="finish_date" placeholder="Expected finish date">
+                                        </label>
+                                    </section>
+                                </div>
+                                <section>
+                                    <label class="textarea">
+                                        <textarea rows="5"  id = "designation" name="designation" placeholder="Tell us about your designation"></textarea>
+                                    </label>
+                                </section>
+                            </fieldset>
+                            <footer>
+                                <button type="submit" id="addEmployment" class="btn-u">Add</button>
+                            </footer>
+                        </form>
+                        <!-- End Education Form -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeEmploymentModal" class="btn-u btn-u-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--Employment Modal End Here--}}
 @endsection
 @section('script')
     {{--this script use for update password--}}
@@ -800,10 +920,10 @@ $edus = (Auth::User()->education);
             $("#"+name).removeClass('hidden');
             $("."+name+"_edit").removeClass('hidden');
             $("."+name).addClass('hidden');
-            var desiredValue = $("#experience_lavel").text();
+            var desiredValue = $("#experience_level").text();
             var value = $.trim(desiredValue);
 
-            $('[name=experience_lavel] option').filter(function() {
+            $('[name=experience_level] option').filter(function() {
                 return ($(this).text() == value);
             }).prop('selected', true);
 
@@ -857,7 +977,7 @@ $edus = (Auth::User()->education);
                     web_address: $("input[name=web_address]").val(),
                     skills: $("input[name=skills]").val(),
                     hourly_rate: $("input[name=hourly_rate]").val(),
-                    experience_lavel: $("#experience_lavel_value").val(),
+                    experience_level: $("#experience_level_value").val(),
                     professional_title: $("input[name=professional_title]").val(),
                     professional_overview: $("input[name=professional_overview]").val()
                 },
@@ -871,8 +991,8 @@ $edus = (Auth::User()->education);
             $("input[type='text']").attr('type', 'hidden');
             $( "div.hidden" ).removeClass('hidden');
             $( ".fa-pencil" ).parent().removeClass('hidden');
-            $( ".experience_lavel" ).addClass('hidden');
-            $( "#experience_lavel" ).text($("select[name='experience_lavel']").find('option:selected').text());
+            $( ".experience_level" ).addClass('hidden');
+            $( "#experience_level" ).text($("select[name='experience_level']").find('option:selected').text());
             $( ".fa-times" ).parent().addClass('hidden');
         });
     </script>
@@ -912,5 +1032,46 @@ $edus = (Auth::User()->education);
                     $("#closeModal").click();
                 });
         });
+    </script>
+
+    {{--Add Emplyment Script--}}
+    <script type="text/javascript">
+        $("#addEmployment").click(function(e){
+            e.preventDefault();
+            var company_name = $('#company').val();
+            var country = $('#country_name').val();
+            var city = $('#city').val();
+            var postal_code = $('#postal_code').val();
+            var start_date = $('#start_date').val();
+            var finish_date = $('#finish_date').val();
+            var designation = $('#designation').val();
+
+            $.post("{{route('addEmployment')}}",
+                {
+                    _token: '{{csrf_token()}}',
+                    company_name: company_name,
+                    country: country,
+                    city: city,
+                    postal_code: postal_code,
+                    start_date: start_date,
+                    finish_date: finish_date,
+                    designation: designation,
+                },
+
+            function(data, status) {
+                $("#employmentMessage").html(data);
+
+                $('#company').val("");
+                $('#country').val("");
+                $('#city').val("");
+                $('#postal_code').val("");
+                $('#start_date').val("");
+                $('#finish_date').val("");
+                $('#designation').val("");
+
+                $('#closeEmploymentModal').click();
+            });
+        });
+
     </script>
 @endsection

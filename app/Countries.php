@@ -16,6 +16,7 @@ class Countries extends Model{
 
 
     public function states(){
-        return $this->hasOne('App\States');
+        return $this->hasMany('App\States');
     }
+
 }

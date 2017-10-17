@@ -19,4 +19,5 @@ class States extends Model{
     {
         return $query->where('countries_id', '=', $id);
     }
+
 }

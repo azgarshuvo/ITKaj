@@ -26,10 +26,10 @@
       <li class="list-group-item list-toggle">
         <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-buttons"><i class="fa fa-cubes"></i>My Project</a>
         <ul id="collapse-buttons" class="collapse">
+            @if(Auth::User()->user_type == 'employer')
             <li>
                 <a href="{{route('projectsList')}}">Project List </a>
             </li>
-            @if(Auth::User()->user_type == 'employer')
             <li>
                 <a href="{{route('projectApprovedList')}}"> Project Approved List</a>
             </li>
