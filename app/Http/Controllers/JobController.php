@@ -21,9 +21,8 @@ class JobController extends Controller
     public function getJobPost()
     {
         $categories = Categories::with('subcategory')->get();
-        $freelancer = User::freelancer()->get();
-        dd($freelancer);
-        return view('front.jobPost', ['categories' => $categories]);
+        $freelancers = User::with(['profile'])->freelancer()->get();
+        return view('front.jobPost', ['categories' => $categories, 'freelancers' => $freelancers]);
     }
 
     public  function PostJobPost(Request $request){

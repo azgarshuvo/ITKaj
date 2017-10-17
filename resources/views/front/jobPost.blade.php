@@ -137,75 +137,75 @@
                         </div>
                         {{--end div for selected freelancer list and add js hidden input type --}}
 
-                        <div class="panel panel-grey margin-bottom-40" >
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-globe"></i> Top Rated Freelancer</h3>
-                            </div>
-                            <div class="panel-body">
-                                <table id="topRatedFreelancer" class="table table-striped table-bordered" width="100%" cellspacing="0">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Skill</th>
-                                        <th>Hourly Rate</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    <tr id="1_top_freelancer">
-                                        <td id="1_username">Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td><button onclick="getFreelancer(1)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-                                    <tr id="2_top_freelancer">
-                                        <td id="2_username">Garrett Winters</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td><button onclick="getFreelancer(2)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-                                    <tr id="3_top_freelancer">
-                                        <td id="3_username">Ashton Cox</td>
-                                        <td>Junior Technical Author</td>
-                                        <td>San Francisco</td>
-                                        <td><button onclick="getFreelancer(3)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-                                    <tr id="4_top_freelancer">
-                                        <td id="4_username">Cedric Kelly</td>
-                                        <td>Senior Javascript Developer</td>
-                                        <td>Edinburgh</td>
-                                        <td><button onclick="getFreelancer(4)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-                                    <tr id="5_top_freelancer">
-                                        <td id="5_username">Airi Satou</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td><button onclick="getFreelancer(5)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
+                        {{--<div class="panel panel-grey margin-bottom-40" >--}}
+                            {{--<div class="panel-heading">--}}
+                                {{--<h3 class="panel-title"><i class="fa fa-globe"></i> Top Rated Freelancer</h3>--}}
+                            {{--</div>--}}
+                            {{--<div class="panel-body">--}}
+                                {{--<table id="topRatedFreelancer" class="table table-striped table-bordered" width="100%" cellspacing="0">--}}
+                                    {{--<thead>--}}
+                                    {{--<tr>--}}
+                                        {{--<th>Name</th>--}}
+                                        {{--<th>Skill</th>--}}
+                                        {{--<th>Hourly Rate</th>--}}
+                                        {{--<th>Action</th>--}}
+                                    {{--</tr>--}}
+                                    {{--</thead>--}}
+                                    {{--<tfoot>--}}
+                                    {{--<tr>--}}
+                                        {{--<th>Name</th>--}}
+                                        {{--<th>Position</th>--}}
+                                        {{--<th>Office</th>--}}
+                                        {{--<th>Age</th>--}}
+                                    {{--</tr>--}}
+                                    {{--</tfoot>--}}
+                                    {{--<tbody>--}}
+                                    {{--<tr id="1_top_freelancer">--}}
+                                        {{--<td id="1_username">Tiger Nixon</td>--}}
+                                        {{--<td>System Architect</td>--}}
+                                        {{--<td>Edinburgh</td>--}}
+                                        {{--<td><button onclick="getFreelancer(1)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
+                                            {{--<button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr id="2_top_freelancer">--}}
+                                        {{--<td id="2_username">Garrett Winters</td>--}}
+                                        {{--<td>Accountant</td>--}}
+                                        {{--<td>Tokyo</td>--}}
+                                        {{--<td><button onclick="getFreelancer(2)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
+                                            {{--<button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr id="3_top_freelancer">--}}
+                                        {{--<td id="3_username">Ashton Cox</td>--}}
+                                        {{--<td>Junior Technical Author</td>--}}
+                                        {{--<td>San Francisco</td>--}}
+                                        {{--<td><button onclick="getFreelancer(3)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
+                                            {{--<button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr id="4_top_freelancer">--}}
+                                        {{--<td id="4_username">Cedric Kelly</td>--}}
+                                        {{--<td>Senior Javascript Developer</td>--}}
+                                        {{--<td>Edinburgh</td>--}}
+                                        {{--<td><button onclick="getFreelancer(4)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
+                                            {{--<button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                    {{--<tr id="5_top_freelancer">--}}
+                                        {{--<td id="5_username">Airi Satou</td>--}}
+                                        {{--<td>Accountant</td>--}}
+                                        {{--<td>Tokyo</td>--}}
+                                        {{--<td><button onclick="getFreelancer(5)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
+                                            {{--<button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
 
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                    {{--</tbody>--}}
+                                {{--</table>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <!--End Top-->
 
                         {{-- start div for selected freelancer list and add js hidden input type --}}
@@ -232,69 +232,50 @@
 
 
 
-                            <h3 class="panel-title"><i class="fa fa-globe"></i> Intermediate Freelancer</h3>
+                            <h3 class="panel-title"><i class="fa fa-globe"></i>Freelancer List</h3>
                             </div>
                             <div class="panel-body">
                                 <table id="freelancerDataTable" class="table table-striped table-bordered" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Skill</th>
-                                        <th>Hourly Rate</th>
+                                        <th>Professional Title</th>
+                                        <th>Experience Laval</th>
+                                        <th>Skills</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
+                                        <th>Professional Title</th>
+                                        <th>Experience Laval</th>
+                                        <th>Skills</th>
+                                        <th>Action</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr id="1_inter_freelancer">
-                                        <td id="1_username_inter">Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td><button onclick="getInterFreelancer(1)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-                                    <tr id="2_inter_freelancer">
-                                        <td id="2_username_inter">Garrett Winters</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td><button onclick="getInterFreelancer(2)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-                                    <tr id="3_inter_freelancer">
-                                        <td id="3_username_inter">Ashton Cox</td>
-                                        <td>Junior Technical Author</td>
-                                        <td>San Francisco</td>
-                                        <td><button onclick="getInterFreelancer(3)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-                                    <tr id="4_inter_freelancer">
-                                        <td id="4_username_inter">Cedric Kelly</td>
-                                        <td>Senior Javascript Developer</td>
-                                        <td>Edinburgh</td>
-                                        <td><button onclick="getInterFreelancer(4)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-                                    <tr id="5_inter_freelancer">
-                                        <td id="5_username_inter">Airi Satou</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td><button onclick="getInterFreelancer(5)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>
-                                    </tr>
-
-
+                                    @if($freelancers != null || $freelancers != '')
+                                        @foreach($freelancers as $freelancer)
+                                        <tr id="{{$freelancer->id}}_inter_freelancer">
+                                            <td id="{{$freelancer->id}}_username_inter">{{$freelancer->fname}} {{$freelancer->lname}}</td>
+                                            <td>{{$freelancer->profile->professional_title}}</td>
+                                            @if($freelancer->profile->experience_level == 1)
+                                                <td>Entry</td>
+                                            @endif
+                                            @if($freelancer->profile->experience_level == 2)
+                                                <td>Intermediate</td>
+                                            @endif
+                                            @if($freelancer->profile->experience_level == 3)
+                                                <td>Expart</td>
+                                            @endif
+                                            <td>{{$freelancer->profile->skills}}</td>
+                                            <td><button onclick="getInterFreelancer(1)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                                <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
                             </div>
