@@ -22,6 +22,7 @@ class CreateJobsTable extends Migration
             $table->string('selected_freelancer');
             $table->string('intermediate_freelancer');
             $table->integer('category_id');
+            $table->boolean('status')->default(0);
             $table->boolean('verified')->default(0);
             $table->string('skill_needed');
             $table->string('job_attachment');

@@ -29,28 +29,33 @@ Route::group(['prefix' => 'user'], function () {
 
 
     Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
-    	Route::get('overall', ['as' => 'profile_overall', 'uses' => 'ProfileController@getProfile']);
-    	Route::get('settings', ['as' => 'profile_settings', 'uses' => 'ProfileController@getProfileSettings']);
-    	Route::get('myProfile', ['as' => 'my_profile', 'uses' => 'ProfileController@getMyProfile']);
-        Route::get('myProjects', ['as' => 'my_projects', 'uses' => 'ProfileController@getMyProjects']);
+
+        Route::get('', ['as' => 'myProfile', 'uses' => 'ProfileController@getMyProfile']);
+
+    	Route::get('overall', ['as' => 'profileOverall', 'uses' => 'ProfileController@getProfile']);
+    	Route::get('settings', ['as' => 'profileSettings', 'uses' => 'ProfileController@getProfileSettings']);
+        Route::get('projects/list', ['as' => 'projectsList', 'uses' => 'ProfileController@getProjectsList']);
         Route::get('view', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
-        Route::post('change-rofile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
+        Route::post('change-profile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
 
 
-
-        Route::get('project/list', ['as' => 'my_project_list', 'uses' => 'ProfileController@getMyProjectList']);
-        Route::get('job/approvedList', ['as' => 'job_approved_list', 'uses' => 'ProfileController@getJobApprovedList']);
-        Route::get('job/disapprovedList', ['as' => 'job_disapproved_list', 'uses' => 'ProfileController@getJobDisapprovedList']);
-    	Route::get('job/doneList', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
-        Route::get('job/doneList', ['as' => 'job_done_list', 'uses' => 'ProfileController@getJobDoneList']);
-        Route::get('job/interestedList', ['as' => 'job_interested_list', 'uses' => 'ProfileController@getJobInterestedList']);
-        Route::get('job/ongoingList', ['as' => 'job_ongoing_list', 'uses' => 'ProfileController@getJobOngoingList']);
-        Route::get('job/freelancerDoneList', ['as' => 'freelancer_job_done_list', 'uses' => 'ProfileController@getFreelancerJobDoneList']);
-
+        Route::group(['prefix' => 'project'], function(){
+            Route::get('approved/list', ['as' => 'projectApprovedList', 'uses' => 'ProfileController@getProjectApprovedList']);
+            Route::get('disapproved/list', ['as' => 'projectDisapprovedList', 'uses' => 'ProfileController@getJobDisapprovedList']);
+            Route::get('done/list', ['as' => 'projectDoneList', 'uses' => 'ProfileController@getJobDoneList']);
+            Route::get('interested/list', ['as' => 'projectInterestedList', 'uses' => 'ProfileController@getJobInterestedList']);
+            Route::get('ongoing/list', ['as' => 'projectOngoingList', 'uses' => 'ProfileController@getJobOngoingList']);
+        });
 
     	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
     	Route::post('change/changeprofile', ['as' => 'changeProfile', 'uses' => 'ProfileController@changeProfile']);
     	Route::post('change/changecompany', ['as' => 'changeCompany', 'uses' => 'ProfileController@changeCompany']);
+
+
+
+
+
+        Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
     });
 
 
@@ -66,23 +71,38 @@ Route::group(['prefix' => 'admin'], function (){
 
     Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard','middleware' => 'admin']);
 
+    //Admin
+    Route::get('user/addAdmin', ['as' =>'adminAdd', 'uses' => 'adminController\AdminCrudController@addAdmin']);
+    Route::get('user/adminList', ['as' =>'adminList', 'uses' => 'adminController\AdminCrudController@listOfAdmin']);
+    Route::get('user/insertAdmin', ['as' =>'insertAdmin', 'uses' => 'adminController\AdminCrudController@insertAdmin']);
+    Route::get('user/adminDetails/{id}', ['as' =>'adminDetails', 'uses' => 'adminController\AdminCrudController@adminDetails']);
+    Route::get('user/adminEdit/{id}', ['as' =>'adminEdit', 'uses' => 'adminController\AdminCrudController@adminEdit']);
+    Route::get('user/adminDelete/{id}', ['as' =>'adminDelete', 'uses' => 'adminController\AdminCrudController@adminDelete']);
 
-    Route::get('addAdmin', ['as' =>'adminAdd', 'uses' => 'adminController\AdminDashboardController@addAdmin']);
-    Route::get('adminList', ['as' =>'adminList', 'uses' => 'adminController\AdminDashboardController@listOfAdmin']);
-    Route::get('/insertAdmin', ['as' =>'insertAdmin', 'uses' => 'adminController\AdminDashboardController@insertAdmin']);
-    Route::get('/adminDetails/{id}', ['as' =>'adminDetails', 'uses' => 'adminController\AdminDashboardController@adminDetails']);
-    Route::get('/adminEdit/{id}', ['as' =>'adminEdit', 'uses' => 'adminController\AdminDashboardController@adminEdit']);
-    Route::get('/adminDelete/{id}', ['as' =>'adminDelete', 'uses' => 'adminController\AdminDashboardController@adminDelete']);
-    Route::get('addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\AdminDashboardController@addCategory']);
-    Route::get('/insertCategory', ['as' =>'insertCategory', 'uses' => 'adminController\AdminDashboardController@insertCategory']);
-    Route::get('categoryList', ['as' =>'categoryList', 'uses' => 'adminController\AdminDashboardController@listOfCategory']);
-
-
-
+    //Category
+    Route::get('category/addCategory', ['as' =>'categoryAdd', 'uses' => 'adminController\CategoryCrudController@addCategory']);
+    Route::post('category/insertCategory', ['as' =>'insertCategory', 'uses' => 'adminController\CategoryCrudController@insertCategory']);
+    Route::get('category/categoryList', ['as' =>'categoryList', 'uses' => 'adminController\CategoryCrudController@listOfCategory']);
+    Route::get('category/categoryDelete/{id}', ['as' =>'categoryDelete', 'uses' => 'adminController\CategoryCrudController@deleteCategory']);
+    Route::get('category/categoryEdit/{id}', ['as' =>'categoryEdit', 'uses' => 'adminController\CategoryCrudController@editCategory']);
+    Route::post('category/categoryUpdate/{id}', ['as' =>'categoryUpdate', 'uses' => 'adminController\CategoryCrudController@updateCategory']);
 
 
     Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
     Route::get('employeer/list', ['as' =>'employeer_list', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
+
+
+    /*admin job controller start*/
+    Route::group(['prefix' => 'job'], function (){
+
+        Route::get('list', ['as' =>'jobList', 'uses' => 'adminController\AdminJobController@getJoblist']);
+        Route::get('list/approve', ['as' =>'jobApproveList', 'uses' => 'adminController\AdminJobController@getApproveJoblist']);
+        Route::get('list/disapprove', ['as' =>'jobDisApproveList', 'uses' => 'adminController\AdminJobController@getDisapproveJoblist']);
+        Route::get('details/{id}', ['as' =>'jobDetails', 'uses' => 'adminController\AdminJobController@getJobDetails']);
+        Route::get('edit/{id}', ['as' =>'jobEdit', 'uses' => 'adminController\AdminJobController@getJobEditView']);
+        Route::get('delete/{id}', ['as' =>'jobDelete', 'uses' => 'adminController\AdminJobController@getJobDelete']);
+    });
+    /*admin job controller end*/
 
 });
 

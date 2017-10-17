@@ -13,7 +13,10 @@ use App\States;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use App\Job;
+use App\Education;
 use DB;
 use App\User;
 use App\UserProfile;
@@ -30,42 +33,36 @@ class ProfileController extends Controller{
     }
 
     public function getProfileSettings(){
-        $userProfile = User::with('profile')->first();
+        $userProfile = Auth::User();
+//        dd($userProfile);
         $countries = Countries::all();
         $cities = States::all();
-//        dd($country);
     	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);
     }
 
     public function getMyProfile(){
-        $userProfile = UserProfile::where('user_id',Auth::user()->id)->first();
+        $userProfile = Auth::User();
         return view('front.myProfile',['userProfile'=>$userProfile]);
     }
 
-    public function getMyProjects(){
-        $count = Job::get()->count();
-            if($count == 0){
-            return redirect()->route('my_projects')->with('message', 'No job posted yet!!!');
-        }
-        else{
-    	$job = Job::Popular(auth()->user()->id)->get();
-        $user = User::find(auth()->user()->id)
-        ->where('user_type', 'employer')
-        ->first();
-        return view('front.myProjects', ['job' => $job, 'user' => $user]);
+    public function getProjectsList(){
+    	$job = Job::ProjectList(Auth::User()->id)->get();
+    	if($job != null or $job != ''){
+            $user = Auth::User();
+            return view('front.myProjects', ['job' => $job, 'user' => $user]);
+        }else{
+    	    Return Redirect::route('projectsList')->with('message', 'No Project Posted yet');
         }
     }
 
-    public function getMyProjectList(){
-        return view('front.projectList');
-    }
-
-    public function getJobApprovedList(){
-        return view('front.jobApproveList');
+    public function getProjectApprovedList(){
+        $approveProjectList = Job::ProjectApproveList(Auth::User()->id)->get();
+        return view('front.jobApproveList', ['approveProjectList' => $approveProjectList]);
     }
 
     public function getJobDisapprovedList(){
-        return view('front.jobDisapprovedList');
+        $disapproveProjectList = Job::ProjectDisapproveList(Auth::User()->id)->get();
+        return view('front.jobDisapprovedList', ['disapproveProjectList' => $disapproveProjectList]);
     }
 
     public function getJobDoneList(){
@@ -84,6 +81,41 @@ class ProfileController extends Controller{
     public function getMyProfileView(){
         return view('front.profileView');
     }
+
+    //Add Education
+    public function postEducationAdd(){
+
+        // $validate = Validator::make(Input::all(), array(
+        //         'institution' => 'required',
+        //         'degree' => 'required',
+        //         'study_area' => 'required',
+        //         'start' => 'required',
+        //         'finish' => 'required',
+        //         'description' => 'required',
+        //     ));
+        // If($validate->fails())
+
+        
+
+        $originalStartDate =  Input::get('start');
+        $startDate = date("Y-m-d", strtotime($originalStartDate));
+
+        $originalFinishDate = Input::get('finish');
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));       
+
+        Education::Create(
+                    [   'user_id' => $this->userId,
+                        'institution' => Input::get('institution'),
+                        'degree'=>Input::get('degree'),
+                        'area_of_study'=>Input::get('study_area'),
+                        'start_date'=>$startDate,
+                        'end_date'=>$finishDate,
+                        'description'=>Input::get('description')
+                    ]);
+        echo "<p class='alert alert-success'> Education Add Success</p>";
+    }
+
+
 
     #get ajax request to change password
     public function ChangePassword(Request $request){
@@ -134,6 +166,7 @@ class ProfileController extends Controller{
             'phone' => 'required|string|min:11',
             'officePhone' => 'string|min:3',
             'address' => 'required|string|min:4',
+            'address' => 'required|string|min:4',
         ],[
             'fname.required'    =>"First Name require",
             'lname.required'    =>"Last Name require",
@@ -157,6 +190,8 @@ class ProfileController extends Controller{
             $skills = $request->input('skills');
             $experience_lavel = $request->input('experience_lavel');
             $professional_title = $request->input('professional_title');
+            $hourly_rate = $request->input('hourly_rate');
+            $professional_overview = $request->input('professional_overview');
 
             /*user table update start*/
             $user = User::find(auth()->user()->id);
@@ -174,7 +209,15 @@ class ProfileController extends Controller{
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
-                    ['phone_number' => $phone,'address'=>$address,'skills'=>$skills,'experience_lavel'=>$experience_lavel,'professional_title'=>$professional_title]);
+                    [
+                        'phone_number' => $phone,
+                        'address'=>$address,
+                        'skills'=>$skills,
+                        'experience_lavel'=>$experience_lavel,
+                        'professional_title'=>$professional_title,
+                        'hourly_rate'=>$hourly_rate,
+                        'professional_overview'=>$professional_overview,
+                    ]);
                 /*user profile table update end*/
 
             }else{

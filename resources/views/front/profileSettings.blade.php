@@ -5,14 +5,14 @@
  * Date: 08-Oct-17
  * Time: 2:40 PM
  */
-//dd($cities);
+$edus = (Auth::User()->education);
 ?>
 @extends('layouts.front.profileMaster')
 
 @section('title', 'Profile')
 
 @section('content')
-
+{{--{{dd($countries[17]->name)}}--}}
     <!-- Profile Content -->
     <div class="col-md-9">
         <div class="profile-body margin-bottom-20">
@@ -21,9 +21,9 @@
                     <li class="active"><a data-toggle="tab" href="#profile">Edit Profile</a></li>
                     <li><a data-toggle="tab" href="#passwordTab">Change Password</a></li>
                     <li><a data-toggle="tab" href="#education">Education</a></li>
+                    <li><a data-toggle="tab" href="#employment">Employment</a></li>
                     <li><a data-toggle="tab" href="#payment">Payment Options</a></li>
                     <li><a data-toggle="tab" href="#settings">Notification Settings</a></li>
-                    
                 </ul>
                 <div class="tab-content">
                     <div id="profile" class="profile-edit tab-pane fade in active">
@@ -37,9 +37,9 @@
                                 <dt><strong>First name </strong></dt>
                                 <dd>
                                     <div class="row">
-                                        <div class="col-md-6 setText" id="fname">{{$userProfile->fname}}</div>
+                                        <div class="col-md-6 setText" id="fname"> @if($userProfile->fname !== null || $userProfile->fname != '') {{$userProfile->fname}} @endif</div>
                                         <div class="col-md-6">
-                                            <input class="form-control" value="{{$userProfile->fname}}" type="hidden" name="fname" />
+                                            <input class="form-control" @if($userProfile->fname !== null || $userProfile->fname != '') value=" {{$userProfile->fname}}" @endif type="hidden" name="fname" />
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -61,9 +61,9 @@
                                 <dt><strong>Last name </strong></dt>
                                 <dd>
                                     <div class="row">
-                                        <div class="col-md-6 setText" id="lname">{{$userProfile->lname}}</div>
+                                        <div class="col-md-6 setText" id="lname">@if($userProfile->lname != null && $userProfile->lname != ''){{$userProfile->lname}}@endif</div>
                                         <div class="col-md-6">
-                                            <input class="form-control" value="{{$userProfile->lname}}" type="hidden" name="lname" />
+                                            <input class="form-control" @if($userProfile->lname != null && $userProfile->lname != '')value="{{$userProfile->lname}}" @endif type="hidden" name="lname" />
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -83,9 +83,9 @@
                                 <dt><strong>User Name </strong></dt>
                                 <dd>
                                     <div class="row">
-                                        <div class="col-md-6 setText" id="username">{{$userProfile->username}}</div>
+                                        <div class="col-md-6 setText" id="username">@if($userProfile->username != null && $userProfile->username != ''){{$userProfile->username}}@endif</div>
                                         <div class="col-md-6">
-                                            <input class="form-control" value="{{$userProfile->username}}" type="hidden" name="username" />
+                                            <input class="form-control" @if($userProfile->username != null && $userProfile->username != '') value="{{$userProfile->username}}" @endif type="hidden" name="username" />
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -106,7 +106,7 @@
                                 <dd>
                                     <div class="row">
                                         <div  id="email" class="col-md-6">
-                                            {{$userProfile->email}}
+                                            @if($userProfile->email != null && $userProfile->email != ''){{$userProfile->email}}@endif
                                         </div>
                                     </div>
                                 </dd>
@@ -115,10 +115,10 @@
                                 <dd>
                                     <div class="row">
                                         <div id="phone" class="col-md-10 setText">
-                                            {{$userProfile->profile->phone_number}}
+                                            @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->phone_number}}@endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control"  type="hidden" value="{{$userProfile->profile->phone_number}}" name="phone">
+                                            <input class="form-control"  type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->phone_number}}" @endif name="phone">
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -140,12 +140,13 @@
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="country">
-                                            {{--{{$userProfile->profile->country}}--}}
-                                            <select class="form-control margin-bottom-20" name="country" disabled>
+                                            <select class="form-control margin-bottom-20 country" name="country">
                                                 <option value="">Select One</option>
                                                 @foreach($countries as $country)
-                                                    @if($userProfile->profile->country == $country->id)
-                                                        <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
+                                                    @if($userProfile->profile != null && $userProfile->profile != '')
+                                                        @if($userProfile->profile->country == $country->id)
+                                                            <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
+                                                        @endif
                                                     @endif
                                                     <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
@@ -153,11 +154,13 @@
                                         </div>
                                         <div class="col-md-6">
                                             {{--<input class="form-control" type="hidden" value="{{$userProfile->profile->country}}" name="country">--}}
-                                            <select class="form-control margin-bottom-20 country" name="country">
+                                            <select class="form-control margin-bottom-20 country hidden" name="country">
                                                 <option value="">Select One</option>
                                                 @foreach($countries as $country)
-                                                    @if($userProfile->profile->country == $country->id)
-                                                        <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
+                                                    @if($userProfile->profile != null && $userProfile->profile != '')
+                                                        @if($userProfile->profile->country == $country->id)
+                                                            <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
+                                                        @endif
                                                     @endif
                                                     <option value="{{$country->id}}">{{$country->name}}</option>
                                                 @endforeach
@@ -165,12 +168,12 @@
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <a onclick="changeData('country')" class="pull-right address_edit" href="javascript:void(0);">
+                                                <a onclick="changeData('country')" class="pull-right country_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetData('country')" class="pull-right address hidden" href="javascript:void(0);">
+                                                <a onclick="resetData('country')" class="pull-right country hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -181,25 +184,25 @@
                                 <dt><strong>City</strong></dt>
                                 <dd>
                                     <div class="row">
-                                        <div  class="col-md-6 setText" id="city">
+                                        <div  class="col-md-6 setText" id="cityOptions">
                                             {{--{{$userProfile->profile->country}}--}}
-                                            <select class="form-control margin-bottom-20 cityOptions" name="city" disabled>
+                                            <select id="cityDropdown" class="form-control margin-bottom-20 cityOptions" name="cityOptions" disabled>
 
                                             </select>
                                         </div>
-                                        <div class="col-md-6">
-                                            <select class="form-control margin-bottom-20 cityOptions" name="city">
+                                        {{--<div class="col-md-6">
+                                            <select class="hidden form-control margin-bottom-20 cityOptions" name="cityOptions">
 
                                             </select>
-                                        </div>
+                                        </div>--}}
                                         <div class="col-md-6">
-                                            <span>
-                                                <a onclick="changeData('city')" class="pull-right address_edit" href="javascript:void(0);">
+                                            <span id="cityEdit">
+                                                <a onclick="changeDropDown('city')" class="pull-right" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetData('city')" class="pull-right address hidden" href="javascript:void(0);">
+                                                <a onclick="resetCityDropDown('city')" class="pull-right city hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -212,10 +215,10 @@
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-8 setText" id="address">
-                                            {{$userProfile->profile->address}}
+                                            @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->address}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" value="{{$userProfile->profile->address}}" name="address">
+                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->address}}" @endif name="address">
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -238,10 +241,10 @@
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="company_name">
-                                                {{$userProfile->profile->company_name}}
+                                                @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->company_name}} @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->profile->company_name}}" name="company_name">
+                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->company_name}}" @endif name="company_name">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -264,10 +267,10 @@
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="web_address">
-                                                {{$userProfile->profile->company_website}}
+                                                @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->company_website}}@endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->profile->company_website}}" name="web_address">
+                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->company_website}}" @endif name="web_address">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -292,22 +295,22 @@
                                 <dd>
                                     <div class="row">
                                         <div class="col-md-8 setText" id="professional_title">
-                                            {{$userProfile->profile->professional_title}}
+                                            @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->professional_title}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" value="{{$userProfile->profile->professional_title}}" name="professional_title">
+                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->professional_title}}" @endif name="professional_title">
                                         </div>
                                         <div class="col-md-6">
-                                                <span>
-                                                    <a onclick="changeData('professional_title')" class="pull-right professional_title_edit" href="javascript:void(0);">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                </span>
                                             <span>
-                                                    <a onclick="resetData('professional_title')" class="pull-right professional_title hidden" href="javascript:void(0);">
-                                                        <i class="fa fa-times fa-lg"></i>
-                                                    </a>
-                                                </span>
+                                                <a onclick="changeData('professional_title')" class="pull-right professional_title_edit" href="javascript:void(0);">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a onclick="resetData('professional_title')" class="pull-right professional_title hidden" href="javascript:void(0);">
+                                                    <i class="fa fa-times fa-lg"></i>
+                                                </a>
+                                            </span>
                                         </div>
                                     </div>
 
@@ -319,22 +322,22 @@
                                 <dd>
                                     <div class="row">
                                         <div class="col-md-8 setText" id="professional_overview">
-                                            {{$userProfile->profile->professional_overview}}
+                                            @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->professional_overview}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" value="{{$userProfile->profile->professional_title}}" name="professional_overview">
+                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->professional_overview}}" @endif name="professional_overview">
                                         </div>
                                         <div class="col-md-6">
-                                                <span>
-                                                    <a onclick="changeData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                </span>
                                             <span>
-                                                    <a onclick="resetData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
-                                                        <i class="fa fa-times fa-lg"></i>
-                                                    </a>
-                                                </span>
+                                                <a onclick="changeData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                            <span>
+                                                <a onclick="resetData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
+                                                    <i class="fa fa-times fa-lg"></i>
+                                                </a>
+                                            </span>
                                         </div>
                                     </div>
 
@@ -351,10 +354,10 @@
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="skills">
-                                                {{$userProfile->profile->skills}}
+                                                @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->skills}} @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->profile->skills}}" name="skills">
+                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->skills}}" @endif name="skills">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -379,10 +382,10 @@
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="hourly_rate">
-                                                {{$userProfile->experience_lavel}}
+                                                @if($userProfile->profile != null && $userProfile->profile ){{$userProfile->profile->hourly_rate}} @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->experience_lavel}}" name="hourly_rate">
+                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile ) value="{{$userProfile->profile->hourly_rate}}"  @endif name="hourly_rate">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -405,16 +408,25 @@
                                     <dt><strong>Experience Level</strong></dt>
                                     <dd>
                                         <div class="row">
-                                            <div class="col-md-6 setText" id="experience_lavel">
-                                                <select class="form-control margin-bottom-20" name="experience_lavel">
+                                            <div class="col-md-6 setText hidden experience_lavel" >
+                                                <select id="experience_lavel_value" class="form-control margin-bottom-20" name="experience_lavel">
                                                     <option value="">Select One</option>
-                                                    <option value="1">Entry Level</option>
-                                                    <option value="2">Intermediate Level</option>
-                                                    <option value="3">Expart Level</option>
+                                                    <option @if($userProfile->profile->experience_lavel=="1") selected @endif value="1">Entry Level</option>
+                                                    <option @if($userProfile->profile->experience_lavel=="2") selected @endif value="2">Intermediate Level</option>
+                                                    <option @if($userProfile->profile->experience_lavel=="3") selected @endif value="3">Expart Level</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <input class="form-control" type="hidden" value="{{$userProfile->profile->experience_lavel}}" name="experience_lavel">
+                                            <div id="experience_lavel" class="col-md-6">
+                                                @if($userProfile->profile->experience_lavel=="1")
+                                                    Entry Level
+                                                @elseif($userProfile->profile->experience_lavel == '2')
+                                                    Intermediate Level
+                                                @elseif($userProfile->profile->experience_lavel=="3")
+                                                    Expart Level
+                                                @else
+
+                                                @endif
+                                                {{--<input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">--}}
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -423,7 +435,7 @@
                                                     </a>
                                                 </span>
                                                 <span>
-                                                    <a onclick="resetData('experience_lavel')" class="pull-right experience_lavel hidden" href="javascript:void(0);">
+                                                    <a onclick="resetDropDown('experience_lavel')" class="pull-right experience_lavel hidden" href="javascript:void(2);">
                                                         <i class="fa fa-times fa-lg"></i>
                                                     </a>
                                                 </span>
@@ -491,168 +503,41 @@
 
 
                     {{--Education Start here--}}
+
+
                     <div id="education" class="profile-edit tab-pane fade">
-                        <h2 class="heading-md">Add Education</h2>
-             
+                        <h2 class="heading-md">Education List</h2>
+
+                        <div id="message"></div>
                         <p class="text-center" id="ajax_message"></p>
                         <br>
-                        <form method="POST" class="sky-form" id="add_education" action="">
-                            {{csrf_field()}}
                             <dl class="dl-horizontal">
+                                <div class="row">
+                                    @foreach ($edus as $edu)
+                                    <div class="col-sm-6">
+                                        <div class="projects">
+                                            <h2><a class="color-dark" href="#"></a>{{$edu->institution}}</h2>
+                                            <ul class="list-unstyled list-inline blog-info-v2">
 
-                                <dt>School</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                            
-                                            <input id="school" type="text" placeholder="School" name="school"> 
-                                        </label>
-                                    </section>
-                                </dd>
-                                <dt>Start Date</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                           
-                                            <input id="date_start" type="text" class="date form-control" name="date_start" />
-                                        </label>
-                                    </section>
-                                </dd>
-                                <dt>End Date</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                           
-                                            <input id="date_end" type="text" class="date form-control" name="date_end" />
+                                                <li><i class="fa fa-clock-o"></i>{{$edu->start_date}}</li>
 
-                                                <script type="text/javascript">
-                                                    $('.date').datepicker({
-                                                        dateFormat: "yy-mm-dd"
-                                                    });
-                                                </script>
-                                        </label>
-                                    </section>
-                                </dd>
-
-                                <dt>Degree</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                            
-                                            <input id="degree" type="text" placeholder="degree" name="degree"> 
-                                        </label>
-                                    </section>
-                                </dd>
-
-                                <dt>Area of Study</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                            
-                                            <input id="study" type="text" placeholder="Area of Study" name="study"> 
-                                        </label>
-                                    </section>
-                                </dd>
-
-                                <dt>Description</dt>
-                                <dd>
-                                    <section>
-                                        <label class="input">
-                                            
-                                            <textarea name="description" class="form-control" rows="4" id="description"></textarea> 
-                                        </label>
-                                    </section>
-                                </dd>
-                            </dl>
-                            <button type="reset" class="btn-u btn-u-default">Cancel</button>
-                            <button id="password_submit" class="btn-u" type="submit">Save Changes</button>
-                            <button type="button" class="btn-u btn-info" data-toggle="modal" data-target="#myModal">Add More</button>
-                        </form>
-                    </div>
-                     {{--education end here--}}
-
-                    {{--education modal--}}
-
-                    <div id="myModal" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="row">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">School</label>
-                                        <div class="col-md-6">
-                                            <input id="school" type="text" class="form-control margin-bottom-10" name="school" value="">
+                                                <li><i class="fa fa-clock-o"></i>{{$edu->end_date}}</li>
+                                            </ul>
+                                            <h5><a class="color-dark">{{$edu->degree}}</a></h5>
+                                            <h5><a class="color-dark"></a>{{$edu->area_of_study}}</h5>
+                                            <h5><a class="color-dark"></a>{{$edu->description}}</h5>
+                                            <br>
                                         </div>
                                     </div>
-                                     <div class="form-group">
-                                         <label class="col-md-4 control-label margin-bottom-10">Date Start</label>
-                                         <div class="col-md-6">
-                                             <input id="date_start" type="text" class="date form-control margin-bottom-10" name="date_start" />
-
-                                         </div>
-                                     </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">Date End</label>
-                                        <div class="col-md-6">
-                                            <input id="date_end" type="text" class="date form-control margin-bottom-10" name="date_end" />
-
-                                            <script type="text/javascript">
-                                                $('.date').datepicker({
-                                                    dateFormat: "yy-mm-dd"
-                                                });
-                                            </script>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">Degree</label>
-                                        <div class="col-md-6">
-                                            <input id="degree" type="text" class="form-control margin-bottom-10" name="degree" value="">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">Area of Study</label>
-                                        <div class="col-md-6">
-                                            <input id="area" type="text" class="form-control margin-bottom-10" name="area" value="">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label margin-bottom-10">Description</label>
-                                        <div class="col-md-6">
-                                            <input type="text" id="description" class="form-control margin-bottom-10" name="description" value="">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <div class="col-md-6 col-md-offset-4 margin-bottom-10">
-                                            <button data-dismiss="modal" onclick="addEducation()" type="button" class="btn btn-primary">Add</button>
-                                            
-                                        </div>
-                                    </div>
-
+                                     @endforeach
                                 </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
+                               
 
-                      </div>
+                            </dl>
+                            <button type="button" class="btn-u" data-toggle="modal" data-target="#educationModal">Add More</button>                       
                     </div>
 
-                    {{--education Modal end here--}}
-
-
+                     {{--education end here--}}
 
                     {{--Payment method tab start--}}
                     <div id="payment" class="profile-edit tab-pane fade">
@@ -749,8 +634,83 @@
         </div>
     </div>
     <!-- End Profile Content -->
-    <input type="hidden" value="{{$userProfile->profile->country}}" id="userCountryId">
+    <input type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->country}}" @endif id="userCountryId">
     <input type="hidden" value="{{$cities}}" id="userCities">
+
+    {{--Education Modal--}}
+
+
+    <div class="margin-bottom-40">
+        <div class="modal fade" id="educationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel4">Add Education</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Education Form -->
+                        <form action="{{route('addEdcation')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">  
+                            {{csrf_field()}}          
+                            <fieldset>
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" id="institution" name="institution" placeholder="Institution Name">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" id="degree" name="degree" placeholder="Degree">
+                                        </label>
+                                    </section>
+                                </div>
+
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <input type="text" name="study_area" id="study_area" placeholder="Area of Study">
+                                        </label>
+                                    </section>                               
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <div class="row">
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <i class="icon-append fa fa-calendar"></i>
+                                            <input type="text" name="start" id="start" placeholder="Expected start date">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <label class="input">
+                                            <i class="icon-append fa fa-calendar"></i>
+                                            <input type="text" name="finish" id="finish" placeholder="Expected finish date">
+                                        </label>
+                                    </section>
+                                </div>
+                                <section>
+                                    <label class="textarea">
+                                        <textarea rows="5"  id = "description" name="description" placeholder="Tell us about your Experience"></textarea>
+                                    </label>
+                                </section>
+                            </fieldset>
+                            <footer>
+                                <button type="submit" id="addEducation" class="btn-u">Add</button>                           
+                            </footer>
+                        </form>
+                        <!-- End Education Form -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeModal" class="btn-u btn-u-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--Education Modal End Here--}}
 @endsection
 @section('script')
     {{--this script use for update password--}}
@@ -760,9 +720,11 @@
             if($('#userCountryId').val() != null && $('#userCountryId').val() != ''){
                 $("select.cityOptions").html("<option value=\"\">Select One</option>" +
                     "@foreach($cities as $city)\n" +
+                    "@if($userProfile->profile != null && $userProfile->profile != '')\n" +
                     "@if($userProfile->profile->country == $city->countries_id)\n" +
                     "@if($userProfile->profile->city == $city->id)" +
                     "<option value=\"{{$city->id}}\" selected = 'selected'>{{$city->name}}</option>\n" +
+                    "@endif" +
                     "@endif" +
                     "<option value=\"{{$city->id}}\">{{$city->name}}</option>\n" +
                     "@endif\n" +
@@ -825,6 +787,33 @@
             $("."+name).addClass('hidden');
         }
 
+        function resetDropDown(name){
+
+            $("#"+name).removeClass('hidden');
+            $("."+name+"_edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+            var desiredValue = $("#experience_lavel").text();
+            var value = $.trim(desiredValue);
+
+            $('[name=experience_lavel] option').filter(function() {
+                return ($(this).text() == value); //To select Blue
+            }).prop('selected', true);
+
+        }
+
+        /*use for city and country name change*/
+        function changeDropDown(name){
+            $("#"+name+"Dropdown").removeAttr('disabled');
+            $("."+name).removeClass('hidden');
+           $("#cityEdit").addClass('hidden');
+        }
+
+        /*use for city dropdown reset*/
+        function resetCityDropDown(name){
+            $("#"+name+"Edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+            $('#cityDropdown').prop("disabled", true);
+        }
 
         $("#infoUpdate").click(function(event){
             event.preventDefault();
@@ -842,8 +831,10 @@
                     company_name: $("input[name=company_name]").val(),
                     web_address: $("input[name=web_address]").val(),
                     skills: $("input[name=skills]").val(),
-                    experience_lavel: $("input[name=experience_lavel]").val(),
-                    professional_title: $("input[name=professional_title]").val()
+                    hourly_rate: $("input[name=hourly_rate]").val(),
+                    experience_lavel: $("#experience_lavel_value").val(),
+                    professional_title: $("input[name=professional_title]").val(),
+                    professional_overview: $("input[name=professional_overview]").val()
                 },
                 function(data, status){
                     $("#profile_status").html(data);
@@ -855,7 +846,46 @@
             $("input[type='text']").attr('type', 'hidden');
             $( "div.hidden" ).removeClass('hidden');
             $( ".fa-pencil" ).parent().removeClass('hidden');
+            $( ".experience_lavel" ).addClass('hidden');
+            $( "#experience_lavel" ).text($("select[name='experience_lavel']").find('option:selected').text());
             $( ".fa-times" ).parent().addClass('hidden');
+        });
+    </script>
+
+    <!-- Add education script -->
+    <script type="text/javascript">
+        $("#addEducation").click(function(e){
+            e.preventDefault();
+            var institution = $("#institution").val();
+            var degree = $("#degree").val();
+            var study_area = $("#study_area").val();
+            var start = $("#start").val();
+            var finish = $("#finish").val();
+            var description = $("#description").val();
+            $.post("{{route('addEdcation')}}",
+                {
+                    _token: '{{csrf_token()}}',
+                    institution : institution,
+                    degree:degree,
+                    study_area:study_area,
+                    start:start,
+                    finish:finish,
+                    description:description,
+                },
+                function(data, status){
+                    //alert(data);
+                    //$("#profile_status").html(data);
+                    //alert("Data: " + data );
+                    $("#message").html(data);
+                    
+                    $("#institution").val("");
+                    $("#degree").val("");
+                    $("#study_area").val("");
+                    $("#start").val("");
+                    $("#finish").val("");
+                    $("#description").val("");
+                    $("#closeModal").click();
+                });
         });
     </script>
 @endsection
