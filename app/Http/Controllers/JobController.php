@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Categories;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +20,10 @@ class JobController extends Controller
     }
     public function getJobPost()
     {
-        return view('front.jobPost');
+        $categories = Categories::with('subcategory')->get();
+        $freelancer = User::freelancer()->get();
+        dd($freelancer);
+        return view('front.jobPost', ['categories' => $categories]);
     }
 
     public  function PostJobPost(Request $request){

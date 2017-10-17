@@ -50,11 +50,15 @@
                             </div>
                             <div class="col-sm-6">
                                 <label>Category<span class="color-red">*</span></label>
-                                <select class="form-control margin-bottom-20" name="category">
+                                <select class="form-control margin-bottom-20 category" name="category">
                                     <option value="">Select One</option>
-                                    <option value="1">Web development</option>
-                                    <option value="2">Mobile App Development</option>
-                                    
+                                    @if($categories != null || $categories != '')
+                                        @foreach($categories as $category)
+                                            @if($category->is_parent == 1)
+                                                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -73,10 +77,13 @@
                             </div>
                             <div class="col-sm-6">
                                 <label >Sub Category <span class="color-red">*</span></label>
-                                <select class="form-control margin-bottom-20" name="subCategory" disabled="disabled">
+                                <select class="form-control margin-bottom-20 subCategory" name="subCategory">
                                     <option value="">Select One</option>
-                                    <option value="">Select1</option>
-                                    <option value="">Select2</option>
+                                    {{--@foreach($categories as $category)--}}
+                                        {{--@if($category->is_parent == 0)--}}
+                                            {{--<option value="{{$category->id}}">{{$category->category_name}}</option>--}}
+                                        {{--@endif--}}
+                                    {{--@endforeach--}}
                                     
                                 </select>
                             </div>
@@ -135,60 +142,6 @@
                                 <h3 class="panel-title"><i class="fa fa-globe"></i> Top Rated Freelancer</h3>
                             </div>
                             <div class="panel-body">
-                                {{--<table class="table table-bordered">--}}
-                                {{--<thead>--}}
-                                {{--<tr>--}}
-                                {{--<th>#</th>--}}
-                                {{--<th>Username</th>--}}
-                                {{--<th>Skill</th>--}}
-                                {{--<th>Hourly Rate</th>--}}
-                                {{--<th>Options</th>--}}
-                                {{--</tr>--}}
-                                {{--</thead>--}}
-                                {{--<tbody>--}}
-                                {{--<tr id="1_top_freelancer">--}}
-                                {{--<td>1</td>--}}
-                                {{--<td id="1_username">Mark</td>--}}
-                                {{--<td class="hidden-sm">Otto</td>--}}
-
-                                {{--<td>Active/Inactive</td>--}}
-                                {{--<td>--}}
-                                {{--<button type="button" onclick="getFreelancer(1)" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
-                                {{--<button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>--}}
-                                {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--<tr id="2_top_freelancer">--}}
-                                {{--<td>2</td>--}}
-                                {{--<td id="2_username">Jacob</td>--}}
-                                {{--<td class="hidden-sm">Thornton</td>--}}
-
-                                {{--<td>Active/Inactive</td>--}}
-                                {{--<td><button onclick="getFreelancer(2)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
-                                {{--<button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>--}}
-                                {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--<tr id="3_top_freelancer">--}}
-                                {{--<td>3</td>--}}
-                                {{--<td id="3_username">Larry</td>--}}
-                                {{--<td class="hidden-sm">the Bird</td>--}}
-
-                                {{--<td>Active/Inactive</td>--}}
-                                {{--<td><button onclick="getFreelancer(3)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
-                                {{--<button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>--}}
-                                {{--</td>--}}
-                                {{--</tr>--}}
-                                {{--<tr id="4_top_freelancer">--}}
-                                {{--<td>4</td>--}}
-                                {{--<td id="4_username">htmlstream</td>--}}
-                                {{--<td class="hidden-sm">Web Design</td>--}}
-
-                                {{--<td>Active/Inactive</td>--}}
-                                {{--<td><button onclick="getFreelancer(4)" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
-                                        </td>--}}
-                                {{--</tr>--}}
-                                {{--</tbody>--}}
-                                {{--</table>--}}
                                 <table id="topRatedFreelancer" class="table table-striped table-bordered" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
@@ -359,6 +312,7 @@
         </div>
     </div><!--/container-->
     <!--=== End Content Part ===-->
+    <input type="hidden" value="{{$categories}}" id="categories">
 @endsection
 
 @section('script')
@@ -371,6 +325,27 @@
         $("#skill").select2({
             tags: true,
             tokenSeparators: [',', '.']
+        });
+
+        $('.category').change(function(){
+            $('.subCategory').children('option:not(:first)').remove();
+            var selectedCategoryId = parseInt($('.category option:selected').val());
+            var Categories = JSON.parse($('#categories').val());
+//            console.log(Categories);
+            if(Categories != null || Categories != ''){
+                $.each(Categories, function( index, category ) {
+                    if(category.id == selectedCategoryId){
+                        $.each(category.subcategory, function(index, subCategory){
+                            console.log(category);
+                            $('.subCategory').append($('<option>', {
+                                value: subCategory.id,
+                                text : subCategory.category_name
+                            }));
+                        });
+                    }
+                });
+            }
+
         });
 
     </script>
