@@ -32,27 +32,35 @@
                         <div class="left-inner">
 
                             <h3>First Name</h3>
-                            <p>{{$freeLancer->fname}}</p>
+                            <p class="text-right text-bold">{{$freeLancer->fname}}</p>
                             <hr>
 
                             <h3>Last Name</h3>
-                            <p>{{$freeLancer->lname}}</p>
+                            <p class="text-right text-bold">{{$freeLancer->lname}}</p>
                             <hr>
 
                             <h3>Country</h3>
-                            <p>America</p>
+                            @if($country)
+                                <p class="text-right text-bold">{{$country->name}}</p>
+                            @endif
                             <hr>
 
                             <h3>City</h3>
-                            <p>New York</p>
+                            @if($city)
+                                <p class="text-right text-bold">{{$city->name}}</p>
+                            @endif
                             <hr>
 
                             <h3>Professional Title</h3>
-                            <p>Web Developer</p>
+                            @if($freeLancer->profile)
+                                <p class="text-right text-bold">{{$freeLancer->profile->professional_title}}</p>
+                            @endif
                             <hr>
 
-                            <h3>Professional Overview</h2>
-                            <p>Work with laravel Framework</p>
+                            <h3>Professional Overview</h3>
+                            @if($freeLancer->profile)
+                                <p class="text-right text-bold">{{$freeLancer->profile->professional_overview}}</p>
+                            @endif
                             <hr>
 
                             <h3>Skills</h3>                           
@@ -75,11 +83,15 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-3">
                         <div class="right-inner">
-                            <h3>Posted by</h3>
-                            <img src="{{asset('assets/img/testimonials/img1.jpg')}}" alt="">
-                            <div class="overflow-h">
-                                <span class="font-s">Steve Andersson</span>
-                                <p class="color-green">Position: <span class="hex">Manager, Accounter</span></p>
+                            {{--<h3>Posted by</h3>--}}
+                            @if($freeLancer->profile)
+                <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen($freeLancer->profile->img_path)>3)  src="{{asset('profile_img/'.$freeLancer->profile->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
+                            @else
+                                <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
+                            @endif
+                            <div class="overflow-h text-center">
+                                <span class="font-s text-center">{{$freeLancer->fname." ".$freeLancer->lname}}</span>
+                                <p class="color-green text-center">Position: <span class="hex">{{$freeLancer->profile->professional_title}}</span></p>
                                 
                             </div>
                         </div>

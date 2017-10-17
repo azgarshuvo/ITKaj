@@ -82,24 +82,15 @@ class ProfileController extends Controller{
 
     #profile view as other
     public function getMyProfileView($id){
-
-        //User::with('profile')->where(['user_type'=>'freelancer'])->get();
-       // $comment = States::with('country')->where(['id'=>348]);
-
         $city = null;
         $country = null;
-
         $freeLancer=User::with('profile')->where(['user_type'=>'freelancer','id'=>$id])->first();
-
         if($freeLancer->profile){
-            $city =  States::find($freeLancer->profile->ciry)->get();
+            $city =  States::where(['id'=>$freeLancer->profile->city])->first();
             $country = Countries::find($freeLancer->profile->country);
         }
 
-       // $country = Countries::find(318);
-        dd($city);
-
-        return view('front.profileView',['freeLancer'=>$freeLancer]);
+        return view('front.profileView',['freeLancer'=>$freeLancer,'country'=>$country,'city'=>$city]);
     }
 
     //Add Education
