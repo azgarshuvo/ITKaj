@@ -24,7 +24,7 @@
         <div class="job-description">
             <div class="container content">
                 <div class="title-box-v2">
-                    <h2>Your Profile</h2>
+                    <h2>{{$freeLancer->fname." ".$freeLancer->lname}}</h2>
                 </div>
                 <div class="row">
                     <!-- Left Inner -->
@@ -32,11 +32,11 @@
                         <div class="left-inner">
 
                             <h3>First Name</h3>
-                            <p>Alex</p>
+                            <p>{{$freeLancer->fname}}</p>
                             <hr>
 
                             <h3>Last Name</h3>
-                            <p>John</p>
+                            <p>{{$freeLancer->lname}}</p>
                             <hr>
 
                             <h3>Country</h3>

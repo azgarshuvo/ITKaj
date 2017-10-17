@@ -24,7 +24,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('company_name');
             $table->string('company_website');
             $table->string('skills');
-            $table->string('experience_lavel');
+            $table->string('experience_level');
             $table->string('professional_title');
             $table->string('professional_overview');
             $table->string('hourly_rate');

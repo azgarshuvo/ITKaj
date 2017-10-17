@@ -35,7 +35,7 @@ Route::group(['prefix' => 'user'], function () {
     	Route::get('overall', ['as' => 'profileOverall', 'uses' => 'ProfileController@getProfile']);
     	Route::get('settings', ['as' => 'profileSettings', 'uses' => 'ProfileController@getProfileSettings']);
         Route::get('projects/list', ['as' => 'projectsList', 'uses' => 'ProfileController@getProjectsList']);
-        Route::get('view', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
+        Route::get('view/{id}', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
         Route::post('change-profile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
 
 

@@ -408,13 +408,13 @@ $edus = (Auth::User()->education);
                                     <dt><strong>Experience Level</strong></dt>
                                     <dd>
                                         <div class="row">
-                                            <div class="col-md-6 setText hidden experience_lavel" >
-                                                <select id="experience_lavel_value" class="form-control margin-bottom-20" name="experience_lavel">
+                                            <div class="col-md-6 setText hidden experience_level" >
+                                                <select id="experience_level_value" class="form-control margin-bottom-20" name="experience_level">
                                                     <option value="">Select One</option>
                                                     @if($userProfile->profile!=null)
-                                                        <option @if($userProfile->profile->experience_lavel=="1") selected @endif value="1">Entry Level</option>
-                                                        <option @if($userProfile->profile->experience_lavel=="2") selected @endif value="2">Intermediate Level</option>
-                                                        <option @if($userProfile->profile->experience_lavel=="3") selected @endif value="3">Expart Level</option>
+                                                        <option @if($userProfile->profile->experience_level=="1") selected @endif value="1">Entry Level</option>
+                                                        <option @if($userProfile->profile->experience_level=="2") selected @endif value="2">Intermediate Level</option>
+                                                        <option @if($userProfile->profile->experience_level=="3") selected @endif value="3">Expart Level</option>
                                                     @else
                                                         <option value="1">Entry Level</option>
                                                         <option value="2">Intermediate Level</option>
@@ -422,28 +422,28 @@ $edus = (Auth::User()->education);
                                                     @endif
                                                 </select>
                                             </div>
-                                            <div id="experience_lavel" class="col-md-6">
+                                            <div id="experience_level" class="col-md-6">
                                                 @if($userProfile->profile!=null)
-                                                    @if($userProfile->profile->experience_lavel=="1")
+                                                    @if($userProfile->profile->experience_level=="1")
                                                         Entry Level
-                                                    @elseif($userProfile->profile->experience_lavel == '2')
+                                                    @elseif($userProfile->profile->experience_level == '2')
                                                         Intermediate Level
-                                                    @elseif($userProfile->profile->experience_lavel=="3")
+                                                    @elseif($userProfile->profile->experience_level=="3")
                                                         Expart Level
                                                     @else
 
                                                     @endif
                                                 @endif
-                                                {{--<input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_lavel}}" @endif name="experience_lavel">--}}
+                                                {{--<input class="form-control" type="hidden" @if( $userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->experience_level}}" @endif name="experience_level">--}}
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
-                                                    <a onclick="changeData('experience_lavel')" class="pull-right experience_lavel_edit" href="javascript:void(0);">
+                                                    <a onclick="changeData('experience_level')" class="pull-right experience_level_edit" href="javascript:void(0);">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </span>
                                                 <span>
-                                                    <a onclick="resetDropDown('experience_lavel')" class="pull-right experience_lavel hidden" href="javascript:void(2);">
+                                                    <a onclick="resetDropDown('experience_level')" class="pull-right experience_level hidden" href="javascript:void(2);">
                                                         <i class="fa fa-times fa-lg"></i>
                                                     </a>
                                                 </span>
@@ -800,10 +800,10 @@ $edus = (Auth::User()->education);
             $("#"+name).removeClass('hidden');
             $("."+name+"_edit").removeClass('hidden');
             $("."+name).addClass('hidden');
-            var desiredValue = $("#experience_lavel").text();
+            var desiredValue = $("#experience_level").text();
             var value = $.trim(desiredValue);
 
-            $('[name=experience_lavel] option').filter(function() {
+            $('[name=experience_level] option').filter(function() {
                 return ($(this).text() == value);
             }).prop('selected', true);
 
@@ -857,7 +857,7 @@ $edus = (Auth::User()->education);
                     web_address: $("input[name=web_address]").val(),
                     skills: $("input[name=skills]").val(),
                     hourly_rate: $("input[name=hourly_rate]").val(),
-                    experience_lavel: $("#experience_lavel_value").val(),
+                    experience_level: $("#experience_level_value").val(),
                     professional_title: $("input[name=professional_title]").val(),
                     professional_overview: $("input[name=professional_overview]").val()
                 },
@@ -871,8 +871,8 @@ $edus = (Auth::User()->education);
             $("input[type='text']").attr('type', 'hidden');
             $( "div.hidden" ).removeClass('hidden');
             $( ".fa-pencil" ).parent().removeClass('hidden');
-            $( ".experience_lavel" ).addClass('hidden');
-            $( "#experience_lavel" ).text($("select[name='experience_lavel']").find('option:selected').text());
+            $( ".experience_level" ).addClass('hidden');
+            $( "#experience_level" ).text($("select[name='experience_level']").find('option:selected').text());
             $( ".fa-times" ).parent().addClass('hidden');
         });
     </script>
