@@ -143,7 +143,7 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve']], function (
 Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@getOwnJobDescription']);
 
 /*Setup Milestone*/
-Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@getMilestone']);
+Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@setMilestone']);
 
 
 Route::get('email/confirmation', ['as' => 'sendToken', 'uses' => 'RegistrationController@EmailToken']);

@@ -24,7 +24,7 @@
 <!-- CSS Global Compulsory -->
 <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap-3.3.7/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap-3.3.7/css/dataTables.bootstrap.min.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
 
 <!-- CSS Header and Footer -->
 <link rel="stylesheet" href="{{asset('assets/css/headers/header-default.css')}}">
@@ -64,4 +64,5 @@
 <!-- CSS Customization -->
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
+<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 <script type="text/javascript" src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
