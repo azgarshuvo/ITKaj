@@ -6,19 +6,19 @@
  * Time: 4:15 PM
  */
 //dd($userProfile->profile)
-$edus = (Auth::User()->education);
-$emps = (Auth::User()->employment);
-foreach ($edus as $edu){
-    $startDate = $edu->start_date;
-    $endDate = $edu->end_date;
-
-
-}
-$splitDate = explode('-', $startDate);
-$startYear =$splitDate[0];
-
-$splitEndDate = explode('-', $endDate);
-$endYear =$splitEndDate[0];
+//$edus = (Auth::User()->education);
+//$emps = (Auth::User()->employment);
+//foreach ($edus as $edu){
+//    $startDate = $edu->start_date;
+//    $endDate = $edu->end_date;
+//
+//
+//}
+//$splitDate = explode('-', $startDate);
+//$startYear =$splitDate[0];
+//
+//$splitEndDate = explode('-', $endDate);
+//$endYear =$splitEndDate[0];
 
 
 
@@ -143,19 +143,19 @@ $endYear =$splitEndDate[0];
 								<a href="#"><i class="fa fa-cog pull-right"></i></a>
 							</div>
 							<div class="panel-body margin-bottom-40">
-								@foreach ($emps as $emp)
+								{{--@foreach ($emps as $emp)--}}
 								<ul class="timeline-v2 timeline-me">
 									<li>
-										<time datetime="" class="cbp_tmtime"><span>@if($emp->designation != null && $emp->designation != '') {{$emp->designation}} @endif</span> <span>@if($emp->start_date != null && $emp->start_date != '') {{$emp->start_date}} @endif to @if($emp->finish_date != null && $emp->finish_date != '') {{$emp->finish_date}} @endif </span></time>
+										{{--<time datetime="" class="cbp_tmtime"><span>@if($emp->designation != null && $emp->designation != '') {{$emp->designation}} @endif</span> <span>@if($emp->start_date != null && $emp->start_date != '') {{$emp->start_date}} @endif to @if($emp->finish_date != null && $emp->finish_date != '') {{$emp->finish_date}} @endif </span></time>--}}
 										<i class="cbp_tmicon rounded-x hidden-xs"></i>
 										<div class="cbp_tmlabel">
-											<h2> @if($emp->company_name != null && $emp->company_name != '') {{$emp->company_name}} @endif</h2>
+											{{--<h2> @if($emp->company_name != null && $emp->company_name != '') {{$emp->company_name}} @endif</h2>--}}
 											<p>Winter purslane courgette pumpkin quandong komatsuna fennel green bean cucumber watercress. Peasprouts wattle seed rutabaga okra yarrow cress avocado grape.</p>
 										</div>
 									</li>
 
 								</ul>
-								@endforeach
+								{{--@endforeach--}}
 							</div>
 						</div>
 						<!--End Timeline-->
@@ -168,25 +168,21 @@ $endYear =$splitEndDate[0];
 								<a href="#"><i class="fa fa-cog pull-right"></i></a>
 							</div>
 							<div class="panel-body">
-									@foreach ($edus as $edu)
+									{{--@foreach ($edus as $edu)--}}
 								<ul class="timeline-v2 timeline-me">
 									<li>
-										<time datetime="" class="cbp_tmtime"><span>@if($edu->degree != null && $edu->degree != ''){{$edu->degree}}@endif in @if($edu->area_of_study != null && $edu->area_of_study != ''){{$edu->area_of_study}}@endif</span> <span> {{$startYear}} - {{$endYear}} </span></time>
+										{{--<time datetime="" class="cbp_tmtime"><span>@if($edu->degree != null && $edu->degree != ''){{$edu->degree}}@endif in @if($edu->area_of_study != null && $edu->area_of_study != ''){{$edu->area_of_study}}@endif</span> <span> {{$startYear}} - {{$endYear}} </span></time>--}}
 										<i class="cbp_tmicon rounded-x hidden-xs"></i>
 										<div class="cbp_tmlabel">
-											<h2>@if($edu->institution != null && $edu->institution != ''){{$edu->institution}}@endif</h2>
-											<p>@if($edu->description != null && $edu->description != ''){{$edu->description}}@endif.</p>
+											{{--<h2>@if($edu->institution != null && $edu->institution != ''){{$edu->institution}}@endif</h2>--}}
+											{{--<p>@if($edu->description != null && $edu->description != ''){{$edu->description}}@endif.</p>--}}
 										</div>
 									</li>
-
 								</ul>
-									@endforeach
+									{{--@endforeach--}}
 							</div>
 						</div>
 						<!--End Timeline-->
-
-						
-					
 					</div>
 				</div>
 				<!-- End Profile Content -->
