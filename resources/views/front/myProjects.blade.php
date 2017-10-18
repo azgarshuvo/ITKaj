@@ -33,7 +33,7 @@
 
                             <div class="col-sm-6">
                                  <div class="projects">
-                                    <h2><a class="color-dark" href="#">{{$job->name}}</a></h2>
+                                    <h2><a class="color-dark" href="{{route('MyJobDescription',['job'=>$job->id])}}">{{$job->name}}</a></h2>
                                     <ul class="list-unstyled list-inline blog-info-v2">
                                        
                                         <li>By: <a class="color-green" href="#">{{$user->fname}} {{$user->lname}}</a></li>

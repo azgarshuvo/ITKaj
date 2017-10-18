@@ -69,17 +69,24 @@ class JobController extends Controller
     /*Job description view*/
     public function getJobDescription(Request $request)
     {
-        $job_id = $request->input('job_number');
-        $job_details = Job::where('approved', 1)
-                        ->where('id', $job_id)
+        $jobId = $request->input('job_number');
+        $jobDetails = Job::where('approved', 1)
+                        ->where('id', $jobId)
                         ->first();
-        if($job_details){
-            return view('front.jobDescription',['job_details'=>$job_details]);
+
+        $userInfo = User::with('profile')->where(['id'=>$jobDetails->user_id])->first();
+
+        //dd($userInfo->profile);
+
+        if($userInfo){
+            return view('front.jobDescription',['jobDetails'=>$jobDetails,'userInfo'=>$userInfo]);
         }else{
             return redirect()->route('jobSearch');
         }
 
     }
+
+    /*Search job*/
     public function getJobSearch(){
         $job_list = Job::where('approved', 1)
                         ->orderBy('id', 'desc')
@@ -137,4 +144,16 @@ class JobController extends Controller
             FreelancerSelectedForJob::create(['job_id' => $jobId, 'freelancer_id' => $freelancer, 'status' => 0]);
         }
     }
+
+    function getOwnJobDescription($id){
+        $jobDetails = Job::where('approved', 1)
+            ->where('id', $id)
+            ->where('user_id', $this->userId)
+            ->first();
+        $userInfo = User::with('profile')->where(['id'=>$this->userId])->first();
+
+        return view('front.ownJobDescription',['jobDetails'=>$jobDetails,'userInfo'=>$userInfo]);
+
+    }
+
 }

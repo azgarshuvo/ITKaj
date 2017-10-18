@@ -24,10 +24,6 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
-
-
-
-
     Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
 
         Route::get('', ['as' => 'myProfile', 'uses' => 'ProfileController@getMyProfile']);
@@ -116,9 +112,16 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve']], function (
     Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost','middleware' => 'employer']);
     Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
     Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch','middleware' => 'freelancer']);
-    Route::get('attachment/download', ['as' => 'attachmentDownload', 'uses' => 'JobController@getDownload','middleware' => 'freelancer']);
+    Route::get('attachment/download', ['as' => 'attachmentDownload', 'uses' => 'JobController@getDownload']);
+
 
 });
+
+/*Route for own job */
+Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@getOwnJobDescription']);
+
+/*Setup Milestone*/
+Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@getMilestone']);
 
 
 Route::get('email/confirmation', ['as' => 'sendToken', 'uses' => 'RegistrationController@EmailToken']);

@@ -209,8 +209,9 @@ if($emps){
 					</div>
 				</div>
 				<!-- End Profile Content -->
+@endsection
 
-
+@section('script')
 
     <script type="text/javascript">
         $("input:file").change(function (){
