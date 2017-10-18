@@ -53,8 +53,6 @@
 		CheckoutForm.initCheckoutForm();
     });
 </script>
-@yield('script')
-
 <!--[if lt IE 9]>
 <script src="{{asset('assets/plugins/respond.js')}}"></script>
 <script src="{{asset('assets/plugins/html5shiv.js')}}"></script>

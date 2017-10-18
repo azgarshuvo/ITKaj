@@ -68,11 +68,12 @@ if($emps){
 
 
 										{{--<a class="btn-u btn-u-sm" href="#">Change Picture</a>--}}
-									<form action="{{route('changeProfileImg')}}" id="example-form" method="post" enctype="multipart/form-data">
+									<form class="img_upload_form" action="{{route('changeProfileImg')}}" method="post" enctype="multipart/form-data">
 										{{csrf_field()}}
-										<div class="btn-u btn-u-sm new_Btn btn-block text-center">Change Image</div><br>
+
 										<input id="images" type="file" name="file" multiple="" />
 									</form>
+											<div class="btn-u btn-u-sm new_Btn btn-block text-center">Change Image</div>
 										</li>
 									</ul>
 
@@ -208,8 +209,7 @@ if($emps){
 				</div>
 				<!-- End Profile Content -->
 
-	<script type="text/javascript">
-=======
+
     <!-- Profile Content -->
     <div class="col-md-9">
         <p class="alert-danger alert hidden" id="error">
@@ -367,7 +367,6 @@ if($emps){
     <!-- End Profile Content -->
 
     <script type="text/javascript">
->>>>>>> ed6cf8d05822af99f808117221e79d061d712c9c
         $("input:file").change(function (){
             //event.preventDefault();
             var fd = new FormData();
