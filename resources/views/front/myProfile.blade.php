@@ -48,7 +48,6 @@ if($emps){
 
 @section('content')
 
-
 <!-- Profile Content -->
 				<div class="col-md-9">
 					<p class="alert-danger alert hidden" id="error">

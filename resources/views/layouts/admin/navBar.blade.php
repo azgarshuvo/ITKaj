@@ -57,6 +57,14 @@
             </li>
 
             <li>
+                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Skill</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#">Add Skill</a></li>
+                    <li><a href="#">Skill List</a></li>
+                </ul>
+            </li>
+
+            <li>
                 <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Job</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{route('jobList')}}">Job List</a></li>
