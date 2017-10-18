@@ -59,8 +59,8 @@
             <li>
                 <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Skill</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="#">Add Skill</a></li>
-                    <li><a href="#">Skill List</a></li>
+                    <li><a href="{{route('skillAdd')}}">Add Skill</a></li>
+                    <li><a href="{{route('skillList')}}">Skill List</a></li>
                 </ul>
             </li>
 

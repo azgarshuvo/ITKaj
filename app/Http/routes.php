@@ -90,6 +90,19 @@ Route::group(['prefix' => 'admin'], function (){
     Route::post('category/categoryUpdate/{id}', ['as' =>'categoryUpdate', 'uses' => 'adminController\CategoryCrudController@updateCategory']);
 
 
+    //skill
+    Route::get('skill/addSkill', ['as' =>'skillAdd', 'uses' => 'adminController\SkillCrudController@getSkillAdd']);
+    Route::post('skill/insertSkill', ['as' =>'skillInsert', 'uses' => 'adminController\SkillCrudController@postSkillAdd']);
+    Route::get('skill/list', ['as' =>'skillList', 'uses' => 'adminController\SkillCrudController@getSkillList']);
+    Route::get('skill/edit/{id}', ['as' =>'skillEdit', 'uses' => 'adminController\SkillCrudController@getSkillEdit']);
+    Route::post('skill/update/{id}', ['as' =>'skillUpdate', 'uses' => 'adminController\SkillCrudController@postSkillUpdate']);
+    Route::get('skill/Delete/{id}', ['as' =>'skillDelete', 'uses' => 'adminController\SkillCrudController@getSkillDelete']);
+
+
+
+
+
+
     Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
     Route::get('employeer/list', ['as' =>'employeer_list', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
 
@@ -102,7 +115,16 @@ Route::group(['prefix' => 'admin'], function (){
         Route::get('list/disapprove', ['as' =>'jobDisApproveList', 'uses' => 'adminController\AdminJobController@getDisapproveJoblist']);
         Route::get('details/{id}', ['as' =>'jobDetails', 'uses' => 'adminController\AdminJobController@getJobDetails']);
         Route::get('edit/{id}', ['as' =>'jobEdit', 'uses' => 'adminController\AdminJobController@getJobEditView']);
+        Route::post('update/{id}', ['as' =>'jobUpdate', 'uses' => 'adminController\AdminJobController@postJobUpdate']);
         Route::get('delete/{id}', ['as' =>'jobDelete', 'uses' => 'adminController\AdminJobController@getJobDelete']);
+        Route::get('edit/approve/{id}', ['as' =>'jobApproveEdit', 'uses' => 'adminController\AdminJobController@getJobApproveEdit']);
+        Route::post('update/approve/{id}', ['as' =>'jobApproveUpdate', 'uses' => 'adminController\AdminJobController@postJobApproveUpdate']);
+        Route::get('delete/approve/{id}', ['as' =>'jobApproveDelete', 'uses' => 'adminController\AdminJobController@getJobApproveDelete']);
+        Route::get('edit/disapprove/{id}', ['as' =>'jobDisapproveEdit', 'uses' => 'adminController\AdminJobController@getJobDisapproveEdit']);
+        Route::post('update/disapprove/{id}', ['as' =>'jobDisapproveUpdate', 'uses' => 'adminController\AdminJobController@postJobDisapproveUpdate']);
+        Route::get('delete/disapprove/{id}', ['as' =>'jobDisapproveDelete', 'uses' => 'adminController\AdminJobController@getJobDisapproveDelete']);
+
+
     });
     /*admin job controller end*/
 
