@@ -5,7 +5,7 @@
  * Date: 05-Oct-17
  * Time: 4:15 PM
  */
-dd($userProfile->profile)
+//dd($userProfile->profile)
 $edus = (Auth::User()->education);
 $emps = (Auth::User()->employment);
 foreach ($edus as $edu){
