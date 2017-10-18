@@ -19,7 +19,7 @@
             <!-- Job list -->
             @if(!empty($jobList))
                 <div class="ibox-title">
-                    <h5>Admin List</h5>
+                    <h5>Approved Job List</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -47,8 +47,8 @@
                                 <td>{{$job->category_id}}</td>
                                 <td class="center">
                                     <a class="btn btn-sm btn-info" href="{{ route('jobDetails', [$job->id])}}" data-toggle="tooltip" data-placement="left" title="Job Details"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('jobEdit', [$job->id])}}"  data-toggle="tooltip" title="Job Edit"><i class="fa fa-edit"></i></a>
-                                    <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('jobDelete', [$job->id])}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('jobApproveEdit', [$job->id])}}"  data-toggle="tooltip" title="Job Edit"><i class="fa fa-edit"></i></a>
+                                    <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('jobApproveDelete', [$job->id])}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
                                 </td>
                             </tr>
                         @endforeach

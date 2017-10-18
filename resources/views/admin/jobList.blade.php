@@ -19,7 +19,7 @@
             <!-- Job list -->
             @if(!empty($jobList))
                 <div class="ibox-title">
-                    <h5>Admin List</h5>
+                    <h5>Job List</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -56,7 +56,6 @@
                         @endforeach
                         </tbody>
                     </table>
-
                 </div>
             @endif
         </div>
