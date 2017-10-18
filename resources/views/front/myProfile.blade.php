@@ -8,31 +8,35 @@
 //dd($userProfile->profile)
 $edus = (Auth::User()->education);
 $emps = (Auth::User()->employment);
-foreach ($edus as $edu){
-    $startDate = $edu->start_date;
-    $endDate = $edu->end_date;
+
+if($edus){
+    $startDate = null;
+    $endDate = null;
+	foreach ($edus as $edu){
+		$startDate = $edu->start_date;
+		$endDate = $edu->end_date;
+	}
+	$splitDate = explode('-', $startDate);
+	$startYear =$splitDate[0];
+
+	$splitEndDate = explode('-', $endDate);
+	$endYear =$splitEndDate[0];
 }
-$splitDate = explode('-', $startDate);
-$startYear =$splitDate[0];
 
-$splitEndDate = explode('-', $endDate);
-$endYear =$splitEndDate[0];
+if($emps){
+    $startEmpDate = null;
+	$endEmpDate = null;
+	foreach ($emps as $emp){
+		$startEmpDate = $emp->start_date;
+		$endEmpDate = $emp->finish_date;
+	}
 
+	$splitEmpStartDate = explode('-', $startEmpDate);
+	$startEmpYear =$splitEmpStartDate[0];
 
-foreach ($emps as $emp){
-    $startEmpDate = $emp->start_date;
-    $endEmpDate = $emp->finish_date;
+	$splitEmpEndDate = explode('-', $endEmpDate);
+	$endEmpYear =$splitEmpEndDate[0];
 }
-
-$splitEmpStartDate = explode('-', $startEmpDate);
-$startEmpYear =$splitEmpStartDate[0];
-
-$splitEmpEndDate = explode('-', $endEmpDate);
-$endEmpYear =$splitEmpEndDate[0];
-
-
-
-
 
 ?>
 
@@ -151,7 +155,7 @@ $endEmpYear =$splitEmpEndDate[0];
 						<div class="panel panel-profile">
 							<div class="panel-heading overflow-h">
 								<h2 class="panel-title heading-sm pull-left"><i class="fa fa-briefcase"></i> Experience</h2>
-								<a href="#"><i class="fa fa-cog pull-right"></i></a>
+
 							</div>
 							<div class="panel-body margin-bottom-40">
 								@foreach ($emps as $emp)
@@ -176,7 +180,7 @@ $endEmpYear =$splitEmpEndDate[0];
 						<div class="panel panel-profile">
 							<div class="panel-heading overflow-h">
 								<h2 class="panel-title heading-sm pull-left"><i class="fa fa-mortar-board"></i> Education</h2>
-								<a href="#"><i class="fa fa-cog pull-right"></i></a>
+
 							</div>
 							<div class="panel-body">
 									@foreach ($edus as $edu)
