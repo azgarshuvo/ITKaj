@@ -18,6 +18,7 @@
     @yield('content')
     @include('layouts.front.footer')
     @include('layouts.front.script')
+    @yield('script')
 </div>
 </body>
 </html>

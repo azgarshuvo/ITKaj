@@ -890,8 +890,10 @@ $emps = (Auth::User()->employment);
                 },
                 function(data, status){
                     $("#ajax_message").html(data);
+                    return false;
                     //alert("Data: " + data + "\nStatus: " + status);
                 });
+
         });
     </script>
     <script type="text/javascript">
