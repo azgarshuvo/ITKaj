@@ -16,7 +16,8 @@ class AdminJobController extends Controller
     }
 
     public function getJobDetails($id){
-        echo $id;
+        $details = Job::find($id);
+        return view('admin.job.jobDetails',['details'=>$details]);
     }
 
     public function getJobEditView($id){
