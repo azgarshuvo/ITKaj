@@ -18,8 +18,22 @@ class AdminJobController extends Controller
     }
 
     public function getJobDetails($id){
+        $selectedList = DB::table('users')
+            ->join('freelancer_selected_for_jobs', 'users.id', '=', 'freelancer_selected_for_jobs.freelancer_id')
+            ->select('users.*','freelancer_selected_for_jobs.freelancer_id', 'freelancer_selected_for_jobs.status')
+            ->get();
+
+        $freelancerProfile= DB::table('user_profiles')
+            ->join('freelancer_selected_for_jobs', 'user_profiles.user_id', '=', 'freelancer_selected_for_jobs.freelancer_id')
+            ->select('user_profiles.*')
+            ->get();
+//        $ch = User::Freelancer()->get();
+//        dd($ch);
+
+
+
         $details = Job::find($id);
-        return view('admin.job.jobDetails',['details'=>$details]);
+        return view('admin.job.jobDetails',['details'=>$details, 'selectedList'=>$selectedList, 'freelancerProfile'=>$freelancerProfile]);
     }
 
     public function getJobEditView($id){
@@ -111,7 +125,7 @@ class AdminJobController extends Controller
 
     public function getApproveJoblist(){
         $freelancerList = User::where(['user_type'=>"freelancer"])->get();
-        $jobList = Job::where(['approved'=>1])->get();
+        $jobList = Job::where(['approved'=>0])->get();
         return view('admin.jobListApprove',['jobList'=>$jobList,'freelancerList'=>$freelancerList]);
     }
 
@@ -140,5 +154,13 @@ class AdminJobController extends Controller
         }
         echo $selectOption;
     }
+
+//    public function getSelectedFreelancerList(){
+//        $selectedList = DB::table('users')
+//            ->join('freelancer_selected_for_jobs', 'users.id', '=', 'freelancer_selected_for_jobs.freelancer_id', '=', 'user_profiles.user_id')
+//            ->select('users.*', 'freelancer_selected_for_jobs.freelancer_id', 'freelancer_selected_for_jobs.status', 'user_profiles.*')
+//            ->get();
+//        dd($selectedList);
+//    }
 
 }

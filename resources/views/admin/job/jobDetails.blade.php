@@ -64,28 +64,32 @@
                                 <thead>
                                 <tr>
                                     <th>SL No.</th>
-                                    <th>Job Title</th>
-                                    <th>Description</th>
-                                    <th>Category</th>
-                                    <th>Approve</th>
+                                    <th>Freelancer ID</th>
+                                    <th>Name</th>
+                                    <th>status</th>
+                                    <th>Skills</th>
+                                    <th>Experience Level</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php  $count = 1; ?>
-
-                                    <tr class="gradeX">
+                                    @foreach($selectedList as $list)
+                                        @foreach($freelancerProfile as $profile)
+                                     <tr class="gradeX">
                                         <td>{{$count++}}</td>
-                                        <td>tile</td>
-                                        <td>name</td>
-                                        <td>some</td>
-                                        <td>adh</td>
+                                        <td>{{$list->freelancer_id}}</td>
+                                        <td>{{$list->fname}}{{$list->lname}}</td>
+                                        <td>{{$list->status}}</td>
+                                        <td>{{$profile->skills}}</td>
+                                        <td>{{$profile->experience_lavel}}</td>
                                         <td class="center">
                                             <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" title="Job Details"><i class="fa fa-eye"></i></a>
 
                                         </td>
                                     </tr>
-
+                                        @endforeach
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
