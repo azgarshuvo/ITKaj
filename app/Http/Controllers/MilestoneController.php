@@ -94,4 +94,12 @@ class MilestoneController extends Controller
         Milestone::where(['employee_id'=>$this->userId,'id'=>$milestoneID,'fund_release'=>$releaseAmount])->update(['status'=>1]);
 
     }
+
+    /*View milestone as freelancer*/
+    public function getFreelancerMilestone($jobId){
+
+        $milestone = ContactDetails::with(['millstone','job'])->where(['freelancer_id'=>$this->userId,'job_id'=>$jobId])->first();
+
+        return view('front.milestoneFreelancer',['milestone'=>$milestone]);
+    }
 }

@@ -44,7 +44,11 @@
                             <td>{{$approveProject->name}}</td>
                             <td>{{$approveProject->description}}</td>
                             <td>{{$approveProject->category_id}}</td>
-                            <td></td>
+                            <td>
+                                <a class="btn btn-success color-white" href="{{route('setupMilestone',['jobid'=>$approveProject->id])}}">Milestone
+                                </a>
+
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

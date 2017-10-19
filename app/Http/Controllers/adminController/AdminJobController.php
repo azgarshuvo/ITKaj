@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\adminController;
 
 use App\Job;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -11,7 +13,7 @@ use App\Http\Controllers\Controller;
 class AdminJobController extends Controller
 {
     public function getJoblist(){
-        $jobList = Job::all();
+        $jobList = Job::where(['verified'=>0])->get();
         return view('admin.jobList',['jobList'=>$jobList]);
     }
 
@@ -107,12 +109,35 @@ class AdminJobController extends Controller
     }
 
     public function getApproveJoblist(){
-        $jobList = Job::where('approved',0)->get();
-        return view('admin.jobListApprove',['jobList'=>$jobList]);
+        $freelancerList = User::where(['user_type'=>"freelancer"])->get();
+        $jobList = Job::where(['approved'=>1])->get();
+        return view('admin.jobListApprove',['jobList'=>$jobList,'freelancerList'=>$freelancerList]);
     }
 
     public function getDisapproveJoblist(){
         $jobList = Job::where('approved',1)->get();
         return view('admin.jobListDisapprove',['jobList'=>$jobList]);
     }
+
+    /*Admin job approve by ajax*/
+    public function PostJobApprove(Request $request){
+        $jobId = $request->input('jobId');
+        Job::where(['id'=>$jobId])->update(['verified'=>1,'approved'=>1]);
+    }
+
+    #get freelancer list by dropdown
+    public function getFreelancerList(Request $request){
+        $jobId = $request->input('jobId');
+
+        $freelancers = DB::table('users')
+            ->join('freelancer_selected_for_jobs', 'users.id', '=', 'freelancer_selected_for_jobs.freelancer_id')
+            ->select('users.fname','users.lname', 'freelancer_selected_for_jobs.freelancer_id')
+            ->get();
+        $selectOption = '<option value="0">Select One</option>';
+        foreach ($freelancers as $frelancer){
+            $selectOption.='<option value="'.$frelancer->freelancer_id.'">'.$frelancer->fname.' '.$frelancer->lname.'</option>';
+        }
+        echo $selectOption;
+    }
+
 }

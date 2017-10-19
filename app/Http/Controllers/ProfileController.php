@@ -73,9 +73,7 @@ class ProfileController extends Controller{
     public function getJobInterestedList(){
         return view('front.jobInterestedList');
     }
-    public function getJobOngoingList(){
-        return view('front.jobOngoingList');
-    }
+
     public function getFreelancerJobDoneList(){
         return view('front.freelancerjobDoneList');
     }

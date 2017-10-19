@@ -12,6 +12,7 @@
 
 @section('content')
     <div class="wrapper wrapper-content">
+        <div class="message_show"></div>
         @if(Session::has('success'))
             <div class="alert alert-success">{{ Session::get('success') }}</div>
         @endif
@@ -41,7 +42,7 @@
                         <tbody>
                         <?php  $count = 1; ?>
                         @foreach($jobList as $job)
-                            <tr class="gradeX">
+                            <tr class="gradeX row_{{$job->id}}">
                                 <td>{{$count++}}</td>
                                 <td>{{$job->name}}</td>
                                 <td>{{$job->description}}</td>
@@ -51,6 +52,7 @@
                                     <a class="btn btn-sm btn-info" href="{{ route('jobDetails', [$job->id])}}" data-toggle="tooltip" data-placement="left" title="Job Details"><i class="fa fa-eye"></i></a>
                                     <a class="btn btn-sm btn-primary" href="{{ route('jobEdit', [$job->id])}}"  data-toggle="tooltip" title="Job Edit"><i class="fa fa-edit"></i></a>
                                     <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('jobDelete', [$job->id])}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
+                                    <button onclick="jobApprove({{$job->id}})" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Job Approve"><i class="fa fa-check"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -60,5 +62,23 @@
             @endif
         </div>
     </div>
-@endsection
+<script type="text/javascript">
+    function jobApprove(jobId){
+        $.post("{{route('postJobApprove')}}",
+            {
+                _token: '{{csrf_token()}}',
+                jobId : jobId
+            },
 
+            function(data, status) {
+                $(".row_"+jobId).hide();
+                var msg = "<p class='alert alert-success'>Job has been approved</p>"
+                $('.message_show').html(msg);
+            })
+            .fail(function(response) {
+                var error = "<p class='alert alert-danger'>Job approve doesn't complete</p>"
+                $('.message_show').html(error);
+            });
+    }
+</script>
+@endsection

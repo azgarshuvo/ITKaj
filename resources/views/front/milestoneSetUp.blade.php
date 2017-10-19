@@ -6,6 +6,7 @@
  * Time: 12:54 PM
  */
 
+
 ?>
 
 @extends('layouts.front.profileMaster')
@@ -73,8 +74,7 @@
             @endif
             @if($milestone->job->project_cost>$fund)
             <form action="{{route('postSetupMilestone',['job_id'=>$milestone->job->id])}}" method="post" enctype="multipart/form-data" class="sky-form">
-                <input type="hidden" name="_token" value="8xLi4VLcweka6RlT3fuCTocXiSQuoTH5iSodnjpr">
-
+                {{csrf_field()}}
                     <div class="row">
                         <section class="col col-md-12">
                             <label class="input"> Milestone Title
