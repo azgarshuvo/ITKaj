@@ -168,3 +168,31 @@ Route::get('email-confirmation-fail', ['as' => 'verifyEmailFail', 'uses' => 'Reg
 Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], function (){
    Route::get('search', ['as' => 'freelancerSearch', 'uses' => 'FreelancerController@getFreelancerSearch','middleware' => 'employer']);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('create_paypal_plan', 'PaypalController@create_plan');
+Route::get('/subscribe/paypal', 'PaypalController@paypalRedirect')->name('paypal.redirect');
+Route::get('/subscribe/paypal/return', 'PaypalController@paypalReturn')->name('paypal.return');
