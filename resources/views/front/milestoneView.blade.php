@@ -32,7 +32,7 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body table-responsive">
-                        <table class="table table-striped table-bordered table-hover table-condensed">
+                        <table id="milstone_table" class="table table-striped table-bordered table-hover table-condensed">
                             <thead>
                                 <tr>
                                     <th class="text-center">SL</th>

@@ -145,6 +145,7 @@ Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@ge
 /*Setup Milestone*/
 Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@SetMilestoneView']);
 Route::post('setupMilestone/{jobid}', ['as' =>'postSetupMilestone', 'uses' => 'MilestoneController@SetMilestone']);
+Route::post('releaseFund/', ['as' =>'releaseFund', 'uses' => 'MilestoneController@ReleaseFund']);
 
 
 Route::get('email/confirmation', ['as' => 'sendToken', 'uses' => 'RegistrationController@EmailToken']);

@@ -242,3 +242,23 @@ h2.title{
 .sidebar-nav-v1 li ul, .sidebar-nav-v1 li.active ul a:hover {
     background: #f8f8f8;
 }
+#milstone_table{
+    font-size: 13px;
+}
+.padding-20{
+    padding: 20px !important;
+}
+.padding-10{
+    padding: 10px !important;
+}
+.padding-5{
+    padding: 5px !important;
+}
+.padding-8{
+    padding: 8px !important;
+}
+.padding-5-8{
+    padding: 8px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
