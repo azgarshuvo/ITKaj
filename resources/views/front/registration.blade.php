@@ -21,7 +21,7 @@
     <!--=== Content Part ===-->
     <div class="container content">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="col-sm-8 col-sm-offset-2">
                 @if(session()->has('message'))
                     <div class="alert alert-success">
                         {{ session()->get('message') }}

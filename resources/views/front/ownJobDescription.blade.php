@@ -5,6 +5,7 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
+
 ?>
 @extends('layouts.front.master')
 

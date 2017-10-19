@@ -21,6 +21,7 @@ class CreateMilestonesTable extends Migration
             $table->string('milestone_description');
             $table->date('deadline');
             $table->integer('fund_release');
+            $table->integer('status');
             $table->timestamps();
         });
     }

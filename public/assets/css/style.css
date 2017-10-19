@@ -129,7 +129,7 @@ body {
     max-width: 960px;
 }
 
-.panel-default>.panel-heading {
+.panel-custom>.panel-heading {
     color: #333;
     background-color: #fff;
     border-color: #e4e5e7;
@@ -140,12 +140,12 @@ body {
     user-select: none;
 }
 
-.panel-default>.panel-heading a {
+.panel-custom>.panel-heading a {
     display: block;
     padding: 10px 15px;
 }
 
-.panel-default>.panel-heading a:after {
+.panel-custom>.panel-heading a:after {
     content: "";
     position: relative;
     top: 1px;
@@ -161,17 +161,31 @@ body {
     -webkit-transition: -webkit-transform .25s linear;
 }
 
-.panel-default>.panel-heading a[aria-expanded="true"] {
-    background-color: #eee;
+
+.panel-custom> .panel-heading {
+    color: #585f69;
+    padding: 0px 15px;
+    border-bottom: solid 3px #f7f7f7;
+    border-radius: 10px;
+    background: #75c875;
+}
+.panel,
+.panel-heading,
+.panel-group .panel {
+    border-radius: 10px;
+}
+.panel-title > a:hover{
+    color: #585f69;
+    text-decoration: none;
 }
 
-.panel-default>.panel-heading a[aria-expanded="true"]:after {
+.panel-custom>.panel-heading a[aria-expanded="true"]:after {
     content: "\2212";
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
 }
 
-.panel-default>.panel-heading a[aria-expanded="false"]:after {
+.panel-custom>.panel-heading a[aria-expanded="false"]:after {
     content: "\002b";
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
@@ -204,4 +218,53 @@ body {
 
 .accordion-option .toggle-accordion.active:before {
     content: "Collapse All";
+}
+.panel-group {
+    margin-top: 20px;
+}
+h2.title{
+    padding: 10px;
+    border-radius: 10px;
+}
+.milestone-body{
+    padding: 0;
+}
+.profile .table > thead > tr > th, .profile .table > tbody > tr > th, .profile .table > tfoot > tr > th, .profile .table > thead > tr > td, .profile .table > tbody > tr > td, .profile .table > tfoot > tr > td {
+    padding: 10px;
+}
+.profile .table th {
+    min-width: 0px;
+}
+.sidebar-nav-v1 li a {
+    display: block;
+    padding: 11px 36px 12px 19px !important;
+}
+.sidebar-nav-v1 li ul, .sidebar-nav-v1 li.active ul a:hover {
+    background: #f8f8f8;
+}
+.color-white{
+    color: white !important;
+}
+#milstone_table{
+    font-size: 13px;
+}
+.padding-20{
+    padding: 20px !important;
+}
+.padding-10{
+    padding: 10px !important;
+}
+.padding-5{
+    padding: 5px !important;
+}
+.padding-8{
+    padding: 8px !important;
+}
+.padding-5-8{
+    padding: 8px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+.font-size-13{
+    font-size: 13px;
 }

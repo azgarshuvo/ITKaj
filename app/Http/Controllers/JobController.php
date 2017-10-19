@@ -6,11 +6,12 @@ use App\Categories;
 use App\FreelancerSelectedForJob;
 use App\User;
 use Illuminate\Http\Request;
-
+use App\ContactDetails;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Job;
 use Response;
+
 class JobController extends Controller
 {
     private  $userId = 0;
@@ -37,7 +38,7 @@ class JobController extends Controller
             'skill'=>'required',
             'file'=>'required',
             'file.*' => 'image|mimes:jpeg,png,jpg,gif,svg,pdf',
-            'description'=>'required|min:6|max:255',
+            'description'=>'required|min:6',
             'inter_freelancer_list'=>'required',
             ]
         );
@@ -150,9 +151,20 @@ class JobController extends Controller
             ->where('id', $id)
             ->where('user_id', $this->userId)
             ->first();
-        $userInfo = User::with('profile')->where(['id'=>$this->userId])->first();
+
+        $contact = ContactDetails::with('job')->where(['employee_id'=>$this->userId,'job_id'=>$id])->first();
+
+        $userInfo = User::with('profile')->where(['id'=>$contact->freelancer_id])->first();
 
         return view('front.ownJobDescription',['jobDetails'=>$jobDetails,'userInfo'=>$userInfo]);
+
+    }
+
+    public function getJobOngoingList(){
+        $jobList = ContactDetails::with('job')->where(['freelancer_id'=>$this->userId,'contact_status'=>0])->get();
+
+        return view('front.jobOngoingList',['jobList'=>$jobList]);
+
 
     }
 

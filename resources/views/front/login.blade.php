@@ -23,7 +23,7 @@
     <!--=== Content Part ===-->
     <div class="container content">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+            <div class="col-sm-6 col-sm-offset-3">
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <ul>
@@ -66,4 +66,5 @@
         </div><!--/row-->
     </div><!--/container-->
     <!--=== End Content Part ===-->
+    <a href="{{ url('subscribe/paypal') }}"><img src="/images/paypal-btn.png"></a>
 @endsection

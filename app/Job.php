@@ -27,4 +27,10 @@ class Job extends Model
         return $query->where(['user_id' => $user_id , 'approved' => 0]);
     }
 
+    public function contact(){
+        return $this->hasOne('App\ContactDetails');
+    }
+
+
+
 }

@@ -40,7 +40,7 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('disapproved/list', ['as' => 'projectDisapprovedList', 'uses' => 'ProfileController@getJobDisapprovedList']);
             Route::get('done/list', ['as' => 'projectDoneList', 'uses' => 'ProfileController@getJobDoneList']);
             Route::get('interested/list', ['as' => 'projectInterestedList', 'uses' => 'ProfileController@getJobInterestedList']);
-            Route::get('ongoing/list', ['as' => 'projectOngoingList', 'uses' => 'ProfileController@getJobOngoingList']);
+            Route::get('ongoing/list', ['as' => 'projectOngoingList', 'uses' => 'JobController@getJobOngoingList']);
         });
 
     	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
@@ -121,6 +121,10 @@ Route::group(['prefix' => 'admin'], function (){
         Route::get('delete/disapprove/{id}', ['as' =>'jobDisapproveDelete', 'uses' => 'adminController\AdminJobController@getJobDisapproveDelete']);
 
 
+        Route::post('approve', ['as' =>'postJobApprove', 'uses' => 'adminController\AdminJobController@PostJobApprove']);
+        Route::post('get-freelancer-list', ['as' =>'getFreelancerList', 'uses' => 'adminController\AdminJobController@getFreelancerList']);
+
+
     });
     /*admin job controller end*/
 
@@ -143,8 +147,12 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve']], function (
 Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@getOwnJobDescription']);
 
 /*Setup Milestone*/
-Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@getMilestone']);
+Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@SetMilestoneView']);
+Route::post('setupMilestone/{jobid}', ['as' =>'postSetupMilestone', 'uses' => 'MilestoneController@SetMilestone']);
+Route::post('releaseFund/', ['as' =>'releaseFund', 'uses' => 'MilestoneController@ReleaseFund']);
 
+/*Freelancer milestone*/
+Route::get('my-milestone/{jobid}', ['as' =>'getMilestone', 'uses' => 'MilestoneController@getFreelancerMilestone']);
 
 Route::get('email/confirmation', ['as' => 'sendToken', 'uses' => 'RegistrationController@EmailToken']);
 Route::get('email-confirmation-notification', ['as' => 'verifyEmail', 'uses' => 'RegistrationController@EmailConfirmation','middleware' => 'auth']);
@@ -160,3 +168,31 @@ Route::get('email-confirmation-fail', ['as' => 'verifyEmailFail', 'uses' => 'Reg
 Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], function (){
    Route::get('search', ['as' => 'freelancerSearch', 'uses' => 'FreelancerController@getFreelancerSearch','middleware' => 'employer']);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('create_paypal_plan', 'PaypalController@create_plan');
+Route::get('/subscribe/paypal', 'PaypalController@paypalRedirect')->name('paypal.redirect');
+Route::get('/subscribe/paypal/return', 'PaypalController@paypalReturn')->name('paypal.return');
