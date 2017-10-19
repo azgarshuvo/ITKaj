@@ -54,7 +54,6 @@
                                     <td class="text-center">{{$milestone->deadline}}</td>
                                     <td class="text-center">{{$milestone->fund_release}}</td>
                                     <td class="text-center">{{$milestone->status}}</td>
-
                                 </tr>
                                 @endforeach
                             </tbody>
