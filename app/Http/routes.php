@@ -35,7 +35,7 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('change-profile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
     });
 
-    Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve','profile']], function(){
+    Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
 
         Route::get('projects/list', ['as' => 'projectsList', 'uses' => 'ProfileController@getProjectsList']);
 
@@ -124,6 +124,7 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
 
         Route::post('approve', ['as' =>'postJobApprove', 'uses' => 'adminController\AdminJobController@PostJobApprove']);
         Route::post('get-freelancer-list', ['as' =>'getFreelancerList', 'uses' => 'adminController\AdminJobController@getFreelancerList']);
+        Route::post('freelancerAssign', ['as' =>'freelancerAssign', 'uses' => 'adminController\AdminJobController@FreelancerAssign']);
 
 
     });
