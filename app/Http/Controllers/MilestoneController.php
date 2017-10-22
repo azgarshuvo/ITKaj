@@ -187,4 +187,30 @@ class MilestoneController extends Controller
 
         echo null;
     }
+
+    public function DeleteMilestone(Request $request){
+        $validator = \Validator::make($request->all(),[
+            'dropID'=>'required'
+        ],[
+            'dropID.required'=>'Invalid request to Milestone delete ',
+        ]);
+
+
+        if ($validator->fails()) {
+            echo "<div class='alert alert-danger text-center'>";
+            foreach ($validator->messages()->getMessages() as $field_name => $messages)
+            {
+                foreach ($messages as $mes){
+                    echo $mes."<br/>";
+                }
+            }
+            echo "</div>";
+            die();
+        }
+        $dropId = $request->input('dropID');
+        $data = Milestone::where(['id'=>$dropId,'employee_id'=>$this->userId]);
+
+        $data->delete();
+        echo null;
+    }
 }

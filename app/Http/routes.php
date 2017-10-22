@@ -153,6 +153,7 @@ Route::post('setupMilestone/{jobid}', ['as' =>'postSetupMilestone', 'uses' => 'M
 Route::post('releaseFund/', ['as' =>'releaseFund', 'uses' => 'MilestoneController@ReleaseFund']);
 
 Route::post('update-milestone/', ['as' =>'updateMilestone', 'uses' => 'MilestoneController@UpdateMilestone']);
+Route::post('delete-milestone/', ['as' =>'deleteMilestone', 'uses' => 'MilestoneController@DeleteMilestone']);
 
 
 /*Freelancer milestone*/

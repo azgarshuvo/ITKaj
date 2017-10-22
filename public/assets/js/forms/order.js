@@ -6,7 +6,7 @@ var OrderForm = function () {
         initOrderForm: function () {
 	        // Datepickers
 	        $('#start').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	            dateFormat: 'yy-mm-dd',
 	            prevText: '<i class="icon-chevron-left"></i>',
 	            nextText: '<i class="icon-chevron-right"></i>',
 	            onSelect: function( selectedDate )
@@ -15,12 +15,21 @@ var OrderForm = function () {
 	            }
 	        });
 	        $('#finish').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	            dateFormat: 'yy-mm-dd',
 	            prevText: '<i class="icon-chevron-left"></i>',
 	            nextText: '<i class="icon-chevron-right"></i>',
 	            onSelect: function( selectedDate )
 	            {
 	                $('#start').datepicker('option', 'maxDate', selectedDate);
+	            }
+	        });
+	        $('.datepicker').datepicker({
+	            dateFormat: 'yy-mm-dd',
+	            prevText: '<i class="icon-chevron-left"></i>',
+	            nextText: '<i class="icon-chevron-right"></i>',
+	            onSelect: function( selectedDate )
+	            {
+	                $('#datepicker').datepicker('option', 'maxDate', selectedDate);
 	            }
 	        });
 	        
