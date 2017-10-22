@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('admin_user_type')->default(-1);
             $table->string('password', 60);
             $table->boolean('verified')->default(0);
+            $table->boolean('is_complete')->default(0);
             $table->string('verification_token');
             $table->rememberToken();
             $table->timestamps();

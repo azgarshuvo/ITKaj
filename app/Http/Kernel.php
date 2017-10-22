@@ -29,9 +29,11 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'approve' => \App\Http\Middleware\ApproveMiddleware::class,
+        'profile' => \App\Http\Middleware\ProfileComplete::class,
         'freelancer' => \App\Http\Middleware\FreelancerMiddleware::class,
         'employer' => \App\Http\Middleware\EmployerMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+
     ];
 }

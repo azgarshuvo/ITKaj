@@ -136,7 +136,7 @@
                                                 <section>
                                                     <label class="label">Title</label>
                                                     <label class="input">
-                                                        <input type="text" name="milestoneTitle" id="milestoneTitle"
+                                                        <input autocomplete="off" type="text" name="milestoneTitle" id="milestoneTitle"
                                                                placeholder="" value="" class="">
                                                     </label>
                                                 </section>
@@ -151,7 +151,7 @@
                                                     <label class="label">Deadline</label>
                                                     <label class="input">
                                                         <i class="icon-append fa fa-calendar"></i>
-                                                        <input type="text" name="mileStoneDeadline"
+                                                        <input autocomplete="off" type="text" name="mileStoneDeadline"
                                                                id="mileStoneDeadline" placeholder="" value=""
                                                                class="datepicker">
                                                     </label>
@@ -159,7 +159,7 @@
                                                 <section>
                                                     <label class="label">Deadline</label>
                                                     <label class="input">
-                                                        <input type="text" name="fundRelease" id="fundRelease"
+                                                        <input autocomplete="off" type="text" name="fundRelease" id="fundRelease"
                                                                placeholder="" value="" class="hasDatepicker">
                                                     </label>
                                                 </section>
@@ -205,14 +205,14 @@
                                     <b>Deadline</b>
                                     <label class="input">
                                         <i class="icon-append fa fa-calendar"></i>
-                                        <input type="text" name="deadline" id="deadline" placeholder=""
+                                        <input autocomplete="off" type="text" name="deadline" id="deadline" placeholder=""
                                                value="{{old('deadline')}}" class="datepicker">
                                     </label>
                                 </section>
                                 <section class="col col-6">
                                     <b>Fund Release</b>
                                     <label class="input">
-                                        <input type="text" name="fund_release" id="fund_release" placeholder=""
+                                        <input autocomplete="off" type="text" name="fund_release" id="fund_release" placeholder=""
                                                value="{{old('fund_release')}}">
                                     </label>
                                 </section>

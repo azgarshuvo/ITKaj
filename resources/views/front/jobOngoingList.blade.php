@@ -6,7 +6,6 @@
  * Time: 04:46 PM
  */
 
-
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -41,7 +40,7 @@
                     <tr>
                         <th>Job Title</th>
                         <th>Description</th>
-                        <th>Category</th>
+                        <th>Project Cost</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -49,17 +48,17 @@
                     <tr>
                         <th>Job Title</th>
                         <th>Description</th>
-                        <th>Category</th>
+                        <th>Project Cost</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                    @if(sizeof($jobList)>0)
+                    @if($jobList[0]->job)
                         @foreach($jobList as $job)
                             <tr>
                                 <td>{{$job->job->name}}</td>
                                 <td>{{$job->job->description}}</td>
-                                <td>{{$job->job->name}}</td>
+                                <td>{{$job->job->project_cost}}</td>
                                 <td>
                                     <a href="{{route('getMilestone',['jobId'=>$job->job->id])}}" class="btn-success btn color-white">Milestone</a>
                                 </td>

@@ -165,7 +165,7 @@ class JobController extends Controller
 
     public function getJobOngoingList(){
         $jobList = ContactDetails::with('job')->where(['freelancer_id'=>$this->userId,'contact_status'=>0])->get();
-
+        //dd($jobList);
         return view('front.jobOngoingList',['jobList'=>$jobList]);
 
 

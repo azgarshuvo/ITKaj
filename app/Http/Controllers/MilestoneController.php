@@ -98,7 +98,7 @@ class MilestoneController extends Controller
     /*View milestone as freelancer*/
     public function getFreelancerMilestone($jobId){
 
-        $milestone = ContactDetails::with(['millstone','job'])->where(['freelancer_id'=>$this->userId,'job_id'=>$jobId])->first();
+        $milestone = ContactDetails::GetJobId($jobId)->with(['millstone', 'job'])->first();
 
         return view('front.milestoneFreelancer',['milestone'=>$milestone]);
     }
@@ -178,7 +178,7 @@ class MilestoneController extends Controller
             die();
         }
 
-        Milestone::where(['id'=>$milestoneId])->update([
+        Milestone::where(['id'=>$milestoneId,'status'=>0])->update([
             'milestone_title'=>$title,
             'milestone_description'=>$description,
             'deadline'=>$deadline,
