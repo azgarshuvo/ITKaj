@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-8">
                         <div class="ibox-title">
-                            <h5>Freelancer List</h5>
+                            <h5>Selected Freelancer List</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>

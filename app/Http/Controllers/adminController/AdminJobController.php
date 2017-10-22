@@ -122,12 +122,12 @@ class AdminJobController extends Controller
 
     public function getApproveJoblist(){
         $freelancerList = User::where(['user_type'=>"freelancer"])->get();
-        $jobList = Job::where(['approved'=>0])->get();
+        $jobList = Job::where(['approved'=>1])->get();
         return view('admin.jobListApprove',['jobList'=>$jobList,'freelancerList'=>$freelancerList]);
     }
 
     public function getDisapproveJoblist(){
-        $jobList = Job::where('approved',1)->get();
+        $jobList = Job::where('approved',0)->get();
         return view('admin.jobListDisapprove',['jobList'=>$jobList]);
     }
 
