@@ -18,7 +18,20 @@
                 
             </div>
         </div>
-
+        <div class="container text-center">
+        @if(session()->has('message'))
+            <p class="alert alert-success">
+                {{ session()->get('message') }}
+            </p>
+        @endif
+        @if (count($errors) > 0)
+            <p class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    {{ $error }}<br/>
+                @endforeach
+            </p>
+        @endif
+        </div>
 <!--=== Job Description ===-->
         <div class="job-description">
             <div class="container content">
@@ -107,7 +120,59 @@
                             <hr>
 
                             </div>
-                            <button type="button" class="btn-u btn-block"> Apply with Resume</button>
+                            <button data-toggle="modal" data-target="#responsive" type="button" class="btn-u btn-block"> Apply with Resume</button>
+                        <div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel4">Apply form</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <form action="{{route('freelancerJobApply')}}" enctype="multipart/form-data" method="post" id="sky-form5" class="sky-form">
+                                                {{csrf_field()}}
+                                              <fieldset>
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="label">Project Duration (Days)</label>
+                                                            <label class="input">
+                                                                <input name="projectDuration" type="text">
+                                                                <input type="hidden" name="job_id" value="{{$jobDetails->id}}">
+                                                            </label>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="label">Project Cost</label>
+                                                            <label class="input">
+                                                                <input name="projectCost" type="text">
+                                                            </label>
+                                                        </section>
+
+                                                    </div>
+
+                                                    <section>
+                                                        <label class="label">Comment</label>
+                                                        <label class="textarea">
+                                                            <textarea rows="4" name="comment"></textarea>
+                                                        </label>
+                                                    </section>
+                                                  <section>
+                                                      <label class="label">Attachment</label>
+                                                      <label class="textarea">
+                                                          <input class="form-control" name="file[]" type="file"  multiple />
+                                                      </label>
+                                                  </section>
+                                                </fieldset>
+
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn-u btn-u-primary">Save changes</button>
+
+                                    </div>
+                                            </form>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
                     <!-- End Right Inner -->

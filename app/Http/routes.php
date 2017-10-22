@@ -20,19 +20,24 @@ Route::get('/logout', ['as'=>'logout', 'uses' => 'LogoutController@getLogout']);
 
 Route::post('/login/execute', ['as'=>'postLogin', 'uses' => 'LoginController@postLogin']);
 
+
+
 Route::group(['prefix' => 'user'], function () {
 
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
-    Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
-
+    Route::group(['prefix' => 'profile-setup','middleware' => ['auth', 'approve']], function(){
         Route::get('', ['as' => 'myProfile', 'uses' => 'ProfileController@getMyProfile']);
+        Route::get('overall', ['as' => 'profileOverall', 'uses' => 'ProfileController@getProfile']);
+        Route::get('settings', ['as' => 'profileSettings', 'uses' => 'ProfileController@getProfileSettings']);
 
-    	Route::get('overall', ['as' => 'profileOverall', 'uses' => 'ProfileController@getProfile']);
-    	Route::get('settings', ['as' => 'profileSettings', 'uses' => 'ProfileController@getProfileSettings']);
-        Route::get('projects/list', ['as' => 'projectsList', 'uses' => 'ProfileController@getProjectsList']);
         Route::get('view/{id}', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
         Route::post('change-profile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
+    });
+
+    Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve','profile']], function(){
+
+        Route::get('projects/list', ['as' => 'projectsList', 'uses' => 'ProfileController@getProjectsList']);
 
 
         Route::group(['prefix' => 'project'], function(){
@@ -47,10 +52,6 @@ Route::group(['prefix' => 'user'], function () {
     	Route::post('change/changeprofile', ['as' => 'changeProfile', 'uses' => 'ProfileController@changeProfile']);
     	Route::post('change/changecompany', ['as' => 'changeCompany', 'uses' => 'ProfileController@changeCompany']);
 
-
-
-
-
         Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
         Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
     });
@@ -62,11 +63,11 @@ Route::group(['prefix' => 'user'], function () {
 
 
 
-Route::group(['prefix' => 'admin'], function (){
-    Route::get('login', ['as' =>'adminLogin', 'uses' => 'adminController\AdminLoginController@getLoginView']);
-    Route::get('login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
 
-    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard','middleware' => 'admin']);
+Route::get('admin/login', ['as' =>'adminLogin', 'uses' => 'adminController\AdminLoginController@getLoginView']);
+Route::get('admin/login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
+Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
+    Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard']);
 
     //Admin
     Route::get('user/addAdmin', ['as' =>'adminAdd', 'uses' => 'adminController\AdminCrudController@addAdmin']);
@@ -133,26 +134,34 @@ Route::group(['prefix' => 'admin'], function (){
 
 
 
-Route::group(['prefix' => 'job','middleware' => ['auth', 'approve']], function (){
+Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], function (){
     Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost','middleware' => 'employer']);
     Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost','middleware' => 'employer']);
+
     Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
     Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch','middleware' => 'freelancer']);
     Route::get('attachment/download', ['as' => 'attachmentDownload', 'uses' => 'JobController@getDownload']);
+    Route::post('apply', ['as' =>'freelancerJobApply', 'uses' => 'JobInterestedController@JobApply','middleware' => 'freelancer']);
 
+
+    /*Route for own job */
+    Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@getOwnJobDescription']);
+
+    /*Setup Milestone*/
+    Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@SetMilestoneView']);
+    Route::post('setupMilestone/{jobid}', ['as' =>'postSetupMilestone', 'uses' => 'MilestoneController@SetMilestone']);
+    Route::post('releaseFund/', ['as' =>'releaseFund', 'uses' => 'MilestoneController@ReleaseFund']);
+
+    Route::post('update-milestone/', ['as' =>'updateMilestone', 'uses' => 'MilestoneController@UpdateMilestone']);
+    Route::post('delete-milestone/', ['as' =>'deleteMilestone', 'uses' => 'MilestoneController@DeleteMilestone']);
+
+    /*Freelancer milestone*/
+    Route::get('my-milestone/{jobid}', ['as' =>'getMilestone', 'uses' => 'MilestoneController@getFreelancerMilestone']);
 
 });
 
-/*Route for own job */
-Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@getOwnJobDescription']);
 
-/*Setup Milestone*/
-Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@SetMilestoneView']);
-Route::post('setupMilestone/{jobid}', ['as' =>'postSetupMilestone', 'uses' => 'MilestoneController@SetMilestone']);
-Route::post('releaseFund/', ['as' =>'releaseFund', 'uses' => 'MilestoneController@ReleaseFund']);
 
-/*Freelancer milestone*/
-Route::get('my-milestone/{jobid}', ['as' =>'getMilestone', 'uses' => 'MilestoneController@getFreelancerMilestone']);
 
 Route::get('email/confirmation', ['as' => 'sendToken', 'uses' => 'RegistrationController@EmailToken']);
 Route::get('email-confirmation-notification', ['as' => 'verifyEmail', 'uses' => 'RegistrationController@EmailConfirmation','middleware' => 'auth']);

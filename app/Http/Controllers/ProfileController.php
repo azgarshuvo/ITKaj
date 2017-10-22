@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ContactDetails;
 use App\Countries;
 use App\States;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,7 @@ use App\Employments;
 use DB;
 use App\User;
 use App\UserProfile;
+
 class ProfileController extends Controller{
     private  $userId = 0;
     public  function __construct()
@@ -67,7 +69,8 @@ class ProfileController extends Controller{
     }
 
     public function getJobDoneList(){
-        return view('front.jobDoneList');
+        $jobList = ContactDetails::with('job')->where(['freelancer_id'=>$this->userId,'contact_status'=>1])->get();
+        return view('front.jobDoneList',['jobList'=>$jobList]);
     }
 
     public function getJobInterestedList(){
@@ -194,6 +197,7 @@ class ProfileController extends Controller{
             'lname' => 'required|string',
             'companyName' => 'string|min:3',
             'phone' => 'required|string|min:11',
+            'username' => 'required|string|min:4',
             'officePhone' => 'string|min:3',
             'address' => 'required|string|min:4',
             'country' => 'required',

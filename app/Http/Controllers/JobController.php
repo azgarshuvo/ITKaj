@@ -152,8 +152,10 @@ class JobController extends Controller
             ->first();
 
         $contact = ContactDetails::with('job')->where(['employee_id'=>$this->userId,'job_id'=>$id])->first();
+
         if($contact){
-            $userInfo = User::with('profile')->where(['id'=>$contact->freelancer_id]);
+            $userInfo = User::with('profile')->where(['id'=>$contact->freelancer_id])->first();
+
         }else{
             $userInfo = null;
         }
@@ -163,7 +165,7 @@ class JobController extends Controller
 
     public function getJobOngoingList(){
         $jobList = ContactDetails::with('job')->where(['freelancer_id'=>$this->userId,'contact_status'=>0])->get();
-
+        //dd($jobList);
         return view('front.jobOngoingList',['jobList'=>$jobList]);
 
 

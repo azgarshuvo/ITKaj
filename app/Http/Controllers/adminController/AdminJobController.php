@@ -32,6 +32,7 @@ class AdminJobController extends Controller
         }
         //dd($category);
 
+
         $selectedForJob = [];
 
         $selected = FreelancerSelectedForJob::FreelancerSelected($jobDetails->id)->get();
@@ -45,9 +46,8 @@ class AdminJobController extends Controller
             }
 
         }
-
-
         return view('admin.job.jobDetails', ['jobDetails'=>$jobDetails, 'selectedForJob'=>$selectedForJob, 'freelancerList'=>$freelancerList, 'category'=>$category]);
+
     }
 
     public function getJobEditView($id){
