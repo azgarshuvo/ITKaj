@@ -79,7 +79,6 @@
                                                     <option value="{{$freelancer->id}}">{{$freelancer->fname}} {{$freelancer->lname}}</option>
                                                 @endforeach
                                             </select>
-
                                     </div>
                                     </div>
                                 </div>
@@ -104,7 +103,6 @@
                     _token: '{{csrf_token()}}',
                     jobId:jobId
                 },
-
                 function(data, status) {
                     $("#freelancerSelected").html(data);
                 })
