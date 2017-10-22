@@ -53,7 +53,7 @@ class User extends Model implements AuthenticatableContract,
       return $query->where('id', '=', $id);
     }
 
-    public function scopeFreelancer($query)
+    public function scopeFreelancerAll($query)
     {
         return $query->where('user_type', 'freelancer');
     }

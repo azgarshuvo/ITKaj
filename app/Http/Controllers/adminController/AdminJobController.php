@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\adminController;
 
+use App\Categories;
+use App\FreelancerSelectedForJob;
 use App\Job;
 use App\User;
 use Illuminate\Http\Request;
@@ -13,24 +15,39 @@ use App\Http\Controllers\Controller;
 class AdminJobController extends Controller
 {
     public function getJoblist(){
-        $jobList = Job::where(['verified'=>0])->get();
+        $jobList = Job::get();
         return view('admin.jobList',['jobList'=>$jobList]);
     }
 
     public function getJobDetails($id){
-        $selectedList = DB::table('users')
-            ->join('freelancer_selected_for_jobs', 'users.id', '=', 'freelancer_selected_for_jobs.freelancer_id')
-            ->select('users.*','freelancer_selected_for_jobs.freelancer_id', 'freelancer_selected_for_jobs.status')
-            ->get();
+        $jobDetails = Job::find($id);
+        $employer = User::find($jobDetails->user_id);
+        $category =[];
 
-        $freelancerProfile= DB::table('user_profiles')
-            ->join('freelancer_selected_for_jobs', 'user_profiles.user_id', '=', 'freelancer_selected_for_jobs.freelancer_id')
-            ->select('user_profiles.*')
-            ->get();
-//        $ch = User::Freelancer()->get();
-//        dd($ch);
-        $details = Job::find($id);
-        return view('admin.job.jobDetails',['details'=>$details, 'selectedList'=>$selectedList, 'freelancerProfile'=>$freelancerProfile]);
+        $cat = Categories::find($jobDetails->category_id);
+        if($cat->is_parent == 0){
+            $parentCategory = Categories::find($cat->parent_category_id);
+            array_push($category, $parentCategory);
+            array_push($category, $cat);
+        }
+        //dd($category);
+
+        $selectedForJob = [];
+
+        $selected = FreelancerSelectedForJob::FreelancerSelected($jobDetails->id)->get();
+        $freelancerList = User::FreelancerAll()->with('profile')->get();
+
+        foreach ($freelancerList as $freelancer){
+            foreach ($selected as $freelancerSelect){
+                if($freelancerSelect->freelancer_id == $freelancer->id) {
+                    array_push($selectedForJob, $freelancer);
+                }
+            }
+
+        }
+
+
+        return view('admin.job.jobDetails', ['jobDetails'=>$jobDetails, 'selectedForJob'=>$selectedForJob, 'freelancerList'=>$freelancerList, 'category'=>$category]);
     }
 
     public function getJobEditView($id){

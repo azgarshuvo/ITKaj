@@ -71,7 +71,7 @@
                                     <option value="">Select One</option>
                                     <option value="1">More Then 1 Month</option>
                                     <option value="2">Less Then 1 Month</option>
-                                    <option value="2">I Don't Know</option>
+                                    <option value="3">I Don't Know</option>
 
                                 </select>
                             </div>
@@ -240,7 +240,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Professional Title</th>
-                                        <th>Experience Laval</th>
+                                        <th>Experience Leval</th>
                                         <th>Skills</th>
                                         <th>Action</th>
                                     </tr>
