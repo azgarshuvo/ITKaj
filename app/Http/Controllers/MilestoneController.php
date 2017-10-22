@@ -102,4 +102,89 @@ class MilestoneController extends Controller
 
         return view('front.milestoneFreelancer',['milestone'=>$milestone]);
     }
+
+    /*update milestone */
+    public function UpdateMilestone(Request $request){
+        $validator = \Validator::make($request->all(),[
+            'title'=>'required|string|max:255|min:3',
+            'description'=>'required|min:5',
+            'deadline'=>'required|date_format:Y-m-d|after:today',
+            'fundrelease'=>'required',
+            'contact_id'=>'required',
+            'job_id'=>'required',
+
+        ],[
+            'title.required'=>'Milestone title is required',
+            'description.required'=>'Description is required',
+            'deadline.required'=>'Deadline date is required',
+            'deadline.date_format'=>'Deadline date is invalid format',
+            'deadline.after'=>'Deadline date is invalid',
+            'fundrelease.required'=>'Fund Release is required',
+            'contact_id.required'=>'Contact does not match',
+            'job_id.required'=>'Selected job is invalid',
+        ]);
+
+        if ($validator->fails()) {
+            echo "<div class='alert alert-danger text-center'>";
+            foreach ($validator->messages()->getMessages() as $field_name => $messages)
+            {
+                foreach ($messages as $mes){
+                    echo $mes."<br/>";
+                }
+            }
+            echo "</div>";
+            die();
+        }
+        $milestoneId = $request->input('id');
+        $contactId = $request->input('contact_id');
+        $title = $request->input('title');
+        $description = $request->input('description');
+        $jobId = $request->input('job_id');
+        $fundRelease = $request->input('fundrelease');
+        $deadline = $request->input('deadline');
+
+        $previousFundRelease = Milestone::where(['contact_id'=>$contactId])->sum('fund_release');
+        $jobCost = Job::where(['id'=>$jobId])->first()->project_cost;
+
+        $ContactDetails = ContactDetails::where(['id'=>$contactId])->first();
+
+        $contactEnd = strtotime($ContactDetails->contact_end);
+        $contactStart = strtotime($ContactDetails->contact_start);
+
+        if(strtotime($deadline)>$contactEnd){
+            echo "<div class='alert alert-danger text-center'>";
+            echo  "Deadline can't be after project end date";
+            echo "</div>";
+            die();
+        }
+        if(strtotime($deadline)<$contactStart){
+            echo "<div class='alert alert-danger text-center'>";
+            echo  "Deadline can't be before project start date";
+            echo "</div>";
+            die();
+        }
+        if(strtotime($deadline)<strtotime(date('Y-m-d'))){
+            echo "<div class='alert alert-danger text-center'>";
+            echo  "Deadline can't be before today";
+            echo "</div>";
+            die();
+        }
+
+
+        if($jobCost<$previousFundRelease+$fundRelease){
+            echo "<div class='alert alert-danger text-center'>";
+            echo  'Milestone fund release cross the project cost';
+            echo "</div>";
+            die();
+        }
+
+        Milestone::where(['id'=>$milestoneId])->update([
+            'milestone_title'=>$title,
+            'milestone_description'=>$description,
+            'deadline'=>$deadline,
+            'fund_release'=> $fundRelease,
+        ]);
+
+        echo null;
+    }
 }

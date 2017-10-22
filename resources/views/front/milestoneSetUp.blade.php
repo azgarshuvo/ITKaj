@@ -6,7 +6,6 @@
  * Time: 12:54 PM
  */
 
-
 ?>
 
 @extends('layouts.front.profileMaster')
@@ -45,18 +44,19 @@
                         <th class="text-center">Dead Line</th>
                         <th class="text-center">Fund</th>
                         <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php $i=1; $fund =0; ?>
                     @foreach($milestone->millstone as $milestones )
                         <?php $fund+=$milestones->fund_release; ?>
-                        <tr>
+                        <tr class="milestoneRow_{{$milestones->id}}">
                             <td class="text-center">{{$i++}}</td>
-                            <td class="text-center">{{$milestones->milestone_title}}</td>
-                            <td class="text-center">{{$milestones->milestone_description}}</td>
-                            <td class="text-center">{{$milestones->deadline}}</td>
-                            <td class="text-center">{{$milestones->fund_release}}</td>
+                            <td class="text-center milstoneTitle{{$milestones->id}}">{{$milestones->milestone_title}}</td>
+                            <td class="text-cente milestoneDescription{{$milestones->id}}">{{$milestones->milestone_description}}</td>
+                            <td class="text-center milestoneDeadline{{$milestones->id}}">{{$milestones->deadline}}</td>
+                            <td class="text-center melestoneFund{{$milestones->id}}">{{$milestones->fund_release}}</td>
                             <td class="text-center {{$milestones->id."_release_status"}}">
                                 @if($milestones->status==0)
                                     <button onclick="releaseFund({{$milestones->id.",".$milestones->fund_release}})" type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i>Release</button>
@@ -66,11 +66,70 @@
                                     <span class="bg-color-orange padding-5-8">Transferred</span>
                                 @endif
                             </td>
+                            <td>
+                                <button onclick="modalOpen({{$milestones->id.",'".$milestones->milestone_title."','".$milestones->milestone_description."','".$milestones->deadline."','".$milestones->fund_release."',".$milestones->contact_id}})" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-            </div>
+                {{--This button for open modal--}}
+                <button id="modalClick" data-toggle="modal" data-target="#responsive" type="button" class="hidden"></button>
+                {{--modal body start--}}
+                <div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel4">Apply form</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <p class="displayUpdateinfo">
+
+                                    </p>
+                                    <form enctype="multipart/form-data" method="post" id="sky-form5" class="sky-form">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="milestoneID" id="milestoneID">
+                                        <input type="hidden" name="contact_id" id="contact_id">
+                                        <input type="hidden" name="job_id" id="job_id" value="{{$milestone->job->id}}">
+                                        <fieldset>
+                                            <section>
+                                                <label class="label">Title</label>
+                                                <label class="input">
+                                                    <input type="text" name="milestoneTitle" id="milestoneTitle" placeholder="" value="" class="">
+                                                </label>
+                                            </section>
+                                            <section>
+                                                <label class="label">Description</label>
+                                                <label class="textarea">
+                                                    <textarea id="mileStoneDescription" rows="4" name="mileStoneDescription"></textarea>
+                                                </label>
+                                            </section>
+                                            <section>
+                                                <label class="label">Deadline</label>
+                                                    <label class="input">
+                                                        <i class="icon-append fa fa-calendar"></i>
+                                                        <input type="text" name="mileStoneDeadline" id="mileStoneDeadline" placeholder="" value="" class="hasDatepicker">
+                                                    </label>
+                                            </section>
+                                            <section>
+                                                <label class="label">Deadline</label>
+                                                <label class="input">
+                                                    <input type="text" name="fundRelease" id="fundRelease" placeholder="" value="" class="hasDatepicker">
+                                                </label>
+                                            </section>
+                                        </fieldset>
+                                        <div class="modal-footer">
+                                            <button onclick="mileStoneUpdate()" type="button" class="btn-u btn-u-primary">Milestone Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{--Modal body end--}}
             @endif
             @if($milestone->job->project_cost>$fund)
             <form action="{{route('postSetupMilestone',['job_id'=>$milestone->job->id])}}" method="post" enctype="multipart/form-data" class="sky-form">
@@ -106,7 +165,7 @@
                             </label>
                         </section>
                     </div>
-                    <input type="submit" id="addEducation" class="btn-u" value="Add Milestone" />
+                    <input type="submit" class="btn-u" value="Add Milestone" />
             </form>
             @endif
         </div>
@@ -161,6 +220,52 @@
             }
 
         });
+
+        function modalOpen(id,title,description,deadline,fund,contact_id){
+            $('.displayUpdateinfo').html("");
+            $("#modalClick").click();
+            $("#milestoneID").val(id);
+            $("#milestoneTitle").val(title);
+            $("#mileStoneDescription").val(description);
+            $("#mileStoneDeadline").val(deadline);
+            $("#fundRelease").val(fund);
+            $("#contact_id").val(contact_id);
+        }
+
+        function mileStoneUpdate(){
+            var id =  $("#milestoneID").val();
+            var title = $("#milestoneTitle").val();
+            var description =  $("#mileStoneDescription").val();
+            var deadline =  $("#mileStoneDeadline").val();
+            var fundrelease = $("#fundRelease").val();
+            var contact_id = $("#contact_id").val();
+            var job_id = $("#job_id").val();
+
+            $.post("{{route('updateMilestone')}}",
+                {
+                    _token: '{{csrf_token()}}',
+                    id : id,
+                    title:title,
+                    description:description,
+                    deadline:deadline,
+                    fundrelease:fundrelease,
+                    contact_id:contact_id,
+                    job_id:job_id
+                },
+
+                function(data, status) {
+                    if (!$.trim(data)){
+                        var mess = "<p class='alert alert-success'>Milestone update success</p>";
+                        $('.displayUpdateinfo').html(mess);
+
+
+                    }
+                    else{
+                        $('.displayUpdateinfo').html(data);
+                    }
+
+                })
+        }
     </script>
 @endsection
 

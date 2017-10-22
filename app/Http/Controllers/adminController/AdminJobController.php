@@ -30,6 +30,7 @@ class AdminJobController extends Controller
 //        $ch = User::Freelancer()->get();
 //        dd($ch);
         $details = Job::find($id);
+
         return view('admin.job.jobDetails',['details'=>$details, 'selectedList'=>$selectedList, 'freelancerProfile'=>$freelancerProfile]);
     }
 

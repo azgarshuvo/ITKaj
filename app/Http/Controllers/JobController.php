@@ -152,8 +152,10 @@ class JobController extends Controller
             ->first();
 
         $contact = ContactDetails::with('job')->where(['employee_id'=>$this->userId,'job_id'=>$id])->first();
+
         if($contact){
-            $userInfo = User::with('profile')->where(['id'=>$contact->freelancer_id]);
+            $userInfo = User::with('profile')->where(['id'=>$contact->freelancer_id])->first();
+
         }else{
             $userInfo = null;
         }

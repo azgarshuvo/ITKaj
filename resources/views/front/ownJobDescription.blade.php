@@ -5,6 +5,7 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
+
 ?>
 @extends('layouts.front.master')
 
@@ -96,6 +97,7 @@
                         {{--<img class="img-bordered img-center img-hover img img-responsive img-thumbnail job-owner" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="Clint Img">--}}
 
                         @if($userInfo->profile)
+
                             <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen($userInfo->profile->img_path)>3)  src="{{asset('profile_img/'.$userInfo->profile->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
                         @else
                             <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">

@@ -136,10 +136,11 @@ Route::group(['prefix' => 'admin'], function (){
 Route::group(['prefix' => 'job','middleware' => ['auth', 'approve']], function (){
     Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost','middleware' => 'employer']);
     Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost','middleware' => 'employer']);
+
     Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
     Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch','middleware' => 'freelancer']);
     Route::get('attachment/download', ['as' => 'attachmentDownload', 'uses' => 'JobController@getDownload']);
-
+    Route::post('apply', ['as' =>'freelancerJobApply', 'uses' => 'JobInterestedController@JobApply','middleware' => 'freelancer']);
 
 });
 
@@ -150,6 +151,9 @@ Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@ge
 Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@SetMilestoneView']);
 Route::post('setupMilestone/{jobid}', ['as' =>'postSetupMilestone', 'uses' => 'MilestoneController@SetMilestone']);
 Route::post('releaseFund/', ['as' =>'releaseFund', 'uses' => 'MilestoneController@ReleaseFund']);
+
+Route::post('update-milestone/', ['as' =>'updateMilestone', 'uses' => 'MilestoneController@UpdateMilestone']);
+
 
 /*Freelancer milestone*/
 Route::get('my-milestone/{jobid}', ['as' =>'getMilestone', 'uses' => 'MilestoneController@getFreelancerMilestone']);
