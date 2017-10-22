@@ -147,15 +147,16 @@ class JobController extends Controller
     }
 
     function getOwnJobDescription($id){
-        $jobDetails = Job::where('approved', 1)
-            ->where('id', $id)
+        $jobDetails = Job::where('id', $id)
             ->where('user_id', $this->userId)
             ->first();
 
         $contact = ContactDetails::with('job')->where(['employee_id'=>$this->userId,'job_id'=>$id])->first();
-
-        $userInfo = User::with('profile')->where(['id'=>$contact->freelancer_id])->first();
-
+        if($contact){
+            $userInfo = User::with('profile')->where(['id'=>$contact->freelancer_id]);
+        }else{
+            $userInfo = null;
+        }
         return view('front.ownJobDescription',['jobDetails'=>$jobDetails,'userInfo'=>$userInfo]);
 
     }

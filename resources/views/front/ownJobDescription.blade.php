@@ -5,7 +5,6 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
-
 ?>
 @extends('layouts.front.master')
 
@@ -92,6 +91,7 @@
                 <!-- Right Inner -->
                 <div class="col-md-5">
                     <div class="right-inner text-center">
+                        @if($userInfo)
                         <h3>Assign To</h3>
                         {{--<img class="img-bordered img-center img-hover img img-responsive img-thumbnail job-owner" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="Clint Img">--}}
 
@@ -111,6 +111,9 @@
                     <a href="{{route('setupMilestone',['jobid'=>$jobDetails->id])}}">
                         <button type="button" class="btn-u btn-block"> See or Setup Milestone</button>
                     </a>
+                    @else
+                         <h3 class="text-danger text-bold">Freelancer doesn't assign by Admin</h3>
+                    @endif
                 </div>
             </div>
             <!-- End Right Inner -->
