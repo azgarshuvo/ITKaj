@@ -28,6 +28,8 @@ class CreateJobsTable extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->boolean('approved')->default(0);
+            $table->integer('selected_for_job')->nullable();
+
             $table->timestamps();
         });
     }

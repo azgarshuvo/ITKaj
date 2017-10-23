@@ -47,7 +47,7 @@
                                 <td>{{$job->name}}</td>
                                 <td>{{$job->description}}</td>
                                 <td>{{$job->category_id}}</td>
-                                <td>@if($job->approved==0) Approved @else Not Approve @endif</td>
+                                <td>@if($job->approved==0) Not Approved @else Approve @endif</td>
                                 <td class="center">
                                     <a class="btn btn-sm btn-info" href="{{ route('jobDetails', [$job->id])}}" data-toggle="tooltip" data-placement="left" title="Job Details"><i class="fa fa-eye"></i></a>
                                     <a class="btn btn-sm btn-primary" href="{{ route('jobEdit', [$job->id])}}"  data-toggle="tooltip" title="Job Edit"><i class="fa fa-edit"></i></a>

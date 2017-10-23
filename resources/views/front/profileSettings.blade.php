@@ -971,6 +971,7 @@ $emps = (Auth::User()->employment);
                     lname: $("input[name=lname]").val(),
                     companyName: $("input[name=companyName]").val(),
                     phone: $("input[name=phone]").val(),
+                    username: $("input[name=username]").val(),
                     country: $("#countryDropdown").val(),
                     city: $("#cityDropdown").val(),
                     officePhone: $("input[name=officePhone]").val(),

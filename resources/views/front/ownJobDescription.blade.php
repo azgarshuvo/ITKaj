@@ -92,10 +92,12 @@
                 <!-- Right Inner -->
                 <div class="col-md-5">
                     <div class="right-inner text-center">
+                        @if($userInfo)
                         <h3>Assign To</h3>
                         {{--<img class="img-bordered img-center img-hover img img-responsive img-thumbnail job-owner" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="Clint Img">--}}
 
                         @if($userInfo->profile)
+
                             <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" @if(strlen($userInfo->profile->img_path)>3)  src="{{asset('profile_img/'.$userInfo->profile->img_path)}}" @else src="{{asset('assets/img/team/img32-md.jpg')}}" @endif alt="">
                         @else
                             <img id="image-profile" class="img-responsive md-margin-bottom-10 img img-thumbnail img-bordered profile-imge" src="{{asset('assets/img/team/img32-md.jpg')}}" alt="">
@@ -111,6 +113,9 @@
                     <a href="{{route('setupMilestone',['jobid'=>$jobDetails->id])}}">
                         <button type="button" class="btn-u btn-block"> See or Setup Milestone</button>
                     </a>
+                    @else
+                         <h3 class="text-danger text-bold">Freelancer doesn't assign by Admin</h3>
+                    @endif
                 </div>
             </div>
             <!-- End Right Inner -->

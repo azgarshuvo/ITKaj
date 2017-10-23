@@ -264,6 +264,22 @@ h2.title{
     padding-top: 5px !important;
     padding-bottom: 5px !important;
 }
+.date-format{
+    width: 90px !important;
+}
 .font-size-13{
     font-size: 13px;
+}
+.action-col{
+    width: 102px;
+}
+.ui-datepicker {
+    display: none;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    font: 13px/1.55 'Open Sans', Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: #666;
+    background: white;
 }
