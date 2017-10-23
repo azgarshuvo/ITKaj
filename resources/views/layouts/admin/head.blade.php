@@ -13,6 +13,9 @@ Z<?php
 
 <link href="{{asset('admin/css/bootstrap.min.css')}}" rel="stylesheet">
 <link href="{{asset('admin/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
+{{--<link href="{{asset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">--}}
+{{--<link href="{{asset('admin/css/plugins/chosen/chosen.css')}}" rel="stylesheet">--}}
+{{--<link href="{{asset('admin/css/plugins/colorpicker/bootstrap-colorpicker.min.css')}}" rel="stylesheet">--}}
 
 <!-- Morris -->
 <link href="{{asset('admin/css/plugins/morris/morris-0.4.3.min.css')}}" rel="stylesheet">
@@ -26,4 +29,11 @@ Z<?php
 <link href="{{asset('admin/css/plugins/dataTables/dataTables.tableTools.min.css')}}" rel="stylesheet">
 
 <!-- cropper -->
-<link href="{{asset('css/plugins/cropper/cropper.min.css')}}" rel="stylesheet">
+<link href="{{asset('admin/css/plugins/cropper/cropper.min.css')}}" rel="stylesheet">
+{{--<link href="{{asset('admin/<link href="css/plugins/switchery/switchery.css" rel="stylesheet">')}}" rel="stylesheet">--}}
+{{--<link href="{{asset('admin/css/plugins/jasny/jasny-bootstrap.min.css')}}" rel="stylesheet">--}}
+{{--<link href="{{asset('admin/css/plugins/nouslider/jquery.nouislider.css')}}" rel="stylesheet">--}}
+<link href="{{asset('admin/css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+{{--<link href="{{asset('admin/css/plugins/ionRangeSlider/ion.rangeSlider.css')}}" rel="stylesheet">--}}
+{{--<link href="{{asset('admin/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">--}}
+
