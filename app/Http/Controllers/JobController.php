@@ -67,21 +67,25 @@ class JobController extends Controller
 
 
     /*Job description view*/
-    public function getJobDescription(Request $request)
+    public function getJobDescription($jobId,Request $request)
     {
-        $jobId = $request->input('job_number');
         $jobDetails = Job::where('approved', 1)
                         ->where('id', $jobId)
                         ->first();
 
-        $userInfo = User::with('profile')->where(['id'=>$jobDetails->user_id])->first();
-        $skills = Skills::whereIn('id', json_decode($jobDetails->skill_needed))->get();
+        if($jobDetails){
+            $userInfo = User::with('profile')->where(['id'=>$jobDetails->user_id])->first();
+            $skills = Skills::whereIn('id', json_decode($jobDetails->skill_needed))->get();
 
-        if($userInfo){
-            return view('front.jobDescription',['jobDetails'=>$jobDetails,'userInfo'=>$userInfo,'skills'=>$skills]);
+            if($userInfo){
+                return view('front.jobDescription',['jobDetails'=>$jobDetails,'userInfo'=>$userInfo,'skills'=>$skills]);
+            }else{
+                return redirect()->route('jobSearch');
+            }
         }else{
             return redirect()->route('jobSearch');
         }
+
 
     }
 
@@ -161,13 +165,10 @@ class JobController extends Controller
 
     }
 
-    /*Get current runnig job list*/
+    /*Get employee runnig job list*/
     public function getJobOngoingList(){
-        $jobList = ContactDetails::with('job')->where(['freelancer_id'=>$this->userId,'contact_status'=>0])->get();
-
+        $jobList = ContactDetails::with('job')->where(['employee_id'=>$this->userId,'contact_status'=>0])->get();
         return view('front.jobOngoingList',['jobList'=>$jobList]);
-
-
     }
 
     /*Get job done list*/

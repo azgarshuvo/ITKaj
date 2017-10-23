@@ -33,7 +33,7 @@ class MilestoneController extends Controller
 
     /*set milestone*/
     function SetMilestone($jobId,Request $request){
-        $contact = ContactDetails::with(['millstone','job'])->where(['employee_id'=>$this->userId,'job_id'=>$jobId])->first();
+        $contact = ContactDetails::with(['millstone','job'])->where(['employee_id'=>$this->userId,'job_id'=>$jobId,'contact_status'=>0])->first();
         $previousFundRelease = Milestone::where(['contact_id'=>$contact->id])->sum('fund_release');
 
         $jobCost = Job::where(['id'=>$jobId])->first()->project_cost;
