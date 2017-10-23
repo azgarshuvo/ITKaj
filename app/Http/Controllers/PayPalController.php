@@ -1,177 +1,119 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: zakariya
- * Date: 19-Oct-17
- * Time: 4:31 PM
+ * User: msi
+ * Date: 22-Oct-17
+ * Time: 2:21 PM
  */
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
+use Paypal;
+use Illuminate\Support\Facades\Redirect;
 
-// Used to process plans
-use PayPal\Api\ChargeModel;
-use PayPal\Api\Currency;
-use PayPal\Api\MerchantPreferences;
-use PayPal\Api\PaymentDefinition;
-use PayPal\Api\Plan;
-use PayPal\Api\Patch;
-use PayPal\Api\PatchRequest;
-use PayPal\Common\PayPalModel;
-use PayPal\Rest\ApiContext;
-use PayPal\Auth\OAuthTokenCredential;
-use PayPal\Api\Agreement;
-use PayPal\Api\Payer;
-use PayPal\Api\ShippingAddress;
+class PayPalController extends Controller{
 
+    private $_apiContext;
 
-class PaypalController extends Controller
-{
-    private $apiContext;
-    private $mode;
-    private $client_id;
-    private $secret;
-    private $plan_id;
-
-    // Create a new instance with our paypal credentials
     public function __construct()
     {
-        // Detect if we are running in live mode or sandbox
-        if(config('paypal.settings.mode') == 'live'){
-            $this->client_id = config('paypal.live_client_id');
-            $this->secret = config('paypal.live_secret');
-            $this->plan_id = env('PAYPAL_LIVE_PLAN_ID', '');
-        } else {
-            $this->client_id = config('paypal.sandbox_client_id');
-            $this->secret = config('paypal.sandbox_secret');
-            $this->plan_id = env('PAYPAL_SANDBOX_PLAN_ID', '');
-        }
+        $this->_apiContext = Paypal::ApiContext(
+            config('services.paypal.client_id'),
+            config('services.paypal.secret'));
 
-        // Set the Paypal API Context/Credentials
-        $this->apiContext = new ApiContext(new OAuthTokenCredential($this->client_id, $this->secret));
-        $this->apiContext->setConfig(config('paypal.settings'));
-    }
-
-    public function create_plan(){
-
-        // Create a new billing plan
-        $plan = new Plan();
-        $plan->setName('App Name Monthly Billing')
-            ->setDescription('Monthly Subscription to the App Name')
-            ->setType('infinite');
-
-        // Set billing plan definitions
-        $paymentDefinition = new PaymentDefinition();
-        $paymentDefinition->setName('Regular Payments')
-            ->setType('REGULAR')
-            ->setFrequency('Month')
-            ->setFrequencyInterval('1')
-            ->setCycles('0')
-            ->setAmount(new Currency(array('value' => 9, 'currency' => 'USD')));
-
-        // Set merchant preferences
-        $merchantPreferences = new MerchantPreferences();
-        $merchantPreferences->setReturnUrl('https://website.dev/subscribe/paypal/return')
-            ->setCancelUrl('https://website.dev/subscribe/paypal/return')
-            ->setAutoBillAmount('yes')
-            ->setInitialFailAmountAction('CONTINUE')
-            ->setMaxFailAttempts('0');
-
-        $plan->setPaymentDefinitions(array($paymentDefinition));
-        $plan->setMerchantPreferences($merchantPreferences);
-
-        //create the plan
-        try {
-            $createdPlan = $plan->create($this->apiContext);
-
-            try {
-                $patch = new Patch();
-                $value = new PayPalModel('{"state":"ACTIVE"}');
-                $patch->setOp('replace')
-                    ->setPath('/')
-                    ->setValue($value);
-                $patchRequest = new PatchRequest();
-                $patchRequest->addPatch($patch);
-                $createdPlan->update($patchRequest, $this->apiContext);
-                $plan = Plan::get($createdPlan->getId(), $this->apiContext);
-
-                // Output plan id
-                echo 'Plan ID:' . $plan->getId();
-            } catch (PayPal\Exception\PayPalConnectionException $ex) {
-                echo $ex->getCode();
-                echo $ex->getData();
-                die($ex);
-            } catch (Exception $ex) {
-                die($ex);
-            }
-        } catch (PayPal\Exception\PayPalConnectionException $ex) {
-            echo $ex->getCode();
-            echo $ex->getData();
-            die($ex);
-        } catch (Exception $ex) {
-            die($ex);
-        }
+        $this->_apiContext->setConfig(array(
+            'mode' => 'sandbox',
+            'service.EndPoint' => 'https://api.sandbox.paypal.com',
+            'http.ConnectionTimeOut' => 30,
+            'log.LogEnabled' => true,
+            'log.FileName' => storage_path('logs/paypal.log'),
+            'log.LogLevel' => 'FINE'
+        ));
 
     }
-    public function paypalRedirect(){
-        // Create new agreement
-        $agreement = new Agreement();
-        $agreement->setName('App Name Monthly Subscription Agreement')
-            ->setDescription('Basic Subscription')
-            ->setStartDate(\Carbon\Carbon::now()->addMinutes(5)->toIso8601String());
 
-        // Set plan id
-        $plan = new Plan();
-        $plan->setId($this->plan_id);
-        $agreement->setPlan($plan);
-
-        // Add payer type
-        $payer = new Payer();
+    public function getCheckout()
+    {
+        $payer = PayPal::Payer();
         $payer->setPaymentMethod('paypal');
-        $agreement->setPayer($payer);
 
-        try {
-            // Create agreement
-            $agreement = $agreement->create($this->apiContext);
+        $amount = PayPal:: Amount();
+        $amount->setCurrency('EUR');
+        $amount->setTotal(42); // This is the simple way,
+        // you can alternatively describe everything in the order separately;
+        // Reference the PayPal PHP REST SDK for details.
 
-            // Extract approval URL to redirect user
-            $approvalUrl = $agreement->getApprovalLink();
+        $transaction = PayPal::Transaction();
+        $transaction->setAmount($amount);
+        $transaction->setDescription('What are you selling?');
 
-            return redirect($approvalUrl);
-        } catch (PayPal\Exception\PayPalConnectionException $ex) {
-            echo $ex->getCode();
-            echo $ex->getData();
-            die($ex);
-        } catch (Exception $ex) {
-            die($ex);
-        }
+        $redirectUrls = PayPal:: RedirectUrls();
+        $redirectUrls->setReturnUrl(action('PayPalController@getDone'));
+        $redirectUrls->setCancelUrl(action('PayPalController@getCancel'));
 
+        $payment = PayPal::Payment();
+        $payment->setIntent('sale');
+        $payment->setPayer($payer);
+        $payment->setRedirectUrls($redirectUrls);
+        $payment->setTransactions(array($transaction));
+
+        $response = $payment->create($this->_apiContext);
+        $redirectUrl = $response->links[1]->href;
+
+        return Redirect::to( $redirectUrl );
     }
 
-    public function paypalReturn(Request $request){
+    public function getDone(Request $request)
+    {
+//        dd($request);
 
-        dd($request);
-        $token = $request->token;
-        $agreement = new \PayPal\Api\Agreement();
+        $id = $request->get('paymentId');
+        $token = $request->get('token');
+        $payer_id = $request->get('PayerID');
 
-        try {
-            // Execute agreement
-            $result = $agreement->execute($token, $this->apiContext);
-            $user = Auth::user();
-            $user->role = 'subscriber';
-            $user->paypal = 1;
-            if(isset($result->id)){
-                $user->paypal_agreement_id = $result->id;
-            }
-            $user->save();
+        $payment = PayPal::getById($id, $this->_apiContext);
 
-            echo 'New Subscriber Created and Billed';
+        $paymentExecution = PayPal::PaymentExecution();
 
-        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            echo 'You have either cancelled the request or your session has expired';
-        }
+        $paymentExecution->setPayerId($payer_id);
+        $executePayment = $payment->execute($paymentExecution, $this->_apiContext);
+
+//        dd($executePayment);
+
+        // Clear the shopping cart, write to database, send notifications, etc.
+
+        // Thank the user for the purchase
+        return 'checkout.done';
     }
-    
+
+    public function getCancel()
+    {
+        // Curse and humiliate the user for cancelling this most sacred payment (yours)
+        return 'checkout.cancel';
+    }
+
+    public function createWebProfile(){
+
+        $flowConfig = PayPal::FlowConfig();
+        $presentation = PayPal::Presentation();
+        $inputFields = PayPal::InputFields();
+        $webProfile = PayPal::WebProfile();
+        $flowConfig->setLandingPageType("Billing"); //Set the page type
+
+        $presentation->setLogoImage("https://www.example.com/images/logo.jpg")->setBrandName("Example ltd"); //NB: Paypal recommended to use https for the logo's address and the size set to 190x60.
+
+        $inputFields->setAllowNote(true)->setNoShipping(1)->setAddressOverride(0);
+
+        $webProfile->setName("Example " . uniqid())
+            ->setFlowConfig($flowConfig)
+            // Parameters for style and presentation.
+            ->setPresentation($presentation)
+            // Parameters for input field customization.
+            ->setInputFields($inputFields);
+
+        $createProfileResponse = $webProfile->create($this->_apiContext);
+
+        return $createProfileResponse->getId(); //The new webprofile's id
+    }
 }

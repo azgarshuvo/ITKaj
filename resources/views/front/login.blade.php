@@ -66,5 +66,4 @@
         </div><!--/row-->
     </div><!--/container-->
     <!--=== End Content Part ===-->
-    <a href="{{ url('subscribe/paypal') }}"><img src="/images/paypal-btn.png"></a>
 @endsection
