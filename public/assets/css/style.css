@@ -124,9 +124,9 @@ body {
     background-color: #f1f3f6;
 }
 
-.container {
-    max-width: 960px;
-}
+/*.container {*/
+    /*max-width: 960px;*/
+/*}*/
 
 .panel-custom>.panel-heading {
     color: #333;

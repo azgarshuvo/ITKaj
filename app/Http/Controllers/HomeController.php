@@ -9,9 +9,15 @@
 namespace App\Http\Controllers;
 
 
+use App\Categories;
+use App\Job;
+
 class HomeController extends Controller{
 
     public function getHome(){
-        return view('front.landingPage');
+        $categories = Categories::all();
+        $jobs = Job::all();
+//        dd($jobs);
+        return view('front.landingPage', ['categories' => $categories]);
     }
 }

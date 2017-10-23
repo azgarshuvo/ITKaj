@@ -12,7 +12,7 @@
 <head>
     @include('layouts.front.head')
 </head>
-<body>
+<body class="header-fixed header-fixed-space">
 <div class="wrapper">
     @include('layouts.front.header')
     @yield('content')
