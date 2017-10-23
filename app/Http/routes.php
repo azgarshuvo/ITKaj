@@ -33,6 +33,16 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::get('view/{id}', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
         Route::post('change-profile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
+
+
+
+        Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
+        Route::post('change/changeprofile', ['as' => 'changeProfile', 'uses' => 'ProfileController@changeProfile']);
+        Route::post('change/changecompany', ['as' => 'changeCompany', 'uses' => 'ProfileController@changeCompany']);
+
+        Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
+        Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
+
     });
 
     Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve','profile']], function(){
@@ -48,15 +58,7 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('ongoing/list', ['as' => 'projectOngoingList', 'uses' => 'JobController@getJobOngoingList']);
         });
 
-    	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
-    	Route::post('change/changeprofile', ['as' => 'changeProfile', 'uses' => 'ProfileController@changeProfile']);
-    	Route::post('change/changecompany', ['as' => 'changeCompany', 'uses' => 'ProfileController@changeCompany']);
-
-        Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
-        Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
     });
-
-
 
 
 });

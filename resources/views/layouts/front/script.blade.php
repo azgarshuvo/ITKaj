@@ -7,7 +7,7 @@
  */
 ?>
 <!-- JS Global Compulsory -->
-<script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/jquery-1.12.4.js')}}"></script>
+{{--<script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/jquery-1.12.4.js')}}"></script>--}}
 <script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/dataTables.bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/jquery/jquery-migrate.min.js')}}"></script>
