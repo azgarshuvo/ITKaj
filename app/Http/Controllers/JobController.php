@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categories;
 use App\FreelancerSelectedForJob;
+use App\JobInterested;
 use App\Skills;
 use App\User;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\ContactDetails;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Job;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class JobController extends Controller
@@ -179,7 +181,15 @@ class JobController extends Controller
 
     /*Get job applied list*/
     public function getJobInterestedList(){
-        return view('front.jobInterestedList');
+        $interestedList = JobInterested::imInterested(Auth::user()->id)->get();
+        $interestedJobList = [];
+        foreach ($interestedList as $interested){
+            $jobs = Job::find($interested->job_id);
+            array_push($interestedJobList, $jobs);
+        }
+        $category = Categories::all();
+//        dd($interestedJobList);
+        return view('front.jobInterestedList', ['interestedJobList' => $interestedJobList, 'category' => $category]);
     }
 
     /*Delete disaprove job*/

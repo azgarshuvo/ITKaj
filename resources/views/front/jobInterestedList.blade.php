@@ -30,181 +30,16 @@
         <!-- Begin Table Search Panel v1 -->
         <div class="table-search-v1 panel panel-dark margin-bottom-40" >
             <div class="panel-heading jobInterestedTableHeadingBlack">
-                <h3 class="panel-title"><i class="fa fa-globe"></i> Interested Job Search Results</h3>
+                <h3 class="panel-title"><i class="fa fa-globe"></i> Interested Projects List</h3>
             </div>
             <div class="panel-body">
-                {{--<table class="table table-bordered table-striped">--}}
-                    {{--<thead>--}}
-                    {{--<tr>--}}
-                        {{--<th>Name</th>--}}
-                        {{--<th class="hidden-sm">Short Description</th>--}}
-                        {{--<th>Status</th>--}}
-                        {{--<th>Action</th>--}}
-                    {{--</tr>--}}
-                    {{--</thead>--}}
-                    {{--<tbody>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>--}}
-                            {{--<a href="#">HP Enterprise Service</a>--}}
-                        {{--</td>--}}
-                        {{--<td class="td-width">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor arcu vel fringilla tincidunt.</td>--}}
-                        {{--<td><button class="btn btn-block btn-success btn-xs"><i class="icon-graph"></i> High</button></td>--}}
-                        {{--<td>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> Description</button></div>--}}
-                            {{--<div class="col-md-4"><button class="btn-u btn-brd rounded-2x btn-u-aqua btn-u-xs" type="button"> I'm Interested</button></div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--</tbody>--}}
-                {{--</table>--}}
                 <table id="jobSearchDataTable" class="table table-striped table-bordered" width="100%" cellspacing="0">
                     <thead>
                     <tr>
                         <th>Job Title</th>
                         <th>Description</th>
                         <th>Category</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -213,23 +48,54 @@
                         <th>Job Title</th>
                         <th>Description</th>
                         <th>Category</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
                     <tbody>
-                       
-                    </tbody>
+                    @if($interestedJobList != null && $interestedJobList != '')
+                        @foreach($interestedJobList as $interestedJob)
+                        <tr>
+                            <td>{{$interestedJob->name}}</td>
+                            <td>{{substr($interestedJob->description, 0, 100)}}...</td>
+                            @if($category != null && $category != "")
+                                @foreach($category as $cat)
+                                    @if($cat->id == $interestedJob->category_id)
+                                        <td>{{$cat->category_name}}</td>
+                                    @endif
+                                @endforeach
+                            @endif
+                            @if($interestedJob->admin_approve == 0)
+                                <td><span class="label label-info">Pending..</span></td>
+                            @endif
+                            @if($interestedJob->admin_approve == 1)
+                                <span class="label label-success">Approve</span>
+                            @endif
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-danger btn-xs" onclick="deleteInterest({{$interestedJob->id}})"><i class="fa fa-trash-o"></i> Delete</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-info btn-xs"><i class="fa fa-share"></i> View</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                        @endforeach
+                    @endif
                 </table>
             </div>
         </div>
         <!-- End Table Search Panel v1 -->
     </div>
-    
     </div>
     </div>
+    <input type="hidden" value="{{route('freelancerJobInterestRemove')}}" id="deleteInterest">
 @endsection
 @section('script')
-    <script>
+    <script type="text/javascript">
         $(document).ready(function() {
             $('#jobSearchDataTable').DataTable();
         } );
@@ -238,6 +104,21 @@
             var search = $('#jobSearch').val();
             $('input[type=search]').val(search);
         });
+
+
+        function deleteInterest(id){
+            var URL = $('#deleteInterest').val();
+            $.ajax({
+                url: URL,
+                type: "POST",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {jobid: id},
+                success: function (data) {
+                    console.log(data);
+                    location.reload();
+                }
+            })
+        }
     </script>
 @endsection
 
