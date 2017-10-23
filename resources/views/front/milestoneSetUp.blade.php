@@ -282,7 +282,7 @@
 
             }
 
-            $(document).ready(function () {
+            /*$(document).ready(function () {
                 $(aId + ' .panel-collapse.in').collapse('hide');
 
                 $(".toggle-accordion").on("click", function () {
@@ -307,7 +307,7 @@
                     $(aId + ' .panel-collapse.in').collapse('hide');
                 }
 
-            });
+            });*/
 
             function modalOpen(id, title, description, deadline, fund, contact_id) {
                 $('.displayUpdateinfo').html("");

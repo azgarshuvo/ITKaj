@@ -90,9 +90,7 @@ class MilestoneController extends Controller
         ]);
         $milestoneID = $request->input('milestone_id');
         $releaseAmount = $request->input('release_amount');
-
-        Milestone::where(['employee_id'=>$this->userId,'id'=>$milestoneID,'fund_release'=>$releaseAmount])->update(['status'=>1]);
-
+        Milestone::where(['employee_id'=>$this->userId,'id'=>$milestoneID,'fund_release'=>$releaseAmount,'status'=>0])->update(['status'=>1]);
     }
 
     /*View milestone as freelancer*/
@@ -178,39 +176,49 @@ class MilestoneController extends Controller
             die();
         }
 
-        Milestone::where(['id'=>$milestoneId,'status'=>0])->update([
-            'milestone_title'=>$title,
-            'milestone_description'=>$description,
-            'deadline'=>$deadline,
-            'fund_release'=> $fundRelease,
-        ]);
+        if(Milestone::where(['id'=>$milestoneId,'status'=>0])->first()){
 
-        echo null;
+            Milestone::where(['id'=>$milestoneId,'status'=>0])->update([
+                'milestone_title'=>$title,
+                'milestone_description'=>$description,
+                'deadline'=>$deadline,
+                'fund_release'=> $fundRelease,
+            ]);
+            echo null;
+        }else{
+            echo "<div class='alert alert-danger text-center'>This milestone can't be Update</div>";
+        }
+
+
+
     }
 
-    public function DeleteMilestone(Request $request){
-        $validator = \Validator::make($request->all(),[
-            'dropID'=>'required'
-        ],[
-            'dropID.required'=>'Invalid request to Milestone delete ',
+    public function DeleteMilestone(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'dropID' => 'required'
+        ], [
+            'dropID.required' => 'Invalid request to Milestone delete ',
         ]);
 
 
         if ($validator->fails()) {
             echo "<div class='alert alert-danger text-center'>";
-            foreach ($validator->messages()->getMessages() as $field_name => $messages)
-            {
-                foreach ($messages as $mes){
-                    echo $mes."<br/>";
+            foreach ($validator->messages()->getMessages() as $field_name => $messages) {
+                foreach ($messages as $mes) {
+                    echo $mes . "<br/>";
                 }
             }
             echo "</div>";
             die();
         }
         $dropId = $request->input('dropID');
-        $data = Milestone::where(['id'=>$dropId,'employee_id'=>$this->userId]);
+        $data = Milestone::where(['id' => $dropId, 'employee_id' => $this->userId, 'status' => 0])->first();
+        if ($data){
+            $data->delete();
 
-        $data->delete();
-        echo null;
+        }else{
+            echo "<div class='alert alert-danger text-center'>This milestone can't be delete</div>";
+        }
     }
 }
