@@ -51,18 +51,18 @@
                             </p>
 
                             <hr>
-
+                            @if($skills)
                             <h2>Skill Needed</h2>
                             {{--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius hendrerit nisl id condimentum. Sed bibendum ultricies erat a vulputate. Curabitur id ultricies eros, at ultricies dui.</p>--}}
                             <ul class="list-unstyled">
                                {{--  //json_encode($jobDetails->skill_needed)--}}
-                                @foreach(json_decode($jobDetails->skill_needed, true) as $value)
-                                    <li><i class="fa fa-check color-green"></i> {{ ucfirst($value)}} </li>
+                                @foreach($skills as $value)
+                                    <li><i class="fa fa-check color-green"></i> {{ ucfirst($value->name)}} </li>
                                 @endforeach
                             </ul>
 
                             <hr>
-
+                            @endif
                             <h2>Project Cost</h2>
                             {{--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius hendrerit nisl id condimentum. Sed bibendum ultricies erat a vulputate. Curabitur id ultricies eros, at ultricies dui.</p>--}}
                             <h4 class="">Tk. {{$jobDetails->project_cost}}/=</h4>

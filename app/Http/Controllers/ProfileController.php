@@ -22,7 +22,6 @@ use App\Employments;
 use DB;
 use App\User;
 use App\UserProfile;
-use Illuminate\Validation\Rule;
 class ProfileController extends Controller{
     private  $userId = 0;
     public  function __construct()
@@ -65,15 +64,6 @@ class ProfileController extends Controller{
     public function getJobDisapprovedList(){
         $disapproveProjectList = Job::ProjectDisapproveList(Auth::User()->id)->get();
         return view('front.jobDisapprovedList', ['disapproveProjectList' => $disapproveProjectList]);
-    }
-
-    public function getJobDoneList(){
-        $jobList = ContactDetails::with('job')->where(['freelancer_id'=>$this->userId,'contact_status'=>1])->get();
-        return view('front.jobDoneList',['jobList'=>$jobList]);
-    }
-
-    public function getJobInterestedList(){
-        return view('front.jobInterestedList');
     }
 
     public function getFreelancerJobDoneList(){
