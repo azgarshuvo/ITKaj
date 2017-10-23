@@ -45,7 +45,7 @@ Route::group(['prefix' => 'user'], function () {
 
     });
 
-    Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve','profile']], function(){
+    Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
 
         Route::get('projects/list', ['as' => 'projectsList', 'uses' => 'ProfileController@getProjectsList']);
 
@@ -126,6 +126,7 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
 
         Route::post('approve', ['as' =>'postJobApprove', 'uses' => 'adminController\AdminJobController@PostJobApprove']);
         Route::post('get-freelancer-list', ['as' =>'getFreelancerList', 'uses' => 'adminController\AdminJobController@getFreelancerList']);
+        Route::post('freelancerAssign', ['as' =>'freelancerAssign', 'uses' => 'adminController\AdminJobController@FreelancerAssign']);
 
 
     });
@@ -203,7 +204,13 @@ Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], fun
 
 
 
+Route::any('paypal/checkout', 'PayPalController@getCheckout');
+Route::any('paypal/checkout/done', 'PayPalController@getDone');
+Route::any('paypal/checkout/cancel', 'PayPalController@getCancel');
+Route::any('paypal/create/web/profile', 'PayPalController@createWebProfile');
 
-Route::get('create_paypal_plan', 'PaypalController@create_plan');
-Route::get('/subscribe/paypal', 'PaypalController@paypalRedirect')->name('paypal.redirect');
-Route::get('/subscribe/paypal/return', 'PaypalController@paypalReturn')->name('paypal.return');
+
+
+Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe',));
+
+Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe',));

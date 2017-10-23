@@ -5,7 +5,8 @@
  * Date: 10/18/2017
  * Time: 10:56 AM
  */
-//dd($selectedForJob);
+
+
 ?>
 
 @extends('layouts.admin.master')
@@ -28,6 +29,7 @@
 
                         <div class="ibox-content profile-content">
                             <h4><strong>{{$jobDetails->name}}</strong></h4>
+                            <input type="hidden" value="{{$jobDetails->id}}" id="jobId">
                             <h5>Category and Subcategory</h5>
                             @foreach($category as $cat)
                             <p> {{$cat->category_name}} <p>
@@ -186,6 +188,7 @@
         </div>
     <script type="text/javascript">
         function getSelectedFreelancer(id){
+            var jobID = $("#jobId").val();
             var name = $(".name"+id).text();
             var updateName = name.trim();
             var row = '<tr>' +
@@ -197,6 +200,17 @@
             $(".rowBody").html(row);
 
             $(".removeData"+id).toggle();
+
+            $.post("{{route('freelancerAssign')}}",
+                {
+                    _token: '{{csrf_token()}}',
+                    id: id,
+                    jobID: jobID
+                },
+
+                function(data, status) {
+                    alert("Successfully Added");
+                });
 
         }
     </script>

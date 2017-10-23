@@ -7,8 +7,8 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
-        "guzzlehttp/guzzle": "~6.0",
-        "paypal/rest-api-sdk-php": "*"
+        "netshell/paypal": "dev-master",
+        "cartalyst/stripe-laravel": "2.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

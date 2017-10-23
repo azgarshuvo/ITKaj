@@ -46,6 +46,7 @@ class AdminJobController extends Controller
             }
 
         }
+
         return view('admin.job.jobDetails', ['jobDetails'=>$jobDetails, 'selectedForJob'=>$selectedForJob, 'freelancerList'=>$freelancerList, 'category'=>$category]);
 
     }
@@ -167,6 +168,13 @@ class AdminJobController extends Controller
             $selectOption.='<option value="'.$frelancer->freelancer_id.'">'.$frelancer->fname.' '.$frelancer->lname.'</option>';
         }
         echo $selectOption;
+    }
+
+    /*assign freelancer for job*/
+    public function FreelancerAssign(Request $request){
+            $id = $request->input('id');
+            $jobID = $request->input('jobID');
+            Job::where(['id'=>$jobID])->update(['selected_for_job'=>$id]);
     }
 
 //    public function getSelectedFreelancerList(){
