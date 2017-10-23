@@ -107,7 +107,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Skills <span class="color-red">*</span></label>
-                                <select value="{{old('skill[]')}}" id="skill" name="skill[]" multiple  class="form-control margin-bottom-20"></select>
+                                <select id="skill" name="skill[]" multiple  class="form-control margin-bottom-20">
+                                    @foreach($skills as $skill)
+                                        <option value="{{$skill->id}}">{{$skill->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -316,15 +320,15 @@
         } );
 
         $("#skill").select2({
-            tags: true,
-            tokenSeparators: [',', '.']
+
         });
+
+
 
         $('.category').change(function(){
             $('.subCategory').children('option:not(:first)').remove();
             var selectedCategoryId = parseInt($('.category option:selected').val());
             var Categories = JSON.parse($('#categories').val());
-//            console.log(Categories);
             if(Categories != null || Categories != ''){
                 $.each(Categories, function( index, category ) {
                     if(category.id == selectedCategoryId){

@@ -80,7 +80,6 @@ if($emps){
 								</div>
 								<div class="col-md-7">
 									<h2>{{$userProfile->fname}} {{$userProfile->lname}}</h2>
-									<span><strong>Skills:</strong> @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->skills}} @endif</span>
 									<span><strong>Position:</strong> @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->professional_title}} @endif</span>
 									<hr>
 									<p>@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->professional_overview}} @endif</p>

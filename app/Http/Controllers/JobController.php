@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categories;
 use App\FreelancerSelectedForJob;
+use App\Skills;
 use App\User;
 use Illuminate\Http\Request;
 use App\ContactDetails;
@@ -22,9 +23,10 @@ class JobController extends Controller
     }
     public function getJobPost()
     {
+        $skills = Skills::all();
         $categories = Categories::with('subcategory')->get();
         $freelancers = User::with(['profile'])->freelancer()->get();
-        return view('front.jobPost', ['categories' => $categories, 'freelancers' => $freelancers]);
+        return view('front.jobPost', ['categories' => $categories, 'freelancers' => $freelancers,'skills'=>$skills]);
     }
 
     public  function PostJobPost(Request $request){
@@ -36,10 +38,7 @@ class JobController extends Controller
             'projectCost'=>'required',
             'projectType'=>'required',
             'skill'=>'required',
-            'file'=>'required',
-            'file.*' => 'image|mimes:jpeg,png,jpg,gif,svg,pdf',
             'description'=>'required|min:6',
-            'inter_freelancer_list'=>'required',
             ]
         );
 
@@ -76,11 +75,10 @@ class JobController extends Controller
                         ->first();
 
         $userInfo = User::with('profile')->where(['id'=>$jobDetails->user_id])->first();
-
-        //dd($userInfo->profile);
+        $skills = Skills::whereIn('id', json_decode($jobDetails->skill_needed))->get();
 
         if($userInfo){
-            return view('front.jobDescription',['jobDetails'=>$jobDetails,'userInfo'=>$userInfo]);
+            return view('front.jobDescription',['jobDetails'=>$jobDetails,'userInfo'=>$userInfo,'skills'=>$skills]);
         }else{
             return redirect()->route('jobSearch');
         }
@@ -106,7 +104,7 @@ class JobController extends Controller
                 $filename = $file->getClientOriginalName();
                 //$extension = $file->getClientOriginalExtension();
                 $picture = date('His').$filename;
-                $destinationPath = base_path() . '\public\images';
+                $destinationPath = base_path() . '\public\attach';
                 $file->move($destinationPath, $picture);
                 array_push($nameList,$picture);
             }
@@ -135,8 +133,8 @@ class JobController extends Controller
     {
         $attachment = $request->input('attachment');
         //PDF file is stored under project/public/download/info.pdf
-        $file= public_path(). "/images/".$attachment;
-        return \Response::download($file, "document_".$attachment);
+        $file= public_path(). "/attach/".$attachment;
+        return \Response::download($file, "document_attach_".$attachment);
     }
 
     /*insert freelancer of job*/
@@ -163,12 +161,51 @@ class JobController extends Controller
 
     }
 
+    /*Get current runnig job list*/
     public function getJobOngoingList(){
         $jobList = ContactDetails::with('job')->where(['freelancer_id'=>$this->userId,'contact_status'=>0])->get();
-        //dd($jobList);
+
         return view('front.jobOngoingList',['jobList'=>$jobList]);
 
 
     }
 
+    /*Get job done list*/
+    public function getJobDoneList(){
+        $jobList = Job::where(['status'=>1])->get();
+
+        return view('front.jobDoneList',['jobList'=>$jobList]);
+    }
+
+    /*Get job applied list*/
+    public function getJobInterestedList(){
+        return view('front.jobInterestedList');
+    }
+
+    /*Delete disaprove job*/
+    public function DeleteMyJob($id){
+        $data = Job::where(['id'=>$id,'user_id'=>$this->userId,'approved'=>0]);
+        $attachmet = json_decode($data->first()->job_attachment);
+        $destinationPath = base_path() . '\public\attach';
+        $deleteArray = array();
+        foreach ($attachmet as &$value) {
+            $value = $destinationPath.DIRECTORY_SEPARATOR.$value;
+            array_push($deleteArray,$value);
+        }
+        $data->delete();
+        if (Job::where(['id'=>$id])->first()){
+            return redirect()->back()->with('error', "Something went wrong, Job doesn't deleted!!! ");
+        }else{
+            \File::delete($deleteArray);
+            return redirect()->back()->with('message', 'Job delete success!!! ');
+        }
+
+    }
+
+    /*Freelancer running project list by contact*/
+    public function FreelancerProjectOngoingList(){
+        $jobList = Job::where(['selected_for_job'=>$this->userId,'status'=>0])->get();
+
+        return view('front.freelancerOngoing',['jobList'=>$jobList]);
+    }
 }

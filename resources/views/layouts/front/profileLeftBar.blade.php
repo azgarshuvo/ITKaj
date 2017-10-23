@@ -27,27 +27,35 @@
         <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-buttons"><i class="fa fa-cubes"></i>My Project</a>
         <ul id="collapse-buttons" class="collapse">
             @if(Auth::User()->user_type == 'employer')
-            <li>
-                <a href="{{route('projectsList')}}">Project List </a>
-            </li>
-            <li>
-                <a href="{{route('projectApprovedList')}}"> Project Approved List</a>
-            </li>
-            <li>
-                <a href="{{route('projectDisapprovedList')}}"> Project Disapproved List</a>
-            </li>
+                <li>
+                    <a href="{{route('projectsList')}}">Project List </a>
+                </li>
+                <li>
+                    <a href="{{route('projectApprovedList')}}"> Project Approved List</a>
+                </li>
+                <li>
+                    <a href="{{route('projectDisapprovedList')}}"> Project Disapproved List</a>
+                </li>
+                <li>
+                    <a href="{{route('projectDoneList')}}"> Project Done List</a>
+                </li>
+                <li>
+                    <a href="{{route('projectOngoingList')}}"> Project Ongoing List</a>
+                </li>
             @endif
-            <li>
-                <a href="{{route('projectDoneList')}}"> Project Done List</a>
-            </li>
+
             @if(Auth::User()->user_type == 'freelancer')
-            <li>
-                <a href="{{route('projectInterestedList')}}"> Project Interested List</a>
-            </li>
+                <li>
+                    <a href="{{route('freelancerProjectOngoingList')}}"> Project Ongoing List</a>
+                </li>
+                <li>
+                    <a href="{{route('projectDoneList')}}"> Project Done List</a>
+                </li>
+                <li>
+                    <a href="{{route('projectInterestedList')}}"> Project Interested List</a>
+                </li>
             @endif
-            <li>
-                <a href="{{route('projectOngoingList')}}"> Project Ongoing List</a>
-            </li>
+
         </ul>
     </li>
 

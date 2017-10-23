@@ -53,7 +53,7 @@
                     </tr>
                     </tfoot>
                     <tbody>
-                    @if($jobList[0]->job)
+                    @if(sizeof($jobList)>0)
                         @foreach($jobList as $job)
                             <tr>
                                 <td>{{$job->job->name}}</td>

@@ -25,7 +25,7 @@
                     <tr>
                         <th>Job Title</th>
                         <th>Description</th>
-                        <th>Category</th>
+                        <th>Project Cost</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -33,7 +33,7 @@
                     <tr>
                         <th>Job Title</th>
                         <th>Description</th>
-                        <th>Category</th>
+                        <th>Project Cost</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -42,8 +42,10 @@
                         <tr>
                             <td>{{$disapproveProject->name}}</td>
                             <td>{{$disapproveProject->description}}</td>
-                            <td>{{$disapproveProject->category_id}}</td>
-                            <td></td>
+                            <td>{{$disapproveProject->project_cost}}</td>
+                            <td>
+                                <a href="{{route('deleteMyJob',['jobId'=>$disapproveProject->id])}}" class="btn btn-danger"><i class="fa fa-trash-o color-white"></i></a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
