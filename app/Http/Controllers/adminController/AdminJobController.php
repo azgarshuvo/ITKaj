@@ -174,8 +174,28 @@ class AdminJobController extends Controller
     public function FreelancerAssign(Request $request){
             $id = $request->input('id');
             $jobID = $request->input('jobID');
-            Job::where(['id'=>$jobID])->update(['selected_for_job'=>$id]);
+            $assign = Job::find($jobID);
+            if($assign->selected_for_job == null || $assign->selected_for_job == ''){
+                $assign->update(['selected_for_job'=>$id]);
+            }
+            else{
+                Session::flash('success', 'Freelancer Already Exist, You must delete to add another freelancer');
+            }
+
     }
+
+    public function FreelancerListAssign(Request $request){
+        $id = $request->input('id');
+        $jobID = $request->input('jobID');
+        $assign = Job::find($jobID);
+        if($assign->selected_for_job == null || $assign->selected_for_job == ''){
+            $assign->update(['selected_for_job'=>$id]);
+        }else{
+            Session::flash('success', 'Freelancer Already Exist, You must delete to add another freelancer');
+        }
+
+    }
+
 
 //    public function getSelectedFreelancerList(){
 //        $selectedList = DB::table('users')
