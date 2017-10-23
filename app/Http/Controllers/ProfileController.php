@@ -22,7 +22,6 @@ use App\Employments;
 use DB;
 use App\User;
 use App\UserProfile;
-
 class ProfileController extends Controller{
     private  $userId = 0;
     public  function __construct()
@@ -37,7 +36,6 @@ class ProfileController extends Controller{
 
     public function getProfileSettings(){
         $userProfile = Auth::User();
-//        dd($userProfile);
         $countries = Countries::all();
         $cities = States::all();
     	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);
@@ -66,15 +64,6 @@ class ProfileController extends Controller{
     public function getJobDisapprovedList(){
         $disapproveProjectList = Job::ProjectDisapproveList(Auth::User()->id)->get();
         return view('front.jobDisapprovedList', ['disapproveProjectList' => $disapproveProjectList]);
-    }
-
-    public function getJobDoneList(){
-        $jobList = ContactDetails::with('job')->where(['freelancer_id'=>$this->userId,'contact_status'=>1])->get();
-        return view('front.jobDoneList',['jobList'=>$jobList]);
-    }
-
-    public function getJobInterestedList(){
-        return view('front.jobInterestedList');
     }
 
     public function getFreelancerJobDoneList(){
@@ -202,9 +191,12 @@ class ProfileController extends Controller{
             'address' => 'required|string|min:4',
             'country' => 'required',
             'city' => 'required',
+            'username' => 'required|unique:users,username,'.$this->userId
         ],[
-            'fname.required'        =>"First Name require",
-            'lname.required'        =>"Last Name require",
+            'fname.required'        =>"First Name is require",
+            'lname.required'        =>"Last Name is require",
+            'username.required'        =>"Username is require",
+            'username.unique'        =>"Username has already been taken",
             'phone.required'        =>"Phone Number is required",
             'address.required'      =>"Address is required",
             'country.required'      =>"Country name is required",
@@ -222,6 +214,7 @@ class ProfileController extends Controller{
         }else{
             $fname = $request->input('fname');
             $lname = $request->input('lname');
+            $username = $request->input('username');
             $phone = $request->input('phone');
             $address = $request->input('address');
             $skills = $request->input('skills');
@@ -236,9 +229,10 @@ class ProfileController extends Controller{
             $user = User::find(auth()->user()->id);
             $user->fname = $fname;
             $user->lname = $lname;
+            $user->username = $username;
+            $user->is_complete = 1;
             $user->save();
             /*user table update end*/
-
 
             echo "<p class='alert alert-success'>";
             echo "User profile Info updated";
@@ -268,7 +262,16 @@ class ProfileController extends Controller{
                 /*user profile table update start*/
                 UserProfile::updateOrCreate(
                     ['user_id' => $this->userId],
-                    ['phone_number' => $phone,'address'=>$address,'company_name'=>$company_name,'company_website'=>$web_address,'country'=>$country,'city'=>$city]);
+                    [
+                        'phone_number' => $phone,
+                        'address'=>$address,
+                        'company_name'=>$company_name,
+                        'company_website'=>$web_address,
+                        'country'=>$country,
+                        'city'=>$city,
+                        'professional_title'=>$professional_title,
+                        'professional_overview'=>$professional_overview,
+                    ]);
                 /*user profile table update end*/
             }
         }

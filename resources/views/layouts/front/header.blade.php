@@ -5,78 +5,97 @@
  * Date: 07-Oct-17
  * Time: 4:53 PM
  */
+//dd(Auth::check());
 ?>
-<!--=== End Header ===-->
-<div class="header">
-    <div class="container">
-        <!-- Logo -->
-        <a class="logo" href="{{route('home')}}">
-            <img src="{{asset('assets/img/logo1-default.png')}}" alt="Logo">
-        </a>
-        <!-- End Logo -->
-
-        <!-- Topbar -->
-        <div class="topbar">
-            <ul class="loginbar pull-right">
-                @if (Auth::check())
-                    <li><a href="{{route('logout')}}">Logout</a></li>
-                @else
-                    <li><a href="{{route('registration')}}">Signup</a></li>
-                    <li class="topbar-devider"></li>
-                    <li><a href="{{route('login')}}">Login</a></li>
-                @endif
-            </ul>
-        </div>
-        <!-- End Topbar -->
-
-        <!-- Toggle get grouped for better mobile display -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="fa fa-bars"></span>
-        </button>
-        <!-- End Toggle -->
-    </div><!--/end container-->
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+<!--=== Header v6 ===-->
+<div class="header-v6 header-classic-dark header-sticky">
+    <!-- Navbar -->
+    <div class="navbar mega-menu" role="navigation">
         <div class="container">
-            @if(auth()->check())
-                @if(Auth::user()->user_type=="employer")
-                    <ul class="nav navbar-nav">
-                        <!-- Freelancer Search -->
-                        <li><a href="{{route('freelancerSearch')}}">Freelancer Search</a></li>
-                        <!-- End Freelancer Search -->
-                    </ul>
-                @endif
-                @if(Auth::user()->user_type=="freelancer")
-                    <ul class="nav navbar-nav">
-                        <!-- Job Search -->
-                        <li><a href="{{route('jobSearch')}}">Job Search</a></li>
-                        <!-- End Job Search -->
-                    </ul>
-                @endif
-                @if(Auth::user()->user_type=="employer")
-                    <ul class="nav navbar-nav">
-                        <!-- Post Job -->
-                        <li><a href="{{route('JobPost')}}">Post Job</a></li>
-                        <!-- End Post Job -->
-                    </ul>
-                @endif
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="menu-container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-            <ul class="nav navbar-nav">
-                <!-- Profile -->
-                <li><a href="{{route('profileOverall')}}">Profile</a></li>
-                <!-- End Profile -->
-            </ul>
-            @endif
-            <ul class="nav navbar-nav">
-                <!-- Home -->
-                <li><a href="{{route('home')}}">Home</a></li>
-                <!-- End Home -->
-            </ul>
-        </div><!--/end container-->
-    </div><!--/navbar-collapse-->
+                <!-- Navbar Brand -->
+                <div class="navbar-brand">
+                    <a href="{{route('home')}}">
+                        <img class="default-logo" src="" alt="Logo">
+                    </a>
+                </div>
+                <!-- ENd Navbar Brand -->
 
+                <!-- Header Inner Right -->
+                <div class="header-inner-right">
+                    <ul class="menu-icons-list">
+                        {{--<li class="menu-icons shopping-cart">--}}
+                            {{--<i class="menu-icons-style radius-x fa fa-shopping-cart"></i>--}}
+                            {{--<span class="badge">0</span>--}}
+                            {{--<div class="shopping-cart-open">--}}
+                                {{--<span class="shc-title">No products in the Cart</span>--}}
+                                {{--<button type="button" class="btn-u"><i class="fa fa-shopping-cart"></i> Cart</button>--}}
+                                {{--<span class="shc-total">Total: <strong>$0.00</strong></span>--}}
+                            {{--</div>--}}
+                        {{--</li>--}}
+                        <li class="menu-icons">
+                            <i class="menu-icons-style search search-close search-btn fa fa-search"></i>
+                            <div class="search-open">
+                                <input type="text" class="animated fadeIn form-control" placeholder="Start searching ...">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Header Inner Right -->
+            </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
+                <div class="menu-container">
+                    <ul class="nav navbar-nav">
+                        <!-- Home -->
+                        <li class="active"><a href="{{route('home')}}" class="dropdown-toggle">Home</a></li>
+                        <!-- End Home -->
+                        @if (Auth::check())
+                            <!-- Profile -->
+                            <li><a href="{{route('profileOverall')}}" class="dropdown-toggle">Profile</a></li>
+                            <!-- End Profile -->
+                            @if(Auth::user()->user_type=="employer")
+                                <!-- Create project -->
+                                <li><a href="{{route('JobPost')}}" class="dropdown-toggle">Create Project</a></li>
+                                <!-- End Create Project -->
+                            @endif
+                            @if(Auth::user()->user_type=="freelancer")
+                                <!-- Search for Project -->
+                                <li><a href="{{route('jobSearch')}}" class="dropdown-toggle" >Search for Project</a></li>
+                                <!-- End Search for Project -->
+                            @endif
+                            @if(Auth::user()->user_type=="employer")
+                                <!-- Search For Freelancer -->
+                                <li><a href="{{route('freelancerSearch')}}" class="dropdown-toggle">Search For Freelancer</a></li>
+                                <!-- End Search For Freelancer -->
+                            @endif
+
+                                <!-- Logout -->
+                                <li><a href="{{route('logout')}}" class="dropdown-toggle">Logout</a></li>
+                                <!-- End Logout -->
+                        @else
+                            <!-- Sign In -->
+                            <li><a href="{{route('login')}}" class="dropdown-toggle">Login</a></li>
+                            <!-- End Sign In -->
+                            <!-- Sign Up -->
+                            <li><a href="{{route('registration')}}" class="dropdown-toggle">SignUp</a></li>
+                            <!-- End Sign Up -->
+                        @endif
+
+                    </ul>
+                </div>
+            </div><!--/navbar-collapse-->
+        </div>
+    </div>
+    <!-- End Navbar -->
 </div>
-<!--=== End Header ===-->
+<!--=== End Header v6 ===-->

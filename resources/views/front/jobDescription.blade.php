@@ -51,18 +51,18 @@
                             </p>
 
                             <hr>
-
+                            @if($skills)
                             <h2>Skill Needed</h2>
                             {{--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius hendrerit nisl id condimentum. Sed bibendum ultricies erat a vulputate. Curabitur id ultricies eros, at ultricies dui.</p>--}}
                             <ul class="list-unstyled">
                                {{--  //json_encode($jobDetails->skill_needed)--}}
-                                @foreach(json_decode($jobDetails->skill_needed, true) as $value)
-                                    <li><i class="fa fa-check color-green"></i> {{ ucfirst($value)}} </li>
+                                @foreach($skills as $value)
+                                    <li><i class="fa fa-check color-green"></i> {{ ucfirst($value->name)}} </li>
                                 @endforeach
                             </ul>
 
                             <hr>
-
+                            @endif
                             <h2>Project Cost</h2>
                             {{--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius hendrerit nisl id condimentum. Sed bibendum ultricies erat a vulputate. Curabitur id ultricies eros, at ultricies dui.</p>--}}
                             <h4 class="">Tk. {{$jobDetails->project_cost}}/=</h4>
@@ -73,10 +73,16 @@
                             <ul class="list-unstyled">
                                 {{--  //json_encode($jobDetails->skill_needed)--}}
                                 <?php $i=1; ?>
+                                @if($jobDetails->job_attachment)
                                 @foreach(json_decode($jobDetails->job_attachment, true) as $value)
 
                                     <li><i class="fa fa-check color-green"></i> <a href="{{ route('attachmentDownload',['attachment'=>$value]) }}" target="_blank">Attachment no . {{$i++}} </a></li>
                                 @endforeach
+                                @else
+                                    <div class="alert alert-success">
+                                        No Attachment Found
+                                    </div>
+                                @endif
                             </ul>
 
                             {{--
@@ -120,7 +126,15 @@
                             <hr>
 
                             </div>
-                            <button data-toggle="modal" data-target="#responsive" type="button" class="btn-u btn-block"> Apply with Resume</button>
+                            @if($jobDetails->selected_for_job!=null||$jobDetails->selected_for_job>0)
+                                @if($jobDetails->selected_for_job==Auth::user()->id)
+                                    <h5 class="text-center col-md-offset-1 alert alert-success">You are selected for this job</h5>
+                                @else
+                                    <h5 class="text-center col-md-offset-1 alert alert-success">Freelancer already selected for this job</h5>
+                                @endif
+                            @else
+                                <button data-toggle="modal" data-target="#responsive" type="button" class="btn-u btn-block"> Apply with Resume</button>
+                            @endif
                         <div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">

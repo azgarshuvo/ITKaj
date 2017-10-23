@@ -23,11 +23,13 @@
 
 <!-- CSS Global Compulsory -->
 <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap-3.3.7/css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap-3.3.7/css/dataTables.bootstrap.min.css')}}">
 
 
 <!-- CSS Header and Footer -->
-<link rel="stylesheet" href="{{asset('assets/css/headers/header-default.css')}}">
+{{--<link rel="stylesheet" href="{{asset('assets/css/headers/header-default.css')}}">--}}
+<link rel="stylesheet" href="{{asset('assets/css/headers/header-v6.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/footers/footer-v1.css')}}">
 
 <!-- CSS Implementing Plugins -->
@@ -52,6 +54,9 @@
 <link rel="stylesheet" href="{{asset('assets/css/pages/shortcode_timeline2.css')}}">
 
 <!-- CSS Page Style -->
+<link rel="stylesheet" href="{{asset('assets/css/pages/page_job.css')}}">
+
+<!-- CSS Page Style -->
 <link rel="stylesheet" href="{{asset('assets/css/pages/page_log_reg_v1.css')}}">
 
 <!-- CSS Page Style -->
@@ -64,5 +69,4 @@
 <!-- CSS Customization -->
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
-<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 <script type="text/javascript" src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>

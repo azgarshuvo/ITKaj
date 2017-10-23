@@ -53,14 +53,15 @@
                     </tr>
                     </tfoot>
                     <tbody>
-                    @if($jobList[0]->job)
+                    @if(sizeof($jobList)>0)
                         @foreach($jobList as $job)
                             <tr>
                                 <td>{{$job->job->name}}</td>
                                 <td>{{$job->job->description}}</td>
                                 <td>{{$job->job->project_cost}}</td>
                                 <td>
-                                    <a href="{{route('getMilestone',['jobId'=>$job->job->id])}}" class="btn-success btn color-white">Milestone</a>
+                                    <a class="btn btn-success color-white" href="{{route('setupMilestone',['jobid'=>$job->job->id])}}">Milestone</a>
+                                    <a href="{{route('MyJobDescription',['jobId'=>$job->job->id])}}" class="btn-success btn color-white">Details</a>
                                 </td>
                             </tr>
                         @endforeach

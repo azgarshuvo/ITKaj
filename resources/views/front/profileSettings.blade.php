@@ -685,6 +685,7 @@ $emps = (Auth::User()->employment);
     </div>
     <!-- End Profile Content -->
     <input type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->country}}" @endif id="userCountryId">
+    <input type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->city}}" @endif id="userCityId">
     <input type="hidden" value="{{$cities}}" id="userCities">
 
     {{--Education Modal--}}
@@ -846,17 +847,27 @@ $emps = (Auth::User()->employment);
 
         $(document).ready(function(){
             if($('#userCountryId').val() != null && $('#userCountryId').val() != ''){
-                $("select.cityOptions").html("<option value=\"\">Select One</option>" +
-                    "@foreach($cities as $city)\n" +
-                    "@if($userProfile->profile != null && $userProfile->profile != '')\n" +
-                    "@if($userProfile->profile->country == $city->countries_id)\n" +
-                    "@if($userProfile->profile->city == $city->id)" +
-                    "<option value=\"{{$city->id}}\" selected = 'selected'>{{$city->name}}</option>\n" +
-                    "@endif" +
-                    "@endif" +
-                    "<option value=\"{{$city->id}}\">{{$city->name}}</option>\n" +
-                    "@endif\n" +
-                    "@endforeach");
+                var Selected_id = $('.country option:selected').val();
+                var Selected_city = parseInt($('#userCityId').val());
+                var Cities = JSON.parse($('#userCities').val());
+                $("select.cityOptions").html("<option value=\"\">Select One</option>");
+                $.each(Cities, function( index, value ) {
+                    if(value.countries_id == Selected_id){
+                        if(Selected_city == value.id){
+                            $('.cityOptions').append($('<option>', {
+                                value: value.id,
+                                text : value.name,
+                                selected: true
+                            }));
+                        }else{
+                            $('.cityOptions').append($('<option>', {
+                                value: value.id,
+                                text : value.name
+                            }));
+                        }
+                    }
+                });
+
             }else{
                 $('select.cityOptions').html("<option value=\"\">Select One</option>");
             }

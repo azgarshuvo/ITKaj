@@ -27,12 +27,22 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('registration', ['as' => 'registration', 'uses' => 'RegistrationController@getRegistration']);
     Route::post('registration/execute', ['as' => 'postRegistration', 'uses' => 'RegistrationController@postRegistration']);
     Route::group(['prefix' => 'profile-setup','middleware' => ['auth', 'approve']], function(){
-        Route::get('', ['as' => 'myProfile', 'uses' => 'ProfileController@getMyProfile']);
+        Route::get('self', ['as' => 'myProfile', 'uses' => 'ProfileController@getMyProfile']);
         Route::get('overall', ['as' => 'profileOverall', 'uses' => 'ProfileController@getProfile']);
         Route::get('settings', ['as' => 'profileSettings', 'uses' => 'ProfileController@getProfileSettings']);
 
         Route::get('view/{id}', ['as' => 'my_profile_view', 'uses' => 'ProfileController@getMyProfileView']);
         Route::post('change-profile-img', ['as' => 'changeProfileImg', 'uses' => 'ProfileController@ChangeProfileImg']);
+
+
+
+        Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
+        Route::post('change/changeprofile', ['as' => 'changeProfile', 'uses' => 'ProfileController@changeProfile']);
+        Route::post('change/changecompany', ['as' => 'changeCompany', 'uses' => 'ProfileController@changeCompany']);
+
+        Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
+        Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
+
     });
 
     Route::group(['prefix' => 'profile','middleware' => ['auth', 'approve']], function(){
@@ -43,20 +53,14 @@ Route::group(['prefix' => 'user'], function () {
         Route::group(['prefix' => 'project'], function(){
             Route::get('approved/list', ['as' => 'projectApprovedList', 'uses' => 'ProfileController@getProjectApprovedList']);
             Route::get('disapproved/list', ['as' => 'projectDisapprovedList', 'uses' => 'ProfileController@getJobDisapprovedList']);
-            Route::get('done/list', ['as' => 'projectDoneList', 'uses' => 'ProfileController@getJobDoneList']);
-            Route::get('interested/list', ['as' => 'projectInterestedList', 'uses' => 'ProfileController@getJobInterestedList']);
+            Route::get('done/list', ['as' => 'projectDoneList', 'uses' => 'JobController@getJobDoneList']);
+            Route::get('interested/list', ['as' => 'projectInterestedList', 'uses' => 'JobController@getJobInterestedList']);
             Route::get('ongoing/list', ['as' => 'projectOngoingList', 'uses' => 'JobController@getJobOngoingList']);
+            Route::get('on-going/freelancer/list', ['as' => 'freelancerProjectOngoingList', 'uses' => 'JobController@FreelancerProjectOngoingList']);
+
         });
 
-    	Route::post('change/password', ['as' => 'changePassword', 'uses' => 'ProfileController@ChangePassword']);
-    	Route::post('change/changeprofile', ['as' => 'changeProfile', 'uses' => 'ProfileController@changeProfile']);
-    	Route::post('change/changecompany', ['as' => 'changeCompany', 'uses' => 'ProfileController@changeCompany']);
-
-        Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
-        Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
     });
-
-
 
 
 });
@@ -135,12 +139,12 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
 
 
 
-
+/*Common job controller*/
 Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], function (){
     Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost','middleware' => 'employer']);
     Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost','middleware' => 'employer']);
 
-    Route::get('description', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
+    Route::get('description/{jobid}', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
     Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch','middleware' => 'freelancer']);
     Route::get('attachment/download', ['as' => 'attachmentDownload', 'uses' => 'JobController@getDownload']);
     Route::post('apply', ['as' =>'freelancerJobApply', 'uses' => 'JobInterestedController@JobApply','middleware' => 'freelancer']);
@@ -148,6 +152,7 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], 
 
     /*Route for own job */
     Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@getOwnJobDescription']);
+    Route::get('delete-my-job/{id}', ['as' =>'deleteMyJob', 'uses' => 'JobController@DeleteMyJob']);
 
     /*Setup Milestone*/
     Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@SetMilestoneView']);
@@ -203,7 +208,13 @@ Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], fun
 
 
 
+Route::any('paypal/checkout', 'PayPalController@getCheckout');
+Route::any('paypal/checkout/done', 'PayPalController@getDone');
+Route::any('paypal/checkout/cancel', 'PayPalController@getCancel');
+Route::any('paypal/create/web/profile', 'PayPalController@createWebProfile');
 
-Route::get('create_paypal_plan', 'PaypalController@create_plan');
-Route::get('/subscribe/paypal', 'PaypalController@paypalRedirect')->name('paypal.redirect');
-Route::get('/subscribe/paypal/return', 'PaypalController@paypalReturn')->name('paypal.return');
+
+
+Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe',));
+
+Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe',));
