@@ -20,12 +20,12 @@
                 <h3 class="panel-title"><i class="fa fa-globe"></i> Approved Job Search Results</h3>
             </div>
             <div class="panel-body">
-                <table id="jobSearchDataTable" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                <table id="jobSearchDataTable" class="table table-striped table-bordered font-size-13" width="100%" cellspacing="0">
                     <thead>
                     <tr>
                         <th>Job Title</th>
                         <th>Description</th>
-                        <th>Category</th>
+                        <th>Project Cost</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -34,7 +34,7 @@
                     <tr>
                         <th>Job Title</th>
                         <th>Description</th>
-                        <th>Category</th>
+                        <th>Project Cost</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -43,10 +43,10 @@
                         <tr>
                             <td>{{$approveProject->name}}</td>
                             <td>{{$approveProject->description}}</td>
-                            <td>{{$approveProject->category_id}}</td>
+                            <td>{{$approveProject->project_cost}}</td>
                             <td>
-                                <a class="btn btn-success color-white" href="{{route('setupMilestone',['jobid'=>$approveProject->id])}}">Milestone
-                                </a>
+                                <a class="btn btn-success color-white" href="{{route('setupMilestone',['jobid'=>$approveProject->id])}}">Milestone</a>
+                                <a href="{{route('MyJobDescription',['jobId'=>$approveProject->id])}}" class="btn-success btn color-white">Details</a>
 
                             </td>
                         </tr>
