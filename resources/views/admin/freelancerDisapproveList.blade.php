@@ -8,7 +8,7 @@
 ?>
 @extends('layouts.admin.master')
 
-@section('title', 'Freelancer List')
+@section('title', 'Freelancer Disapprove List')
 
 @section('content')
     <div class="wrapper wrapper-content">
@@ -17,7 +17,7 @@
         @endif
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Freelancer List</h5>
+                <h5>Freelancer Disapprove List</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -36,16 +36,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $count=1; ?>
-                    @foreach($freelancerList as $freelancer)
+                    <?php $count =1; ?>
+                    @foreach($freelancerDisapproveList as $freelancer)
                         @if($freelancer->profile != null && $freelancer->profile != "")
                             <tr class="gradeX">
                                 <td>{{$count++}}</td>
-                                <th>{{$freelancer->fname}}{{$freelancer->lname}}</th>
-                                <th>{{$freelancer->profile->skills}}</th>
-                                <th>{{$freelancer->profile->professional_title}}</th>
+                                <td>{{$freelancer->fname}}{{$freelancer->lname}}</td>
+                                <td>{{$freelancer->profile->skills}}</td>
+                                <td>{{$freelancer->profile->professional_title}}</td>
                                 <td class="center">
-                                    <a class="btn btn-sm btn-danger" href="" data-href="{{ route('freelancerDelete', $freelancer->id)}}" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
+                                    <a class="btn btn-sm btn-danger" href="" data-href="{{ route('freelancerDisapproveDelete', $freelancer->id)}}" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
                                     <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" title="Freelancer Details"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
@@ -53,7 +53,6 @@
                     @endforeach
                     </tbody>
                 </table>
-
                 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -81,3 +80,5 @@
         </div>
     </div>
 @endsection
+
+

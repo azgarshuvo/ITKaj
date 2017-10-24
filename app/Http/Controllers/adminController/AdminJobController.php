@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\adminController;
 
 use App\Categories;
+use App\ContactDetails;
 use App\FreelancerSelectedForJob;
 use App\Job;
+use App\JobInterested;
+use App\Milestone;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,10 +22,14 @@ class AdminJobController extends Controller
         return view('admin.jobList',['jobList'=>$jobList]);
     }
 
+    #get job details by job id
     public function getJobDetails($id){
+        $contact = $this->getMilestone($id);
         $jobDetails = Job::find($id);
         $employer = User::find($jobDetails->user_id);
         $category =[];
+        $selectedForJob = [];
+        $interestFreelancer = array();
 
         $cat = Categories::find($jobDetails->category_id);
         if($cat->is_parent == 0){
@@ -30,13 +37,19 @@ class AdminJobController extends Controller
             array_push($category, $parentCategory);
             array_push($category, $cat);
         }
-        //dd($category);
 
+        $interestedList = JobInterested::select('user_id')->where(['job_id'=>$id])->get();
 
-        $selectedForJob = [];
+        foreach ($interestedList as $freelancer){
+            array_push($interestFreelancer,$freelancer->user_id);
+        }
+
+        $interestUser =  User::with('profile')->whereIn('id', $interestFreelancer)->get();
+
 
         $selected = FreelancerSelectedForJob::FreelancerSelected($jobDetails->id)->get();
         $freelancerList = User::FreelancerAll()->with('profile')->get();
+        $assign = User::with('profile')->where('id',$jobDetails->selected_for_job)->first();
 
         foreach ($freelancerList as $freelancer){
             foreach ($selected as $freelancerSelect){
@@ -44,11 +57,19 @@ class AdminJobController extends Controller
                     array_push($selectedForJob, $freelancer);
                 }
             }
-
         }
+        return view('admin.job.jobDetails', ['jobDetails'=>$jobDetails, 'selectedForJob'=>$selectedForJob, 'freelancerList'=>$freelancerList, 'category'=>$category,'assign'=>$assign,'interestUser'=>$interestUser,'contact'=>$contact]);
 
-        return view('admin.job.jobDetails', ['jobDetails'=>$jobDetails, 'selectedForJob'=>$selectedForJob, 'freelancerList'=>$freelancerList, 'category'=>$category]);
+    }
 
+    /*Get milestone details for job details view*/
+    private function getMilestone($jobId){
+        $milestoneList = ContactDetails::with('milestone')->where(['job_id'=>$jobId])->get();
+        if(sizeof($milestoneList)>=1){
+            return $milestoneList;
+        }else{
+            return null;
+        }
     }
 
     public function getJobEditView($id){
@@ -149,10 +170,16 @@ class AdminJobController extends Controller
         return view('admin.jobListDisapprove',['jobList'=>$jobList]);
     }
 
-    /*Admin job approve by ajax*/
+    /*Admin job approve by post ajax*/
     public function PostJobApprove(Request $request){
         $jobId = $request->input('jobId');
         Job::where(['id'=>$jobId])->update(['verified'=>1,'approved'=>1]);
+    }
+
+    /*Admin job disapprove by post ajax*/
+    public function PostJobDisapprove(Request $request){
+        $jobId = $request->input('jobId');
+        Job::where(['id'=>$jobId])->update(['verified'=>1,'approved'=>0]);
     }
 
     #get freelancer list by dropdown
@@ -172,15 +199,96 @@ class AdminJobController extends Controller
 
     /*assign freelancer for job*/
     public function FreelancerAssign(Request $request){
+
+            $validator = \Validator::make($request->all(), [
+                'id' => 'required',
+                'jobID' => 'required',
+                'contactStart' => 'required|date_format:Y-m-d|after:today',
+                'contactEnd' => 'required|date_format:Y-m-d|after:contactStart',
+            ], [
+                'id.required' => 'Freelancer Assign Error',
+                'jobID.required' => 'Job Assign Error',
+                'contactStart.required' => 'Contact Start Date Error',
+                'contactStart.date_format' => 'Contact Start Date Invalid Format',
+                'contactStart.after' => "Contact Start Date Can't be Before Today",
+                'contactEnd.after' => "Contact End Date Can't be Before Contact Start Date",
+                'contactEnd.date_format' => 'Contact End Date Invalid Format',
+                'contactEnd.required' => 'Contact End Date Error',
+            ]);
+
             $id = $request->input('id');
             $jobID = $request->input('jobID');
-            $assign = Job::find($jobID);
-            if($assign->selected_for_job == null || $assign->selected_for_job == ''){
-                $assign->update(['selected_for_job'=>$id]);
+            $contactDetails = $request->input('contactDetails');
+            $contactStart = $request->input('contactStart');
+            $contactEnd = $request->input('contactEnd');
+
+            if ($validator->fails()) {
+                $mes = "<div class='alert alert-danger text-center'>";
+                foreach ($validator->messages()->getMessages() as $field_name => $messages) {
+                    foreach ($messages as $mes) {
+                        $mes.= "<br/>";
+                    }
+                }
+                $mes.=  "</div>";
+                echo $mes;
+
+            } else{
+
+                    $assign = Job::find($jobID);
+                if($assign->approved==1){
+                     if($assign->selected_for_job == null || $assign->selected_for_job == ''){
+                         $employeId = $assign->user_id;
+                         $contact = ContactDetails::where(['job_id'=>$jobID])->first();
+                         if ($contact){
+                             echo 'The job already in contact list!!!';
+                         }else{
+                             $assign->update(['selected_for_job'=>$id]);
+                             ContactDetails::create([
+                                 'freelancer_id'=>$id,
+                                 'employee_id'=>$employeId,
+                                 'job_id'=>$jobID,
+                                 'contact_details'=>$contactDetails,
+                                 'contact_start'=>$contactStart,
+                                 'contact_end'=>$contactEnd,
+                                 'contact_status'=>0,
+                                 ]);
+
+                             JobInterested::where(['job_id'=>$jobID,'user_id'=>$id])->update(['admin_approve'=>1]);
+                         }
+                     }
+                     else{
+                         echo 'Freelancer Already Exist, You must delete to add another freelancer';
+                     }
+                }else{
+                    echo "The Job is not approve yet, to assign freelancer you need to approve the job";
+                }
+
             }
-            else{
-                Session::flash('success', 'Freelancer Already Exist, You must delete to add another freelancer');
+    }
+
+    /*Remove freelancer from contact and assign job by job id*/
+    public function FreelancerRemove($jobId){
+        $contact = ContactDetails::with('milestone')->where(['job_id'=>$jobId])->first();
+        if($contact) {
+            if (sizeof($contact->milestone) >= 1) {
+                return redirect()->back()->with('error', "Freelancer can't be remove, may be there are one or more milestone");
+            } else {
+                $job = Job::find($jobId);
+                $seletedFreelancer = $job->selected_for_job;
+                $data = ContactDetails::where(['job_id' => $jobId, 'contact_status' => 0])->first();
+                if ($data) {
+                    $data->delete();
+                    JobInterested::where(['user_id' => $seletedFreelancer, 'job_id' => $jobId])->update(['admin_approve' => 0]);
+                    $job->selected_for_job = null;
+                    $job->save();
+                    return redirect()->back()->with('success', "Freelancer Remove Success from This Job");
+                } else {
+                    return redirect()->back()->with('error', "Something Went Wrong, System unable to Freelancer remove. May be contact not found");
+                }
             }
+        }else{
+            return redirect()->back()->with('error', "Job or Freelancer not Found");
+        }
 
     }
 

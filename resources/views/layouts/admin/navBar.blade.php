@@ -42,8 +42,12 @@
             <li class="">
                 <a href="#"><i class="fa fa-user"></i> <span class="nav-label">User</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{route('freelancer_list')}}">Freelancer List</a></li>
-                    <li><a href="{{route('employeer_list')}}">Employer List</a></li>
+                    <li><a href="{{route('freelancerList')}}">Freelancer List</a></li>
+                    <li><a href="{{route('freelancerApproveList')}}">Freelancer Approve List</a></li>
+                    <li><a href="{{route('freelancerDisapproveList')}}">Freelancer Disapprove List</a></li>
+                    <li><a href="{{route('employeerList')}}">Employer List</a></li>
+                    <li><a href="{{route('employeerApproveList')}}">Employer Approve List</a></li>
+                    <li><a href="{{route('employeerDisapproveList')}}">Employer Disapprove List</a></li>
                 </ul>
             </li>
 

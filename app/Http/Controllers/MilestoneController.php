@@ -40,7 +40,7 @@ class MilestoneController extends Controller
 
 
         $this->validate($request,[
-            'milestone_title'=>'required|string|max:255|min:3|unique:milestones,milestone_title',
+            'milestone_title'=>'required|string|max:255|min:3',
             'description'=>'required|min:5',
             'deadline'=>'required|date_format:Y-m-d|after:today',
             'fund_release'=>'required',

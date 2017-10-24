@@ -22,217 +22,32 @@
             </div>
         </div>
         <div class="ibox-content">
-
         <table class="table table-striped table-bordered table-hover dataTables-example" >
         <thead>
         <tr>
             <th>SL No.</th>
             <th>Full Name</th>
-            <th>Admin Type</th>
-            <th>Created Date</th>
-            <th>Updated Date</th>
+            <th>Company Name</th>
+            <th>Professional Title</th>
             <th>Action</th>
         </tr>
         </thead>
           <tbody>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
-            <tr class="gradeX">
-                <td>01</td>
-                <td>John Doe</td>
-                <td>Super Admin</td>
-                <td>10 Oct, 2017</td>
-                <td>10 Oct, 2017</td>
-                <td class="center">
-                  <a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-sm btn-danger" href=""><i class="fa fa-times"></i></a>
-                </td>
-            </tr>
+          <?php $count =1; ?>
+          @foreach($employerList as $employer)
+              @if($employer->profile != null && $employer->profile != "")
+                <tr class="gradeX">
+                    <td>{{$count++}}</td>
+                    <td>{{$employer->fname}}{{$employer->lname}}</td>
+                    <td>{{$employer->profile->company_name}}</td>
+                    <td>{{$employer->profile->professional_title}}</td>
+                    <td class="center">
+                        <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i></a>
+                        <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" title="Freelancer Details"><i class="fa fa-eye"></i></a>
+                    </td>
+                </tr>
+              @endif
+          @endforeach
           </tbody>
         </table>
 
