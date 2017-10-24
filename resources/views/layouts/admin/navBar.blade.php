@@ -70,7 +70,6 @@
                     <li><a href="{{route('jobList')}}">Job List</a></li>
                     <li><a href="{{route('jobApproveList')}}">Job Approve List</a></li>
                     <li><a href="{{route('jobDisApproveList')}}">Job Disapprove List</a></li>
-                    {{--<li><a href="{{route('categoryList')}}">Category List</a></li>--}}
                 </ul>
             </li>
         </ul>
