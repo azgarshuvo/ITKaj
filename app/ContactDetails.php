@@ -23,4 +23,9 @@ class ContactDetails extends Model
     public function scopeGetJobId($query, $id){
         return $query->where('job_id', $id);
     }
+
+    public function milestone(){
+       // return $this->hasOne('App\Job','id','job_id');
+        return $this->hasMany('App\Milestone','contact_id','id');
+    }
 }

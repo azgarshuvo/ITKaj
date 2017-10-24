@@ -17,4 +17,5 @@ class JobInterested extends Model
     public function scopeInterestedjob($query, $id){
         return $query->where('job_id', $id);
     }
+
 }

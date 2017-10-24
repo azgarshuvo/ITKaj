@@ -126,9 +126,13 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
         Route::get('delete/disapprove/{id}', ['as' =>'jobDisapproveDelete', 'uses' => 'adminController\AdminJobController@getJobDisapproveDelete']);
 
 
-        Route::post('approve', ['as' =>'postJobApprove', 'uses' => 'adminController\AdminJobController@PostJobApprove']);
+        Route::post('job-approve', ['as' =>'postJobApprove', 'uses' => 'adminController\AdminJobController@PostJobApprove']);
+        Route::post('job-disapprove', ['as' =>'postJobDisapprove', 'uses' => 'adminController\AdminJobController@PostJobDisapprove']);
         Route::post('get-freelancer-list', ['as' =>'getFreelancerList', 'uses' => 'adminController\AdminJobController@getFreelancerList']);
         Route::post('freelancerAssign', ['as' =>'freelancerAssign', 'uses' => 'adminController\AdminJobController@FreelancerAssign']);
+
+        /*This route use for reomve freelancer from assign job contact*/
+        Route::get('remove-freelancer/{jobid}', ['as' =>'removeFreelancer', 'uses' => 'adminController\AdminJobController@FreelancerRemove']);
         Route::post('freelancerListAssign', ['as' =>'freelancerListAssign', 'uses' => 'adminController\AdminJobController@FreelancerListAssign']);
 
 

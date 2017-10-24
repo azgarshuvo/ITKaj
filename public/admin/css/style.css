@@ -5070,3 +5070,6 @@ border-radius: 4px;
 {
  max-width:300px;
 }
+.hidden{
+  display: none !important;
+}
