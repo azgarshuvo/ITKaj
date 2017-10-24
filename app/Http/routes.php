@@ -155,6 +155,7 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], 
     Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch','middleware' => 'freelancer']);
     Route::get('attachment/download', ['as' => 'attachmentDownload', 'uses' => 'JobController@getDownload']);
     Route::post('apply', ['as' =>'freelancerJobApply', 'uses' => 'JobInterestedController@JobApply','middleware' => 'freelancer']);
+    Route::post('interest-remove', ['as' =>'freelancerJobInterestRemove', 'uses' => 'JobInterestedController@deleteInterest','middleware' => 'freelancer']);
 
 
     /*Route for own job */

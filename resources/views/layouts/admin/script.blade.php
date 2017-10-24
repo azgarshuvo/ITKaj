@@ -30,25 +30,7 @@
 <script src="{{asset('admin/js/inspinia.js')}}"></script>
 <script src="{{asset('admin/js/plugins/pace/pace.min.js')}}"></script>
 
-{{--<!-- Chosen -->--}}
-{{--<script src="{{asset('admin/js/plugins/chosen/chosen.jquery.js')}}"></script>--}}
-{{--<!-- JSKnob -->--}}
-{{--<script src="{{asset('admin/js/plugins/jsKnob/jquery.knob.js')}}"></script>--}}
-{{--<!-- Input Mask-->--}}
-{{--<script src="{{asset('admin/js/plugins/jasny/jasny-bootstrap.min.js')}}"></script>--}}
-<!-- Data picker -->
 <script src="{{asset('admin/js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
-{{--<!-- NouSlider -->--}}
-{{--<script src="{{asset('admin/js/plugins/nouslider/jquery.nouislider.min.js')}}"></script>--}}
-{{--<!-- Switchery -->--}}
-{{--<script src="{{asset('admin/js/plugins/switchery/switchery.js')}}"></script>--}}
-{{--<!-- IonRangeSlider -->--}}
-{{--<script src="{{asset('admin/js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>--}}
-{{--<!-- iCheck -->--}}
-{{--<script src="{{asset('admin/js/plugins/iCheck/icheck.min.js')}}"></script>--}}
-{{--<!-- Color picker -->--}}
-{{--<script src="{{asset('admin/js/plugins/colorpicker/bootstrap-colorpicker.min.js')}}"></script>--}}
-<!-- Image cropper -->
 <script src="{{asset('admin/js/plugins/cropper/cropper.min.js')}}"></script>
 
 

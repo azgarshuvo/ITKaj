@@ -41,12 +41,12 @@
                                 {{--<span class="shc-total">Total: <strong>$0.00</strong></span>--}}
                             {{--</div>--}}
                         {{--</li>--}}
-                        <li class="menu-icons">
-                            <i class="menu-icons-style search search-close search-btn fa fa-search"></i>
-                            <div class="search-open">
-                                <input type="text" class="animated fadeIn form-control" placeholder="Start searching ...">
-                            </div>
-                        </li>
+                        {{--<li class="menu-icons">--}}
+                            {{--<i class="menu-icons-style search search-close search-btn fa fa-search"></i>--}}
+                            {{--<div class="search-open">--}}
+                                {{--<input type="text" class="animated fadeIn form-control" placeholder="Start searching ...">--}}
+                            {{--</div>--}}
+                        {{--</li>--}}
                     </ul>
                 </div>
                 <!-- End Header Inner Right -->
@@ -61,7 +61,7 @@
                         <!-- End Home -->
                         @if (Auth::check())
                             <!-- Profile -->
-                            <li><a href="{{route('profileOverall')}}" class="dropdown-toggle">Profile</a></li>
+                            <li><a href="{{route('myProfile')}}" class="dropdown-toggle">Profile</a></li>
                             <!-- End Profile -->
                             @if(Auth::user()->user_type=="employer")
                                 <!-- Create project -->

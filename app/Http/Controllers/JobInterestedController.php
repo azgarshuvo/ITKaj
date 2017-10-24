@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\JobInterested;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -74,6 +75,16 @@ class JobInterestedController extends Controller
             }
         }
         return $nameList;
+    }
+
+    public function deleteInterest(Request $request){
+        $interestedJob = JobInterested::Interestedjob($request->input('jobid'))->first();
+        if($interestedJob != null && $interestedJob != ""){
+            $interestedJob->delete();
+            return "interest removed";
+        }else
+            return "Project Not Found";
+
     }
 }
 

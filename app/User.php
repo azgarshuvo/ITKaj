@@ -61,6 +61,10 @@ class User extends Model implements AuthenticatableContract,
     {
         return $query->where('user_type', 'freelancer');
     }
+
+    public function scopeAllEmployer($query){
+        return $query->where('user_type', 'employer');
+    }
     public function freelancer(){
         return $this->hasOne('App\FreelancerSelectedForJob','freelancer_id','id');
     }

@@ -11,13 +11,14 @@ namespace App\Http\Controllers;
 
 use App\Categories;
 use App\Job;
+use App\User;
 
 class HomeController extends Controller{
 
     public function getHome(){
         $categories = Categories::all();
-        $jobs = Job::all();
-//        dd($jobs);
-        return view('front.landingPage', ['categories' => $categories]);
+        $employers = User::allEmployer()->with('profile')->get();
+        $projects = Job::orderBy('created_at','desc')->where('approved', 1)->take(6)->get();
+        return view('front.landingPage', ['categories' => $categories, 'projects' => $projects, 'employers' => $employers]);
     }
 }
