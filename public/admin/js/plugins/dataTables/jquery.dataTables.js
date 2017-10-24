@@ -8734,7 +8734,7 @@
 	);
 	
 	/*
-	 * States API methods
+	 * State API methods
 	 */
 	
 	_api_register( 'state()', function () {
@@ -12669,7 +12669,7 @@
 			"bSortClasses": null,
 	
 			/**
-			 * States saving enablement flag.
+			 * State saving enablement flag.
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
 			 *  @type boolean
@@ -13102,14 +13102,14 @@
 		"aoStateLoad": [],
 	
 		/**
-		 * States that was saved. Useful for back reference
+		 * State that was saved. Useful for back reference
 		 *  @type object
 		 *  @default null
 		 */
 		"oSavedState": null,
 	
 		/**
-		 * States that was loaded. Useful for back reference
+		 * State that was loaded. Useful for back reference
 		 *  @type object
 		 *  @default null
 		 */
@@ -14719,7 +14719,7 @@
 	 */
 
 	/**
-	 * States save event, fired when the table has changed state a new state save
+	 * State save event, fired when the table has changed state a new state save
 	 * is required. This event allows modification of the state saving object
 	 * prior to actually doing the save, including addition or other state
 	 * properties (for plug-ins) or modification of a DataTables core property.
@@ -14731,7 +14731,7 @@
 	 */
 
 	/**
-	 * States load event, fired when the table is loading state from the stored
+	 * State load event, fired when the table is loading state from the stored
 	 * data, but prior to the settings object being modified by the saved state
 	 * - allowing modification of the saved state is required or loading of
 	 * state for a plug-in.
@@ -14743,7 +14743,7 @@
 	 */
 
 	/**
-	 * States loaded event, fired when state has been loaded from stored data and
+	 * State loaded event, fired when state has been loaded from stored data and
 	 * the settings object has been modified by the loaded data.
 	 *  @name DataTable#stateLoaded.dt
 	 *  @event

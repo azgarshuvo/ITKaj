@@ -54,7 +54,7 @@ class SkillCrudController extends Controller
     public function getSkillDelete($id)
     {
         Skills::findOrFail($id)->delete();
-        Session::flash('success', 'Category deleted successfully!');
+        Session::flash('success', 'Skill deleted successfully!');
         return redirect()->route('skillList');
     }
 }
