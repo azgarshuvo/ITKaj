@@ -216,10 +216,10 @@
                                         <td class="experience_levelss{{$list->id}}">@if($list->profile->experience_level == 1) Beginner @elseif($list->profile->experience_level == 2)Intermediate Level @else Expert Level @endif</td>
                                         <td class="center">
                                             <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" title="Job Details"><i class="fa fa-eye"></i></a>
-                                            {{--<button onclick="getFreelancer({{$list->id}})" type="button" class="btn btn-sm btn-info" name="addButton"><i class="fa fa-plus"></i> Add</button>--}}
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#secondModal">
-                                                Add
-                                            </button>
+                                            <button onclick="getFreelancer({{$list->id}})" type="button" class="btn btn-sm btn-info" name="addButton"><i class="fa fa-plus"></i> Add</button>
+                                            {{--<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#secondModal">--}}
+                                                {{--Add--}}
+                                            {{--</button>--}}
                                         </td>
                                     </tr>
                                      @endif

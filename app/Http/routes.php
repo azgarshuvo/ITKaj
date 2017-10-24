@@ -104,8 +104,15 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
 
 
 
-    Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
-    Route::get('employeer/list', ['as' =>'employeer_list', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
+    Route::get('freelancer/list', ['as' =>'freelancerList', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
+    Route::get('freelancer/delete/{id}', ['as' =>'freelancerDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerDelete']);
+    Route::get('freelancer/approve/list', ['as' =>'freelancerApproveList', 'uses' => 'adminController\AdminDashboardController@getFreelancerApproveList']);
+    Route::get('freelancer/approve/delete/{id}', ['as' =>'freelancerApproveDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerApproveDelete']);
+    Route::get('freelancer/disapprove/list', ['as' =>'freelancerDisapproveList', 'uses' => 'adminController\AdminDashboardController@getFreelancerDisapproveList']);
+    Route::get('freelancer/disapprove/delete{id}', ['as' =>'freelancerDisapproveDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerDisapproveDelete']);
+    Route::get('employeer/list', ['as' =>'employeerList', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
+    Route::get('employeer/approve/list', ['as' =>'employeerApproveList', 'uses' => 'adminController\AdminDashboardController@getEmployeerApproveList']);
+    Route::get('employeer/disapprove/list', ['as' =>'employeerDisapproveList', 'uses' => 'adminController\AdminDashboardController@getEmployeerDisapproveList']);
 
 
     /*admin job controller start*/
