@@ -22,6 +22,7 @@ class CreateEmploymentsTable extends Migration
             $table->date('start_date');
             $table->date('finish_date');
             $table->string('designation');
+            $table->boolean('current')->default(0);
             $table->timestamps();
         });
     }

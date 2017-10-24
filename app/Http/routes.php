@@ -220,10 +220,12 @@ Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], fun
 
 
 
-Route::any('paypal/checkout', 'PayPalController@getCheckout');
-Route::any('paypal/checkout/done', 'PayPalController@getDone');
-Route::any('paypal/checkout/cancel', 'PayPalController@getCancel');
-Route::any('paypal/create/web/profile', 'PayPalController@createWebProfile');
+// route for view/blade file
+Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PayPalController@payWithPaypal',));
+// route for post request
+Route::post('paypal', array('as' => 'paypal','uses' => 'PayPalController@postPaymentWithpaypal',));
+// route for check status responce
+Route::get('paypal', array('as' => 'status','uses' => 'PayPalController@getPaymentStatus',));
 
 
 

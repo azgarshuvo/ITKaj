@@ -190,7 +190,7 @@ class JobController extends Controller
         }
         $category = Categories::all();
 //        dd($interestedJobList);
-        return view('front.jobInterestedList', ['interestedJobList' => $interestedJobList, 'category' => $category]);
+        return view('front.jobInterestedList', ['interestedJobList' => $interestedJobList, 'category' => $category, 'interestedList' => $interestedList]);
     }
 
     /*Delete disaprove job*/

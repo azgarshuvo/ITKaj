@@ -20,6 +20,7 @@ class CreateEducationTable extends Migration
             $table->string('area_of_study');
             $table->date('start_date');
             $table->date('end_date');
+            $table->boolean('current')->default(0);
             $table->string('description');
             $table->timestamps();
         });
