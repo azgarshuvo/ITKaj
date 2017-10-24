@@ -5,6 +5,7 @@
  * Date: 14-Oct-17
  * Time: 04:46 PM
  */
+//dd($interestedJobList);
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -13,19 +14,6 @@
 @section('content')
    <div class="col-md-9">
     <div class="profile-body">
-        
-    {{--<!--=== Search Block Version 2 ===-->--}}
-    {{--<div class="search-block">--}}
-        {{--<div class="container">--}}
-            {{--<div class="col-md-12">--}}
-                {{--<h2>Search again</h2>--}}
-                {{--<div class="input-group">--}}
-                    {{--<input type="text" class="form-control"  id="jobSearch" placeholder="Search words with regular expressions ...">--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div><!--/container-->--}}
-    {{--<!--=== End Search Block Version 2 ===-->--}}
     <div class="content-sm">
         <!-- Begin Table Search Panel v1 -->
         <div class="table-search-v1 panel panel-dark margin-bottom-40" >
@@ -57,7 +45,7 @@
                         @foreach($interestedJobList as $interestedJob)
                         <tr>
                             <td>{{$interestedJob->name}}</td>
-                            <td>{{substr($interestedJob->description, 0, 100)}}...</td>
+                            <td>{{substr($interestedJob->description, 0, 30)}}...</td>
                             @if($category != null && $category != "")
                                 @foreach($category as $cat)
                                     @if($cat->id == $interestedJob->category_id)
@@ -65,19 +53,23 @@
                                     @endif
                                 @endforeach
                             @endif
-                            @if($interestedJob->admin_approve == 0)
-                                <td><span class="label label-info">Pending..</span></td>
-                            @endif
-                            @if($interestedJob->admin_approve == 1)
-                                <span class="label label-success">Approve</span>
-                            @endif
+                            @foreach($interestedList as $interest)
+                                @if($interest->job_id == $interestedJob->id)
+                                    @if($interest->admin_approve == 0)
+                                        <td><span class="label label-info">Pending</span></td>
+                                    @endif
+                                    @if($interest->admin_approve == 1)
+                                            <td><span class="label label-success">Approve</span></td>
+                                    @endif
+                                @endif
+                            @endforeach
                             <td>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <button class="btn btn-danger btn-xs" onclick="deleteInterest({{$interestedJob->id}})"><i class="fa fa-trash-o"></i> Delete</button>
                                     </div>
                                     <div class="col-md-4">
-                                        <button class="btn btn-info btn-xs"><i class="fa fa-share"></i> View</button>
+                                        <a href="{{route('JobDescription', ['job_number' => $interestedJob->id])}}"><button class="btn btn-info btn-xs"><i class="fa fa-share"></i> View</button></a>
                                     </div>
                                 </div>
                             </td>

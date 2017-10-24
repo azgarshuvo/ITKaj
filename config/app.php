@@ -145,9 +145,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Netshell\Paypal\PaypalServiceProvider::class,
-        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
-
     ],
 
     /*
@@ -195,8 +192,6 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Paypal'    => Netshell\Paypal\Facades\Paypal::class,
-        'Stripe'    => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
     ],
 
 ];

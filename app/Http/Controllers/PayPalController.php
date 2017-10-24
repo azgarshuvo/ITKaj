@@ -8,112 +8,164 @@
 
 namespace App\Http\Controllers;
 
+
+
+use App\Http\Requests;
 use Illuminate\Http\Request;
-use Paypal;
-use Illuminate\Support\Facades\Redirect;
+use Validator;
+use URL;
+use Session;
+use Redirect;
+use Input;
+
+/** All Paypal Details class **/
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\ExecutePayment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\Transaction;
 
 class PayPalController extends Controller{
 
-    private $_apiContext;
-
+    private $_api_context;
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
-        $this->_apiContext = Paypal::ApiContext(
-            config('services.paypal.client_id'),
-            config('services.paypal.secret'));
+//        parent::__construct();
 
-        $this->_apiContext->setConfig(array(
-            'mode' => 'sandbox',
-            'service.EndPoint' => 'https://api.sandbox.paypal.com',
-            'http.ConnectionTimeOut' => 30,
-            'log.LogEnabled' => true,
-            'log.FileName' => storage_path('logs/paypal.log'),
-            'log.LogLevel' => 'FINE'
-        ));
-
+        /** setup PayPal api context **/
+        $paypal_conf = \Config::get('paypal');
+        $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['sandbox_client_id'], $paypal_conf['sandbox_secret']));
+        $this->_api_context->setConfig($paypal_conf['settings']);
     }
 
-    public function getCheckout()
+    /**
+     * Show the application paywith paypalpage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function payWithPaypal()
     {
-        $payer = PayPal::Payer();
+        return view('front.payWithPaypalDemo');
+    }
+
+    /**
+     * Store a details of payment with paypal.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postPaymentWithpaypal(Request $request)
+    {
+        $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
-        $amount = PayPal:: Amount();
-        $amount->setCurrency('EUR');
-        $amount->setTotal(42); // This is the simple way,
-        // you can alternatively describe everything in the order separately;
-        // Reference the PayPal PHP REST SDK for details.
+        $item_1 = new Item();
 
-        $transaction = PayPal::Transaction();
-        $transaction->setAmount($amount);
-        $transaction->setDescription('What are you selling?');
+        $item_1->setName('Item 1') /** item name **/
+        ->setCurrency('USD')
+            ->setQuantity(1)
+            ->setPrice($request->get('amount')); /** unit price **/
 
-        $redirectUrls = PayPal:: RedirectUrls();
-        $redirectUrls->setReturnUrl(action('PayPalController@getDone'));
-        $redirectUrls->setCancelUrl(action('PayPalController@getCancel'));
+        $item_list = new ItemList();
+        $item_list->setItems(array($item_1));
 
-        $payment = PayPal::Payment();
-        $payment->setIntent('sale');
-        $payment->setPayer($payer);
-        $payment->setRedirectUrls($redirectUrls);
-        $payment->setTransactions(array($transaction));
+        $amount = new Amount();
+        $amount->setCurrency('USD')
+            ->setTotal($request->get('amount'));
 
-        $response = $payment->create($this->_apiContext);
-        $redirectUrl = $response->links[1]->href;
+        $transaction = new Transaction();
+        $transaction->setAmount($amount)
+            ->setItemList($item_list)
+            ->setDescription('Your transaction description');
 
-        return Redirect::to( $redirectUrl );
+        $redirect_urls = new RedirectUrls();
+        $redirect_urls->setReturnUrl(URL::route('status')) /** Specify return URL **/
+        ->setCancelUrl(URL::route('status'));
+
+        $payment = new Payment();
+        $payment->setIntent('Sale')
+            ->setPayer($payer)
+            ->setRedirectUrls($redirect_urls)
+            ->setTransactions(array($transaction));
+        /** dd($payment->create($this->_api_context));exit; **/
+        try {
+            $payment->create($this->_api_context);
+        } catch (\PayPal\Exception\PPConnectionException $ex) {
+            if (\Config::get('app.debug')) {
+                \Session::put('error','Connection timeout');
+                return Redirect::route('paywithpaypal');
+                /** echo "Exception: " . $ex->getMessage() . PHP_EOL; **/
+                /** $err_data = json_decode($ex->getData(), true); **/
+                /** exit; **/
+            } else {
+                \Session::put('error','Some error occur, sorry for inconvenient');
+                return Redirect::route('paywithpaypal');
+                /** die('Some error occur, sorry for inconvenient'); **/
+            }
+        }
+
+        foreach($payment->getLinks() as $link) {
+            if($link->getRel() == 'approval_url') {
+                $redirect_url = $link->getHref();
+                break;
+            }
+        }
+
+        /** add payment ID to session **/
+        Session::put('paypal_payment_id', $payment->getId());
+
+        if(isset($redirect_url)) {
+            /** redirect to paypal **/
+            return Redirect::away($redirect_url);
+        }
+
+        \Session::put('error','Unknown error occurred');
+        return Redirect::route('paywithpaypal');
     }
 
-    public function getDone(Request $request)
+    public function getPaymentStatus()
     {
-//        dd($request);
+        /** Get the payment ID before session clear **/
+        $payment_id = Session::get('paypal_payment_id');
+        /** clear the session payment ID **/
+        Session::forget('paypal_payment_id');
+        if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
+            \Session::put('error','Payment failed');
+            return Redirect::route('paywithpaypal');
+        }
+        $payment = Payment::get($payment_id, $this->_api_context);
+        /** PaymentExecution object includes information necessary **/
+        /** to execute a PayPal account payment. **/
+        /** The payer_id is added to the request query parameters **/
+        /** when the user is redirected from paypal back to your site **/
+        $execution = new PaymentExecution();
+        $execution->setPayerId(Input::get('PayerID'));
+        /**Execute the payment **/
+        $result = $payment->execute($execution, $this->_api_context);
+        /** dd($result);exit; /** DEBUG RESULT, remove it later **/
+        if ($result->getState() == 'approved') {
 
-        $id = $request->get('paymentId');
-        $token = $request->get('token');
-        $payer_id = $request->get('PayerID');
+            /** it's all right **/
+            /** Here Write your database logic like that insert record or value in database if you want **/
+            dd($result);
+            \Session::put('success','Payment success');
+            return Redirect::route('paywithpaypal');
+        }
+        \Session::put('error','Payment failed');
 
-        $payment = PayPal::getById($id, $this->_apiContext);
-
-        $paymentExecution = PayPal::PaymentExecution();
-
-        $paymentExecution->setPayerId($payer_id);
-        $executePayment = $payment->execute($paymentExecution, $this->_apiContext);
-
-//        dd($executePayment);
-
-        // Clear the shopping cart, write to database, send notifications, etc.
-
-        // Thank the user for the purchase
-        return 'checkout.done';
+        return Redirect::route('paywithpaypal');
     }
 
-    public function getCancel()
-    {
-        // Curse and humiliate the user for cancelling this most sacred payment (yours)
-        return 'checkout.cancel';
-    }
-
-    public function createWebProfile(){
-
-        $flowConfig = PayPal::FlowConfig();
-        $presentation = PayPal::Presentation();
-        $inputFields = PayPal::InputFields();
-        $webProfile = PayPal::WebProfile();
-        $flowConfig->setLandingPageType("Billing"); //Set the page type
-
-        $presentation->setLogoImage("https://www.example.com/images/logo.jpg")->setBrandName("Example ltd"); //NB: Paypal recommended to use https for the logo's address and the size set to 190x60.
-
-        $inputFields->setAllowNote(true)->setNoShipping(1)->setAddressOverride(0);
-
-        $webProfile->setName("Example " . uniqid())
-            ->setFlowConfig($flowConfig)
-            // Parameters for style and presentation.
-            ->setPresentation($presentation)
-            // Parameters for input field customization.
-            ->setInputFields($inputFields);
-
-        $createProfileResponse = $webProfile->create($this->_apiContext);
-
-        return $createProfileResponse->getId(); //The new webprofile's id
-    }
 }
