@@ -104,8 +104,18 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
 
 
 
-    Route::get('freelancer/list', ['as' =>'freelancer_list', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
-    Route::get('employeer/list', ['as' =>'employeer_list', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
+    Route::get('freelancer/list', ['as' =>'freelancerList', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
+    Route::get('freelancer/delete/{id}', ['as' =>'freelancerDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerDelete']);
+    Route::get('freelancer/approve/list', ['as' =>'freelancerApproveList', 'uses' => 'adminController\AdminDashboardController@getFreelancerApproveList']);
+    Route::get('freelancer/approve/delete/{id}', ['as' =>'freelancerApproveDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerApproveDelete']);
+    Route::get('freelancer/disapprove/list', ['as' =>'freelancerDisapproveList', 'uses' => 'adminController\AdminDashboardController@getFreelancerDisapproveList']);
+    Route::get('freelancer/disapprove/delete{id}', ['as' =>'freelancerDisapproveDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerDisapproveDelete']);
+    Route::get('employeer/list', ['as' =>'employeerList', 'uses' => 'adminController\AdminDashboardController@getEmployeerList']);
+    Route::get('employeer/delete/{id}', ['as' =>'employeerDelete', 'uses' => 'adminController\AdminDashboardController@getEmployeerDelete']);
+    Route::get('employeer/approve/list', ['as' =>'employeerApproveList', 'uses' => 'adminController\AdminDashboardController@getEmployeerApproveList']);
+    Route::get('employeer/approve/delete/{id}', ['as' =>'employeerApproveDelete', 'uses' => 'adminController\AdminDashboardController@getEmployeerApproveDelete']);
+    Route::get('employeer/disapprove/list', ['as' =>'employeerDisapproveList', 'uses' => 'adminController\AdminDashboardController@getEmployeerDisapproveList']);
+    Route::get('employeer/disapprove/delete/{id}', ['as' =>'employeerDisapproveDelete', 'uses' => 'adminController\AdminDashboardController@getEmployeerDisapproveDelete']);
 
 
     /*admin job controller start*/
@@ -126,9 +136,13 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
         Route::get('delete/disapprove/{id}', ['as' =>'jobDisapproveDelete', 'uses' => 'adminController\AdminJobController@getJobDisapproveDelete']);
 
 
-        Route::post('approve', ['as' =>'postJobApprove', 'uses' => 'adminController\AdminJobController@PostJobApprove']);
+        Route::post('job-approve', ['as' =>'postJobApprove', 'uses' => 'adminController\AdminJobController@PostJobApprove']);
+        Route::post('job-disapprove', ['as' =>'postJobDisapprove', 'uses' => 'adminController\AdminJobController@PostJobDisapprove']);
         Route::post('get-freelancer-list', ['as' =>'getFreelancerList', 'uses' => 'adminController\AdminJobController@getFreelancerList']);
         Route::post('freelancerAssign', ['as' =>'freelancerAssign', 'uses' => 'adminController\AdminJobController@FreelancerAssign']);
+
+        /*This route use for reomve freelancer from assign job contact*/
+        Route::get('remove-freelancer/{jobid}', ['as' =>'removeFreelancer', 'uses' => 'adminController\AdminJobController@FreelancerRemove']);
         Route::post('freelancerListAssign', ['as' =>'freelancerListAssign', 'uses' => 'adminController\AdminJobController@FreelancerListAssign']);
 
 
@@ -209,10 +223,12 @@ Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], fun
 
 
 
-Route::any('paypal/checkout', 'PayPalController@getCheckout');
-Route::any('paypal/checkout/done', 'PayPalController@getDone');
-Route::any('paypal/checkout/cancel', 'PayPalController@getCancel');
-Route::any('paypal/create/web/profile', 'PayPalController@createWebProfile');
+// route for view/blade file
+Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PayPalController@payWithPaypal',));
+// route for post request
+Route::post('paypal', array('as' => 'paypal','uses' => 'PayPalController@postPaymentWithpaypal',));
+// route for check status responce
+Route::get('paypal', array('as' => 'status','uses' => 'PayPalController@getPaymentStatus',));
 
 
 

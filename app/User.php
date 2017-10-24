@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['fname','lname','username', 'email', 'user_type','admin_user_type', 'password','verified','is_complete','verification_token'];
+    protected $fillable = ['fname','lname','username', 'email', 'user_type','admin_user_type', 'password','verified','is_complete', 'admin_approve', 'verification_token'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -67,5 +67,20 @@ class User extends Model implements AuthenticatableContract,
     }
     public function freelancer(){
         return $this->hasOne('App\FreelancerSelectedForJob','freelancer_id','id');
+    }
+    public function scopeFreelancerApproveList($query){
+        return $query->where(['user_type'=>'freelancer', 'admin_approve' => 1]);
+    }
+    public function scopeFreelancerDisapproveList($query){
+        return $query->where(['user_type'=>'freelancer', 'admin_approve'=>0]);
+    }
+    public function scopeEmployeer($query){
+        return $query->where('user_type', 'employer');
+    }
+    public function scopeEmployerApproveList($query){
+        return $query->where(['user_type'=>'employer', 'admin_approve' => 1]);
+    }
+    public function scopeEmployerDisapproveList($query){
+        return $query->where(['user_type'=>'employer', 'admin_approve' => 0]);
     }
 }

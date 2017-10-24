@@ -40,9 +40,9 @@ class MilestoneController extends Controller
 
 
         $this->validate($request,[
-            'milestone_title'=>'required|string|max:255|min:3|unique:milestones,milestone_title',
+            'milestone_title'=>'required|string|max:255|min:3',
             'description'=>'required|min:5',
-            'deadline'=>'required|date_format:Y-m-d|after:today',
+            'deadline'=>'required|date_format:Y-m-d|after:today|before:'.$contact->contact_end,
             'fund_release'=>'required',
 
         ],[
@@ -51,6 +51,7 @@ class MilestoneController extends Controller
             'deadline.required'=>'Deadline date is required',
             'deadline.date_format'=>'Deadline date is invalid format',
             'deadline.after'=>'Deadline date is invalid',
+            'deadline.before'=>'Deadline date is invalid',
             'fund_release.required'=>'Fund Release is required',
         ]);
         $milestone_title = $request->input('milestone_title');
