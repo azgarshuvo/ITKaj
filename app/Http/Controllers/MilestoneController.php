@@ -38,11 +38,11 @@ class MilestoneController extends Controller
 
         $jobCost = Job::where(['id'=>$jobId])->first()->project_cost;
 
-
+        $date = strtotime("+1 day", strtotime($contact->contact_end));
         $this->validate($request,[
             'milestone_title'=>'required|string|max:255|min:3',
             'description'=>'required|min:5',
-            'deadline'=>'required|date_format:Y-m-d|after:today|before:'.$contact->contact_end,
+            'deadline'=>'required|date_format:Y-m-d|after:today|before:'.date("Y-m-d", $date),
             'fund_release'=>'required',
 
         ],[

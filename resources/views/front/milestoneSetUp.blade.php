@@ -321,6 +321,7 @@
             }
 
             function mileStoneUpdate() {
+                $("#loader").addClass("loading");
                 var id = $("#milestoneID").val();
                 var title = $("#milestoneTitle").val();
                 var description = $("#mileStoneDescription").val();
@@ -353,7 +354,7 @@
                         else {
                             $('.displayUpdateinfo').html(data);
                         }
-
+                        $("#loader").removeClass("loading");
                     })
             }
         </script>
