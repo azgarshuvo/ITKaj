@@ -164,7 +164,7 @@ class PayPalController extends Controller{
             $milestone = Milestone::find(intval(Session::get('milestoneId')));
             $milestone->status = 0;
             $milestone->update();
-            
+
             return Redirect::route('setupMilestone', [$jobId]);
         }
         $payment = Payment::get($payment_id, $this->_api_context);
