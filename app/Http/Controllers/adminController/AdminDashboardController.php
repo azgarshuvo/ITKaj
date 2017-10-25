@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\UserProfile;
 use App\Categories;
+use App\Employments;
+use App\Education;
 use Session;
 
 class AdminDashboardController extends Controller{
@@ -32,9 +34,13 @@ class AdminDashboardController extends Controller{
         return view('admin.freelancerList', ['freelancerList'=>$freelancerList]);
     }
     public function getFreelancerDelete($id){
-//        User::findOrFail($id)->delete();
-        $user= User::findUser($id)->first();
-        $user->delete();
+        User::findOrFail($id)->delete();
+        $profile = UserProfile::FindUserProfile($id);
+        $profile->delete();
+        $education = Education::Education($id);
+        $education->delete();
+        $employment = Employments::Employment($id);
+        $employment->delete();
 
         Session::flash('success', 'Freelancer deleted successfully!');
         return redirect()->route('freelancerList');
@@ -45,6 +51,13 @@ class AdminDashboardController extends Controller{
     }
     public function getFreelancerApproveDelete($id){
         User::findOrFail($id)->delete();
+        $profile = UserProfile::FindUserProfile($id);
+        $profile->delete();
+        $education = Education::Education($id);
+        $education->delete();
+        $employment = Employments::Employment($id);
+        $employment->delete();
+
         Session::flash('success', 'Freelancer deleted successfully!');
         return redirect()->route('freelancerApproveList');
     }
@@ -54,6 +67,14 @@ class AdminDashboardController extends Controller{
     }
     public function getFreelancerDisapproveDelete($id){
         User::findOrFail($id)->delete();
+        $profile = UserProfile::FindUserProfile($id);
+        $profile->delete();
+        $education = Education::Education($id);
+        $education->delete();
+        $employment = Employments::Employment($id);
+        $employment->delete();
+
+
         Session::flash('success', 'Freelancer deleted successfully!');
         return redirect()->route('freelancerDisapproveList');
     }
@@ -65,13 +86,61 @@ class AdminDashboardController extends Controller{
         $employerList = User::Employeer()->with('profile')->get();
         return view('admin.employeerList',['employerList'=>$employerList]);
     }
+
+    public function getEmployeerDelete($id){
+        User::findOrFail($id)->delete();
+        $profile = UserProfile::FindUserProfile($id);
+        $profile->delete();
+        $education = Education::Education($id);
+        $education->delete();
+        $employment = Employments::Employment($id);
+        $employment->delete();
+
+
+        Session::flash('success', 'Employer deleted successfully!');
+        return redirect()->route('employeerList');
+    }
+
+
     public function getEmployeerApproveList(){
         $employerApproveList = User::EmployerApproveList()->with('profile')->get();
         return view('admin.employerApproveList', ['employerApproveList'=>$employerApproveList]);
     }
+
+
+    public function getEmployeerApproveDelete($id){
+        User::findOrFail($id)->delete();
+        $profile = UserProfile::FindUserProfile($id);
+        $profile->delete();
+        $education = Education::Education($id);
+        $education->delete();
+        $employment = Employments::Employment($id);
+        $employment->delete();
+
+
+        Session::flash('success', 'Employer deleted successfully!');
+        return redirect()->route('employeerApproveList');
+    }
+
+
     public function getEmployeerDisapproveList(){
         $employerDisapproveList = User::EmployerDisapproveList()->with('profile')->get();
         return view('admin.employerDisapproveList', ['employerDisapproveList'=>$employerDisapproveList]);
+    }
+
+
+    public function getEmployeerDisapproveDelete($id){
+        User::findOrFail($id)->delete();
+        $profile = UserProfile::FindUserProfile($id);
+        $profile->delete();
+        $education = Education::Education($id);
+        $education->delete();
+        $employment = Employments::Employment($id);
+        $employment->delete();
+
+
+        Session::flash('success', 'Employer deleted successfully!');
+        return redirect()->route('employeerDisapproveList');
     }
 
 }

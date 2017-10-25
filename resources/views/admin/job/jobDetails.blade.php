@@ -6,7 +6,6 @@
  * Time: 10:56 AM
  */
 
-//dd($jobDetails);
 ?>
 
 @extends('layouts.admin.master')
@@ -297,10 +296,11 @@
 
             {{--Total Freelancer List End--}}
 
-            {{--Total Freelancer List Start--}}
-            {{--<div class="col-md-12">
+            {{--Milestone List Start--}}
+            @if($contact)
+            <div class="col-md-12">
                 <div class="ibox-title">
-                    <h5>Freelancer List</h5>
+                    <h5>Milestone List for This Job</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -315,36 +315,47 @@
                             <th>Milestone Title</th>
                             <th>Description</th>
                             <th>Experience Level</th>
+                            <th>Fund Release</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php  $count = 1; ?>
-                        @foreach($freelancerList as $list)
-                            @if($list->id != $jobDetails->selected_for_job)
-                                @if($list->profile != null || $list->profile != '')
-                                    <tr class="gradeX removeData{{$list->id}}">
-                                        <td>{{$count++}}</td>
-                                        <td class="name{{$list->id}}">{{$list->fname}}{{$list->lname}}</td>
-                                        <td class="skills{{$list->id}}">{{$list->profile->skills}}</td>
-                                        <td class="experience_level{{$list->id}}">@if($list->profile->experience_level == 1) Beginner @elseif($list->profile->experience_level == 2)Intermediate Level @else Expert Level @endif</td>
-                                        <td class="center">
-                                            <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" title="Job Details"><i class="fa fa-eye"></i></a>
-                                            <button onclick="openModal({{$list->id}})" type="button" class="btn btn-sm btn-info" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                            <button id="clickModal" type="button" class="hidden" data-toggle="modal" data-target="#secondModal">
+                            @if(sizeof($contact)>=1)
+                                <?php  $count = 1; ?>
+                                @foreach($contact as $milestoneList)
 
-                                            </button>
+                                    @foreach($milestoneList->milestone as $milestone)
+
+                                    <tr class="gradeX removeData{{$milestone->id}}">
+                                        <td>{{$count++}}</td>
+                                        <td class="name{{$milestone->id}}">{{$milestone->milestone_title}}</td>
+                                        <td class="skills{{$milestone->id}}">{{$milestone->milestone_description}}</td>
+                                        <td class="experience_level{{$milestone->id}}">{{$milestone->deadline}}</td>
+                                        <td class="fund_level{{$milestone->id}}">{{$milestone->fund_release}}</td>
+                                        <td class="center">
+                                            @if($milestone->status==0)
+                                                <span class="bg-color-orange btn-primary padding-5-8">Not Released</span>
+
+                                            @elseif($milestone->status==1)
+                                                <button onclick="transerFund({{$milestone->id.",".$milestone->fund_release}})"
+                                                        type="button" class="btn btn-success btn-xs" name="showButton">Transfer
+                                                    Transfer
+                                                </button>
+                                            @else
+                                                <span class="bg-color-orange padding-5-8">Transferred</span>
+                                            @endif
                                         </td>
                                     </tr>
-                                @endif
+                                        @endforeach
+
+                                @endforeach
                             @endif
-                        @endforeach
                         </tbody>
                     </table>
                 </div>
-            </div>--}}
-
-            {{--Total Freelancer List End--}}
+            </div>
+            @endif
+            {{--Milestone List End--}}
 
 
             {{--Second Modal Start Here--}}

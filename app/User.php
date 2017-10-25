@@ -83,6 +83,4 @@ class User extends Model implements AuthenticatableContract,
     public function scopeEmployerDisapproveList($query){
         return $query->where(['user_type'=>'employer', 'admin_approve' => 0]);
     }
-
-
 }
