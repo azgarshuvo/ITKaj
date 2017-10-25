@@ -16,6 +16,7 @@ $emps = (Auth::User()->employment);
 @section('content')
 {{--{{dd($countries[17]->name)}}--}}
     <!-- Profile Content -->
+
     <div class="col-md-9">
         <div class="profile-body margin-bottom-20">
             <div class="tab-v1">
@@ -785,6 +786,7 @@ $emps = (Auth::User()->employment);
 
         $("#password_submit").click(function(event){
             event.preventDefault();
+            $("#loader").addClass("loading");
             var c_password = $("#c_password").val();
             var password = $("#password").val();
             var password_confirm = $("#password_confirmation").val();
@@ -797,6 +799,7 @@ $emps = (Auth::User()->employment);
                 },
                 function(data, status){
                     $("#ajax_message").html(data);
+                    $("#loader").removeClass("loading");
                     return false;
                     //alert("Data: " + data + "\nStatus: " + status);
                 });
@@ -870,7 +873,7 @@ $emps = (Auth::User()->employment);
 
         $("#infoUpdate").click(function(event){
             event.preventDefault();
-
+            $("#loader").addClass("loading");
             $.post("{{route('changeProfile')}}",
                 {
                     _token: '{{csrf_token()}}',
@@ -893,6 +896,7 @@ $emps = (Auth::User()->employment);
                 },
                 function(data, status){
                     $("#profile_status").html(data);
+                    $("#loader").removeClass("loading");
                     //alert("Data: " + data + "\nStatus: " + status);
                 });
             $('input[type=text]').each(function(){
@@ -911,6 +915,7 @@ $emps = (Auth::User()->employment);
     <script type="text/javascript">
         $("#addEducation").click(function(e){
             e.preventDefault();
+            $("#loader").addClass("loading");
             var institution = $("#institution").val();
             var degree = $("#degree").val();
             var study_area = $("#study_area").val();
@@ -940,6 +945,7 @@ $emps = (Auth::User()->employment);
                     $("#finish").val("");
                     $("#description").val("");
                     $("#closeModal").click();
+                    $("#loader").removeClass("loading");
                 });
         });
     </script>
@@ -948,6 +954,7 @@ $emps = (Auth::User()->employment);
     <script type="text/javascript">
         $("#addEmployment").click(function(e){
             e.preventDefault();
+            $("#loader").addClass("loading");
             var company_name = $('#company').val();
             var country = $('#country_name').val();
             var city = $('#city').val();
@@ -978,8 +985,8 @@ $emps = (Auth::User()->employment);
                 $('#start_date').val("");
                 $('#finish_date').val("");
                 $('#designation').val("");
-
                 $('#closeEmploymentModal').click();
+                $("#loader").removeClass("loading");
             });
         });
 

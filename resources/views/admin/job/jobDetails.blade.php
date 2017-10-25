@@ -338,7 +338,7 @@
 
                                             @elseif($milestone->status==1)
                         <button onclick="transerFund({{$milestone->id.",".$milestone->fund_release.",".$milestone->contact_id}})"
-                                                        type="button" class="btn btn-success btn-xs padding-5-8"  name="showButton">Transfer
+                                                        type="button" class="btn btn-primary btn-xs padding-5-8"  name="showButton">Transfer Fund
                                                 </button>
                                             @else
                                                 <span class="btn-success padding-5-8">Transferred</span>
