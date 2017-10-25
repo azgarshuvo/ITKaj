@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaypalPayment extends Model{
 
-    protected $table = 'jobs';
+    protected $table = 'paypal_payment';
 
-    protected $fillable = ['user_id', 'payment_id', 'state', 'cart', 'email', 'payer_id', 'total', 'currency', 'description'];
+    protected $fillable = ['user_id', 'payment_id', 'state', 'transaction_state','cart', 'email', 'payer_id', 'total', 'currency', 'description'];
 }

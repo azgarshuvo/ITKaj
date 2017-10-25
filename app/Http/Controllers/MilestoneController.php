@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class MilestoneController extends Controller
 {
@@ -89,6 +90,10 @@ class MilestoneController extends Controller
             'release_amount.min'=>"Milestone release doesn't complete",
         ]);
         $milestoneID = $request->input('milestone_id');
+
+        Session::put('milestoneId', $milestoneID);
+
+
         $releaseAmount = $request->input('release_amount');
         Milestone::where(['employee_id'=>$this->userId,'id'=>$milestoneID,'fund_release'=>$releaseAmount,'status'=>0])->update(['status'=>1]);
     }
@@ -97,7 +102,6 @@ class MilestoneController extends Controller
     public function getFreelancerMilestone($jobId){
 
         $milestone = ContactDetails::GetJobId($jobId)->with(['millstone', 'job'])->first();
-
         return view('front.milestoneFreelancer',['milestone'=>$milestone]);
     }
 
