@@ -34,7 +34,7 @@
                             <th>SL No.</th>
                             <th>Job Title</th>
                             <th>Description</th>
-                            <th>Category</th>
+                            <th>Project Cost</th>
                             <th>Approve</th>
                             <th>Action</th>
                         </tr>
@@ -46,13 +46,13 @@
                                 <td>{{$count++}}</td>
                                 <td>{{$job->name}}</td>
                                 <td>{{$job->description}}</td>
-                                <td>{{$job->category_id}}</td>
+                                <td>{{$job->project_cost}}</td>
                                 <td>@if($job->approved==0) Not Approved @else Approve @endif</td>
                                 <td class="center">
                                     <a class="btn btn-sm btn-info" href="{{ route('jobDetails', [$job->id])}}" data-toggle="tooltip" data-placement="left" title="Job Details"><i class="fa fa-eye"></i></a>
                                     <a class="btn btn-sm btn-primary" href="{{ route('jobEdit', [$job->id])}}"  data-toggle="tooltip" title="Job Edit"><i class="fa fa-edit"></i></a>
                                     <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('jobDelete', [$job->id])}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
-                                    <button onclick="jobApprove({{$job->id}})" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Job Approve"><i class="fa fa-check"></i></button>
+                                    {{--<button onclick="jobApprove({{$job->id}})" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Job Approve"><i class="fa fa-check"></i></button>--}}
                                 </td>
                             </tr>
                         @endforeach

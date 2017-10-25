@@ -97,10 +97,11 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
     Route::get('skill/list', ['as' =>'skillList', 'uses' => 'adminController\SkillCrudController@getSkillList']);
     Route::get('skill/edit/{id}', ['as' =>'skillEdit', 'uses' => 'adminController\SkillCrudController@getSkillEdit']);
     Route::post('skill/update/{id}', ['as' =>'skillUpdate', 'uses' => 'adminController\SkillCrudController@postSkillUpdate']);
+
     Route::get('skill/Delete/{id}', ['as' =>'skillDelete', 'uses' => 'adminController\SkillCrudController@getSkillDelete']);
 
-
-
+    //admin milestone release
+    Route::post('milestone-transfer', ['as' =>'fundTransfer', 'uses' => 'adminController\MilestoneController@MilestoneFundTransfer']);
 
 
 
