@@ -170,6 +170,23 @@ class AdminJobController extends Controller
         return view('admin.jobListDisapprove',['jobList'=>$jobList]);
     }
 
+    //Interested Job List
+    public function getInterestedJoblist(){
+        $information = JobInterested::with(['user','job'])->get();
+        return view('admin.interestedJobList', ['information'=>$information]);
+    }
+
+    public function getInterestedApproveJoblist(){
+        $approveInformation = JobInterested::Approve()->with(['user', 'job'])->get();
+        return view('admin.interestedApproveJobList', ['approveInformation'=>$approveInformation]);
+    }
+
+    public function getInterestedDisapproveJoblist(){
+        $disapproveInformation = JobInterested::Disapprove()->with(['user', 'job'])->get();
+        return view('admin.interestedJobDisapproveList', ['disapproveInformation'=>$disapproveInformation]);
+    }
+
+
     /*Admin job approve by post ajax*/
     public function PostJobApprove(Request $request){
         $jobId = $request->input('jobId');

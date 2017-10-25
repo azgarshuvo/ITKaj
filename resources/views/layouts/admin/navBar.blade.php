@@ -69,11 +69,19 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Job</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Jobs</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{route('jobList')}}">Job List</a></li>
                     <li><a href="{{route('jobApproveList')}}">Job Approve List</a></li>
                     <li><a href="{{route('jobDisApproveList')}}">Job Disapprove List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Interested Jobs</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{route('interestedList')}}">Interested Job List</a></li>
+                    <li><a href="{{route('interestedApproveList')}}">Interested Job Approve List</a></li>
+                    <li><a href="{{route('interestedDisapproveList')}}">Interested Job Disapprove List</a></li>
                 </ul>
             </li>
         </ul>

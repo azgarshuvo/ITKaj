@@ -34,6 +34,10 @@ class Job extends Model
         return $this->hasMany('App\FreelancerSelectedForJob', 'job_id', 'id');
     }
 
+    public function scopeFindJob($query, $id){
+        return $query->where('id', '=', $id);
+    }
+
 
 
 

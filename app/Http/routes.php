@@ -135,6 +135,11 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
         Route::post('update/disapprove/{id}', ['as' =>'jobDisapproveUpdate', 'uses' => 'adminController\AdminJobController@postJobDisapproveUpdate']);
         Route::get('delete/disapprove/{id}', ['as' =>'jobDisapproveDelete', 'uses' => 'adminController\AdminJobController@getJobDisapproveDelete']);
 
+        Route::get('interested/list', ['as' =>'interestedList', 'uses' => 'adminController\AdminJobController@getInterestedJoblist']);
+        Route::get('interested/approve/list', ['as' =>'interestedApproveList', 'uses' => 'adminController\AdminJobController@getInterestedApproveJoblist']);
+        Route::get('interested/disapprove/list', ['as' =>'interestedDisapproveList', 'uses' => 'adminController\AdminJobController@getInterestedDisapproveJoblist']);
+
+
 
         Route::post('job-approve', ['as' =>'postJobApprove', 'uses' => 'adminController\AdminJobController@PostJobApprove']);
         Route::post('job-disapprove', ['as' =>'postJobDisapprove', 'uses' => 'adminController\AdminJobController@PostJobDisapprove']);

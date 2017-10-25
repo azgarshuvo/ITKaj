@@ -19,8 +19,8 @@ class CreateJobInterestedsTable extends Migration
             $table->integer('project_duration');
             $table->integer('project_cost');
             $table->text('comments');
-            $table->boolean('admin_approve')->default(0);
             $table->string('attachement');
+            $table->boolean('admin_approve')->default(0);
             $table->timestamps();
         });
     }
