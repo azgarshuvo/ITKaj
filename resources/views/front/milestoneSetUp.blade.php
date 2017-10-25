@@ -26,11 +26,13 @@
         @if(session()->has('success'))
             <p class="alert alert-success">
                 {{ session()->get('success') }}
+                <?php \Illuminate\Support\Facades\Session::forget('success')?>
             </p>
         @endif
         @if(session()->has('error'))
             <p class="alert alert-success">
                 {{ session()->get('error') }}
+                <?php \Illuminate\Support\Facades\Session::forget('error')?>
             </p>
         @endif
 
