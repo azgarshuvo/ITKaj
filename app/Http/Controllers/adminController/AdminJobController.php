@@ -321,6 +321,12 @@ class AdminJobController extends Controller
 
     }
 
+    //Interested freelancer profile
+
+    public function getInterestedFreelancerDetails(){
+        return view('admin.selectedFreelancerProfile');
+    }
+
 
 //    public function getSelectedFreelancerList(){
 //        $selectedList = DB::table('users')

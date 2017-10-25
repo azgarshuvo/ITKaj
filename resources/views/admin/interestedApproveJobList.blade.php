@@ -43,7 +43,7 @@
 
                             <tr class="gradeX">
                                 <td>{{$count++}}</td>
-                                <td>{{$user->fname}}{{$user->lname}}</td>
+                                <td><a href="{{ route('interestedFreelancerDetails', $user->id)}}">{{$user->fname}}{{$user->lname}}</a></td>
                                 <td><a href="{{ route('jobDetails', [$interested->job->id])}}"> {{$interested->job->name}}</a></td>
                                 <td>{{$interested->project_duration}}</td>
                                 <td>{{$interested->project_cost}}</td>
