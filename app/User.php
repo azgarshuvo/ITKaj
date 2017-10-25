@@ -48,9 +48,14 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\Employments');
     }
+//    public function job($id)
+//    {
+//        return $this->hasMany('App\Job');
+//    }
+
 
     public function scopeFindUser($query, $id){
-      return $query->where('id', '=', $id);
+      return $query->where('id',  $id);
     }
 
     public function scopeFreelancer($query)
@@ -83,4 +88,6 @@ class User extends Model implements AuthenticatableContract,
     public function scopeEmployerDisapproveList($query){
         return $query->where(['user_type'=>'employer', 'admin_approve' => 0]);
     }
+
+
 }

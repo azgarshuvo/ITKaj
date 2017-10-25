@@ -106,6 +106,7 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
 
 
     Route::get('freelancer/list', ['as' =>'freelancerList', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
+    Route::get('freelancer-details/{freelancerid}', ['as' =>'freelancerDetails', 'uses' => 'adminController\AdminDashboardController@getFreelancerDetails']);
     Route::get('freelancer/delete/{id}', ['as' =>'freelancerDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerDelete']);
     Route::get('freelancer/approve/list', ['as' =>'freelancerApproveList', 'uses' => 'adminController\AdminDashboardController@getFreelancerApproveList']);
     Route::get('freelancer/approve/delete/{id}', ['as' =>'freelancerApproveDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerApproveDelete']);
