@@ -17,6 +17,7 @@ class PaypalPayment extends Migration
             $table->integer('employer_id');
             $table->integer('payment_id');
             $table->string('state');
+            $table->string('transaction_state');
             $table->string('cart');
             $table->string('email');
             $table->string('payer_id');

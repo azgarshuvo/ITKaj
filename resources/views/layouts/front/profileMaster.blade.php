@@ -12,10 +12,15 @@
 <head>
     @include('layouts.front.head')
 </head>
-<body>
+<body class="">
+<div id="loader"></div>
 <div class="wrapper">
+
     @include('layouts.front.header')
     <div class="container content profile">
+
+
+
         <div class="row">
             @include('layouts.front.profileLeftBar')
             @yield('content')
@@ -24,6 +29,11 @@
     @include('layouts.front.footer')
     @include('layouts.front.script')
     @yield('script')
+    {{--<div class="load">
+
+        <img style="display: block" src="{{asset('assets/loading.gif')}}">
+    </div>--}}
+
 </div>
 </body>
 </html>

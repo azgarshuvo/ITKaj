@@ -5,7 +5,6 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
-
 ?>
 
 @extends('layouts.front.profileMaster')
@@ -24,6 +23,19 @@
                 {{ session()->get('message') }}
             </p>
         @endif
+        @if(session()->has('success'))
+            <p class="alert alert-success">
+                {{ session()->get('success') }}
+                <?php \Illuminate\Support\Facades\Session::forget('success')?>
+            </p>
+        @endif
+        @if(session()->has('error'))
+            <p class="alert alert-success">
+                {{ session()->get('error') }}
+                <?php \Illuminate\Support\Facades\Session::forget('error')?>
+            </p>
+        @endif
+
         @if (count($errors) > 0)
             <p class="alert alert-danger">
                 @foreach ($errors->all() as $error)
@@ -60,7 +72,7 @@
                                 <td class="text-center melestoneFund{{$milestones->id}}">{{$milestones->fund_release}}</td>
                                 <td class="text-center {{$milestones->id."_release_status"}}">
                                     @if($milestones->status==0)
-                                        <button onclick="releaseFund({{$milestones->id.",".$milestones->fund_release}})"
+                                        <button onclick="releaseFund({{$milestones->id.",".$milestones->fund_release.",". $milestone->job_id}})"
                                                 type="button" class="btn btn-success btn-xs" name="showButton"><i
                                                     class="fa fa-share"></i>Release
                                         </button>
@@ -224,7 +236,6 @@
         </div>
     </div>
         <!--=== Job Description ===-->
-
         <!--=== End Job Description ===-->
         <script type="text/javascript">
             /*Delete milestone by id*/
@@ -262,7 +273,8 @@
                 $("#dropId").val(id);
             }
 
-            function releaseFund(id, releaseAmount) {
+            function releaseFund(id, releaseAmount, jobId) {
+                $("#loader").addClass("loading");
                 $.post("{{route('releaseFund')}}",
                     {
                         _token: '{{csrf_token()}}',
@@ -274,6 +286,9 @@
                         var error = "<p class='alert alert-success'>Milestone release success</p>"
                         $('.message_show').html(error);
                         $("." + id + "_release_status").html('<span class="bg-color-blue padding-5-8">Released</span>');
+
+                        $.redirect('{{route("paypal")}}', {'amount': releaseAmount, 'jobId': jobId,  '_token': '{{ csrf_token()}}'});
+
                     })
                     .fail(function (response) {
                         var error = "<p class='alert alert-danger'>Milestone release doesn't complete</p>"
@@ -282,32 +297,7 @@
 
             }
 
-            /*$(document).ready(function () {
-                $(aId + ' .panel-collapse.in').collapse('hide');
 
-                $(".toggle-accordion").on("click", function () {
-                    var accordionId = $(this).attr("accordion-id"),
-                        numPanelOpen = $(accordionId + ' .collapse.in').length;
-
-                    $(this).toggleClass("");
-
-                    if (numPanelOpen == 0) {
-                        openAllPanels(accordionId);
-                    } else {
-                        closeAllPanels(accordionId);
-                    }
-                })
-
-                openAllPanels = function (aId) {
-                    console.log("setAllPanelOpen");
-                    $(aId + ' .panel-collapse:not(".in")').collapse('show');
-                }
-                closeAllPanels = function (aId) {
-                    console.log("setAllPanelclose");
-                    $(aId + ' .panel-collapse.in').collapse('hide');
-                }
-
-            });*/
 
             function modalOpen(id, title, description, deadline, fund, contact_id) {
                 $('.displayUpdateinfo').html("");
@@ -321,6 +311,7 @@
             }
 
             function mileStoneUpdate() {
+                $("#loader").addClass("loading");
                 var id = $("#milestoneID").val();
                 var title = $("#milestoneTitle").val();
                 var description = $("#mileStoneDescription").val();
@@ -353,7 +344,7 @@
                         else {
                             $('.displayUpdateinfo').html(data);
                         }
-
+                        $("#loader").removeClass("loading");
                     })
             }
         </script>

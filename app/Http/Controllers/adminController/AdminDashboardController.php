@@ -45,6 +45,15 @@ class AdminDashboardController extends Controller{
         Session::flash('success', 'Freelancer deleted successfully!');
         return redirect()->route('freelancerList');
     }
+
+    /*Freelancer details profile by id*/
+    public function getFreelancerDetails($id){
+        //$user = User::with('job')->get();
+
+        //dd($user);
+        return view('admin.freelancerProfile');
+    }
+
     public function getFreelancerApproveList(){
         $freelancerApproveList = User::FreelancerApproveList()->with('profile')->get();
         return view('admin.freelancerApproveList', ['freelancerApproveList'=>$freelancerApproveList]);

@@ -332,17 +332,16 @@
                                         <td class="skills{{$milestone->id}}">{{$milestone->milestone_description}}</td>
                                         <td class="experience_level{{$milestone->id}}">{{$milestone->deadline}}</td>
                                         <td class="fund_level{{$milestone->id}}">{{$milestone->fund_release}}</td>
-                                        <td class="center">
+                                        <td class="center td_{{$milestone->id}}">
                                             @if($milestone->status==0)
                                                 <span class="bg-color-orange btn-primary padding-5-8">Not Released</span>
 
                                             @elseif($milestone->status==1)
-                                                <button onclick="transerFund({{$milestone->id.",".$milestone->fund_release}})"
-                                                        type="button" class="btn btn-success btn-xs" name="showButton">Transfer
-                                                    Transfer
+                        <button onclick="transerFund({{$milestone->id.",".$milestone->fund_release.",".$milestone->contact_id}})"
+                                                        type="button" class="btn btn-primary btn-xs padding-5-8"  name="showButton">Transfer Fund
                                                 </button>
                                             @else
-                                                <span class="bg-color-orange padding-5-8">Transferred</span>
+                                                <span class="btn-success padding-5-8">Transferred</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -535,6 +534,35 @@
                     var error = "<p class='alert alert-danger'>Job Disapprove doesn't complete</p>"
                     $('#msg').html(error);
                 });
+        }
+    </script>
+
+    {{--This script for transfer fund--}}
+    <script type="text/javascript">
+        function transerFund(milestoneId,fund,contactId){
+            var request = $.ajax({
+                url: '{{route('fundTransfer')}}',
+                type: "POST",
+                data: {milestoneId : milestoneId,fund:fund,contactId:contactId,_token:'{{ csrf_token() }}'},
+                dataType: "text"
+            });
+
+            request.done(function(msg) {
+                if (!$.trim(msg)) {
+                    var mess = "<p class='alert alert-success'>Milestone Transfer Success</p>";
+                    var html = '<span class="btn-success padding-5-8 padding-5-8">Transferred</span>';
+                    $('#msg').html(mess);
+                    $('.td_'+milestoneId).html(html);
+                }
+                else {
+                    $('#msg').html(mess);
+                }
+            });
+
+            request.fail(function(jqXHR, textStatus) {
+                var error = "<p class='alert alert-danger'>Transfer request doesn't complete</p>"
+                $('#msg').html(error);
+            });
         }
     </script>
 @endsection

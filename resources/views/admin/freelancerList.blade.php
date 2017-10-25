@@ -46,7 +46,7 @@
                                 <th>{{$freelancer->profile->professional_title}}</th>
                                 <td class="center">
                                     <a class="btn btn-sm btn-danger" href="" data-href="{{ route('freelancerDelete', $freelancer->id)}}" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
-                                    <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" title="Freelancer Details"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-sm btn-info" href="{{route('freelancerDetails', $freelancer->id)}}" data-toggle="tooltip" data-placement="left" title="Freelancer Details"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         @endif

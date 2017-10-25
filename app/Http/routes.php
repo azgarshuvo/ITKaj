@@ -97,14 +97,16 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
     Route::get('skill/list', ['as' =>'skillList', 'uses' => 'adminController\SkillCrudController@getSkillList']);
     Route::get('skill/edit/{id}', ['as' =>'skillEdit', 'uses' => 'adminController\SkillCrudController@getSkillEdit']);
     Route::post('skill/update/{id}', ['as' =>'skillUpdate', 'uses' => 'adminController\SkillCrudController@postSkillUpdate']);
+
     Route::get('skill/Delete/{id}', ['as' =>'skillDelete', 'uses' => 'adminController\SkillCrudController@getSkillDelete']);
 
-
-
+    //admin milestone release
+    Route::post('milestone-transfer', ['as' =>'fundTransfer', 'uses' => 'adminController\MilestoneController@MilestoneFundTransfer']);
 
 
 
     Route::get('freelancer/list', ['as' =>'freelancerList', 'uses' => 'adminController\AdminDashboardController@getFreelancerList']);
+    Route::get('freelancer-details/{freelancerid}', ['as' =>'freelancerDetails', 'uses' => 'adminController\AdminDashboardController@getFreelancerDetails']);
     Route::get('freelancer/delete/{id}', ['as' =>'freelancerDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerDelete']);
     Route::get('freelancer/approve/list', ['as' =>'freelancerApproveList', 'uses' => 'adminController\AdminDashboardController@getFreelancerApproveList']);
     Route::get('freelancer/approve/delete/{id}', ['as' =>'freelancerApproveDelete', 'uses' => 'adminController\AdminDashboardController@getFreelancerApproveDelete']);

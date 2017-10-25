@@ -184,7 +184,7 @@
 
     <script type="text/javascript">
         $("input:file").change(function (){
-            //event.preventDefault();
+            $("#loader").addClass("loading");
             var fd = new FormData();
             var file_data = $('input[type="file"]')[0].files; // for multiple files
             fd.append("file_", file_data[0]);
@@ -213,8 +213,9 @@
                     }else{
                         //alert("Hello");
                         $("#error").removeClass('hidden');
-                        $("#error").html('Something wrong while profile image uploadmin');
+                        $("#error").html('Something wrong while profile image upload');
                     }
+                    $("#loader").removeClass("loading");
                 },
             });
 
