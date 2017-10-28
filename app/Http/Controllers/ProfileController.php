@@ -22,6 +22,7 @@ use App\Employments;
 use DB;
 use App\User;
 use App\UserProfile;
+use Session;
 class ProfileController extends Controller{
     private  $userId = 0;
     public  function __construct()
@@ -86,18 +87,6 @@ class ProfileController extends Controller{
     //Add Education
     public function postEducationAdd(){
 
-        // $validate = Validator::make(Input::all(), array(
-        //         'institution' => 'required',
-        //         'degree' => 'required',
-        //         'study_area' => 'required',
-        //         'start' => 'required',
-        //         'finish' => 'required',
-        //         'description' => 'required',
-        //     ));
-        // If($validate->fails())
-
-
-
         $originalStartDate =  Input::get('start');
         $startDate = date("Y-m-d", strtotime($originalStartDate));
 
@@ -111,10 +100,42 @@ class ProfileController extends Controller{
                         'area_of_study'=>Input::get('study_area'),
                         'start_date'=>$startDate,
                         'end_date'=>$finishDate,
-                        'description'=>Input::get('description')
+                        'description'=>Input::get('description'),
+                        'current'=>Input::get('current')
                     ]);
         echo "<p class='alert alert-success'> Education Add Success</p>";
     }
+
+    public function postEducationEdit(){
+        $originalStartDate =  Input::get('start');
+        $startDate = date("Y-m-d", strtotime($originalStartDate));
+
+        $originalFinishDate = Input::get('finish');
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));
+
+        Education::updateOrCreate(
+            ['id' => Input::get('id')],
+            [
+                'institution' => Input::get('institution'),
+                'degree'=>Input::get('degree'),
+                'area_of_study'=>Input::get('study_area'),
+                'start_date'=>$startDate,
+                'end_date'=>$finishDate,
+                'description'=>Input::get('description'),
+                'current'=>Input::get('current')
+            ]);
+
+        echo "<p class='alert alert-success'> Education Edit Success</p>";
+    }
+
+    public function postEducationDelete($id)
+    {
+        Education::findOrFail($id)->delete();
+        Session::flash('success', 'Education deleted successfully!');
+        return redirect()->route('profileSettings');
+    }
+
+    //Employment
 
     public function postEmploymentAdd(){
         $originalStartDate =  Input::get('start_date');
@@ -132,11 +153,39 @@ class ProfileController extends Controller{
                 'postal_code'=>Input::get('postal_code'),
                 'start_date'=>$startDate,
                 'finish_date'=>$finishDate,
-                'designation'=>Input::get('designation')
+                'designation'=>Input::get('designation'),
+                'current'=>Input::get('current')
             ]);
         echo "<p class='alert alert-success'>Employment Added Successfuly</p>";
     }
 
+    public function postEmploymentEdit(){
+        $originalStartDate =  Input::get('start_date');
+        $startDate = date("Y-m-d", strtotime($originalStartDate));
+
+        $originalFinishDate = Input::get('finish_date');
+        $finishDate = date("Y-m-d", strtotime($originalFinishDate));
+
+        Employments::updateOrCreate(
+            ['id' => Input::get('id')],
+            [
+                'company_name'=>Input::get('company_name'),
+                'country'=>Input::get('country'),
+                'city'=>Input::get('city'),
+                'postal_code'=>Input::get('postal_code'),
+                'start_date'=>$startDate,
+                'finish_date'=>$finishDate,
+                'designation'=>Input::get('designation')
+            ]);
+        echo "<p class='alert alert-success'>Employment Edited Successfuly</p>";
+    }
+
+    public function postEmploymentDelete($id)
+    {
+        Employments::findOrFail($id)->delete();
+        Session::flash('success', 'Employment deleted successfully!');
+        return redirect()->route('profileSettings');
+    }
 
 
     #get ajax request to change password

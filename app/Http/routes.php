@@ -41,7 +41,11 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('change/changecompany', ['as' => 'changeCompany', 'uses' => 'ProfileController@changeCompany']);
 
         Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
+        Route::post('edit/education', ['as'=>'editEducation', 'uses' => 'ProfileController@postEducationEdit']);
+        Route::get('delete/education/{id}', ['as'=>'deleteEducation', 'uses' => 'ProfileController@postEducationDelete']);
         Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
+        Route::post('edit/employment', ['as'=>'editEmployment', 'uses' => 'ProfileController@postEmploymentEdit']);
+        Route::get('delete/employment/{id}', ['as'=>'deleteEmployment', 'uses' => 'ProfileController@postEmploymentDelete']);
 
     });
 
@@ -188,6 +192,12 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], 
 
     /*Freelancer milestone*/
     Route::get('my-milestone/{jobid}', ['as' =>'getMilestone', 'uses' => 'MilestoneController@getFreelancerMilestone']);
+
+
+
+    /*Freelancer Milestone Done*/
+    Route::post('my-milestone/done', ['as' => 'milestoneDoneRequest', 'uses' => 'MilestoneController@postMilestoneDoneRequest']);
+    Route::post('my-milestone/done/employer', ['as' => 'milestoneDoneRequestByEmployer', 'uses' => 'MilestoneController@postMilestoneDoneRequestByEmployer']);
 
 });
 

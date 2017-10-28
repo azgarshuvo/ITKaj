@@ -337,11 +337,13 @@
                                                 <span class="bg-color-orange btn-primary padding-5-8">Not Released</span>
 
                                             @elseif($milestone->status==1)
-                        <button onclick="transerFund({{$milestone->id.",".$milestone->fund_release.",".$milestone->contact_id}})"
-                                                        type="button" class="btn btn-primary btn-xs padding-5-8"  name="showButton">Transfer Fund
-                                                </button>
-                                            @else
+                                                <span class="label label-success">Released</span>
+                                            @elseif($milestone->status==2)
                                                 <span class="btn-success padding-5-8">Transferred</span>
+                                            @elseif($milestone->status==3)
+                                                <span class="label label-success">Milestone Done Requested</span>
+                                            @elseif($milestone->status==4)
+                                                <button type="button" class="btn btn-w-m btn-info" onclick="transerFund({{$milestone->id.",".$milestone->fund_release.",".$milestone->contact_id}})">Transfer Fund</button>
                                             @endif
                                         </td>
                                     </tr>

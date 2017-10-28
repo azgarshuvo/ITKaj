@@ -37,7 +37,7 @@ class MilestoneController extends Controller
             $milestoneId = $request->input('milestoneId');
             $fund = $request->input('fund');
             $contactId = $request->input('contactId');
-            $affected =Milestone::where(['id'=>$milestoneId,'fund_release'=>$fund,'contact_id'=>$contactId,'status'=>1])->update(['status'=>2]);
+            $affected =Milestone::where(['id'=>$milestoneId,'fund_release'=>$fund,'contact_id'=>$contactId,'status'=>4])->update(['status'=>2]);
             if($affected!=0){
                 echo null;
             }else{
