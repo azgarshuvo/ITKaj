@@ -43,6 +43,9 @@
                 @endforeach
             </p>
         @endif
+
+        <p class="alert" id="milestoneAcceptDeniRequest"></p>
+
         <div class="clearfix"></div>
         <div class="col-md-12">
             @if($milestone->millstone)
@@ -78,8 +81,15 @@
                                         </button>
                                     @elseif($milestones->status==1)
                                         <span class="bg-color-blue padding-5-8">Released</span>
-                                    @else
-                                        <span class="bg-color-orange padding-5-8">Transferred</span>
+                                    @elseif($milestones->status==2)
+                                        <span class="label label-success">Milestone Done And Fund transferred to Freelancer</span>
+                                    @elseif($milestones->status==3)
+                                        <button class="btn-u btn-u-blue" type="button" onclick="acceptDeniMilestoneDoneRequest({{$milestones->id.','."true"}})">Accept Done Request</button>
+                                        <button class="btn btn-w-m btn-danger" type="button" onclick="acceptDeniMilestoneDoneRequest({{$milestones->id.','."false"}})">Deni Done Request</button>
+                                    @elseif($milestones->status==4)
+                                        <span class="label label-success">Milestone Done</span>
+                                    @elseif($milestones->status==5)
+                                        <span class="label label-danger">Milestone Done Deni</span>
                                     @endif
                                 </td>
                                 <td class="action-col">
@@ -235,8 +245,7 @@
                 </div>
         </div>
     </div>
-        <!--=== Job Description ===-->
-        <!--=== End Job Description ===-->
+<input type="hidden" value="{{route('milestoneDoneRequestByEmployer')}}" id="milestoneDoneRequestByEmployer">
         <script type="text/javascript">
             /*Delete milestone by id*/
             function deleteMilestonebyID(){
@@ -346,6 +355,33 @@
                         }
                         $("#loader").removeClass("loading");
                     })
+            }
+
+            function acceptDeniMilestoneDoneRequest(milestoneId, status){
+                var URL = $('#milestoneDoneRequestByEmployer').val();
+                $.ajax({
+                    method: "POST",
+                    url: URL,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    data: { milestoneId: milestoneId, status:status },
+                    success: function(data){
+                        if(date = 'true'){
+                            $('#milestoneAcceptDeniRequest').addClass('alert-success');
+                            $('#milestoneAcceptDeniRequest').show(100, function(){
+                                $(this).text('Milestone Accept Request Send');
+                            });
+                            $('#milestoneRequestMessage').delay(3000).fadeOut(300);
+                            location.reload();
+                        }else if(data = 'false'){
+                            $('#milestoneAcceptDeniRequest').addClass('alert-denger');
+                            $('#milestoneAcceptDeniRequest').show(100, function(){
+                                $(this).text('Milestone Done Request Send fail');
+                            });
+                            $('#milestoneAcceptDeniRequest').delay(3000).fadeOut(300);
+                            location.reload();
+                        }
+                    }
+                });
             }
         </script>
 @endsection

@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\ContactDetails;
 use App\Job;
 use App\Milestone;
+use App\MilestoneDone;
 use Illuminate\Http\Request;
+use Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Validator;
 
 class MilestoneController extends Controller
 {
@@ -225,5 +228,49 @@ class MilestoneController extends Controller
         }else{
             echo "<div class='alert alert-danger text-center'>This milestone can't be delete</div>";
         }
+    }
+
+    public function postMilestoneDoneRequest(){
+        $validate = Validator::make(Input::all(), array(
+            'milestoneId' => 'required',
+
+        ));
+        if($validate){
+            $milestone = Milestone::find(Input::get('milestoneId'));
+            $milestone->status = 3;
+            if($milestone->update()){
+                return "true";
+            }
+            return "false";
+        }
+
+        return "false";
+    }
+
+    public function postMilestoneDoneRequestByEmployer(){
+        $validate = Validator::make(Input::all(), array(
+            'milestoneId' => 'required',
+            'status' => 'required',
+        ));
+
+        if($validate){
+            if(Input::get('status') == 'true'){
+                $milestone = Milestone::find(Input::get('milestoneId'));
+                $milestone->status = 4;
+                if($milestone->update()){
+                    return "true";
+                }
+                return "false";
+            }elseif (Input::get('status') == 'false'){
+                $milestone = Milestone::find(Input::get('milestoneId'));
+                $milestone->status = 5;
+                if($milestone->update()){
+                    return "true";
+                }
+                return "false";
+            }
+
+        }
+        return "false";
     }
 }

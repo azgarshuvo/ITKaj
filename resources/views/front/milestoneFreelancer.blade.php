@@ -5,7 +5,7 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
-
+//dd($milestone);
 
 ?>
 
@@ -33,6 +33,8 @@
                 @endforeach
             </p>
         @endif
+        <p class="alert milestoneRequestMessage" >
+        </p>
         <div class="clearfix"></div>
         <div class="col-md-12">
             @if($milestone->millstone)
@@ -60,12 +62,18 @@
                                 <td class="text-center">{{$milestones->fund_release}}</td>
                                 <td class="text-center {{$milestones->id."_release_status"}}">
                                     @if($milestones->status==0)
-
                                         <span class="bg-color-green padding-5-8">Not Release</span>
                                     @elseif($milestones->status==1)
-                                        <span class="bg-color-blue padding-5-8">Released</span>
-                                    @else
-                                        <span class="bg-color-orange padding-5-8">Transferred</span>
+                                        <div class="row">
+                                            <div class="col-md-5"><span class="bg-color-blue padding-5-8">Released</span></div>
+                                            @if($milestones->status == 1)
+                                                <div class="col-md-7 freelancerMilestoneDoneButton"><button class="btn-u btn-u-sm btn-u-dark-blue" type="button" onclick="milestoneDone({{$milestones->id}})">Finished</button></div>
+                                            @endif
+                                        </div>
+                                    @elseif($milestones->status == 2)
+                                        <span class="label label-success">Milestone Done And Fund Transferred</span>
+                                    @elseif($milestones->status == 3)
+                                        <span class="label label-success">Milestone Done Requested</span>
                                     @endif
                                 </td>
                             </tr>
@@ -76,9 +84,7 @@
             @endif
         </div>
     </div>
-    <!--=== Job Description ===-->
-
-    <!--=== End Job Description ===-->
+<input type="hidden" value="{{route('milestoneDoneRequest')}}" id="milestoneDoneRequest">
     <script type="text/javascript">
         function releaseFund(id,releaseAmount){
             $.post("{{route('releaseFund')}}",
@@ -126,6 +132,33 @@
             }
 
         });
+
+        function milestoneDone(milestoneId){
+            var URL = $("#milestoneDoneRequest").val()
+            $.ajax({
+                method: "POST",
+                url: URL,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: { milestoneId: milestoneId },
+                success: function(data){
+                    if(date = 'true'){
+                        $('.milestoneRequestMessage').addClass('alert-success');
+                        $('.milestoneRequestMessage').show(100, function(){
+                         $(this).text('Milestone Done Request Send');
+                        });
+                        $('.milestoneRequestMessage').delay(3000).fadeOut(300);
+                        location.reload();
+                    }else if(data = 'false'){
+                        $('.milestoneRequestMessage').addClass('alert-denger');
+                        $('.milestoneRequestMessage').show(100, function(){
+                            $(this).text('Milestone Done Request Send fail');
+                        });
+                        $('.milestoneRequestMessage').delay(3000).fadeOut(300);
+                        location.reload();
+                    }
+                }
+            });
+        }
     </script>
 @endsection
 

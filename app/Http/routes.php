@@ -189,6 +189,12 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], 
     /*Freelancer milestone*/
     Route::get('my-milestone/{jobid}', ['as' =>'getMilestone', 'uses' => 'MilestoneController@getFreelancerMilestone']);
 
+
+
+    /*Freelancer Milestone Done*/
+    Route::post('my-milestone/done', ['as' => 'milestoneDoneRequest', 'uses' => 'MilestoneController@postMilestoneDoneRequest']);
+    Route::post('my-milestone/done/employer', ['as' => 'milestoneDoneRequestByEmployer', 'uses' => 'MilestoneController@postMilestoneDoneRequestByEmployer']);
+
 });
 
 
