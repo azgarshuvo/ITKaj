@@ -5110,3 +5110,50 @@ border-radius: 4px;
   color: #666;
   background: white;
 }
+ul{
+  list-style: none;
+}
+.color-green{
+  color: green;
+}
+.icon-btn{
+  color: white;
+  background: #f65151;
+  padding: 3px 3px 4px 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 10px;
+}
+.drop-zone-up{
+  width: 500px;
+  height: 120px;
+  border: 1px dotted #473838;
+}
+.dropzone-hover{
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;
+}
+.dz-filename{
+  display: none;
+}
+.dz-size{
+  display: none;
+}
+.dz-size{
+  display: none;
+}
+.dz-success-mark{
+  display: none;
+}
+.dz-error-mark{
+  display: none;
+}
+.dz-details>img{
+  border: 1px solid #241e1e;
+  padding: 3px;
+}
+.chosen-container{
+  margin-left: 1.5%;
+  width: 1055px !important;
+}

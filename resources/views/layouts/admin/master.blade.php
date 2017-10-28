@@ -27,9 +27,20 @@
     <link href="{{asset('admin/css/plugins/dataTables/dataTables.responsive.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/plugins/dataTables/dataTables.tableTools.min.css')}}" rel="stylesheet">
 
+    {{--chosen--}}
+    <link href="{{asset('admin/css/plugins/chosen/chosen.css')}}" rel="stylesheet">
+
+
+
+    {{--DropZone--}}
+    {{--<link href="{{asset('admin/css/plugins/dropzone/dropzone.css')}}" rel="stylesheet">--}}
+    {{--
+    <link href="{{asset('admin/css/plugins/dropzone/basic.css')}}" rel="stylesheet">--}}
+
     <!-- cropper -->
     <link href="{{asset('admin/css/plugins/cropper/cropper.min.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+    {{--Select 2--}}
 </head>
 <body>
 <div id="wrapper">
@@ -52,9 +63,14 @@
 <!-- Mainly scripts -->
 <script src="{{asset('admin/js/jquery-2.1.1.js')}}"></script>
 <script src="{{asset('admin/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('admin/js/plugins/chosen/chosen.jquery.js')}}"></script>
 <script src="{{asset('admin/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
 <script src="{{asset('admin/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+{{--Select 2--}}
+<script type="text/javascript" src="{{asset('assets/js/select2.min.js')}}"></script>
 
+
+<script src="{{asset('admin/js/plugins/dropzone/dropzone.js')}}"></script>
 <!-- Flot -->
 <script src="{{asset('admin/js/plugins/flot/jquery.flot.js')}}"></script>
 <script src="{{asset('admin/js/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
@@ -67,7 +83,6 @@
 <!-- Peity -->
 <script src="{{asset('admin/js/plugins/peity/jquery.peity.min.js')}}"></script>
 <script src="{{asset('admin/js/demo/peity-demo.js')}}"></script>
-
 <!-- Custom and plugin javascript -->
 <script src="{{asset('admin/js/inspinia.js')}}"></script>
 <script src="{{asset('admin/js/plugins/pace/pace.min.js')}}"></script>
@@ -246,7 +261,9 @@
         }
     }
 
-    //Function to show image before upload
+
+
+    /*//Function to show image before upload
     function preview_image(event)
     {
         var reader = new FileReader();
@@ -263,8 +280,22 @@
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 
         $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-    });
+    });*/
 
+
+</script>
+{{--This script for chosen multi select--}}
+<script type="text/javascript">
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+        '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
 </script>
 
 </body>

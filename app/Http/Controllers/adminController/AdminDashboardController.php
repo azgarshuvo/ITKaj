@@ -10,6 +10,7 @@ namespace App\Http\Controllers\adminController;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Job;
 use Illuminate\Http\Request;
 use App\User;
 use App\UserProfile;
@@ -48,10 +49,17 @@ class AdminDashboardController extends Controller{
 
     /*Freelancer details profile by id*/
     public function getFreelancerDetails($id){
-        //$user = User::with('job')->get();
+        $user = User::with(['job','profile','jobInterested'])->where(['id'=>$id])->first();
+        $interestList = array();
+        if($user->jobInterested()->count()>0){
+            foreach ($user->jobInterested as $interest){
+                array_push($interestList,$interest->job_id);
+            }
 
-        //dd($user);
-        return view('admin.freelancerProfile');
+        }
+        $interestJobList = Job::with('interested')->whereIn('id', $interestList)->get();
+        //dd($interestJobList->count());
+        return view('admin.freelancerProfile',['user'=>$user,'interestJobList'=>$interestJobList]);
     }
 
     public function getFreelancerApproveList(){

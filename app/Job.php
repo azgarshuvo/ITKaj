@@ -30,6 +30,10 @@ class Job extends Model
     public function contact(){
         return $this->hasOne('App\ContactDetails');
     }
+
+    public function interested(){
+        return $this->hasOne('App\JobInterested');
+    }
     public function selectedFreelancer(){
         return $this->hasMany('App\FreelancerSelectedForJob', 'job_id', 'id');
     }

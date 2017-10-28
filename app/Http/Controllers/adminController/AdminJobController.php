@@ -8,6 +8,7 @@ use App\FreelancerSelectedForJob;
 use App\Job;
 use App\JobInterested;
 use App\Milestone;
+use App\Skills;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -73,26 +74,55 @@ class AdminJobController extends Controller
     }
 
     public function getJobEditView($id){
-
+        $categories = Categories::all();
         $jobList = Job::find($id);
-        return view('admin.job.jobEdit',['jobList'=>$jobList]);
+        $categoriId = $jobList->category_id;
+        $cateInfo = $this->getCateInfo($categories,$categoriId);
+        $parentCateId = $cateInfo->parent_category_id;
+        $skills = Skills::all();
+        return view('admin.job.jobEdit',['jobList'=>$jobList,'categories'=>$categories,'parentCateId'=>$parentCateId,'skills'=>$skills]);
     }
 
-    public function postJobUpdate($id, Request $request){
+    #return categories details
+    private function getCateInfo($categories,$cateId){
+        foreach ($categories as $cate){
+            if($cateId==$cate->id){
+                return $cate;
+            }
+        }
+    }
 
-        $this->validate($request, [
+    #get categories parent details
+    private function getCateParent($categories,$cateId){
+        foreach ($categories as $cate){
+            if($cateId==$cate->id){
+                return $cate;
+            }
+        }
+    }
+
+
+    public function postJobUpdate($id, Request $request){
+        $image = $request->file('file');
+
+        $imageName = time().$image->getClientOriginalName();
+
+        $files = $image->move(public_path('dropZone'),$imageName);
+
+
+       /* $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
             'category_id' => 'required',
             'approved' => 'required'
-        ]);
+        ]);*/
 
-        $jobData = $request->all();
+        /*$jobData = $request->all();
         unset($jobData['_token']);
         //dd($jobData);
         Job::where(['id'=>$id])->update($jobData);
         Session::flash('success', 'JobList updated successfully!');
-        return redirect()->route('jobList');
+        //return redirect()->route('jobList');*/
 
     }
 
