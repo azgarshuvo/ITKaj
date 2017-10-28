@@ -55,7 +55,11 @@ $count = 0;
                     @foreach($projects as $project)
                         <li class="col-md-4 md-margin-bottom-30 md-margin-top-20">
                             <div class="content-boxes-v3 block-grid-v1 rounded">
-                                <img class="pull-left rounded-x block-grid-v1-img" src="assets/img/testimonials/img6.jpg" alt="">
+                                {{--@if($employers != null && $employers != '')--}}
+                                    {{--@foreach($employers as $employer)--}}
+                                        {{--@if($project->user_id == $employer->id) <img class="pull-left rounded-x block-grid-v1-img" src="{{$employer->img_path}}" alt="">@endif--}}
+                                    {{--@endforeach--}}
+                                {{--@endif--}}
                                 <div class="content-boxes-in-v3">
                                     <h3><a href="{{route('JobDescription', ['job_number' => $project->id])}}">{{$project->name}}</a></h3>
                                     {{--<ul class="star-vote">--}}
