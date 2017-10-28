@@ -321,7 +321,6 @@
             document.getElementById('ifYes').style.display = 'block';
         }
     }
-
     //Function to show image before upload
     function preview_image(event)
     {
