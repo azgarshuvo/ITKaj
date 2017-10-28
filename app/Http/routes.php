@@ -41,7 +41,11 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('change/changecompany', ['as' => 'changeCompany', 'uses' => 'ProfileController@changeCompany']);
 
         Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
+        Route::post('edit/education', ['as'=>'editEducation', 'uses' => 'ProfileController@postEducationEdit']);
+        Route::get('delete/education/{id}', ['as'=>'deleteEducation', 'uses' => 'ProfileController@postEducationDelete']);
         Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
+        Route::post('edit/employment', ['as'=>'editEmployment', 'uses' => 'ProfileController@postEmploymentEdit']);
+        Route::get('delete/employment/{id}', ['as'=>'deleteEmployment', 'uses' => 'ProfileController@postEmploymentDelete']);
 
     });
 
