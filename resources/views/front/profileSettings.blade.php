@@ -534,7 +534,7 @@ $emps = (Auth::User()->employment);
 
                                                 <li class="{{$edu->id."_startDate"}}"><i class="fa fa-clock-o"></i>@if($edu->start_date != null && $edu->start_date != ''){{$edu->start_date}}@endif</li>
 
-                                                <li class="{{$edu->id."_endDate"}}"><i class="fa fa-clock-o"></i>@if($edu->end_date != null && $edu->end_date != ''){{$edu->end_date}}@endif</li>
+                                                <li class="{{$edu->id."_endDate"}}"><i class="fa fa-clock-o"></i>@if($edu->end_date != null && $edu->end_date != '') @if($edu->current == 0){{$edu->end_date}} @elseif($edu->current == 1)Current @endif @endif</li>
                                             </ul>
                                             <h5 class="{{$edu->id."_degree"}}"><a class="color-dark">@if($edu->degree != null && $edu->degree != ''){{$edu->degree}}@endif</a></h5>
                                             <h5 class="{{$edu->id."_studyArea"}}"><a class="color-dark"></a>@if($edu->area_of_study != null && $edu->area_of_study != ''){{$edu->area_of_study}}@endif</h5>
@@ -569,10 +569,10 @@ $emps = (Auth::User()->employment);
 
                                             <li class="{{$emp->id."_startEmpDate"}}"><i class="fa fa-clock-o"></i>@if($emp->start_date != null && $emp->start_date != '') {{$emp->start_date}} @endif</li>
 
-                                            <li class="{{$emp->id."_endEmpDate"}}"><i class="fa fa-clock-o"></i>@if($emp->finish_date != null && $emp->finish_date != '') {{$emp->finish_date}} @endif</li>
+                                            <li class="{{$emp->id."_endEmpDate"}}"><i class="fa fa-clock-o"></i>@if($emp->finish_date != null && $emp->finish_date != '') @if($emp->current == 0){{$emp->finish_date}} @elseif($emp->current == 1)Current @endif @endif</li>
                                         </ul>
-                                        <h5 class="{{$emp->id."_empCountry"}}"><a class="color-dark"></a>@if($emp->country != null && $emp->country != '') {{$emp->country}} @endif</h5>
-                                        <h5 class="{{$emp->id."_empCity"}}"><a class="color-dark"></a>@if($emp->city != null && $emp->city != '') {{$emp->city}} @endif</h5>
+                                        <h5 class="{{$emp->id."_empCountry"}}"><a class="color-dark"></a>@if($emp->country != null && $emp->country != '') @foreach($countries as $country) @if($country->id == $emp->country) {{$country->name}} @endif @endforeach @endif</h5>
+                                        <h5 class="{{$emp->id."_empCity"}}"><a class="color-dark"></a>@if($emp->city != null && $emp->city != '') @foreach($cities as $city) @if($city->id == $emp->city) {{$city->name}} @endif @endforeach @endif</h5>
                                         <h5 class="{{$emp->id."_empPostalCode"}}"><a class="color-dark"></a>@if($emp->postal_code != null && $emp->postal_code != '') {{$emp->postal_code}} @endif</h5>
                                         <h5 class="{{$emp->id."_empDesignation"}}"><a class="color-dark"></a>@if($emp->designation != null && $emp->designation != '') {{$emp->designation}} @endif</h5>
                                         <br>
@@ -653,7 +653,7 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input type="checkbox" name="current" id="current" value="1">
+                                    <input onclick="disableFinishEduDate()" type="checkbox" name="current" id="current" value="1">
                                     Current
                                 </section>
                             </fieldset>
@@ -789,14 +789,14 @@ $emps = (Auth::User()->employment);
                                 <div class="row">
                                     <section class="col col-6">
                                         <label class="input">
-                                            <select class="form-control margin-bottom-20 addEmploymentModaleCityDropdown">
+                                            <select class="form-control margin-bottom-20 addEmploymentModaleCityDropdown" id="addEmploymentModaleCityDropdown">
                                                 <option value="">Select One</option>
                                             </select>
                                         </label>
                                     </section>
                                     <section class="col col-6">
                                         <label class="input">
-                                            <input type="number" name="postal_code" id="postal_code" placeholder="Postal code">
+                                            <input type="text" name="postal_code" id="postal_code" placeholder="Postal code">
                                         </label>
                                     </section>
                                 </div>
@@ -823,7 +823,7 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input type="checkbox" name="current" id="emp_current" value="1">
+                                    <input onclick="disableFinishDate()" type="checkbox" name="current" id="emp_current" value="1">
                                     Current
                                 </section>
                             </fieldset>
@@ -864,7 +864,15 @@ $emps = (Auth::User()->employment);
                                     </section>
                                     <section class="col col-6">
                                         <label class="input">
-                                            <input type="text" id="edit_country_name" name="country_name" placeholder="Country">
+                                            <select class="form-control margin-bottom-20" id="editEmploymentModaleCountryDropdown">
+                                                @if($countries != null && $countries != '')
+                                                    @foreach($countries as $country)
+                                                        @if($userProfile->profile->country == $country->id)
+                                                            <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </label>
                                     </section>
                                 </div>
@@ -872,12 +880,14 @@ $emps = (Auth::User()->employment);
                                 <div class="row">
                                     <section class="col col-6">
                                         <label class="input">
-                                            <input type="text" name="city" id="edit_city" placeholder="City">
+                                            <select class="form-control margin-bottom-20 editEmploymentModaleCityDropdown" id="editEmploymentModaleCityDropdown">
+                                                <option value="">Select One</option>
+                                            </select>
                                         </label>
                                     </section>
                                     <section class="col col-6">
                                         <label class="input">
-                                            <input type="number" name="postal_code" id="edit_postal_code" placeholder="Postal code">
+                                            <input type="text" name="postal_code" id="edit_postal_code" placeholder="Postal code">
                                         </label>
                                     </section>
                                 </div>
@@ -891,7 +901,7 @@ $emps = (Auth::User()->employment);
                                             <input type="text" name="start_date" id="edit_start_date" placeholder="Expected start date">
                                         </label>
                                     </section>
-                                    <section class="col col-6">
+                                    <section class="col col-6" id="endField">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
                                             <input type="text" name="finish_date" id="edit_finish_date" placeholder="Expected finish date">
@@ -984,6 +994,32 @@ $emps = (Auth::User()->employment);
                 }
             });
         });
+
+        $('#editEmploymentModaleCountryDropdown').change(function(){
+            var Selected_id = $('#editEmploymentModaleCountryDropdown option:selected').val();
+            var Selected_city = parseInt($('#userCityId').val());
+            $('.editEmploymentModaleCityDropdown').find('option:not(:first)').remove();
+            var Cities = JSON.parse($('#userCities').val());
+            $.each(Cities, function( index, value ) {
+                if(value.countries_id == Selected_id){
+                    if(Selected_city == value.id) {
+                        $('.editEmploymentModaleCityDropdown').append($('<option>', {
+                            value: value.id,
+                            text: value.name,
+                            selected: true
+                        }));
+                    }
+                    else{
+                        $('.editEmploymentModaleCityDropdown').append($('<option>', {
+                            value: value.id,
+                            text: value.name
+                        }));
+                    }
+                }
+            });
+        });
+
+
 
         $("#password_submit").click(function(event){
             event.preventDefault();
@@ -1212,8 +1248,8 @@ $emps = (Auth::User()->employment);
             e.preventDefault();
             $("#loader").addClass("loading");
             var company_name = $('#company').val();
-            var country = $('#country').val();
-            var city = $('#city').val();
+            var country = $('#addEmploymentModaleCountryDropdown').val();
+            var city = $('#addEmploymentModaleCityDropdown').val();
             var postal_code = $('#postal_code').val();
             var start_date = $('#start_date').val();
             var finish_date = $('#finish_date').val();
@@ -1263,8 +1299,8 @@ $emps = (Auth::User()->employment);
 
             $("#empId").val(employmentId);
             $("#edit_company").val(company_name);
-            $("#edit_country_name").val(country);
-            $("#edit_city").val(city);
+            $("#editEmploymentModaleCountryDropdown").val(country);
+            $("#editEmploymentModaleCityDropdown").val(city);
             $("#edit_postal_code").val(postalCode);
             $("#edit_start_date").val(startDate);
             $("#edit_finish_date").val(finishDate);
@@ -1276,8 +1312,8 @@ $emps = (Auth::User()->employment);
             $("#loader").addClass("loading");
             var id  = $("#empId").val();
             var company_name = $('#edit_company').val();
-            var country = $('#edit_country_name').val();
-            var city = $('#edit_city').val();
+            var country = $('#editEmploymentModaleCountryDropdown').val();
+            var city = $('#editEmploymentModaleCityDropdown').val();
             var postal_code = $('#edit_postal_code').val();
             var start_date = $('#edit_start_date').val();
             var finish_date = $('#edit_finish_date').val();
@@ -1304,6 +1340,27 @@ $emps = (Auth::User()->employment);
                 });
         });
 
+        function disableFinishDate(){
+            if($("#emp_current").prop("checked") == true){
+                $("#finish_date").attr('disabled', 'disabled');
+                $("#finish_date").val('');
+
+            }
+            else if($("#emp_current").prop("checked") == false){
+                $("#finish_date").removeAttr("disabled");
+            }
+        }
+
+        function disableFinishEduDate(){
+            if($("#current").prop("checked") == true){
+                $("#finish").attr('disabled', 'disabled');
+                $("#finish").val('');
+
+            }
+            else if($("#current").prop("checked") == false){
+                $("#finish").removeAttr("disabled");
+            }
+        }
     </script>
 
 @endsection
