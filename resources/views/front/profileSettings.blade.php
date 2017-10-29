@@ -773,27 +773,30 @@ $emps = (Auth::User()->employment);
                                         </label>
                                     </section>
                                     <section class="col col-6">
-                                        <select id="countryDropdown" class="form-control margin-bottom-20 country" name="country">
-                                            <option value="">Select One</option>
-                                            @foreach($countries as $country)
-                                                @if($userProfile->profile != null && $userProfile->profile != '')
-                                                    @if($userProfile->profile->country == $country->id)
-                                                        <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
-                                                    @endif
-                                                @endif
-                                                <option value="{{$country->id}}">{{$country->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <label class="input">
+                                            <input type="text" id="country" name="country" placeholder="Country">
+                                        </label>
+                                        {{--<select id="countryDropdown" class="form-control margin-bottom-20 country" name="country">--}}
+                                            {{--<option value="">Select One</option>--}}
+                                            {{--@foreach($countries as $country)--}}
+                                                {{--@if($userProfile->profile != null && $userProfile->profile != '')--}}
+                                                    {{--@if($userProfile->profile->country == $country->id)--}}
+                                                        {{--<option value="{{$country->id}}" selected="selected">{{$country->name}}</option>--}}
+                                                    {{--@endif--}}
+                                                {{--@endif--}}
+                                                {{--<option value="{{$country->id}}">{{$country->name}}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
                                     </section>
                                 </div>
 
                                 <div class="row">
                                     <section class="col col-6">
                                         <label class="input">
-                                            {{--<input type="text" name="city" id="city" placeholder="City">--}}
-                                            <select id="cityDropdown" class="form-control margin-bottom-20 cityOptions" name="cityOptions">
+                                            <input type="text" name="city" id="city" placeholder="City">
+                                            {{--<select id="cityDropdown" class="form-control margin-bottom-20 cityOptions" name="cityOptions">--}}
 
-                                            </select>
+                                            {{--</select>--}}
                                         </label>
                                     </section>
                                     <section class="col col-6">
@@ -1200,7 +1203,7 @@ $emps = (Auth::User()->employment);
             e.preventDefault();
             $("#loader").addClass("loading");
             var company_name = $('#company').val();
-            var country = $('#countryDropdown').val();
+            var country = $('#country').val();
             var city = $('#city').val();
             var postal_code = $('#postal_code').val();
             var start_date = $('#start_date').val();
