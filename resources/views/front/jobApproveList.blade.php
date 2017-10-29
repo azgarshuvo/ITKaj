@@ -44,9 +44,10 @@
                             <td>{{$approveProject->name}}</td>
                             <td>{{$approveProject->description}}</td>
                             <td>{{$approveProject->project_cost}}</td>
-                            <td>
-                                <a class="btn btn-success color-white" href="{{route('setupMilestone',['jobid'=>$approveProject->id])}}">Milestone</a>
-                                <a href="{{route('MyJobDescription',['jobId'=>$approveProject->id])}}" class="btn-success btn color-white">Details</a>
+                            <td class="padding-0">
+                                <a class="btn btn-success color-white btn-xs" href="{{route('setupMilestone',['jobid'=>$approveProject->id])}}">Milestone</a>
+                                <a href="{{route('MyJobDescription',['jobId'=>$approveProject->id])}}" class="btn-success btn color-white btn-xs">Details</a>
+                                <a href="{{route('editMyjob',['jobId'=>$approveProject->id])}}" class="btn-primary btn color-white btn-xs">Update</a>
 
                             </td>
                         </tr>
