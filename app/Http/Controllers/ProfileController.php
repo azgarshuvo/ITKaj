@@ -114,7 +114,7 @@ class ProfileController extends Controller{
                 'start_date'=>$startDate,
                 'end_date'=>$finishDate,
                 'description'=>Input::get('description'),
-                'current'=>Input::get('current')
+//                'current'=>Input::get('current')
             ]);
 
         echo "<p class='alert alert-success'> Education Edit Success</p>";

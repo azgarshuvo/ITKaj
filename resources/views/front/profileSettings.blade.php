@@ -773,26 +773,24 @@ $emps = (Auth::User()->employment);
                                         </label>
                                     </section>
                                     <section class="col col-6">
-                                        <select id="countryDropdown" class="form-control margin-bottom-20 country" name="country">
-                                            <option value="">Select One</option>
-                                            @foreach($countries as $country)
-                                                @if($userProfile->profile != null && $userProfile->profile != '')
-                                                    @if($userProfile->profile->country == $country->id)
-                                                        <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
-                                                    @endif
+                                        <label class="input">
+                                            <select class="form-control margin-bottom-20" id="addEmploymentModaleCountryDropdown">
+                                                <option value="">Select One</option>
+                                                @if($countries != null && $countries != '')
+                                                    @foreach($countries as $country)
+                                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                                    @endforeach
                                                 @endif
-                                                <option value="{{$country->id}}">{{$country->name}}</option>
-                                            @endforeach
-                                        </select>
+                                            </select>
+                                        </label>
                                     </section>
                                 </div>
 
                                 <div class="row">
                                     <section class="col col-6">
                                         <label class="input">
-                                            {{--<input type="text" name="city" id="city" placeholder="City">--}}
-                                            <select id="cityDropdown" class="form-control margin-bottom-20 cityOptions" name="cityOptions">
-
+                                            <select class="form-control margin-bottom-20 addEmploymentModaleCityDropdown">
+                                                <option value="">Select One</option>
                                             </select>
                                         </label>
                                     </section>
@@ -966,6 +964,20 @@ $emps = (Auth::User()->employment);
             $.each(Cities, function( index, value ) {
                 if(value.countries_id == Selected_id){
                     $('.cityOptions').append($('<option>', {
+                        value: value.id,
+                        text : value.name
+                    }));
+                }
+            });
+        });
+
+        $('#addEmploymentModaleCountryDropdown').change(function(){
+            var Selected_id = $('#addEmploymentModaleCountryDropdown option:selected').val();
+            $('.addEmploymentModaleCityDropdown').find('option:not(:first)').remove();
+            var Cities = JSON.parse($('#userCities').val());
+            $.each(Cities, function( index, value ) {
+                if(value.countries_id == Selected_id){
+                    $('.addEmploymentModaleCityDropdown').append($('<option>', {
                         value: value.id,
                         text : value.name
                     }));
@@ -1200,7 +1212,7 @@ $emps = (Auth::User()->employment);
             e.preventDefault();
             $("#loader").addClass("loading");
             var company_name = $('#company').val();
-            var country = $('#countryDropdown').val();
+            var country = $('#country').val();
             var city = $('#city').val();
             var postal_code = $('#postal_code').val();
             var start_date = $('#start_date').val();

@@ -60,7 +60,7 @@ Route::group(['prefix' => 'user'], function () {
             Route::get('done/list', ['as' => 'projectDoneList', 'uses' => 'JobController@getJobDoneList']);
             Route::get('interested/list', ['as' => 'projectInterestedList', 'uses' => 'JobController@getJobInterestedList']);
             Route::get('ongoing/list', ['as' => 'projectOngoingList', 'uses' => 'JobController@getJobOngoingList']);
-            Route::get('on-going/freelancer/list', ['as' => 'freelancerProjectOngoingList', 'uses' => 'JobController@FreelancerProjectOngoingList']);
+            Route::get('on-going/list', ['as' => 'freelancerProjectOngoingList', 'uses' => 'JobController@FreelancerProjectOngoingList']);
 
         });
 
