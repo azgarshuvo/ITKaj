@@ -377,7 +377,20 @@ class AdminJobController extends Controller
         return view('admin.selectedFreelancerProfile');
     }
 
-
+    #admin attachment add by job id
+    public function adminAttach($jobId,Request $request){
+        $image = $request->file('file');
+        $imageName = date('His').$image->getClientOriginalName();
+        $files = $image->move(public_path('attach'),$imageName);
+        $jobData = Job::where(['id'=>$jobId])->first();
+        $att = $jobData->job_attachment;
+       
+        $attachment = json_decode($att,true);
+        array_push($attachment,$imageName);
+        $updateAttachment = json_encode($attachment);
+        $jobData->job_attachment = $updateAttachment;
+        $jobData->save();
+    }
 //    public function getSelectedFreelancerList(){
 //        $selectedList = DB::table('users')
 //            ->join('freelancer_selected_for_jobs', 'users.id', '=', 'freelancer_selected_for_jobs.freelancer_id', '=', 'user_profiles.user_id')

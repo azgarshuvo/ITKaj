@@ -219,4 +219,85 @@ class JobController extends Controller
 
         return view('front.freelancerOngoing',['jobList'=>$jobList]);
     }
+
+    /*Employe project approv list*/
+    public function getProjectApprovedList(){
+        $approveProjectList = Job::ProjectApproveList(Auth::User()->id)->get();
+        return view('front.jobApproveList', ['approveProjectList' => $approveProjectList]);
+    }
+
+    /*employe project disapprove list*/
+    public function getJobDisapprovedList(){
+        $disapproveProjectList = Job::ProjectDisapproveList(Auth::User()->id)->get();
+        return view('front.jobDisapprovedList', ['disapproveProjectList' => $disapproveProjectList]);
+    }
+
+    /*update my own job*/
+    public function EditMyJob($jobId){
+        $skills = Skills::all();
+        $categories = Categories::with('subcategory')->get();
+        $freelancers = User::with(['profile'])->freelancer()->get();
+        $jobDetails = Job::where(['id'=>$jobId,'user_id'=>$this->userId])->first();
+        $categoriId = $jobDetails->category_id;
+
+        $cateInfo = $this->getCateInfo($categories,$categoriId);
+        $parentCateId = $cateInfo->parent_category_id;
+        return view('front.jobEdit', ['parentCateId'=>$parentCateId,'jobDetails'=>$jobDetails,'categories' => $categories, 'freelancers' => $freelancers,'skills'=>$skills]);
+    }
+
+    #return categories details
+    private function getCateInfo($categories,$cateId){
+        foreach ($categories as $cate){
+            if($cateId==$cate->id){
+                return $cate;
+            }
+        }
+    }
+
+    #attachment add by dropzone
+    public function AttachmentAdd($jobId,Request $request){
+        $image = $request->file('file');
+        $imageName = date('His').$image->getClientOriginalName();
+        $files = $image->move(public_path('attach'),$imageName);
+        $jobData = Job::where(['id'=>$jobId,'user_id'=>$this->userId])->first();
+        $attachment = json_decode($jobData->job_attachment);
+        array_push($attachment,$imageName);
+        $updateAttachment = json_encode($attachment);
+        $jobData->job_attachment = $updateAttachment;
+        $jobData->save();
+    }
+
+    #post job update by post request
+    public function JobUpdate($jobId, Request $request){
+        $this->validate($request,[
+                'title'=>'required|string|max:255|min:6',
+                'category'=>'required',
+                'duration'=>'required',
+                'projectType'=>'required',
+                'skill'=>'required',
+                'description'=>'required|min:6',
+            ]
+        );
+
+        $jobDetails = Job::where(['id'=>$jobId,'user_id'=>$this->userId])->first();
+
+        $jobDetails->name = $request->input('title');
+        $jobDetails->description = $request->input('description');
+        $jobDetails->project_time = $request->input('duration');
+
+        $jobDetails->skill_needed = json_encode($request->input('skill'));
+        $jobDetails->type = $request->input('projectType');
+
+
+        if($jobDetails->selected_for_job==null){
+            $jobDetails->project_cost = $request->input('projectCost');
+        }
+        $category = $request->input('category');
+        if($request->input('subCategory')>0){
+            $category =$request->input('subCategory');
+        }
+        $jobDetails->category_id = $category;
+        $jobDetails->save();
+        return redirect()->back()->with('message', 'Job update successfully done');
+    }
 }

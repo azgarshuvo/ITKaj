@@ -5,7 +5,7 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
-
+//dd(strlen($jobDetails->job_attachment));
 ?>
 @extends('layouts.front.master')
 
@@ -61,7 +61,7 @@
                         <ul class="list-unstyled">
                             {{--  //json_encode($jobDetails->skill_needed)--}}
                             <?php $i=1; ?>
-                            @foreach(json_decode($jobDetails->job_attachment, true) as $value)
+                            @foreach(json_decode($jobDetails->job_attachment, false) as $value)
 
                                 <li><i class="fa fa-check color-green"></i> <a href="{{ route('attachmentDownload',['attachment'=>$value]) }}" target="_blank">Attachment no . {{$i++}} </a></li>
                             @endforeach
