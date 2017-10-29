@@ -14,19 +14,6 @@
 @section('content')
     <div class="col-md-9">
         <div class="profile-body">
-
-            {{--<!--=== Search Block Version 2 ===-->--}}
-            {{--<div class="search-block">--}}
-            {{--<div class="container">--}}
-            {{--<div class="col-md-12">--}}
-            {{--<h2>Search again</h2>--}}
-            {{--<div class="input-group">--}}
-            {{--<input type="text" class="form-control"  id="jobSearch" placeholder="Search words with regular expressions ...">--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div><!--/container-->--}}
-            {{--<!--=== End Search Block Version 2 ===-->--}}
             <div class="content-sm">
                 <!-- Begin Table Search Panel v1 -->
                 <div class="table-search-v1 panel panel-dark margin-bottom-40" >
@@ -57,7 +44,7 @@
                                 @foreach($jobList as $job)
                                     <tr>
                                         <td>{{$job->name}}</td>
-                                        <td>{{$job->description}}</td>
+                                        <td>{{substr($job->description, 0, 90)}}...</td>
                                         <td>{{$job->project_cost}}</td>
                                         <td>
                                             <a href="{{route('getMilestone',['jobId'=>$job->id])}}" class="btn-success btn color-white">Milestone</a>
