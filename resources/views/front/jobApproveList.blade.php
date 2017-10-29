@@ -42,12 +42,17 @@
                     @foreach($approveProjectList as $approveProject)
                         <tr>
                             <td>{{$approveProject->name}}</td>
-                            <td>{{$approveProject->description}}</td>
+                            <td>{{substr($approveProject->description, 0, 90)}}...</td>
                             <td>{{$approveProject->project_cost}}</td>
                             <td>
-                                <a class="btn btn-success color-white" href="{{route('setupMilestone',['jobid'=>$approveProject->id])}}">Milestone</a>
-                                <a href="{{route('MyJobDescription',['jobId'=>$approveProject->id])}}" class="btn-success btn color-white">Details</a>
-
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-success color-white" href="{{route('setupMilestone',['jobid'=>$approveProject->id])}}">Milestone</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="{{route('MyJobDescription',['jobId'=>$approveProject->id])}}" class="btn-success btn color-white">Details</a>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

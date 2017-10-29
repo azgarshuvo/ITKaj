@@ -5,7 +5,7 @@
  * Date: 10/18/2017
  * Time: 10:56 AM
  */
-
+//dd($contact);
 ?>
 
 @extends('layouts.admin.master')
@@ -67,13 +67,31 @@
 
                                     <h5><strong>Project Type: </strong> @if($jobDetails->type == 1)One time Project @elseif($jobDetails->type == 2) Ongoing @else I don't know @endif </h5>
                                 </div>
-                                <div class="col-md-12" id="jobStatus">
-                                    @if($jobDetails->approved == 1)
-                                        <button onclick="jobDisapprove({{$jobDetails->id}})" class="btn btn-danger">Disapprove</button>
-                                    @else
-                                        <button onclick="jobApprove({{$jobDetails->id}})" class="btn btn-primary">Approve</button>
-                                    @endif
-                                </div>
+                                @if(intval($contact[0]->contact_status) != 1 && intval($contact[0]->contact_status) != 2 && intval($contact[0]->contact_status) != 3 && intval($contact[0]->contact_status) != 4)
+                                    <div class="col-md-12" id="jobStatus">
+                                        @if($jobDetails->approved == 1)
+                                            <button onclick="jobDisapprove({{$jobDetails->id}})" class="btn btn-danger">Disapprove</button>
+                                        @else
+                                            <button onclick="jobApprove({{$jobDetails->id}})" class="btn btn-primary">Approve</button>
+                                        @endif
+                                    </div>
+                                @endif
+
+                                @if(intval($contact[0]->contact_status) == 1)
+                                    <p class="alert alert-success">Contact End, Project Successfully Done</p>
+                                @elseif(intval($contact[0]->contact_status) == 3)
+                                    <div class="col-md-12">
+                                        <br>
+                                        <div class="alert alert-warning">
+                                            Project is Done, Waiting for Admin Approval.
+                                        </div>
+                                        <button class="btn btn-primary" onclick="projectApproveByAdmin({{$contact[0]->id}})">Project Done</button>
+                                    </div>
+                                @elseif(intval($contact[0]->contact_status) == 4)
+                                    <p class="alert alert-success">Project Done Request Deny</p>
+                                @elseif(intval($contact[0]->contact_status) == 2)
+                                    <p class="alert alert-success">Project Done Request by Freelancer</p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -417,6 +435,7 @@
 
             </div>
         </div>
+    <input type="hidden" value="{{route('acceptJobDone')}}" id="acceptJobDone">
     <script type="text/javascript">
         /*This function add row to selected table*/
         function rowAdd(id){
@@ -564,6 +583,20 @@
             request.fail(function(jqXHR, textStatus) {
                 var error = "<p class='alert alert-danger'>Transfer request doesn't complete</p>"
                 $('#msg').html(error);
+            });
+        }
+
+        function projectApproveByAdmin(contactId){
+            var URL = $("#acceptJobDone").val();
+            $.ajax({
+                method: "POST",
+                url: URL,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: { contactId: contactId, _token:'{{ csrf_token() }}'},
+                success: function(data){
+                        console.log(data);
+//                    location.reload();
+                }
             });
         }
     </script>

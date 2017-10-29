@@ -106,7 +106,13 @@ class MilestoneController extends Controller
     public function getFreelancerMilestone($jobId){
 
         $milestone = ContactDetails::GetJobId($jobId)->with(['millstone', 'job'])->first();
-        return view('front.milestoneFreelancer',['milestone'=>$milestone]);
+        $flag = 1;
+        foreach ($milestone->milestone as $milstones){
+            if(intval($milstones->status) != 2){
+                $flag = 0;
+            }
+        }
+        return view('front.milestoneFreelancer',['milestone'=>$milestone, 'flag' => $flag]);
     }
 
     /*update milestone */
@@ -270,6 +276,46 @@ class MilestoneController extends Controller
                 return "false";
             }
 
+        }
+        return "false";
+    }
+
+    public function postContactDoneRequestByFreelancer(){
+        $validate = Validator::make(Input::all(), array(
+            'contactId' => 'required',
+        ));
+
+        if($validate){
+            $contact = ContactDetails::find(Input::get('contactId'));
+            if($contact != null && $contact != ''){
+                $contact->contact_status = 2;
+                $contact->update();
+                return "true";
+            }
+            return "false";
+        }
+        return "false";
+    }
+
+    public function postContactDoneRequestByEmployer(){
+        $validate = Validator::make(Input::all(), array(
+            'contactId' => 'required',
+            'status' => 'required',
+        ));
+        if($validate){
+            $contact = ContactDetails::find(Input::get('contactId'));
+            if($contact != null && $contact != ''){
+                if(Input::get('status') == 'true'){
+                    $contact->contact_status = 3;
+                    $contact->update();
+                    return "true";
+                }else if(Input::get('status') == 'false'){
+                    $contact->contact_status = 4;
+                    $contact->update();
+                    return "true";
+                }
+            }
+            return "false";
         }
         return "false";
     }

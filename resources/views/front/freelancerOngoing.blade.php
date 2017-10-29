@@ -47,8 +47,14 @@
                                         <td>{{substr($job->description, 0, 90)}}...</td>
                                         <td>{{$job->project_cost}}</td>
                                         <td>
-                                            <a href="{{route('getMilestone',['jobId'=>$job->id])}}" class="btn-success btn color-white">Milestone</a>
-                                            <a href="{{route('JobDescription',['jobId'=>$job->id])}}" class="btn-success btn color-white">Details</a>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <a href="{{route('getMilestone',['jobId'=>$job->id])}}" class="btn-success btn color-white">Milestone</a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <a href="{{route('JobDescription',['jobId'=>$job->id])}}" class="btn-success btn color-white">Details</a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

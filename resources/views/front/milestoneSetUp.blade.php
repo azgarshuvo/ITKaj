@@ -5,6 +5,7 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
+//dd($milestone);
 ?>
 
 @extends('layouts.front.profileMaster')
@@ -44,8 +45,22 @@
             </p>
         @endif
 
-        <p class="alert" id="milestoneAcceptDeniRequest"></p>
 
+        <p class="alert" id="milestoneAcceptDeniRequest"></p>
+        @if($milestone != null && $milestone != '')
+            @if(intval($milestone->contact_status) == 1)
+                <p class="alert alert-success">Contact End, Project Successfully Done</p>
+            @elseif(intval($milestone->contact_status) == 3)
+                    <p class="alert alert-success">Project Done Request Accept</p>
+            @elseif(intval($milestone->contact_status) == 4)
+                    <p class="alert alert-success">Project Done Request Deny</p>
+            @elseif(intval($milestone->contact_status) == 2)
+                <div class="col-md-12">
+                    <button class="btn-u btn-u-lg rounded btn-u-aqua" type="button" onclick="acceptProjectDoneRequest({{$milestone->id.','. "true"}})">Accept Project Done Request</button>
+                    <button class="btn-u btn-u-lg rounded btn-u-red" type="button" onclick="acceptProjectDoneRequest({{$milestone->id.','. "false"}})">Deny Project Done Request</button>
+                </div>
+            @endif
+        @endif
         <div class="clearfix"></div>
         <div class="col-md-12">
             @if($milestone->millstone)
@@ -199,53 +214,56 @@
                     </div>
                     {{--Modal body end--}}
                     @endif
-                    @if($milestone->job->project_cost>$fund)
-                        <form action="{{route('postSetupMilestone',['job_id'=>$milestone->job->id])}}" method="post"
-                              enctype="multipart/form-data" class="sky-form">
-                            {{csrf_field()}}
-                            <div class="row">
-                                <section class="col col-md-12">
-                                    <label class="input"> Milestone Title
-                                        <input value="{{old('milestone_title')}}" autocomplete="off"
-                                               class="form-control" type="text" id="milestone_title"
-                                               name="milestone_title" placeholder="">
-                                    </label>
-                                </section>
-                            </div>
+                    @if(intval($milestone->contact_status) == 0)
+                        @if($milestone->job->project_cost>$fund)
+                            <form action="{{route('postSetupMilestone',['job_id'=>$milestone->job->id])}}" method="post"
+                                  enctype="multipart/form-data" class="sky-form">
+                                {{csrf_field()}}
+                                <div class="row">
+                                    <section class="col col-md-12">
+                                        <label class="input"> Milestone Title
+                                            <input value="{{old('milestone_title')}}" autocomplete="off"
+                                                   class="form-control" type="text" id="milestone_title"
+                                                   name="milestone_title" placeholder="">
+                                        </label>
+                                    </section>
+                                </div>
 
-                            <div class="">
-                                <label class="textarea">
-                                    Description
-                                    <textarea rows="5" id="description" name="description"
-                                              placeholder="">{{old('description')}}</textarea>
-                                </label>
-                            </div>
-
-                            <div class="row">
-
-                                <section class="col col-6">
-                                    <b>Deadline</b>
-                                    <label class="input">
-                                        <i class="icon-append fa fa-calendar"></i>
-                                        <input autocomplete="off" type="text" name="deadline" id="deadline" placeholder=""
-                                               value="{{old('deadline')}}" class="datepicker">
+                                <div class="">
+                                    <label class="textarea">
+                                        Description
+                                        <textarea rows="5" id="description" name="description"
+                                                  placeholder="">{{old('description')}}</textarea>
                                     </label>
-                                </section>
-                                <section class="col col-6">
-                                    <b>Fund Release</b>
-                                    <label class="input">
-                                        <input autocomplete="off" type="text" name="fund_release" id="fund_release" placeholder=""
-                                               value="{{old('fund_release')}}">
-                                    </label>
-                                </section>
-                            </div>
-                            <input type="submit" class="btn-u" value="Add Milestone"/>
-                        </form>
+                                </div>
+
+                                <div class="row">
+
+                                    <section class="col col-6">
+                                        <b>Deadline</b>
+                                        <label class="input">
+                                            <i class="icon-append fa fa-calendar"></i>
+                                            <input autocomplete="off" type="text" name="deadline" id="deadline" placeholder=""
+                                                   value="{{old('deadline')}}" class="datepicker">
+                                        </label>
+                                    </section>
+                                    <section class="col col-6">
+                                        <b>Fund Release</b>
+                                        <label class="input">
+                                            <input autocomplete="off" type="text" name="fund_release" id="fund_release" placeholder=""
+                                                   value="{{old('fund_release')}}">
+                                        </label>
+                                    </section>
+                                </div>
+                                <input type="submit" class="btn-u" value="Add Milestone"/>
+                            </form>
+                        @endif
                     @endif
                 </div>
         </div>
     </div>
 <input type="hidden" value="{{route('milestoneDoneRequestByEmployer')}}" id="milestoneDoneRequestByEmployer">
+<input type="hidden" value="{{route('contactDoneRequestByEmployer')}}" id="contactDoneRequestByEmployer">
         <script type="text/javascript">
             /*Delete milestone by id*/
             function deleteMilestonebyID(){
@@ -383,6 +401,22 @@
                     }
                 });
             }
+
+            function acceptProjectDoneRequest(contactId, status){
+                var URL = $("#contactDoneRequestByEmployer").val();
+
+                $.ajax({
+                    method: "POST",
+                    url: URL,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    data: { contactId: contactId, status: status},
+                    success: function(data){
+//                        console.log(data);
+                        location.reload();
+                    }
+                });
+            }
+
         </script>
 @endsection
 

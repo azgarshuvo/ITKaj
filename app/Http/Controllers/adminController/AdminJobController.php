@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 use Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Validator;
+use Input;
 
 class AdminJobController extends Controller
 {
@@ -358,12 +360,23 @@ class AdminJobController extends Controller
     }
 
 
-//    public function getSelectedFreelancerList(){
-//        $selectedList = DB::table('users')
-//            ->join('freelancer_selected_for_jobs', 'users.id', '=', 'freelancer_selected_for_jobs.freelancer_id', '=', 'user_profiles.user_id')
-//            ->select('users.*', 'freelancer_selected_for_jobs.freelancer_id', 'freelancer_selected_for_jobs.status', 'user_profiles.*')
-//            ->get();
-//        dd($selectedList);
-//    }
+    public function acceptJobDone(){
+        $validate = Validator::make(Input::all(), array(
+            'contactId' => 'required',
+        ));
+        if($validate){
+            $contact = ContactDetails::find(Input::get('contactId'));
+            $job = Job::find($contact->	job_id);
+            if($contact != null && $contact != '' && $job != null && $job != ''){
+                $job->status = 1;
+                $job->update();
+                $contact->contact_status = 1;
+                $contact->update();
+                return "true";
+            }
+            return "false";
+        }
+        return "false";
+    }
 
 }
