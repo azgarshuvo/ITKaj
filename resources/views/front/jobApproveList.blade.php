@@ -52,6 +52,7 @@
                                     <div class="col-md-6">
                                         <a href="{{route('MyJobDescription',['jobId'=>$approveProject->id])}}" class="btn-success btn color-white">Details</a>
                                     </div>
+                                    <a href="{{route('editMyjob',['jobId'=>$approveProject->id])}}" class="btn-primary btn color-white btn-xs">Update</a>
                                 </div>
                             </td>
                         </tr>

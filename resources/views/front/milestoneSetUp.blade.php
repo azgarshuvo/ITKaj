@@ -5,7 +5,7 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
-//dd($milestone);
+//dd($milestone->job);
 ?>
 
 @extends('layouts.front.profileMaster')
@@ -14,9 +14,11 @@
 
 @section('content')
 
-    <div class="breadcrumbs">
-        <h2 class="title text-center bg-primary">Milestone Setup {{ $milestone->job->name }}</h2>
-    </div>
+    @if($milestone->job != null && $milestone->job != '')
+        <div class="breadcrumbs">
+            <h2 class="title text-center bg-primary">Milestone Setup {{$milestone->job->name }}</h2>
+        </div>
+    @endif
     <div class="col-md-9 milestone-body">
         <p class="message_show"></p>
         @if(session()->has('message'))

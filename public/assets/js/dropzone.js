@@ -372,7 +372,7 @@ var Dropzone = function (_Emitter) {
         addRemoveLinks: false,
 
         /**
-         * Defines where to display the file previews – if `null` the
+         * Defines where to display the file previews â€“ if `null` the
          * Dropzone element itself is used. Can be a plain `HTMLElement` or a CSS
          * selector. The element should have the `dropzone-previews` class so
          * the previews are displayed properly.
@@ -2037,7 +2037,7 @@ var Dropzone = function (_Emitter) {
               ctx.scale(-1, 1);
               break;
             case 3:
-              // 180° rotate left
+              // 180Â° rotate left
               ctx.translate(canvas.width, canvas.height);
               ctx.rotate(Math.PI);
               break;
@@ -2052,7 +2052,7 @@ var Dropzone = function (_Emitter) {
               ctx.scale(1, -1);
               break;
             case 6:
-              // 90° rotate right
+              // 90Â° rotate right
               ctx.rotate(0.5 * Math.PI);
               ctx.translate(0, -canvas.height);
               break;
@@ -2063,7 +2063,7 @@ var Dropzone = function (_Emitter) {
               ctx.scale(-1, 1);
               break;
             case 8:
-              // 90° rotate left
+              // 90Â° rotate left
               ctx.rotate(-0.5 * Math.PI);
               ctx.translate(-canvas.width, 0);
               break;

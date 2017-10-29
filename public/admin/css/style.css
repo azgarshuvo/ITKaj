@@ -5127,7 +5127,6 @@ ul{
 .drop-zone-up{
   width: 500px;
   height: 120px;
-  border: 1px dotted #473838;
 }
 .dropzone-hover{
   text-align: center;
@@ -5156,4 +5155,12 @@ ul{
 .chosen-container{
   margin-left: 1.5%;
   width: 1055px !important;
+}
+.drag-file{
+  position: absolute;
+  top: -80px;
+  left: 100px;
+}
+.dropzone{
+  min-height: 118px !important;
 }

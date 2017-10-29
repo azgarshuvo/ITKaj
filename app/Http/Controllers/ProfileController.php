@@ -44,6 +44,7 @@ class ProfileController extends Controller{
 
     public function getMyProfile(){
         $userProfile = User::findUser(Auth::User()->id)->with(['profile', 'education', 'employment'])->first();
+//        dd($userProfile->employment);
         return view('front.myProfile',['userProfile'=>$userProfile]);
     }
 
@@ -57,15 +58,7 @@ class ProfileController extends Controller{
         }
     }
 
-    public function getProjectApprovedList(){
-        $approveProjectList = Job::ProjectApproveList(Auth::User()->id)->get();
-        return view('front.jobApproveList', ['approveProjectList' => $approveProjectList]);
-    }
 
-    public function getJobDisapprovedList(){
-        $disapproveProjectList = Job::ProjectDisapproveList(Auth::User()->id)->get();
-        return view('front.jobDisapprovedList', ['disapproveProjectList' => $disapproveProjectList]);
-    }
 
     public function getFreelancerJobDoneList(){
         return view('front.freelancerjobDoneList');

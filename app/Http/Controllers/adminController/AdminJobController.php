@@ -104,28 +104,48 @@ class AdminJobController extends Controller
     }
 
 
+    #job update by admin
     public function postJobUpdate($id, Request $request){
-        $image = $request->file('file');
+        //dd($request->all());
 
-        $imageName = time().$image->getClientOriginalName();
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
 
-        $files = $image->move(public_path('dropZone'),$imageName);
+            $imageName = time().$image->getClientOriginalName();
+
+            $files = $image->move(public_path('dropZone'),$imageName);
+        }else{
+            $this->validate($request, [
+                'name' => 'required',
+                'description' => 'required',
+                'category' => 'required',
+                'sub_categorie' => 'required',
+                'projectCost' => 'required',
+                'projectCost' => 'required',
+                'projectType' => 'required',
+                'duration' => 'required',
+                'skills' => 'required',
+            ]);
+            $cateInput = $request->input('category');
+            if ($request->input('sub_categorie')>0){
+                $cateInput =$request->input('sub_categorie');
+            }
 
 
-       /* $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'category_id' => 'required',
-            'approved' => 'required'
-        ]);*/
+            $jobData= array(
+                'name'=> $request->input('name'),
+                'project_cost'=> $request->input('projectCost'),
+                'project_time'=> $request->input('duration'),
+                'description'=> $request->input('description'),
+                'category_id'=> $cateInput,
+                'skill_needed'=> json_encode($request->input('skills')),
+                'type'=> $request->input('projectType'),
+            );
 
-        /*$jobData = $request->all();
-        unset($jobData['_token']);
-        //dd($jobData);
-        Job::where(['id'=>$id])->update($jobData);
-        Session::flash('success', 'JobList updated successfully!');
-        //return redirect()->route('jobList');*/
-
+            Job::where(['id'=>$id])->update($jobData);
+            Session::flash('success', 'JobList updated successfully!');
+            return redirect()->route('jobList');
+        }
     }
 
     public function getJobDelete($id){
@@ -360,6 +380,7 @@ class AdminJobController extends Controller
     }
 
 
+
     public function acceptJobDone(){
         $validate = Validator::make(Input::all(), array(
             'contactId' => 'required',
@@ -377,6 +398,21 @@ class AdminJobController extends Controller
             return "false";
         }
         return "false";
+    }
+
+    #admin attachment add by job id
+    public function adminAttach($jobId,Request $request){
+        $image = $request->file('file');
+        $imageName = date('His').$image->getClientOriginalName();
+        $files = $image->move(public_path('attach'),$imageName);
+        $jobData = Job::where(['id'=>$jobId])->first();
+        $att = $jobData->job_attachment;
+       
+        $attachment = json_decode($att,true);
+        array_push($attachment,$imageName);
+        $updateAttachment = json_encode($attachment);
+        $jobData->job_attachment = $updateAttachment;
+        $jobData->save();
     }
 
 }

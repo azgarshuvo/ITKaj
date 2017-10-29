@@ -312,3 +312,9 @@ div.load {
     overflow-y:hidden;
     overflow-x:hidden;
 }
+.padding-8{
+    padding: 8px !important;
+}
+.padding-0{
+    padding: 0px !important;
+}

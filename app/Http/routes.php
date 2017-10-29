@@ -55,8 +55,8 @@ Route::group(['prefix' => 'user'], function () {
 
 
         Route::group(['prefix' => 'project'], function(){
-            Route::get('approved/list', ['as' => 'projectApprovedList', 'uses' => 'ProfileController@getProjectApprovedList']);
-            Route::get('disapproved/list', ['as' => 'projectDisapprovedList', 'uses' => 'ProfileController@getJobDisapprovedList']);
+            Route::get('approved/list', ['as' => 'projectApprovedList', 'uses' => 'JobController@getProjectApprovedList']);
+            Route::get('disapproved/list', ['as' => 'projectDisapprovedList', 'uses' => 'JobController@getJobDisapprovedList']);
             Route::get('done/list', ['as' => 'projectDoneList', 'uses' => 'JobController@getJobDoneList']);
             Route::get('interested/list', ['as' => 'projectInterestedList', 'uses' => 'JobController@getJobInterestedList']);
             Route::get('ongoing/list', ['as' => 'projectOngoingList', 'uses' => 'JobController@getJobOngoingList']);
@@ -157,6 +157,7 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
         /*This route use for reomve freelancer from assign job contact*/
         Route::get('remove-freelancer/{jobid}', ['as' =>'removeFreelancer', 'uses' => 'adminController\AdminJobController@FreelancerRemove']);
         Route::post('freelancerListAssign', ['as' =>'freelancerListAssign', 'uses' => 'adminController\AdminJobController@FreelancerListAssign']);
+        Route::post('add-attachment/{jobid}', ['as' =>'adminAddJobAttachment', 'uses' => 'adminController\AdminJobController@adminAttach']);
 
 
         /*Jobe Finish Route*/
@@ -173,7 +174,7 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
 /*Common job controller*/
 Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], function (){
     Route::get('post', ['as' =>'JobPost', 'uses' => 'JobController@getJobPost','middleware' => 'employer']);
-    Route::post('post/execute', ['as' =>'joabPost', 'uses' => 'JobController@PostJobPost','middleware' => 'employer']);
+    Route::post('post/execute', ['as' =>'jobPost', 'uses' => 'JobController@PostJobPost','middleware' => 'employer']);
 
     Route::get('description/{jobid}', ['as' =>'JobDescription', 'uses' => 'JobController@getJobDescription']);
     Route::get('search', ['as' => 'jobSearch', 'uses' => 'JobController@getJobSearch','middleware' => 'freelancer']);
@@ -185,6 +186,9 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], 
     /*Route for own job */
     Route::get('myjob/{id}', ['as' =>'MyJobDescription', 'uses' => 'JobController@getOwnJobDescription']);
     Route::get('delete-my-job/{id}', ['as' =>'deleteMyJob', 'uses' => 'JobController@DeleteMyJob']);
+    Route::get('edit-my-job/{jobid}', ['as' =>'editMyjob', 'uses' => 'JobController@EditMyJob']);
+    Route::post('attachment-add/{jobid}', ['as' =>'addAttachment', 'uses' => 'JobController@AttachmentAdd']);
+    Route::post('job-update/{jobid}', ['as' =>'editJobPost', 'uses' => 'JobController@JobUpdate']);
 
     /*Setup Milestone*/
     Route::get('setupMilestone/{jobid}', ['as' =>'setupMilestone', 'uses' => 'MilestoneController@SetMilestoneView']);
