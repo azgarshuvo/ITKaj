@@ -592,6 +592,7 @@ $emps = (Auth::User()->employment);
     <!-- End Profile Content -->
     <input type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->country}}" @endif id="userCountryId">
     <input type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->city}}" @endif id="userCityId">
+    {{--<input type="hidden" @if($userProfile->employment != null && $userProfile->employment != '') value="{{$userProfile->employment->city}}" @endif id="userEmploymentCityId">--}}
     <input type="hidden" value="{{$cities}}" id="userCities">
 
     {{--Education Modal--}}
@@ -867,9 +868,11 @@ $emps = (Auth::User()->employment);
                                             <select class="form-control margin-bottom-20" id="editEmploymentModaleCountryDropdown">
                                                 @if($countries != null && $countries != '')
                                                     @foreach($countries as $country)
-                                                        @if($userProfile->profile->country == $country->id)
-                                                            <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
-                                                        @endif
+                                                        @foreach($emps as $emp)
+                                                            @if($emp->country == $country->id)
+                                                                <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
+                                                            @endif
+                                                        @endforeach
                                                     @endforeach
                                                 @endif
                                             </select>
@@ -997,7 +1000,7 @@ $emps = (Auth::User()->employment);
 
         $('#editEmploymentModaleCountryDropdown').change(function(){
             var Selected_id = $('#editEmploymentModaleCountryDropdown option:selected').val();
-            var Selected_city = parseInt($('#userCityId').val());
+            var Selected_city = parseInt($('#userEmploymentCityId').val());
             $('.editEmploymentModaleCityDropdown').find('option:not(:first)').remove();
             var Cities = JSON.parse($('#userCities').val());
             $.each(Cities, function( index, value ) {

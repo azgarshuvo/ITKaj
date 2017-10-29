@@ -44,6 +44,7 @@ class ProfileController extends Controller{
 
     public function getMyProfile(){
         $userProfile = User::findUser(Auth::User()->id)->with(['profile', 'education', 'employment'])->first();
+//        dd($userProfile->employment);
         return view('front.myProfile',['userProfile'=>$userProfile]);
     }
 
