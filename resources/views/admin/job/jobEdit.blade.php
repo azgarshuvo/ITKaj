@@ -52,15 +52,14 @@
                         <label class="col-lg-2 control-label">Description</label>
                         <div class="col-lg-10">
                             {{--<input type="text" name="description" value="{{$jobList->description}}" class="form-control">--}}
-                            <textarea rows="5" cols="133">{{$jobList->description}}</textarea>
+                            <textarea rows="5" name="description" cols="133">{{$jobList->description}}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Category</label>
                         <div class="col-lg-4">
-                            <select class="form-control m-b" name="account">
-                                <option value="0">Select One</option>
+                            <select class="form-control m-b" name="category">
                                 @foreach($categories as $cate)
                                     @if($cate->is_parent!=0)
 
@@ -96,16 +95,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Approve</label>
-                        <div class="col-lg-10" id="jobStatus">
-                            @if($jobList->approved == 1)
-                                <button type="button" onclick="jobDisapprove({{$jobList->id}})" class="btn btn-danger">Disapprove</button>
-                            @else
-                                <button type="button" onclick="jobApprove({{$jobList->id}})" class="btn btn-primary">Approve</button>
-                            @endif
-                        </div>
-                    </div>
+
                  {{--   <div class="form-group">
                         <label class="col-lg-2 control-label">Skills</label>
                         <div class="col-lg-10" id="attachment">
@@ -116,16 +106,18 @@
                             </select>
                         </div>
                     </div>--}}
-                    <div class="form-group">
-                        <label class="col-lg-2 control-label">Project Cost</label>
-                        <div class="col-lg-10"><input type="text" name="projectCost" value="{{$jobList->project_cost}}" class="form-control">
+                    @if($jobList->selected_for_job==null)
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Project Cost</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="projectCost" value="{{$jobList->project_cost}}" class="form-control">
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Project Type</label>
                         <div class="col-lg-10" id="attachment">
                             <select class="form-control margin-bottom-20" name="projectType">
-                                <option value="">Select One</option>
                                 @if($jobList->type == 1)
                                     <option selected="selected" value="1">One Time Project</option>
                                     <option value="2">On going</option>
@@ -147,12 +139,7 @@
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Duration</label>
                         <div class="col-lg-10" id="attachment">
-                            <select class="form-control margin-bottom-20" name="projectType">
-                                <option value="">Select One</option>
-                                <option value="1">More Then 1 Month</option>
-                                <option value="2">Less Then 1 Month</option>
-                                <option value="3">I Don't Know</option>
-
+                            <select class="form-control margin-bottom-20" name="duration">
                             @if($jobList->project_time == 1)
                                     <option selected="selected" value="1">More Then 1 Month</option>
                                     <option value="2">Less Then 1 Month</option>
@@ -175,21 +162,34 @@
                         <label class="col-lg-2 control-label">Skills</label>
                         <div class="col-lg-10">
                             <div class="form-group">
-                                <select data-placeholder="Choose skills" class="chosen-select" multiple style="" tabindex="4">
-                                       @foreach($skills as $skill)
-                                            @foreach(json_decode($jobList->skill_needed, true) as $value)
-                                                @if($skill->id==$value)
-                                                    <option selected value="{{$skill->id}}">{{$skill->name}}</option>
-                                                @else
-                                                    <option value="{{$skill->id}}">{{$skill->name}}</option>
-                                                @endif
-                                            @endforeach
-                                        @endforeach
-                                    </select>
+                                <select data-placeholder="Choose skills" name="skills[]" class="chosen-select" multiple style="" tabindex="4">
+                                    @foreach($skills as $skill)
+                                        @if(is_array(json_decode($jobList->skill_needed, true)))
+                                            @if(in_array($skill->id,json_decode($jobList->skill_needed, true)))
+                                                <option selected value="{{$skill->id}}">{{$skill->name}}</option>
+                                            @else
+                                                <option value="{{$skill->id}}">{{$skill->name}}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{$skill->id}}">{{$skill->name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
 
                             </div>
                         </div>
 
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Approve</label>
+                        <div class="col-lg-10" id="jobStatus">
+                            @if($jobList->approved == 1)
+                                <button type="button" onclick="
+                                        jobDisapprove({{$jobList->id}})" class="btn btn-danger">Disapprove</button>
+                            @else
+                                <button type="button" onclick="jobApprove({{$jobList->id}})" class="btn btn-primary">Approve</button>
+                            @endif
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Attachment Files</label>
