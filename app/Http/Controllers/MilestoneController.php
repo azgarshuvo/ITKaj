@@ -106,6 +106,7 @@ class MilestoneController extends Controller
     public function getFreelancerMilestone($jobId){
 
         $milestone = ContactDetails::GetJobId($jobId)->with(['millstone', 'job'])->first();
+//        dd($milestone);
         $flag = 1;
         foreach ($milestone->milestone as $milstones){
             if(intval($milstones->status) != 2){

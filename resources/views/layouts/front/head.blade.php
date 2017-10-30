@@ -6,7 +6,7 @@
  * Time: 4:39 PM
  */
 ?>
-<title>App Name - @yield('title')</title>
+<title>ItKaj - @yield('title')</title>
 
 <!-- Meta -->
 <meta charset="utf-8">

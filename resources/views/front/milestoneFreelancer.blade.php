@@ -95,6 +95,10 @@
                                         <span class="label label-success">Milestone Done And Fund Transferred</span>
                                     @elseif($milestones->status == 3)
                                         <span class="label label-success">Milestone Done Requested</span>
+                                    @elseif($milestones->status == 4)
+                                        <span class="label label-success">Milestone Done Requested Accept By Employer</span>
+                                    @elseif($milestones->status == 5)
+                                        <span class="label label-danger">Milestone Done Requested Deny By Employer</span>
                                     @endif
                                 </td>
                             </tr>

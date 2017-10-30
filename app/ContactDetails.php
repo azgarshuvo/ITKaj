@@ -17,7 +17,7 @@ class ContactDetails extends Model
 
 
     public function job(){
-        return $this->hasOne('App\Job','id','job_id')->where('status', 0);
+        return $this->hasOne('App\Job','id','job_id');
     }
 
     public function scopeGetJobId($query, $id){

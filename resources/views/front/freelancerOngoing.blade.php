@@ -18,7 +18,7 @@
                 <!-- Begin Table Search Panel v1 -->
                 <div class="table-search-v1 panel panel-dark margin-bottom-40" >
                     <div class="panel-heading jobOngoingTableHeadingBlack">
-                        <h3 class="panel-title"><i class="fa fa-globe"></i> Freelancer Ongoing Job Search Results</h3>
+                        <h3 class="panel-title"><i class="fa fa-globe"></i> Project Ongoing List</h3>
                     </div>
                     <div class="panel-body font-size-13">
 

@@ -415,4 +415,21 @@ class AdminJobController extends Controller
         $jobData->save();
     }
 
+    public function milestoneReset(){
+        $validate = Validator::make(Input::all(), array(
+            'milestoneId' => 'required',
+        ));
+        if($validate){
+            $milestone = Milestone::find(Input::get('milestoneId'));
+
+            if($milestone != null && $milestone != ''){
+                $milestone->status = 1;
+                $milestone->update();
+                return "true";
+            }
+            return "false";
+        }
+        return "false";
+    }
+
 }

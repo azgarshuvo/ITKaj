@@ -362,6 +362,9 @@
                                                 <span class="label label-success">Milestone Done Requested</span>
                                             @elseif($milestone->status==4)
                                                 <button type="button" class="btn btn-w-m btn-info" onclick="transerFund({{$milestone->id.",".$milestone->fund_release.",".$milestone->contact_id}})">Transfer Fund</button>
+                                            @elseif($milestone->status==5)
+                                                <span class="label label-danger">Milestone Deny By Employer</span>
+                                                <button type="button" class="btn btn-w-m btn-warning" onclick="resetMilestone({{$milestone->id}})">Reset Milestone</button>
                                             @endif
                                         </td>
                                     </tr>
@@ -436,6 +439,7 @@
             </div>
         </div>
     <input type="hidden" value="{{route('acceptJobDone')}}" id="acceptJobDone">
+    <input type="hidden" value="{{route('milestoneReset')}}" id="milestoneReset">
     <script type="text/javascript">
         /*This function add row to selected table*/
         function rowAdd(id){
@@ -596,6 +600,20 @@
                 success: function(data){
                         console.log(data);
 //                    location.reload();
+                }
+            });
+        }
+
+        function resetMilestone(milestoneId){
+            var URL = $("#milestoneReset").val();
+            $.ajax({
+                method: "POST",
+                url: URL,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: { milestoneId: milestoneId, _token:'{{ csrf_token() }}'},
+                success: function(data){
+//                    console.log(data);
+                    location.reload();
                 }
             });
         }
