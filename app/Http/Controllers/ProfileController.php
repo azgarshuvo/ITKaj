@@ -87,15 +87,18 @@ class ProfileController extends Controller{
         $finishDate = date("Y-m-d", strtotime($originalFinishDate));
 
         Education::Create(
-                    [   'user_id' => $this->userId,
-                        'institution' => Input::get('institution'),
-                        'degree'=>Input::get('degree'),
-                        'area_of_study'=>Input::get('study_area'),
-                        'start_date'=>$startDate,
-                        'end_date'=>$finishDate,
-                        'description'=>Input::get('description'),
-                        'current'=>Input::get('current')
-                    ]);
+            [
+                'user_id' => $this->userId,
+                'institution' => Input::get('institution'),
+                'degree' => Input::get('degree'),
+                'area_of_study' => Input::get('study_area'),
+                'start_date' => $startDate,
+               // 'end_date' => $finishDate,
+                'description' => Input::get('description'),
+                'current' => Input::get('currentHidden')
+            ]
+        );
+
         echo "<p class='alert alert-success'> Education Add Success</p>";
     }
 
@@ -137,18 +140,33 @@ class ProfileController extends Controller{
         $originalFinishDate = Input::get('finish_date');
         $finishDate = date("Y-m-d", strtotime($originalFinishDate));
 
-        Employments::Create(
-            [
-                'user_id' => $this->userId,
-                'company_name'=>Input::get('company_name'),
-                'country'=>Input::get('country'),
-                'city'=>Input::get('city'),
-                'postal_code'=>Input::get('postal_code'),
-                'start_date'=>$startDate,
-                'finish_date'=>$finishDate,
-                'designation'=>Input::get('designation'),
-                'current'=>Input::get('current')
-            ]);
+        $currentDate = Input::get('current');
+        if($currentDate == 1) {
+            Employments::Create(
+                [
+                    'user_id' => $this->userId,
+                    'company_name' => Input::get('company_name'),
+                    'country' => Input::get('country'),
+                    'city' => Input::get('city'),
+                    'postal_code' => Input::get('postal_code'),
+                    'start_date' => $startDate,
+                    'designation' => Input::get('designation'),
+                    'current' => $currentDate
+                ]);
+        }
+        else{
+            Employments::Create(
+                [
+                    'user_id' => $this->userId,
+                    'company_name' => Input::get('company_name'),
+                    'country' => Input::get('country'),
+                    'city' => Input::get('city'),
+                    'postal_code' => Input::get('postal_code'),
+                    'start_date' => $startDate,
+                    'finish_date' => $finishDate,
+                    'designation' => Input::get('designation'),
+                ]);
+        }
         echo "<p class='alert alert-success'>Employment Added Successfuly</p>";
     }
 
