@@ -162,6 +162,9 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
 
         /*Jobe Finish Route*/
         Route::post('accept-job-done', ['as' =>'acceptJobDone', 'uses' => 'adminController\AdminJobController@acceptJobDone']);
+        /*Milestone Reset Route*/
+
+        Route::post('milestone-reset', ['as' =>'milestoneReset', 'uses' => 'adminController\AdminJobController@milestoneReset']);
 
 
     });

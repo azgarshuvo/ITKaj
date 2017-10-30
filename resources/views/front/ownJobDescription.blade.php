@@ -5,7 +5,7 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
-//dd(strlen($jobDetails->job_attachment));
+//dd($jobDetails);
 ?>
 @extends('layouts.front.master')
 
