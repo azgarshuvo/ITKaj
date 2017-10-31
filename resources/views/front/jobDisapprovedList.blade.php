@@ -41,7 +41,7 @@
                     @foreach($disapproveProjectList as $disapproveProject)
                         <tr>
                             <td>{{$disapproveProject->name}}</td>
-                            <td>{{$disapproveProject->description}}</td>
+                            <td>{{substr($disapproveProject->description, 0, 90)}}....</td>
                             <td>{{$disapproveProject->project_cost}}</td>
                             <td>
                                 <a href="{{route('deleteMyJob',['jobId'=>$disapproveProject->id])}}" class="btn btn-danger"><i class="fa fa-trash-o color-white"></i></a>

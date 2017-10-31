@@ -5,7 +5,7 @@
  * Date: 07-Oct-17
  * Time: 12:54 PM
  */
-//dd($milestone);
+//dd(intval($milestone->contact_status));
 
 ?>
 
@@ -35,6 +35,27 @@
         @endif
         <p class="alert milestoneRequestMessage" >
         </p>
+        @if($milestone->millstone != null && $milestone->millstone != '')
+            @if(intval($milestone->contact_status) == 0 )
+                @if(intval($flag) == 1)
+                    <div class="col-md-12">
+                        <button class="btn-u btn-u-lg rounded btn-u-aqua" type="button" onclick="projectDoneRequest({{intval($milestone->id)}})">Project Done Request</button>
+                    </div>
+                @endif
+            @endif
+            @if(intval($milestone->contact_status) == 1 )
+                    <p class="alert alert-success">Contact End, Project Successfully Done</p>
+            @endif
+            @if(intval($milestone->contact_status) == 2 )
+                    <p class="alert alert-success">Project Finish Request Send</p>
+            @endif
+            @if(intval($milestone->contact_status) == 3 )
+                    <p class="alert alert-success">Project Done Request Accept By Employer</p>
+            @endif
+            @if(intval($milestone->contact_status) == 4 )
+                    <p class="alert alert-success">Project Done Request Deny By Employer</p>
+            @endif
+        @endif
         <div class="clearfix"></div>
         <div class="col-md-12">
             @if($milestone->millstone)
@@ -74,6 +95,10 @@
                                         <span class="label label-success">Milestone Done And Fund Transferred</span>
                                     @elseif($milestones->status == 3)
                                         <span class="label label-success">Milestone Done Requested</span>
+                                    @elseif($milestones->status == 4)
+                                        <span class="label label-success">Milestone Done Requested Accept By Employer</span>
+                                    @elseif($milestones->status == 5)
+                                        <span class="label label-danger">Milestone Done Requested Deny By Employer</span>
                                     @endif
                                 </td>
                             </tr>
@@ -85,6 +110,7 @@
         </div>
     </div>
 <input type="hidden" value="{{route('milestoneDoneRequest')}}" id="milestoneDoneRequest">
+<input type="hidden" value="{{route('contactDoneRequestByFreelancer')}}" id="contactDoneRequestByFreelancer">
     <script type="text/javascript">
         function releaseFund(id,releaseAmount){
             $.post("{{route('releaseFund')}}",
@@ -158,6 +184,20 @@
                     }
                 }
             });
+        }
+
+        function projectDoneRequest(contactId){
+            var URL = $('#contactDoneRequestByFreelancer').val();
+
+            $.ajax({
+                method: "POST",
+                url: URL,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: { contactId: contactId },
+                success: function(data){
+                    location.reload();
+                }
+            })
         }
     </script>
 @endsection

@@ -24,7 +24,7 @@
                 <!-- Navbar Brand -->
                 <div class="navbar-brand">
                     <a href="{{route('home')}}">
-                        <img class="default-logo" src="" alt="Logo">
+                        <img class="default-logo" src="" alt="ITKAJ">
                     </a>
                 </div>
                 <!-- ENd Navbar Brand -->

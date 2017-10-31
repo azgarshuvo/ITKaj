@@ -31,7 +31,7 @@
         <!-- Begin Table Search Panel v1 -->
         <div class="table-search-v1 panel panel-dark margin-bottom-40" >
             <div class="panel-heading jobDoneTableHeadingBlack">
-                <h3 class="panel-title"><i class="fa fa-globe"></i> Job Done Search Results</h3>
+                <h3 class="panel-title"><i class="fa fa-globe"></i> Project Done List</h3>
             </div>
             <div class="panel-body">
 
@@ -57,11 +57,17 @@
                         @foreach($jobList as $job)
                             <tr>
                                 <td>{{$job->name}}</td>
-                                <td>{{$job->description}}</td>
+                                <td>{{substr($job->description, 0, 90)}}...</td>
                                 <td>{{$job->project_cost}}</td>
                                 <td>
-                                    <a href="{{route('getMilestone',['jobId'=>$job->id])}}" class="btn-success btn color-white">Milestone</a>
-                                    <a href="{{route('MyJobDescription',['jobId'=>$job->id])}}" class="btn-success btn color-white">Details</a>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="{{route('getMilestone',['jobId'=>$job->id])}}" class="btn-success btn color-white">Milestone</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a href="{{route('MyJobDescription',['jobId'=>$job->id])}}" class="btn-success btn color-white">Details</a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

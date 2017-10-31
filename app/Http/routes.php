@@ -160,6 +160,13 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
         Route::post('add-attachment/{jobid}', ['as' =>'adminAddJobAttachment', 'uses' => 'adminController\AdminJobController@adminAttach']);
 
 
+        /*Jobe Finish Route*/
+        Route::post('accept-job-done', ['as' =>'acceptJobDone', 'uses' => 'adminController\AdminJobController@acceptJobDone']);
+        /*Milestone Reset Route*/
+
+        Route::post('milestone-reset', ['as' =>'milestoneReset', 'uses' => 'adminController\AdminJobController@milestoneReset']);
+
+
     });
     /*admin job controller end*/
 
@@ -202,6 +209,8 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], 
     /*Freelancer Milestone Done*/
     Route::post('my-milestone/done', ['as' => 'milestoneDoneRequest', 'uses' => 'MilestoneController@postMilestoneDoneRequest']);
     Route::post('my-milestone/done/employer', ['as' => 'milestoneDoneRequestByEmployer', 'uses' => 'MilestoneController@postMilestoneDoneRequestByEmployer']);
+    Route::post('my-contact/done', ['as' => 'contactDoneRequestByFreelancer', 'uses' => 'MilestoneController@postContactDoneRequestByFreelancer']);
+    Route::post('my-contact/done/employer', ['as' => 'contactDoneRequestByEmployer', 'uses' => 'MilestoneController@postContactDoneRequestByEmployer']);
 
 });
 

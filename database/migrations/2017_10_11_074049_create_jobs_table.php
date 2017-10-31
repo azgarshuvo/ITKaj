@@ -25,8 +25,6 @@ class CreateJobsTable extends Migration
             $table->string('skill_needed');
             $table->string('job_attachment',500);
             $table->integer('type');
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
             $table->boolean('approved')->default(0);
             $table->integer('selected_for_job')->nullable();
 
