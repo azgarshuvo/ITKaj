@@ -22,22 +22,28 @@
         @endif
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Add Admin</h5>
+                <h5>Add Exam</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
                 </div>
             </div>
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    @foreach($errors->all() as $error)
-                        <p>{{ $error }}</p>
-                    @endforeach()
-                </div>
-            @endif
             <div class="ibox-content wizard-card">
-                <form class="form-horizontal" action="{{route('insertAdmin')}}" method="post" enctype="multipart/form-data">
+
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach()
+                    </div>
+                @endif
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+                <form class="form-horizontal" action="{{route('postAddExam')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Exam Name</label>

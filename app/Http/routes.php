@@ -236,9 +236,16 @@ Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], fun
 /*Exam Route Start*/
 Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']], function (){
     Route::get('add', ['as' => 'addExam', 'uses' => 'ExamController@ExamAdd']);
-    Route::get('add-ques', ['as' => 'addQuestion', 'uses' => 'ExamController@QuestionAdd']);
+    Route::post('add/execute', ['as' => 'postAddExam', 'uses' => 'ExamController@PostAddExam']);
+    Route::get('exam-list', ['as' => 'listExam', 'uses' => 'ExamController@ExamList']);
+
+    Route::post('exam-list', ['as' => 'examUpdate', 'uses' => 'ExamController@PostExamUpdate']);
+    Route::post('exam-delete', ['as' => 'examDelete', 'uses' => 'ExamController@PostExamDelete']);
+
+    Route::get('add-question/{examID}', ['as' => 'addQuestion', 'uses' => 'ExamController@QuestionAdd']);
 
     Route::get('add-set', ['as' => 'addQuestionSet', 'uses' => 'ExamController@ExamQuestionSetAdd']);
+    Route::post('post-set', ['as' => 'postQuestion', 'uses' => 'ExamController@ExamQuestionSet']);
 });
 /*Exam Route End*/
 
