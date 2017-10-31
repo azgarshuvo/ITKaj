@@ -221,16 +221,17 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->address}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->address}}" @endif name="address">
+                                            <textarea name="address" id="address_text_area" style="display: none;"></textarea>
+                                            {{--<input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->address}}" @endif name="address">--}}
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <a onclick="changeData('address')" class="pull-right address_edit" href="javascript:void(0);">
+                                                <a onclick="changeAdvanceData('address')" class="pull-right address_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetData('address')" class="pull-right address hidden" href="javascript:void(0);">
+                                                <a onclick="resetAdvanceData('address')" class="pull-right address hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -571,8 +572,8 @@ $emps = (Auth::User()->employment);
 
                                             <li class="{{$emp->id."_endEmpDate"}}"><i class="fa fa-clock-o"></i>@if($emp->finish_date != null && $emp->finish_date != '') @if($emp->current == 0){{$emp->finish_date}} @elseif($emp->current == 1)Current @endif @endif</li>
                                         </ul>
-                                        <h5 class="{{$emp->id."_empCountry"}}"><a class="color-dark"></a>@if($emp->country != null && $emp->country != '') @foreach($countries as $country) @if($country->id == $emp->country) {{$country->name}} @endif @endforeach @endif</h5>
-                                        <h5 class="{{$emp->id."_empCity"}}"><a class="color-dark"></a>@if($emp->city != null && $emp->city != '') @foreach($cities as $city) @if($city->id == $emp->city) {{$city->name}} @endif @endforeach @endif</h5>
+                                        <h5 class="{{$emp->id."_empCountry"}}" data-value="{{$emp->country}}"><a class="color-dark"></a>@if($emp->country != null && $emp->country != '') @foreach($countries as $country) @if($country->id == $emp->country) {{$country->name}} @endif @endforeach @endif</h5>
+                                        <h5 class="{{$emp->id."_empCity"}}" data-value="{{$emp->city}}"><a class="color-dark"></a>@if($emp->city != null && $emp->city != '') @foreach($cities as $city) @if($city->id == $emp->city) {{$city->name}} @endif @endforeach @endif</h5>
                                         <h5 class="{{$emp->id."_empPostalCode"}}"><a class="color-dark"></a>@if($emp->postal_code != null && $emp->postal_code != '') {{$emp->postal_code}} @endif</h5>
                                         <h5 class="{{$emp->id."_empDesignation"}}"><a class="color-dark"></a>@if($emp->designation != null && $emp->designation != '') {{$emp->designation}} @endif</h5>
                                         <br>
@@ -594,6 +595,7 @@ $emps = (Auth::User()->employment);
     <input type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->city}}" @endif id="userCityId">
     {{--<input type="hidden" @if($userProfile->employment != null && $userProfile->employment != '') value="{{$userProfile->employment->city}}" @endif id="userEmploymentCityId">--}}
     <input type="hidden" value="{{$cities}}" id="userCities">
+    <input type="hidden" value="{{$countries}}" id="userCountries">
 
     {{--Education Modal--}}
 
@@ -654,7 +656,8 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input onclick="disableFinishEduDate()" type="checkbox" name="current" id="current" value="1">
+                                    <input onclick="disableFinishEduDate()" type="checkbox" name="current" id="current">
+                                    <input type="hidden" id="current_hidden" name="current_hidden" value="0">
                                     Current
                                 </section>
                             </fieldset>
@@ -733,7 +736,7 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input type="checkbox" name="current" id="edit_current" value="1">
+                                    <input type="checkbox" name="current" id="edit_current">
                                     Current
                                 </section>
                             </fieldset>
@@ -824,7 +827,7 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input onclick="disableFinishDate()" type="checkbox" name="current" id="emp_current" value="1">
+                                    <input onclick="disableFinishDate()" type="checkbox" name="current" id="emp_current" >
                                     Current
                                 </section>
                             </fieldset>
@@ -866,15 +869,15 @@ $emps = (Auth::User()->employment);
                                     <section class="col col-6">
                                         <label class="input">
                                             <select class="form-control margin-bottom-20" id="editEmploymentModaleCountryDropdown">
-                                                @if($countries != null && $countries != '')
-                                                    @foreach($countries as $country)
-                                                        @foreach($emps as $emp)
-                                                            @if($emp->country == $country->id)
-                                                                <option value="{{$country->id}}" selected="selected">{{$country->name}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                @endif
+                                                {{--@if($countries != null && $countries != '')--}}
+                                                    {{--@foreach($countries as $country)--}}
+                                                        {{--@foreach($emps as $emp)--}}
+                                                            {{--@if($emp->country == $country->id)--}}
+                                                                {{--<option value="{{$country->id}}" selected="selected">{{$country->name}}</option>--}}
+                                                            {{--@endif--}}
+                                                        {{--@endforeach--}}
+                                                    {{--@endforeach--}}
+                                                {{--@endif--}}
                                             </select>
                                         </label>
                                     </section>
@@ -917,7 +920,7 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input type="checkbox" name="current" id="edit_empCurrent" value="1">
+                                    <input type="checkbox" name="current" id="edit_empCurrent">
                                     Current
                                 </section>
                             </fieldset>
@@ -1057,6 +1060,38 @@ $emps = (Auth::User()->employment);
             //$('input').attr('name', 'yourNewname');
         }
 
+        function changeAdvanceData(name){
+
+            //$('input').attr('name', 'yourNewname');
+
+//            $("input[name="+name+"]").each(function()
+//            {
+//                var textarea = $(document.createElement('textarea'));
+//                textarea.text($(this).val());
+//                $(this).after(textarea).remove();
+//            });
+//
+//            $("."+name+"_edit").addClass('hidden');
+//            $("."+name).removeClass('hidden');
+//            $("#"+name).addClass('hidden');
+
+
+            $('#address_text_area').css({ "display": "inline" });
+            $("#"+name).addClass('hidden');
+
+            $("."+name+"_edit").addClass('hidden');
+            $("."+name).removeClass('hidden');
+
+        }
+
+        function resetAdvanceData(name) {
+            $('#address_text_area').css({ "display": "none" });
+            $("#"+name).removeClass('hidden');
+
+            $("."+name+"_edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+        }
+
         function resetData(name){
             var text = $("#"+name).text();
             var value = $.trim(text);
@@ -1163,6 +1198,7 @@ $emps = (Auth::User()->employment);
             var finish = $("#finish").val();
             var description = $("#description").val();
             var current = $("#current").val();
+            var currentHidden = $("#current_hidden").val();
             $.post("{{route('addEdcation')}}",
                 {
                     _token: '{{csrf_token()}}',
@@ -1173,6 +1209,7 @@ $emps = (Auth::User()->employment);
                     finish:finish,
                     description:description,
                     current:current,
+                    currentHidden:currentHidden,
                 },
                 function(data, status){
                     //alert(data);
@@ -1293,8 +1330,8 @@ $emps = (Auth::User()->employment);
 
         function editEmployment(employmentId){
             var company_name = $("."+employmentId+"_empCompanyName").text();
-            var country = $("."+employmentId+"_empCountry").text();
-            var city = $("."+employmentId+"_empCity").text();
+            var country = $("."+employmentId+"_empCountry").data('value');
+            var city = $("."+employmentId+"_empCity").data('value');
             var postalCode = $("."+employmentId+"_empPostalCode").text();
             var startDate = $("."+employmentId+"_startEmpDate").text();
             var finishDate = $("."+employmentId+"_endEmpDate").text();
@@ -1302,12 +1339,50 @@ $emps = (Auth::User()->employment);
 
             $("#empId").val(employmentId);
             $("#edit_company").val(company_name);
-            $("#editEmploymentModaleCountryDropdown").val(country);
-            $("#editEmploymentModaleCityDropdown").val(city);
             $("#edit_postal_code").val(postalCode);
             $("#edit_start_date").val(startDate);
             $("#edit_finish_date").val(finishDate);
             $("#edit_designation").val(designation);
+
+            var countries = JSON.parse($("#userCountries").val());
+            var cities = JSON.parse($("#userCities").val());
+
+            $.each(countries, function(index, value){
+                if(value.id == country){
+                    //console.log(country);
+                    $('#editEmploymentModaleCountryDropdown').append($('<option>',{
+                       value : value.id,
+                       text : value.name,
+                       selected: true
+                    }));
+                }else{
+                    $('#editEmploymentModaleCountryDropdown').append($('<option>',{
+                        value : value.id,
+                        text : value.name,
+                    }));
+                }
+            });
+
+            $.each(cities, function(index, value){
+                if(value.countries_id == country){
+                    if(city == value.id){
+                        $('#editEmploymentModaleCityDropdown').append($('<option>',{
+                            value : value.id,
+                            text : value.name,
+                            selected: true
+                        }));
+                    }
+                    else{
+                        $('#editEmploymentModaleCityDropdown').append($('<option>',{
+                            value : value.id,
+                            text : value.name,
+                        }));
+                    }
+                }
+            });
+
+
+
         }
 
         $("#editEmployment").click(function(e){
@@ -1356,12 +1431,16 @@ $emps = (Auth::User()->employment);
 
         function disableFinishEduDate(){
             if($("#current").prop("checked") == true){
+                $('#current_hidden').val(1);
                 $("#finish").attr('disabled', 'disabled');
                 $("#finish").val('');
+                console.log($('#current_hidden').val());
 
             }
             else if($("#current").prop("checked") == false){
+                $('#current_hidden').val(0);
                 $("#finish").removeAttr("disabled");
+                console.log($('#current_hidden').val());
             }
         }
     </script>
