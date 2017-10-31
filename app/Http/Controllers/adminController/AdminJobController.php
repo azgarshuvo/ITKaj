@@ -242,13 +242,13 @@ class AdminJobController extends Controller
     /*Admin job approve by post ajax*/
     public function PostJobApprove(Request $request){
         $jobId = $request->input('jobId');
-        Job::where(['id'=>$jobId])->update(['verified'=>1,'approved'=>1]);
+        Job::where(['id'=>$jobId])->update(['approved'=>1]);
     }
 
     /*Admin job disapprove by post ajax*/
     public function PostJobDisapprove(Request $request){
         $jobId = $request->input('jobId');
-        Job::where(['id'=>$jobId])->update(['verified'=>1,'approved'=>0]);
+        Job::where(['id'=>$jobId])->update(['approved'=>0]);
     }
 
     #get freelancer list by dropdown

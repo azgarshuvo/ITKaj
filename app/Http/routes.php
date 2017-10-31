@@ -233,26 +233,14 @@ Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], fun
 });
 
 
+/*Exam Route Start*/
+Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']], function (){
+    Route::get('add', ['as' => 'addExam', 'uses' => 'ExamController@ExamAdd']);
+    Route::get('add-ques', ['as' => 'addQuestion', 'uses' => 'ExamController@QuestionAdd']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Route::get('add-set', ['as' => 'addQuestionSet', 'uses' => 'ExamController@ExamQuestionSetAdd']);
+});
+/*Exam Route End*/
 
 
 // route for view/blade file
