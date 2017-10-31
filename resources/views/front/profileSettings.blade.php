@@ -221,17 +221,16 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->address}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <textarea name="address" id="address_text_area" style="display: none;"></textarea>
-                                            {{--<input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->address}}" @endif name="address">--}}
+                                            <textarea rows="3" cols="70" name="address" id="address_text_area" style="display: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->address}} @endif</textarea>
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <a onclick="changeAdvanceData('address')" class="pull-right address_edit" href="javascript:void(0);">
+                                                <a onclick="changeAddressData('address')" class="pull-right address_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetAdvanceData('address')" class="pull-right address hidden" href="javascript:void(0);">
+                                                <a onclick="resetAddressData('address')" class="pull-right address hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -329,16 +328,16 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->professional_overview}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->professional_overview}}" @endif name="professional_overview">
+                                            <textarea rows="3" cols="70" name="professional_overview" id="overview_text_area" style="display: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->professional_overview}} @endif</textarea>
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <a onclick="changeData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
+                                                <a onclick="changeOverviewData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
+                                                <a onclick="resetOverviewData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -1060,34 +1059,43 @@ $emps = (Auth::User()->employment);
             //$('input').attr('name', 'yourNewname');
         }
 
-        function changeAdvanceData(name){
-
-            //$('input').attr('name', 'yourNewname');
-
-//            $("input[name="+name+"]").each(function()
-//            {
-//                var textarea = $(document.createElement('textarea'));
-//                textarea.text($(this).val());
-//                $(this).after(textarea).remove();
-//            });
-//
-//            $("."+name+"_edit").addClass('hidden');
-//            $("."+name).removeClass('hidden');
-//            $("#"+name).addClass('hidden');
-
-
+        function changeAddressData(name){
             $('#address_text_area').css({ "display": "inline" });
             $("#"+name).addClass('hidden');
-
             $("."+name+"_edit").addClass('hidden');
             $("."+name).removeClass('hidden');
+            $("#address_text_area").removeClass('hidden');
 
         }
 
-        function resetAdvanceData(name) {
+        function resetAddressData(name) {
             $('#address_text_area').css({ "display": "none" });
-            $("#"+name).removeClass('hidden');
+            var text = $("#"+name).text();
+            var value = $.trim(text);
+            $("#address_text_area").val(value);
+            $("#address_text_area").attr('type', 'hidden');
 
+            $("#"+name).removeClass('hidden');
+            $("."+name+"_edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+        }
+
+        function changeOverviewData(name){
+            $("#overview_text_area").css({"display": "inline"});
+            $("#"+name).addClass('hidden');
+            $("."+name+"_edit").addClass('hidden');
+            $("."+name).removeClass('hidden');
+            $("#overview_text_area").removeClass('hidden');
+
+        }
+
+        function resetOverviewData(name){
+            $("#overview_text_area").css({"display": "none"});
+            var text = $("#"+name).text();
+            var value = $.trim(text);
+            $("#overview_text_area").val(value);
+            $("#overview_text_area").attr('type', 'hidden');
+            $("#"+name).removeClass('hidden');
             $("."+name+"_edit").removeClass('hidden');
             $("."+name).addClass('hidden');
         }
@@ -1160,14 +1168,14 @@ $emps = (Auth::User()->employment);
                     country: $("#countryDropdown").val(),
                     city: $("#cityDropdown").val(),
                     officePhone: $("input[name=officePhone]").val(),
-                    address: $("input[name=address]").val(),
+                    address: $("#address_text_area").val(),
                     company_name: $("input[name=company_name]").val(),
                     web_address: $("input[name=web_address]").val(),
                     skills: $("input[name=skills]").val(),
                     hourly_rate: $("input[name=hourly_rate]").val(),
                     experience_level: $("#experience_level_value").val(),
                     professional_title: $("input[name=professional_title]").val(),
-                    professional_overview: $("input[name=professional_overview]").val()
+                    professional_overview: $("#overview_text_area").val()
                 },
                 function(data, status){
                     $("#profile_status").html(data);
@@ -1177,6 +1185,17 @@ $emps = (Auth::User()->employment);
             $('input[type=text]').each(function(){
                 $(this).parent().parent().find(".setText").text($(this).val());
             });
+            $("#address_text_area").each(function(){
+                $(this).parent().parent().find(".setText").text($(this).val());
+            });
+
+            $("#overview_text_area").each(function(){
+                $(this).parent().parent().find(".setText").text($(this).val());
+            });
+
+            $("#address_text_area").addClass('hidden');
+            $("#overview_text_area").addClass('hidden');
+
             $("input[type='text']").attr('type', 'hidden');
             $( "div.hidden" ).removeClass('hidden');
             $( ".fa-pencil" ).parent().removeClass('hidden');

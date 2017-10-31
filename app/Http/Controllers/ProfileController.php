@@ -93,7 +93,7 @@ class ProfileController extends Controller{
                 'degree' => Input::get('degree'),
                 'area_of_study' => Input::get('study_area'),
                 'start_date' => $startDate,
-               // 'end_date' => $finishDate,
+                'end_date' => $finishDate,
                 'description' => Input::get('description'),
                 'current' => Input::get('currentHidden')
             ]
