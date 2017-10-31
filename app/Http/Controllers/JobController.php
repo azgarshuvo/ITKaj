@@ -71,12 +71,14 @@ class JobController extends Controller
     /*Job description view*/
     public function getJobDescription($jobId, Request $request)
     {
-        $jobDetails = Job::where('approved', 1)
-                        ->where('id', $jobId)
-                        ->first();
+//        $jobDetails = Job::where('approved', 1)
+//                        ->where('id', $jobId)
+//                        ->first();
+
+        $jobDetails = Job::find($jobId);
 
 
-        dd($jobDetails);
+//        dd($jobDetails);
 
         if($jobDetails){
             $userInfo = User::with('profile')->where(['id'=>$jobDetails->user_id])->first();
