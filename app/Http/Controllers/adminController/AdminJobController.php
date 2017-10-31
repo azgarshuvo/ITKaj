@@ -384,7 +384,7 @@ class AdminJobController extends Controller
         $files = $image->move(public_path('attach'),$imageName);
         $jobData = Job::where(['id'=>$jobId])->first();
         $att = $jobData->job_attachment;
-       
+
         $attachment = json_decode($att,true);
         array_push($attachment,$imageName);
         $updateAttachment = json_encode($attachment);
