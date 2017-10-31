@@ -122,7 +122,7 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
     Route::get('employeer/approve/delete/{id}', ['as' =>'employeerApproveDelete', 'uses' => 'adminController\AdminDashboardController@getEmployeerApproveDelete']);
     Route::get('employeer/disapprove/list', ['as' =>'employeerDisapproveList', 'uses' => 'adminController\AdminDashboardController@getEmployeerDisapproveList']);
     Route::get('employeer/disapprove/delete/{id}', ['as' =>'employeerDisapproveDelete', 'uses' => 'adminController\AdminDashboardController@getEmployeerDisapproveDelete']);
-    Route::get('interested/freelancer/details/{freelancerid}', ['as' =>'interestedFreelancerDetails', 'uses' => 'adminController\AdminJobController@getInterestedFreelancerDetails']);
+    //Route::get('interested/freelancer/details/{freelancerid}', ['as' =>'interestedFreelancerDetails', 'uses' => 'adminController\AdminJobController@getInterestedFreelancerDetails']);
 
 
 
