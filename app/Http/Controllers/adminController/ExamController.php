@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\adminController;
 
 use App\Exam;
 use App\Question;
@@ -21,11 +21,13 @@ class ExamController extends Controller
         $this->validate($request,[
            'examName'=>'required|string|max:255|min:2',
            'examDescription'=>'required|string|max:255|min:5',
+           'examTime'=>'required|integer|max:80|min:5',
         ]);
 
         Exam::create([
             'name'=> $request->input('examName'),
-            'description'=> $request->input('examDescription')
+            'description'=> $request->input('examDescription'),
+            'time'=> $request->input('examTime')
         ]);
         return redirect()->back()->with('message', 'Exam Add Success');
     }
@@ -42,9 +44,14 @@ class ExamController extends Controller
         $validator = \Validator::make($request->all(), [
             'name'=>'required|string|max:255|min:2',
             'description'=>'required|string|max:255|min:5',
+            'time'=>'required|integer|max:80|min:5',
         ], [
             'name.required'=>'Exam Name is Invalid',
             'description.required'=>'Exam Description is Invalid',
+            'time.required'=>'Time is required',
+            'time.integer'=>'Time is Invalid',
+            'time.min'=>'Time can not be less then 3 minutes',
+            'time.max'=>'Time can not be greater then 3 minutes',
         ]);
 
         if ($validator->fails()) {
@@ -58,13 +65,12 @@ class ExamController extends Controller
             die();
         }
 
-
-
         $examId = $request->input('examId');
         $description = $request->input('description');
         $name = $request->input('name');
+        $time = $request->input('time');
 
-        Exam::where(['id'=> $examId])->update(['name'=>$name,'description'=>$description]);
+        Exam::where(['id'=> $examId])->update(['name'=>$name,'description'=>$description,'time'=>$time]);
     }
 
     #exam delete by ajax request
@@ -97,6 +103,11 @@ class ExamController extends Controller
             'answer' => $answerJson,
         ]);
         return redirect()->back()->with('message', 'Question Add Success');
+    }
+
+    #get Test Result of freelancer
+    public function GetTestResult(){
+        //code to be here
     }
 
 

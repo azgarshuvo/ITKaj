@@ -43,11 +43,17 @@
                             {{ session()->get('message') }}
                         </div>
                     @endif
-                <form class="form-horizontal" action="{{route('postAddExam')}}" method="post" enctype="multipart/form-data">
+                <form autocomplete="off" class="form-horizontal" action="{{route('postAddExam')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label class="col-lg-2 control-label">Exam Name</label>
                         <div class="col-lg-10"><input type="text" name="examName" placeholder="Exam Name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Exam Time</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" placeholder="Exam Time in Minute" name="examTime">
                         </div>
                     </div>
                     <div class="form-group">

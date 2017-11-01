@@ -34,6 +34,7 @@
                             <th>SL No.</th>
                             <th>Exam Name</th>
                             <th>Description</th>
+                            <th>Time</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -44,6 +45,7 @@
                                 <td>{{$count++}}</td>
                                 <td id="examName{{$exam->id}}">{{$exam->name}}</td>
                                 <td id="examDescription{{$exam->id}}">{{$exam->description}}</td>
+                                <td id="time{{$exam->id}}">{{$exam->time}}</td>
                                 <td class="center">
                                     <a href="{{route('addQuestion',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Add Question"><i class="fa fa-plus"></i></a>
                                     <button class="btn btn-sm btn-primary" onclick="updateExam({{$exam->id}})"  data-toggle="tooltip" title="Exam Edit"><i class="fa fa-edit"></i></button>
@@ -115,6 +117,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-lg-2 control-label">Exam Time</label>
+                                    <div class="col-lg-10">
+                                        <input id="inputTime" type="text" name="examTime" placeholder="Exam Time" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-lg-2 control-label">Exam Description</label>
                                     <div class="col-lg-10">
                                         <textarea id="inputDescription" class="form-control" placeholder="Exam Description" name="examDescription"></textarea>
@@ -141,7 +149,9 @@
            $("#openModal").click();
            var examName = $("#examName"+examId+"").text();
            var description = $("#examDescription"+examId+"").text();
+           var time = $("#time"+examId+"").text();
            $("#inputName").val(examName);
+           $("#inputTime").val(time);
            $("#inputDescription").val(description);
            $("#examIdhidden").val(examId);
 
@@ -153,12 +163,13 @@
            var name = $("#inputName").val();
            var description =$("#inputDescription").val();
            var examId = $("#examIdhidden").val();
+           var time = $("#inputTime").val();
 
            $.ajax({
                type:'POST',
                url:'{{route('examUpdate')}}',
 
-               data:{'_token': '<?php echo csrf_token() ?>','name':name,'description':description,'examId':examId},
+               data:{'_token': '<?php echo csrf_token() ?>','name':name,'time':time,'description':description,'examId':examId},
                success:function(data){
                    $(".close-modal").click();
                    if (!$.trim(data)) {
@@ -167,6 +178,7 @@
 
                        $("#examName"+examId+"").text(name);
                        $("#examDescription"+examId+"").text(description);
+                       $("#time"+examId+"").text(time);
                    }
                    else {
                        $(".message_show").html(data);

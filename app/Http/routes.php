@@ -233,21 +233,32 @@ Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], fun
 });
 
 
-/*Exam Route Start*/
-Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']], function (){
-    Route::get('add', ['as' => 'addExam', 'uses' => 'ExamController@ExamAdd']);
-    Route::post('add/execute', ['as' => 'postAddExam', 'uses' => 'ExamController@PostAddExam']);
-    Route::get('exam-list', ['as' => 'listExam', 'uses' => 'ExamController@ExamList']);
+/*Exam Route for admin Start*/
+Route::group(['prefix' => 'exam-admin','middleware' => ['admin', 'approve','profile']], function (){
+    Route::get('add', ['as' => 'addExam', 'uses' => 'adminController\ExamController@ExamAdd']);
+    Route::post('add/execute', ['as' => 'postAddExam', 'uses' => 'adminController\ExamController@PostAddExam']);
+    Route::get('exam-list', ['as' => 'listExam', 'uses' => 'adminController\ExamController@ExamList']);
 
-    Route::post('exam-list', ['as' => 'examUpdate', 'uses' => 'ExamController@PostExamUpdate']);
-    Route::post('exam-delete', ['as' => 'examDelete', 'uses' => 'ExamController@PostExamDelete']);
+    Route::post('exam-list', ['as' => 'examUpdate', 'uses' => 'adminController\ExamController@PostExamUpdate']);
+    Route::post('exam-delete', ['as' => 'examDelete', 'uses' => 'adminController\ExamController@PostExamDelete']);
 
-    Route::get('add-question/{examID}', ['as' => 'addQuestion', 'uses' => 'ExamController@QuestionAdd']);
+    Route::get('add-question/{examID}', ['as' => 'addQuestion', 'uses' => 'adminController\ExamController@QuestionAdd']);
 
-    Route::get('add-set', ['as' => 'addQuestionSet', 'uses' => 'ExamController@ExamQuestionSetAdd']);
-    Route::post('post-set', ['as' => 'postQuestion', 'uses' => 'ExamController@ExamQuestionSet']);
+    Route::get('add-set', ['as' => 'addQuestionSet', 'uses' => 'adminController\ExamController@ExamQuestionSetAdd']);
+    Route::post('post-set', ['as' => 'postQuestion', 'uses' => 'adminController\ExamController@ExamQuestionSet']);
 });
-/*Exam Route End*/
+/*Exam Route for admin End*/
+
+/*Exam Route for freelancer Start*/
+Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']], function (){
+    Route::get('list', ['as' => 'ExamList', 'uses' => 'TestController@TestList']);
+    Route::get('info/{examId}', ['as' => 'examInfo', 'uses' => 'TestController@TestInfo']);
+    Route::get('exam-take/{examId}', ['as' => 'takeExam', 'uses' => 'TestController@ExamTake']);
+    Route::post('exam-take/{examId}', ['as' => 'questionSubmit', 'uses' => 'TestController@PostExamTaken']);
+    Route::get('test-result/', ['as' => 'getTestResult', 'uses' => 'TestController@GetTestResult']);
+
+});
+/*Exam Route for freelancer End*/
 
 
 // route for view/blade file

@@ -79,6 +79,7 @@
                         <div class="col-lg-offset-2 col-lg-6">
                             <button class="btn btn-sm btn-primary" type="submit">Submit</button>
                             <button onclick="addAnsware(1)" class="btn btn-sm btn-success" type="button">Add+</button>
+                            <button onclick="removeAnsware()" class="btn btn-sm btn-danger" type="button">Remove-</button>
                         </div>
 
                     </div>
@@ -92,8 +93,12 @@
         @endif
     </div>
     <script>
+        function removeAnsware(){
+            $(".ans-opt:last").remove();
+        }
+        /*Add answer input field*/
         function addAnsware(id){
-            var row = ' <div class="form-group">\n' +
+            var row = ' <div class="form-group ans-opt">\n' +
                 '                        <div class="col-lg-10 col-lg-offset-2">\n' +
                 '                            <input type="text" name="answare[]" class="form-control">\n' +
                 '                        </div>\n' +

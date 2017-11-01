@@ -71,6 +71,7 @@
                             @if(Auth::user()->user_type=="freelancer")
                                 <!-- Search for Project -->
                                 <li><a href="{{route('jobSearch')}}" class="dropdown-toggle" >Search for Project</a></li>
+                                <li><a href="{{route('ExamList')}}" class="dropdown-toggle" >Test</a></li>
                                 <!-- End Search for Project -->
                             @endif
                             @if(Auth::user()->user_type=="employer")
