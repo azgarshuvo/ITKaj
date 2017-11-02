@@ -253,8 +253,9 @@ Route::group(['prefix' => 'exam-admin','middleware' => ['admin', 'approve','prof
 Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']], function (){
     Route::get('list', ['as' => 'ExamList', 'uses' => 'TestController@TestList']);
     Route::get('info/{examId}', ['as' => 'examInfo', 'uses' => 'TestController@TestInfo']);
-    Route::get('exam-take/{examId}', ['as' => 'takeExam', 'uses' => 'TestController@ExamTake']);
+    Route::get('exam-start/{examId}', ['as' => 'takeExam', 'uses' => 'TestController@ExamTake']);
     Route::post('exam-take/{examId}', ['as' => 'questionSubmit', 'uses' => 'TestController@PostExamTaken']);
+    Route::get('exam-take/{examId}', ['as' => 'getExamDetails', 'uses' => 'TestController@GetExamTaken']);
     Route::get('test-result/', ['as' => 'getTestResult', 'uses' => 'TestController@GetTestResult']);
 
 });

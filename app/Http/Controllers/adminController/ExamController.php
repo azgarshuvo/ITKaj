@@ -105,10 +105,6 @@ class ExamController extends Controller
         return redirect()->back()->with('message', 'Question Add Success');
     }
 
-    #get Test Result of freelancer
-    public function GetTestResult(){
-        //code to be here
-    }
 
 
 }

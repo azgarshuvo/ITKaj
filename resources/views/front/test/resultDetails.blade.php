@@ -5,29 +5,29 @@
  * Date: 01-Nov-17
  * Time: 11:58 AM
  */
-//dd($resultData);
+//dd($resultInfo);
 ?>
 @extends('layouts.front.master')
 
-@section('title', 'Exam Info')
+@section('title', 'Result Info')
 
 @section('content')
     <!--=== Breadcrumbs ===-->
     <div class="breadcrumbs">
         <div class="container">
-            <h1 class="pull-left">Exam Information</h1>
+            <h1 class="pull-left">Result Information</h1>
         </div><!--/container-->
     </div><!--/breadcrumbs-->
 
     <div class="container content-sm">
-        @if($examInfo)
+        @if($resultInfo->count()>0)
             <table class="table table-bordered table-responsive table-hover">
                 <tr>
                     <td>
                         Exam Name
                     </td>
                     <td>
-                        {{$examInfo->name}}
+                        {{$resultInfo->name}}
                     </td>
                 </tr>
                 <tr>
@@ -35,7 +35,15 @@
                         Exam Description
                     </td>
                     <td>
-                        {{$examInfo->description}}
+                        {{$resultInfo->description}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Given Exam Date
+                    </td>
+                    <td>
+                        {{$resultInfo->examResult->date}}
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +51,7 @@
                         Total Question
                     </td>
                     <td>
-                        {{$examInfo->question->count()}}
+                        {{$resultInfo->question->count()}}
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +59,7 @@
                         Right Answer
                     </td>
                     <td>
-                        {{$resultData['right_ans']}}
+                        {{$resultInfo->examResult->right_ans}}
                     </td>
                 </tr>
                 <tr>
@@ -59,7 +67,7 @@
                         Wrong Answer
                     </td>
                     <td>
-                        {{$resultData['wrong_ans']}}
+                        {{$resultInfo->examResult->wrong_ans}}
                     </td>
                 </tr>
                 <tr>
@@ -67,7 +75,7 @@
                         Result
                     </td>
                     <td>
-                       {{$resultData['result']}}
+                        {{$resultInfo->examResult->result}}
                     </td>
                 </tr>
                 <tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exam;
 use App\ExamResult;
 use App\Question;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -53,7 +54,7 @@ class TestController extends Controller
         if($rightAnswer ==0){
             $result = 0;
         }else{
-            $result = ($rightAnswer/$totalQuestion)*100;
+            $result = (($rightAnswer/$totalQuestion)*100)/20;
         }
         $resultData = [
             'user_id'=>$this->userId,
@@ -63,8 +64,26 @@ class TestController extends Controller
             'result'=>$result,
             'date'=>$date,
         ];
-        ExamResult::create($resultData);
+        ExamResult::updateOrCreate(
+            ['user_id'=>$this->userId,
+                'exam_id'=>$examId],
+            $resultData
+        );
+       /* ExamResult::create($resultData);*/
         $examInfo = Exam::with('question')->where(['id'=>$examId])->first();
         return view('front.test.testResult',['examInfo'=>$examInfo,'resultData'=>$resultData]);
     }
+
+    #get Test Result of freelancer
+    public function GetTestResult(){
+       $examResult = ExamResult::with(['user','exam'])->where(['user_id'=>$this->userId])->get();
+        return view('front.test.testUser',['examResult'=>$examResult]);
+    }
+
+    #get Exam result Details
+    public function GetExamTaken($examId){
+        $resultInfo = Exam::with(['question','examResult'])->where(['id'=>$examId])->first();
+        return view('front.test.resultDetails',['resultInfo'=>$resultInfo]);
+    }
+
 }

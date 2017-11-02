@@ -21,11 +21,12 @@
             <h2 id="counter" class="pull-right text-danger">{{$exam->time}} min 00 sec</h2>
         </div><!--/container-->
     </div><!--/breadcrumbs-->
-
+    <div id="lock"></div>
     <div class="container content-sm padding-top-120">
                 <form id="testForm" action="{{route('questionSubmit',['examId'=>$exam->id])}}" method="post">
                     {{csrf_field()}}
                     <input type="hidden" id="time" value="{{$exam->time}}">
+
                 @foreach($exam->question as $question)
                 <div class="col-md-6">
                     <h4>{{$question->question}}</h4>
@@ -49,7 +50,7 @@
                 </div>
                 @endforeach
                 <div class="col-md-6 col-md-offset-3">
-                    <input type="submit" value="Submit" class="btn btn-success btn-block">
+                    <input onclick="lockData()" type="submit" value="Submit" class="btn btn-success btn-block">
                 </div>
                 </form>
 
@@ -102,8 +103,15 @@
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("counter").innerHTML = "EXPIRED";
-                $("#testForm").submit();
+                $("#testForm").submit(function(){
+                    $("#lock").addClass("loading");
+                });
             }
         }, 1000);
+    </script>
+    <script>
+        function lockData(){
+            $("#lock").addClass("loading");
+        }
     </script>
 @endsection

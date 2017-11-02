@@ -95,4 +95,9 @@ class User extends Model implements AuthenticatableContract,
     }
 
 
+    public function examResult()
+    {
+        return $this->hasMany('App\ExamResult','user_id','id');
+    }
+
 }
