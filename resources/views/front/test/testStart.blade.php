@@ -16,13 +16,17 @@
     <!--=== Breadcrumbs ===-->
     <div class="fixed">
         <div class="col-md-12">
-
+            @if($renew==true)
             <h1 class="pull-left">{{$exam->name}} Exam</h1>
-            <h2 id="counter" class="pull-right text-danger">{{$exam->time}} min 00 sec</h2>
+                <h2 id="counter" class="pull-right text-danger">{{$exam->time}} min 00 sec</h2>
+            @else
+                <h1 class="text-center">{{$exam->name}} Exam</h1>
+            @endif
         </div><!--/container-->
     </div><!--/breadcrumbs-->
     <div id="lock"></div>
     <div class="container content-sm padding-top-120">
+        @if($renew==true)
                 <form id="testForm" action="{{route('questionSubmit',['examId'=>$exam->id])}}" method="post">
                     {{csrf_field()}}
                     <input type="hidden" id="time" value="{{$exam->time}}">
@@ -53,11 +57,17 @@
                     <input onclick="lockData()" type="submit" value="Submit" class="btn btn-success btn-block">
                 </div>
                 </form>
+            @else
+            <h2 id="counter" class="text-center text-danger">You are not eligible to perform this test!!!</h2>
+        <br>
+            <h2 id="" class="text-center text-danger"> After {{$Newdate}} you will be able to perform this Test </h2>
+            @endif
 
     </div>
     @endif
 @endsection
 @section('script')
+    @if($renew==true)
     <script>
         $(document).ready(function() {
 
@@ -74,7 +84,7 @@
         var time = $('#time').val();
         var countDownDate = new Date();
         countDownDate.setMinutes(countDownDate.getMinutes() + parseInt(time));
-        countDownDate.setSeconds(countDownDate.getSeconds() + 1);
+        countDownDate.setSeconds(countDownDate.getSeconds() + 2);
 
         // Set the date we're counting down to
         //var countDownDate = new Date("Jan 5, 2018 15:37:25").getTime();
@@ -89,8 +99,6 @@
             var distance = countDownDate - now;
 
             // Time calculations for days, hours, minutes and seconds
-            //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -103,9 +111,7 @@
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("counter").innerHTML = "EXPIRED";
-                $("#testForm").submit(function(){
-                    $("#lock").addClass("loading");
-                });
+                $("#testForm").submit();
             }
         }, 1000);
     </script>
@@ -114,4 +120,13 @@
             $("#lock").addClass("loading");
         }
     </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#testForm').on('submit', function(e){
+                $("#lock").addClass("loading");
+            });
+        });
+    </script>
+@endif
+
 @endsection

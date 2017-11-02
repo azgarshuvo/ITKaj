@@ -246,6 +246,10 @@ Route::group(['prefix' => 'exam-admin','middleware' => ['admin', 'approve','prof
 
     Route::get('add-set', ['as' => 'addQuestionSet', 'uses' => 'adminController\ExamController@ExamQuestionSetAdd']);
     Route::post('post-set', ['as' => 'postQuestion', 'uses' => 'adminController\ExamController@ExamQuestionSet']);
+    Route::post('anser-list', ['as' => 'answerList', 'uses' => 'adminController\ExamController@AnswerList']);
+    Route::get('question-list/{examId}', ['as' => 'questionList', 'uses' => 'adminController\ExamController@QuestionList']);
+    Route::post('update-question', ['as' => 'updateQuestion', 'uses' => 'adminController\ExamController@UpdateQuestion']);
+    Route::post('delete-question', ['as' => 'deleteQuestion', 'uses' => 'adminController\ExamController@DeleteQuestion']);
 });
 /*Exam Route for admin End*/
 

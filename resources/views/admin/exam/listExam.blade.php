@@ -47,9 +47,10 @@
                                 <td id="examDescription{{$exam->id}}">{{$exam->description}}</td>
                                 <td id="time{{$exam->id}}">{{$exam->time}}</td>
                                 <td class="center">
-                                    <a href="{{route('addQuestion',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Add Question"><i class="fa fa-plus"></i></a>
-                                    <button class="btn btn-sm btn-primary" onclick="updateExam({{$exam->id}})"  data-toggle="tooltip" title="Exam Edit"><i class="fa fa-edit"></i></button>
-                                    <button  class="btn btn-sm btn-danger" onclick="openDeleteModal({{$exam->id}})"  data-toggle="tooltip" title="Exam Delete"><i class="fa fa-times" ></i></button>
+                                    <a href="{{route('addQuestion',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Add Question to {{$exam->name}}"><i class="fa fa-plus"></i></a>
+                                    <a href="{{route('questionList',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Question List of {{$exam->name}}"><i class="fa fa-list-alt"></i></a>
+                                    <button class="btn btn-sm btn-primary" onclick="updateExam({{$exam->id}})"  data-toggle="tooltip" title="{{$exam->name}} Exam Edit"><i class="fa fa-edit"></i></button>
+                                    <button  class="btn btn-sm btn-danger" onclick="openDeleteModal({{$exam->id}})"  data-toggle="tooltip" title="{{$exam->name}} Exam Delete"><i class="fa fa-times" ></i></button>
 
                                 </td>
                             </tr>

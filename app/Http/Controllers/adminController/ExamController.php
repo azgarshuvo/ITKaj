@@ -80,6 +80,13 @@ class ExamController extends Controller
         $exam = Exam::where(['id'=> $examId])->first();
         $exam->delete();
     }
+    #exam delete by ajax request
+    public function DeleteQuestion(Request $request){
+
+        $questionId = $request->input('questionId');
+        $exam = Question::where(['id'=> $questionId])->first();
+        $exam->delete();
+    }
 
     #question add by admin
     public function QuestionAdd($examId){
@@ -104,7 +111,67 @@ class ExamController extends Controller
         ]);
         return redirect()->back()->with('message', 'Question Add Success');
     }
+    #get question list
+    public function QuestionList($examId){
+        $questionList = Question::where(['exam_id'=>$examId])->get();
+        return view('admin.exam.questionList',['questionList'=>$questionList]);
+    }
 
+    #post ajax request for answer list
+    public function AnswerList(Request $request){
+        $questionId = $request->input('questionId');
+        $question = Question::where(['id'=>$questionId])->first();
+        $ansList = $question->answer;
+        echo '';
+        $count = 0;
+        echo "<div class ='old-data'>";
+        foreach (json_decode($ansList, true) as $answer){
+            if($question->right_answer!=$answer) {
+
+                if ($count == 0) {
+                    echo "<div class='form-group'><label class='col-lg-2 control-label'>Question</label><div class='col-lg-10'>
+                        <input id='inputName' type='text' name='answer[]' value='$answer' class='form-control'>                    
+                  </div></div>";
+                } else {
+                    echo "<div class='form-group'><div class='col-lg-10 col-lg-offset-2'>
+                        <input id='inputName'  value='$answer' type='text' name='answer[]' class='form-control'>                    
+                  </div></div>";
+                }
+                $count++;
+            }
+        }
+        echo '</div>';
+    }
+
+    #update question and answer list
+    public function UpdateQuestion(Request $request){
+        //dd($request->all());
+
+        $this->validate($request,[
+                'questionName'=>'required|string|max:255|min:6',
+                'rightAnswer'=>'required',
+                'answer'=>'required',
+                'questionId'=>'required',
+            ],[
+                'questionName.required'=>'Question name is required',
+                'rightAnswer.required'=>'Right answer is required',
+                'answer.required'=>'Answer is required',
+                'questionId.required'=>'Sorry, Question does not found',
+            ]
+        );
+        $questionId = $request->input('questionId');
+        $question = $request->input('questionName');
+        $rightAnswer = $request->input('rightAnswer');
+        $answer = $request->input('answer');
+        array_push($answer,$rightAnswer);
+        $answerJson = json_encode($answer);
+        Question::where(['id' => $questionId])->update([
+            'question' => $question,
+            'right_answer' => $rightAnswer,
+            'answer' => $answerJson,
+        ]);
+        return redirect()->back()->with('message', 'Question update Success');
+    }
 
 
 }

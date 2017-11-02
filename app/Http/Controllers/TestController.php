@@ -7,10 +7,10 @@ use App\ExamResult;
 use App\Question;
 use App\User;
 use Illuminate\Http\Request;
-
+use Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use DateTime;
 class TestController extends Controller
 {
     private  $userId = 0;
@@ -35,7 +35,23 @@ class TestController extends Controller
     #exam start of freelancer
     public function ExamTake($examId){
         $exam = Exam::with('question')->where(['id'=>$examId])->first();
-        return view('front.test.testStart',['exam'=>$exam]);
+        $examResult = ExamResult::where(['exam_id'=>$examId,'user_id'=>$this->userId])->first();
+        $renew = true;
+        if($examResult){
+            $examDay = new DateTime($examResult->date);
+            $today = new DateTime(date('Y-m-d'));
+            $interval = $today->diff($examDay);
+            $renew = true;
+
+            $Newdate = date('Y-m-d', strtotime($examResult->date. ' + 10 days'));
+
+            if($interval->days<10){
+                $renew =false;
+            }
+            return view('front.test.testStart',['exam'=>$exam,'renew'=>$renew,'Newdate'=>$Newdate]);
+        }
+
+        return view('front.test.testStart',['exam'=>$exam,'renew'=>$renew]);
     }
 
     #exam has been taken with result
