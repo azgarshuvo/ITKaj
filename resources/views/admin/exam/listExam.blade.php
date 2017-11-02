@@ -17,10 +17,10 @@
             <div class="alert alert-success">{{ Session::get('success') }}</div>
         @endif
         <div class="ibox float-e-margins">
-            <!-- Job list -->
+            <!-- Exam list -->
             @if(!empty($examList))
                 <div class="ibox-title">
-                    <h5>Job List</h5>
+                    <h5>Exam List</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>

@@ -5164,3 +5164,6 @@ ul{
 .dropzone{
   min-height: 118px !important;
 }
+.footer{
+  display: none;
+}
