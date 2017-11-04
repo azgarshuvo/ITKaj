@@ -246,10 +246,17 @@ Route::group(['prefix' => 'exam-admin','middleware' => ['admin', 'approve','prof
 
     Route::get('add-set', ['as' => 'addQuestionSet', 'uses' => 'adminController\ExamController@ExamQuestionSetAdd']);
     Route::post('post-set', ['as' => 'postQuestion', 'uses' => 'adminController\ExamController@ExamQuestionSet']);
-    Route::post('anser-list', ['as' => 'answerList', 'uses' => 'adminController\ExamController@AnswerList']);
+    Route::post('answer-list', ['as' => 'answerList', 'uses' => 'adminController\ExamController@AnswerList']);
     Route::get('question-list/{examId}', ['as' => 'questionList', 'uses' => 'adminController\ExamController@QuestionList']);
     Route::post('update-question', ['as' => 'updateQuestion', 'uses' => 'adminController\ExamController@UpdateQuestion']);
     Route::post('delete-question', ['as' => 'deleteQuestion', 'uses' => 'adminController\ExamController@DeleteQuestion']);
+
+    //route for question set start
+    Route::get('add-set-question/{examId}', ['as' => 'addQuestionSet', 'uses' => 'adminController\ExamController@GetQuestionSet']);
+    Route::post('add-set-question', ['as' => 'postAddset', 'uses' => 'adminController\ExamController@QuestionSetAdd']);
+    Route::get('set-list/{examId}', ['as' => 'setList', 'uses' => 'adminController\ExamController@QuestionSetList']);
+    Route::post('set-list/', ['as' => 'updateSet', 'uses' => 'adminController\ExamController@UpdateQuestionSet']);
+    Route::post('set-delete', ['as' => 'setDelete', 'uses' => 'adminController\ExamController@DeleteQuestionSet']);
 });
 /*Exam Route for admin End*/
 
@@ -261,6 +268,8 @@ Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']],
     Route::post('exam-take/{examId}', ['as' => 'questionSubmit', 'uses' => 'TestController@PostExamTaken']);
     Route::get('exam-take/{examId}', ['as' => 'getExamDetails', 'uses' => 'TestController@GetExamTaken']);
     Route::get('test-result/', ['as' => 'getTestResult', 'uses' => 'TestController@GetTestResult']);
+
+    Route::get('set-list/{examId}', ['as' => 'setList', 'uses' => 'TestController@GetSetList']);
 
 });
 /*Exam Route for freelancer End*/

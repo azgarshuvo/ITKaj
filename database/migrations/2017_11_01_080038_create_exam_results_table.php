@@ -15,7 +15,7 @@ class CreateExamResultsTable extends Migration
         Schema::create('exam_results', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id');
-            $table->string('exam_id');
+            $table->string('exam_set_id');
             $table->string('right_ans');
             $table->string('wrong_ans');
             $table->string('result');

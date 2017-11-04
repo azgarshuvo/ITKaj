@@ -34,7 +34,6 @@
                             <th>SL No.</th>
                             <th>Exam Name</th>
                             <th>Description</th>
-                            <th>Time</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -45,10 +44,14 @@
                                 <td>{{$count++}}</td>
                                 <td id="examName{{$exam->id}}">{{$exam->name}}</td>
                                 <td id="examDescription{{$exam->id}}">{{$exam->description}}</td>
-                                <td id="time{{$exam->id}}">{{$exam->time}}</td>
                                 <td class="center">
-                                    <a href="{{route('addQuestion',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Add Question to {{$exam->name}}"><i class="fa fa-plus"></i></a>
-                                    <a href="{{route('questionList',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Question List of {{$exam->name}}"><i class="fa fa-list-alt"></i></a>
+                                    {{--<a href="{{route('addQuestion',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Add Question to {{$exam->name}}"><i class="fa fa-plus"></i></a>--}}
+                                    <a href="{{route('addQuestionSet',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Add Question Set to {{$exam->name}}"><i class="fa fa-plus"></i></a>
+
+                                    <a href="{{route('setList',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Question Set List of {{$exam->name}}"><i class="fa fa-list-alt"></i></a>
+
+                                    {{--<a href="{{route('questionList',['examId'=>$exam->id])}}" class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Question List of {{$exam->name}}"><i class="fa fa-list-alt"></i></a>--}}
+
                                     <button class="btn btn-sm btn-primary" onclick="updateExam({{$exam->id}})"  data-toggle="tooltip" title="{{$exam->name}} Exam Edit"><i class="fa fa-edit"></i></button>
                                     <button  class="btn btn-sm btn-danger" onclick="openDeleteModal({{$exam->id}})"  data-toggle="tooltip" title="{{$exam->name}} Exam Delete"><i class="fa fa-times" ></i></button>
 
@@ -117,12 +120,7 @@
                                         <input id="inputName" type="text" name="examName" placeholder="Exam Name" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label">Exam Time</label>
-                                    <div class="col-lg-10">
-                                        <input id="inputTime" type="text" name="examTime" placeholder="Exam Time" class="form-control">
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Exam Description</label>
                                     <div class="col-lg-10">
@@ -150,12 +148,9 @@
            $("#openModal").click();
            var examName = $("#examName"+examId+"").text();
            var description = $("#examDescription"+examId+"").text();
-           var time = $("#time"+examId+"").text();
            $("#inputName").val(examName);
-           $("#inputTime").val(time);
            $("#inputDescription").val(description);
            $("#examIdhidden").val(examId);
-
        }
 
        /*Send Ajax Request to update exam*/
@@ -164,13 +159,12 @@
            var name = $("#inputName").val();
            var description =$("#inputDescription").val();
            var examId = $("#examIdhidden").val();
-           var time = $("#inputTime").val();
 
            $.ajax({
                type:'POST',
                url:'{{route('examUpdate')}}',
 
-               data:{'_token': '<?php echo csrf_token() ?>','name':name,'time':time,'description':description,'examId':examId},
+               data:{'_token': '<?php echo csrf_token() ?>','name':name,'description':description,'examId':examId},
                success:function(data){
                    $(".close-modal").click();
                    if (!$.trim(data)) {
@@ -211,7 +205,6 @@
 
                 }
             });
-
         }
     </script>
 @endsection
