@@ -126,12 +126,13 @@
     <div class="reg-block md-margin-top-100">
         <div class="reg-block-header">
             <h2>Sign In</h2>
-            <ul class="social-icons text-center">
-                <li><a class="rounded-x social_facebook" data-original-title="Facebook" href="#"></a></li>
-                <li><a class="rounded-x social_twitter" data-original-title="Twitter" href="#"></a></li>
-                <li><a class="rounded-x social_googleplus" data-original-title="Google Plus" href="#"></a></li>
-                <li><a class="rounded-x social_linkedin" data-original-title="Linkedin" href="#"></a></li>
-            </ul>
+            {{--for social network login--}}
+            {{--<ul class="social-icons text-center">--}}
+                {{--<li><a class="rounded-x social_facebook" data-original-title="Facebook" href="#"></a></li>--}}
+                {{--<li><a class="rounded-x social_twitter" data-original-title="Twitter" href="#"></a></li>--}}
+                {{--<li><a class="rounded-x social_googleplus" data-original-title="Google Plus" href="#"></a></li>--}}
+                {{--<li><a class="rounded-x social_linkedin" data-original-title="Linkedin" href="#"></a></li>--}}
+            {{--</ul>--}}
             <p>Don't Have Account? Click <a class="color-green" href="{{route('registration')}}">Sign Up</a> to registration.</p>
         </div>
 
@@ -193,8 +194,8 @@
 </script>
 <script type="text/javascript">
     $.backstretch([
-        "assets/img/bg/11.jpg",
-        "assets/img/bg/3.jpg",
+        "{{asset('assets/img/bg/11.jpg')}}",
+        "{{asset('assets/img/bg/3.jpg')}}",
     ], {
         fade: 1000,
         duration: 7000

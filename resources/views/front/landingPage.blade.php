@@ -145,7 +145,7 @@ $count = 0;
                              data-start="2000"
                              data-easing="Back.easeInOut"
                              data-endspeed="300">
-                            WE ARE ITKAJ COMPANY
+                           ITKAJ
                         </div>
 
                         <!-- LAYER -->
@@ -196,7 +196,7 @@ $count = 0;
                              data-start="2000"
                              data-easing="Back.easeInOut"
                              data-endspeed="300">
-                            WE ARE ITKAJ COMPANY
+                            ITKAJ
                         </div>
 
                         <!-- LAYER -->
@@ -248,7 +248,7 @@ $count = 0;
                              data-start="2000"
                              data-easing="Back.easeInOut"
                              data-endspeed="300">
-                            WE ARE ITKAJ COMPANY
+                            ITKAJ
                         </div>
 
                         <!-- LAYER -->
