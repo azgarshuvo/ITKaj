@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Exam extends Model
 {
     protected $table = 'exams';
-    protected $fillable = ['name','description','time'];
+    protected $fillable = ['name','description'];
 
     #an exam has many question
     public function question()

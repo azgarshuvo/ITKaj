@@ -48,7 +48,8 @@
                                 <td>{{$exam->name}}</td>
                                 <td>{{$exam->description}}</td>
                                 <td>
-                                    <a href="{{route('examInfo', ['examId' => $exam->id])}}" >
+                                    {{--<a href="{{route('examInfo', ['examId' => $exam->id])}}" >--}}
+                                    <a href="{{route('setList', ['examId' => $exam->id])}}" >
                                         <button type="button" class="btn btn-success btn-xs" name="showButton">
                                             <i class="fa fa-share"></i> Show</button>
                                     </a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\ExamResult;
+use App\ExamSet;
 use App\Question;
 use App\User;
 use Illuminate\Http\Request;
@@ -28,14 +29,15 @@ class TestController extends Controller
 
     #get test info
     public function TestInfo($examId){
-        $examInfo = Exam::with('question')->where(['id'=>$examId])->first();
+        $examInfo = ExamSet::with(['question','exam'])->where(['id'=>$examId])->first();
+
         return view('front.test.testInfo',['examInfo'=>$examInfo]);
     }
 
     #exam start of freelancer
     public function ExamTake($examId){
-        $exam = Exam::with('question')->where(['id'=>$examId])->first();
-        $examResult = ExamResult::where(['exam_id'=>$examId,'user_id'=>$this->userId])->first();
+        $exam = ExamSet::with(['question'])->where(['id'=>$examId])->first();
+        $examResult = ExamResult::where(['exam_set_id'=>$examId,'user_id'=>$this->userId])->first();
         $renew = true;
         if($examResult){
             $examDay = new DateTime($examResult->date);
@@ -55,14 +57,15 @@ class TestController extends Controller
     }
 
     #exam has been taken with result
-    public function PostExamTaken($examId, Request $request){
+    public function PostExamTaken($setId, Request $request){
         $rightAnswer = 0;
-        $examInfo = Exam::with('question')->where(['id'=>$examId])->first();
+        $examInfo = ExamSet::with('question')->where(['id'=>$setId])->first();
+
         $totalQuestion = $examInfo->question->count();
         $wrongAnser = 0;
         foreach ($request->all() as $key => $value) {
             if ($key>0){
-                $rightAnswer+=Question::where(['id'=>$key,'exam_id'=>$examId,'right_answer'=>$value])->count();
+                $rightAnswer+=Question::where(['id'=>$key,'exam_set_id'=>$setId,'right_answer'=>$value])->count();
             }
         }
         $wrongAnser = $totalQuestion-$rightAnswer;
@@ -74,7 +77,7 @@ class TestController extends Controller
         }
         $resultData = [
             'user_id'=>$this->userId,
-            'exam_id'=>$examId,
+            'exam_set_id'=>$setId,
             'right_ans'=>$rightAnswer,
             'wrong_ans'=>$wrongAnser,
             'result'=>$result,
@@ -82,24 +85,31 @@ class TestController extends Controller
         ];
         ExamResult::updateOrCreate(
             ['user_id'=>$this->userId,
-                'exam_id'=>$examId],
+                'exam_set_id'=>$setId],
             $resultData
         );
        /* ExamResult::create($resultData);*/
-        $examInfo = Exam::with('question')->where(['id'=>$examId])->first();
+        $examInfo = ExamSet::with('question')->where(['id'=>$setId])->first();
+
         return view('front.test.testResult',['examInfo'=>$examInfo,'resultData'=>$resultData]);
     }
 
     #get Test Result of freelancer
     public function GetTestResult(){
-       $examResult = ExamResult::with(['user','exam'])->where(['user_id'=>$this->userId])->get();
+       $examResult = ExamResult::with(['user','set'])->where(['user_id'=>$this->userId])->get();
+
         return view('front.test.testUser',['examResult'=>$examResult]);
     }
 
     #get Exam result Details
     public function GetExamTaken($examId){
-        $resultInfo = Exam::with(['question','examResult'])->where(['id'=>$examId])->first();
+        $resultInfo = ExamSet::with(['question','examResult'])->where(['id'=>$examId])->first();
         return view('front.test.resultDetails',['resultInfo'=>$resultInfo]);
     }
 
+    #Get question set list
+    public function GetSetList($examId){
+        $setList = ExamSet::where(['exam_id'=>$examId])->get();
+        return view('front.test.setList',['setList'=>$setList]);
+    }
 }

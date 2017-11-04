@@ -26,12 +26,29 @@
                     Exam Name
                 </td>
                 <td>
+                    {{$examInfo->exam->name}}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Exam Description
+                </td>
+                <td>
+                    {{$examInfo->exam->description}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Question Set
+                </td>
+                <td>
                     {{$examInfo->name}}
                 </td>
             </tr>
             <tr>
                 <td>
-                    Exam Description
+                    Question Set Description
                 </td>
                 <td>
                     {{$examInfo->description}}

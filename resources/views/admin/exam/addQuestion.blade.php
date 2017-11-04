@@ -26,16 +26,6 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        @if($examDetails)
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Add Question for {{$examDetails->name}} Exam</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
             @if($errors->any())
                 <div class="alert alert-danger">
                     @foreach($errors->all() as $error)
@@ -43,11 +33,22 @@
                     @endforeach()
                 </div>
             @endif
+        @if($setDetails)
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Add Question for {{$setDetails->name}} Exam</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
             <div class="ibox-content wizard-card">
                 <form class="form-horizontal" action="{{route('postQuestion')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
-                    <input type="hidden" name="examId" value="{{$examDetails->id}}">
+                    <input type="hidden" name="questionSetId" value="{{$setDetails->id}}">
                     <div id="addQuestion">
                         <div class="answer" id="ansOption1">
                             <div class="form-group">

@@ -8,7 +8,7 @@
 ?>
 @extends('layouts.admin.master')
 
-@section('title', 'Add Exam')
+@section('title', 'Add set')
 
 @section('content')
     <div class="wrapper wrapper-content">
@@ -22,7 +22,7 @@
         @endif
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Add Exam</h5>
+                <h5>Add set</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -38,22 +38,29 @@
                         @endforeach()
                     </div>
                 @endif
-                    @if(session()->has('message'))
-                        <div class="alert alert-success">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
-                <form autocomplete="off" class="form-horizontal" action="{{route('postAddExam')}}" method="post" enctype="multipart/form-data">
+                @if(session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session()->get('message') }}
+                    </div>
+                @endif
+                <form autocomplete="off" class="form-horizontal" action="{{route('postAddset')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    <input type="hidden" value="{{$examId}}" name="examId">
                     <div class="form-group">
-                        <label class="col-lg-2 control-label">Exam Name</label>
-                        <div class="col-lg-10"><input type="text" name="examName" placeholder="Exam Name" class="form-control">
+                        <label class="col-lg-2 control-label">Set Name</label>
+                        <div class="col-lg-10"><input type="text" name="setName" placeholder="Set Name" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-2 control-label">Exam Description</label>
+                        <label class="col-lg-2 control-label">Time</label>
                         <div class="col-lg-10">
-                        <textarea class="form-control" placeholder="Exam Description" name="examDescription"></textarea>
+                            <input type="text" name="setTime" placeholder="Set Name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Set Description</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" placeholder="Set Description" name="setDescription"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
