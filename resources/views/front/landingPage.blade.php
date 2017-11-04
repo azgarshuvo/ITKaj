@@ -24,55 +24,20 @@ $count = 0;
     <!-- Favicon -->
     <link rel="shortcut icon" href="javascript:void(0);">
 
-    <!-- Web Fonts -->
-    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
 
     <!-- CSS Global Compulsory -->
     <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap-3.3.7/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap-3.3.7/css/dataTables.bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/one.style.css')}}">
 
 
     <!-- CSS Header and Footer -->
-    {{--<link rel="stylesheet" href="{{asset('assets/css/headers/header-default.css')}}">--}}
-    <link rel="stylesheet" href="{{asset('assets/css/headers/header-v6.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/footers/footer-v1.css')}}">
 
     <!-- CSS Implementing Plugins -->
-
-    <link rel="stylesheet" href="{{asset('assets/plugins/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/dropzone.css')}}">
-
-    <link rel="stylesheet" href="{{asset('assets/plugins/animate.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/line-icons/line-icons.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/font-awesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/pace/pace-flash.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/owl-carousel/owl-carousel/owl.carousel.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/revolution-slider/rs-plugin/css/settings.css')}}" type="text/css" media="screen">
     <!--[if lt IE 9]><link rel="stylesheet" href="{{asset('assets/plugins/revolution-slider/rs-plugin/css/settings-ie8.css')}}" type="text/css" media="screen"><![endif]-->
-    <!--[if lt IE 9]><link rel="stylesheet" href="{{asset('assets/plugins/sky-forms-pro/skyforms/css/sky-forms-ie8.css')}}"><![endif]-->
 
-    <!-- CSS Page Style -->
-    <link rel="stylesheet" href="{{asset('assets/css/pages/profile.css')}}">
-
-    <!-- CSS Page Style -->
-    <link rel="stylesheet" href="{{asset('assets/css/pages/page_search.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/pages/shortcode_timeline2.css')}}">
-
-    <!-- CSS Page Style -->
-    <link rel="stylesheet" href="{{asset('assets/css/pages/page_job.css')}}">
-
-    <!-- CSS Page Style -->
-    <link rel="stylesheet" href="{{asset('assets/css/pages/page_log_reg_v1.css')}}">
-
-    <!-- CSS Page Style -->
-    <link rel="stylesheet" href="{{asset('assets/css/pages/page_search_inner_tables.css')}}">
 
     <!-- CSS Theme -->
     <link rel="stylesheet" href="{{asset('assets/css/theme-colors/default.css')}}" id="style_color">
@@ -362,20 +327,8 @@ $count = 0;
                     @foreach($projects as $project)
                         <li class="col-md-4 md-margin-bottom-30 md-margin-top-20">
                             <div class="content-boxes-v3 block-grid-v1 rounded">
-                                {{--@if($employers != null && $employers != '')--}}
-                                {{--@foreach($employers as $employer)--}}
-                                {{--@if($project->user_id == $employer->id) <img class="pull-left rounded-x block-grid-v1-img" src="{{$employer->img_path}}" alt="">@endif--}}
-                                {{--@endforeach--}}
-                                {{--@endif--}}
                                 <div class="content-boxes-in-v3">
                                     <h3><a href="{{route('JobDescription', ['job_number' => $project->id])}}">{{$project->name}}</a></h3>
-                                    {{--<ul class="star-vote">--}}
-                                    {{--<li><i class="fa fa-star"></i></li>--}}
-                                    {{--<li><i class="fa fa-star"></i></li>--}}
-                                    {{--<li><i class="fa fa-star-half-o"></i></li>--}}
-                                    {{--<li><i class="fa fa-star-o"></i></li>--}}
-                                    {{--<li><i class="fa fa-star-o"></i></li>--}}
-                                    {{--</ul>--}}
                                     <ul class="list-inline margin-bottom-5">
                                         @if($employers != null && $employers != '')
                                             @foreach($employers as $employer)
@@ -514,62 +467,23 @@ $count = 0;
     </div>
     <!--=== End Footer Version 1 ===-->
     <!-- JS Global Compulsory -->
-    <script type="text/javascript" src="{{asset('assets/js/jquery.redirect.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/jquery.session.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/jquery.dataTables.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/dataTables.bootstrap.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/jquery/jquery-migrate.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/bootstrap.min.js')}}"></script>
 
     <!-- JS Implementing Plugins -->
-
     <script type="text/javascript" src="{{asset('assets/plugins/back-to-top.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/smoothScroll.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/jquery.easing.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/pace/pace.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/jquery.parallax.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/counter/waypoints.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/counter/jquery.counterup.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/owl-carousel/owl-carousel/owl.carousel.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js ')}}"></script>
     <!-- JS Customization -->
     <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/select2.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/dropzone.js')}}"></script>
+
     <!-- JS Page Level -->
-    <script type="text/javascript" src="{{asset('assets/js/app.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/one.app.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/forms/login.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/forms/contact.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/plugins/pace-loader.js')}}"></script>
-    {{--<script type="text/javascript" src="{{asset('assets/js/plugins/revolution-slider.js')}}"></script>--}}
-    <script type="text/javascript" src="{{asset('assets/js/plugins/cube-portfolio/cube-portfolio-lightbox.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/plugins/owl-carousel.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/forms/order.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/forms/review.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/forms/checkout.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/plugins/style-switcher.js')}}"></script>
-    <script type="text/javascript" src="{{asset('assets/js/plugins/datepicker.js')}}"></script>
+
 
     <script type="text/javascript">
         jQuery(document).ready(function() {
             App.init();
-            App.initCounter();
             App.initParallaxBg();
-            LoginForm.initLoginForm();
-            ContactForm.initContactForm();
-            OwlCarousel.initOwlCarousel();
-            StyleSwitcher.initStyleSwitcher();
-            OrderForm.initOrderForm();
-            ReviewForm.initReviewForm();
-            CheckoutForm.initCheckoutForm();
             RevolutionSlider.initRSfullScreen();
         });
     </script>
