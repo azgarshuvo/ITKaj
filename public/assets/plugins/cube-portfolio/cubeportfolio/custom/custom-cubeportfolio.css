@@ -15,10 +15,6 @@
   border-radius: 50% !important;
 }
 
-.cbp-l-grid-agency .cbp-caption:after {
-	border: none;
-}
-
 /*Overlays
 ------------------------------------*/
 /*Default*/
@@ -42,23 +38,17 @@
 }
 
 /*Grenn Transparent*/
-.cube-portfolio .cbp-caption-activeWrap.default-transparent-hover {
+.cube-portfolio .cbp-caption-activeWrap.green-transparent-hover {
 	background: rgba(114,192,44,.9) !important;
 }
 
-.cube-portfolio .cbp-caption-activeWrap.default-transparent-hover .link-captions i:hover {
+.cube-portfolio .cbp-caption-activeWrap.green-transparent-hover .link-captions i:hover {
 	background: #333;
 }
 
 /*Filters*/
-.cube-portfolio .cbp-l-filters-text {
-	margin: inherit;
-	padding: inherit;
-}
-
 .cube-portfolio .cbp-l-filters-text .cbp-filter-item {
 	color: #555;
-	text-transform: uppercase;
 }
 
 .cube-portfolio .cbp-l-filters-text .cbp-filter-item.cbp-filter-item-active,

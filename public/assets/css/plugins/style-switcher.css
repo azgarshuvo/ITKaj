@@ -1,17 +1,9 @@
-/*
- * Template Name: Unify - Responsive Bootstrap Template
- * Description: Business, Corporate, Portfolio, E-commerce, Blog and One Page Template.
- * Version: 1.9
- * Author: @htmlstream
- * Website: http://htmlstream.com
-*/
-
 /*Style Switcher
 ------------------------------------*/
 /*General*/
 i.style-switcher-btn {
    right: 0;
-   top: 37px;
+   top: 80px;
    color: #fff;
    font-size: 18px;
    cursor: pointer;
@@ -37,7 +29,7 @@ i.style-switcher-btn-option:hover {
 
 .style-switcher {
    right: 0;
-   top: 37px;
+   top: 80px;
    color: #fff;
    width: 235px;
    display: none;
@@ -67,7 +59,6 @@ i.style-switcher-btn-option:hover {
 }
 
 .style-switcher .btn-u {
-  color: #fff;
   font-weight: 200;
   border: solid 1px #555;
   border-radius: 2px !important;
@@ -83,7 +74,7 @@ i.style-switcher-btn-option:hover {
   background: #252525;
   padding: 9px 10px 5px 15px;
   border-bottom: solid 1px #222;
-  border-radius: 3px 0 0 0 !important;
+  border-radius: 3px 0 0 0 !important;  
 }
 
 .style-swticher-header .style-switcher-heading {
