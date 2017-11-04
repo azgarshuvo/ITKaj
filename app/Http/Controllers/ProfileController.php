@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Job;
 use App\Education;
 use App\Employments;
+use App\Skills;
 use DB;
 use App\User;
 use App\UserProfile;
@@ -36,16 +37,19 @@ class ProfileController extends Controller{
     }
 
     public function getProfileSettings(){
+        $skills = Skills::all();
         $userProfile = Auth::User();
         $countries = Countries::all();
         $cities = States::all();
-    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);
+    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities, 'skills'=>$skills]);
     }
 
     public function getMyProfile(){
         $userProfile = User::findUser(Auth::User()->id)->with(['profile', 'education', 'employment'])->first();
+        $countries = Countries::all();
+        $cities = States::all();
 //        dd($userProfile->employment);
-        return view('front.myProfile',['userProfile'=>$userProfile]);
+        return view('front.myProfile',['userProfile'=>$userProfile, 'countries'=>$countries, 'cities'=>$cities]);
     }
 
     public function getProjectsList(){
@@ -140,21 +144,6 @@ class ProfileController extends Controller{
         $originalFinishDate = Input::get('finish_date');
         $finishDate = date("Y-m-d", strtotime($originalFinishDate));
 
-        $currentDate = Input::get('current');
-        if($currentDate == 1) {
-            Employments::Create(
-                [
-                    'user_id' => $this->userId,
-                    'company_name' => Input::get('company_name'),
-                    'country' => Input::get('country'),
-                    'city' => Input::get('city'),
-                    'postal_code' => Input::get('postal_code'),
-                    'start_date' => $startDate,
-                    'designation' => Input::get('designation'),
-                    'current' => $currentDate
-                ]);
-        }
-        else{
             Employments::Create(
                 [
                     'user_id' => $this->userId,
@@ -165,8 +154,8 @@ class ProfileController extends Controller{
                     'start_date' => $startDate,
                     'finish_date' => $finishDate,
                     'designation' => Input::get('designation'),
+                    'current' => Input::get('currentEmpHidden')
                 ]);
-        }
         echo "<p class='alert alert-success'>Employment Added Successfuly</p>";
     }
 
@@ -277,7 +266,7 @@ class ProfileController extends Controller{
             $username = $request->input('username');
             $phone = $request->input('phone');
             $address = $request->input('address');
-            $skills = $request->input('skills');
+            $skills = json_encode($request->input('skills'));
             $experience_level = $request->input('experience_level');
             $professional_title = $request->input('professional_title');
             $hourly_rate = $request->input('hourly_rate');

@@ -164,8 +164,8 @@
 													<i class="cbp_tmicon rounded-x hidden-xs"></i>
 													<div class="cbp_tmlabel">
 														<h2>{{$employment->company_name	}}</h2>
-														<p>Country : {{$employment->country}}</p>
-														<p>City : {{$employment->city}}</p>
+														<p>Country : @if($employment->country != null && $employment->country != '') @foreach($countries as $country) @if($employment->country == $country->id) {{$country->name}} @endif @endforeach @endif</p>
+														<p>City : @if($employment->city != null && $employment->city != '') @foreach($cities as $city) @if($city->id == $employment->city) {{$city->name}} @endif @endforeach @endif</p>
 													</div>
 												</li>
 											@endforeach

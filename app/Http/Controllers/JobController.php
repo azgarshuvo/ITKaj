@@ -125,6 +125,7 @@ class JobController extends Controller
 
     /*This is for insert job post*/
     private function jobToPost($title,$category,$duration,$projectCost,$projectType,$skill,$description,$filesName){
+
         $user = Job::create([
             'user_id' => $this->userId,
             'name' => $title,
