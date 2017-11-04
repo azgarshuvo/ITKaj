@@ -29,6 +29,9 @@
 .md-margin-top-20{
     margin-top: 2%;
 }
+.md-margin-top-100{
+    margin: 10% auto ;
+}
 .freelancerMilestoneDoneButton{
     margin-top: -2%;
 }

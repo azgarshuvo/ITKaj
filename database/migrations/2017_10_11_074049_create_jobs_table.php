@@ -21,7 +21,6 @@ class CreateJobsTable extends Migration
             $table->text('description');
             $table->integer('category_id');
             $table->boolean('status')->default(0);
-            $table->boolean('verified')->default(0);
             $table->string('skill_needed');
             $table->string('job_attachment',500);
             $table->integer('type');
