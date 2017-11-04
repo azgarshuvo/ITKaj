@@ -357,19 +357,34 @@ $emps = (Auth::User()->employment);
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="skills">
-                                                @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->skills}} @endif
+                                                @if($userProfile->profile != null && $userProfile->profile != '')
+                                                    @foreach(json_decode($userProfile->profile->skills,true) as $skill)
+                                                        {{$skill}}
+                                                        @endforeach
+                                                @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->skills}}" @endif name="skills">
+
+                                                <select id="skill" name="skill[]" multiple  class="form-control margin-bottom-20" style="display:none;">
+                                                    @foreach($skills as $skill)
+                                                        @if(in_array($skill->name,json_decode($userProfile->profile->skills)))
+                                                            <option selected value="{{$skill->name}}">{{$skill->name}}</option>
+                                                        @else
+                                                            <option value="{{$skill->name}}">{{$skill->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+
+                                                {{--<input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->skills}}" @endif name="skills">--}}
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
-                                                    <a onclick="changeData('skills')" class="pull-right skills_edit" href="javascript:void(0);">
+                                                    <a onclick="changeSkillData('skills')" class="pull-right skills_edit" href="javascript:void(0);">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </span>
                                                 <span>
-                                                    <a onclick="resetData('skills')" class="pull-right skills hidden" href="javascript:void(0);">
+                                                    <a onclick="resetSkillData('skills')" class="pull-right skills hidden" href="javascript:void(0);">
                                                         <i class="fa fa-times fa-lg"></i>
                                                     </a>
                                                 </span>
@@ -719,13 +734,13 @@ $emps = (Auth::User()->employment);
                                     <section class="col col-6">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
-                                            <input type="text" name="start" id="edit_start" placeholder="Expected start date">
+                                            <input type="text" name="edit_start" id="edit_start" placeholder="Expected start date">
                                         </label>
                                     </section>
                                     <section class="col col-6">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
-                                            <input type="text" name="finish" id="edit_finish" placeholder="Expected finish date">
+                                            <input type="text" name="edit_finish" id="edit_finish" placeholder="Expected finish date">
                                         </label>
                                     </section>
                                 </div>
@@ -827,6 +842,7 @@ $emps = (Auth::User()->employment);
                                 </section>
                                 <section>
                                     <input onclick="disableFinishDate()" type="checkbox" name="current" id="emp_current" >
+                                    <input type="hidden" id="current_emp_hidden" name="current_emp_hidden" value="0">
                                     Current
                                 </section>
                             </fieldset>
@@ -903,13 +919,13 @@ $emps = (Auth::User()->employment);
                                     <section class="col col-6">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
-                                            <input type="text" name="start_date" id="edit_start_date" placeholder="Expected start date">
+                                            <input type="text" name="edit_start_date" id="edit_start_date" placeholder="Expected start date">
                                         </label>
                                     </section>
                                     <section class="col col-6" id="endField">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
-                                            <input type="text" name="finish_date" id="edit_finish_date" placeholder="Expected finish date">
+                                            <input type="text" name="edit_finish_date" id="edit_finish_date" placeholder="Expected finish date">
                                         </label>
                                     </section>
                                 </div>
@@ -1100,6 +1116,25 @@ $emps = (Auth::User()->employment);
             $("."+name).addClass('hidden');
         }
 
+        function changeSkillData(name){
+            $("#skill").select2({
+            });
+            $("#skill").css({"display": "inline"});
+            $("#"+name).addClass('hidden');
+            $("."+name+"_edit").addClass('hidden');
+            $("."+name).removeClass('hidden');
+            $("#skill").removeClass('hidden');
+        }
+
+        function resetSkillData(name){
+            $(".select2").css({"display": "none"});
+            $("#skill").attr('type', 'hidden');
+            $("#"+name).removeClass('hidden');
+            $("."+name+"_edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+        }
+
+
         function resetData(name){
             var text = $("#"+name).text();
             var value = $.trim(text);
@@ -1171,7 +1206,7 @@ $emps = (Auth::User()->employment);
                     address: $("#address_text_area").val(),
                     company_name: $("input[name=company_name]").val(),
                     web_address: $("input[name=web_address]").val(),
-                    skills: $("input[name=skills]").val(),
+                    skills: $("#skill").val(),
                     hourly_rate: $("input[name=hourly_rate]").val(),
                     experience_level: $("#experience_level_value").val(),
                     professional_title: $("input[name=professional_title]").val(),
@@ -1192,9 +1227,13 @@ $emps = (Auth::User()->employment);
             $("#overview_text_area").each(function(){
                 $(this).parent().parent().find(".setText").text($(this).val());
             });
+            $("#skill").each(function(){
+                $(this).parent().parent().find(".setText").text($(this).val());
+            });
 
             $("#address_text_area").addClass('hidden');
             $("#overview_text_area").addClass('hidden');
+
 
             $("input[type='text']").attr('type', 'hidden');
             $( "div.hidden" ).removeClass('hidden');
@@ -1202,6 +1241,7 @@ $emps = (Auth::User()->employment);
             $( ".experience_level" ).addClass('hidden');
             $( "#experience_level" ).text($("select[name='experience_level']").find('option:selected').text());
             $( ".fa-times" ).parent().addClass('hidden');
+            $( ".select2" ).addClass('hidden');
         });
     </script>
 
@@ -1314,6 +1354,7 @@ $emps = (Auth::User()->employment);
             var finish_date = $('#finish_date').val();
             var designation = $('#designation').val();
             var current = $('#emp_current').val();
+            var currentEmpHidden = $('#current_emp_hidden').val();
 
             $.post("{{route('addEmployment')}}",
                 {
@@ -1326,6 +1367,7 @@ $emps = (Auth::User()->employment);
                     finish_date: finish_date,
                     designation: designation,
                     current: current,
+                    currentEmpHidden: currentEmpHidden,
                 },
 
             function(data, status) {
@@ -1439,11 +1481,13 @@ $emps = (Auth::User()->employment);
 
         function disableFinishDate(){
             if($("#emp_current").prop("checked") == true){
+                $("#current_emp_hidden").val(1);
                 $("#finish_date").attr('disabled', 'disabled');
                 $("#finish_date").val('');
 
             }
             else if($("#emp_current").prop("checked") == false){
+                $("#current_emp_hidden").val(0);
                 $("#finish_date").removeAttr("disabled");
             }
         }
@@ -1459,7 +1503,6 @@ $emps = (Auth::User()->employment);
             else if($("#current").prop("checked") == false){
                 $('#current_hidden').val(0);
                 $("#finish").removeAttr("disabled");
-                console.log($('#current_hidden').val());
             }
         }
     </script>

@@ -36,7 +36,7 @@
                             @endforeach
                         </div>
                     @endif
-                    <form enctype="multipart/form-data" action="{{route('joabPost')}}" method="post" class="reg-page">
+                    <form enctype="multipart/form-data" action="{{route('jobPost')}}" method="post" class="reg-page">
 
                         {{csrf_field()}}
                         <div class="reg-header">
