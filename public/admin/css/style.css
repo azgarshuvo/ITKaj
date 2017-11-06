@@ -5167,3 +5167,7 @@ ul{
 .footer{
   display: none;
 }
+.sender{
+  border: 1px solid gray;
+  padding: 12px 20px;
+}

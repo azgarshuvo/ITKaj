@@ -318,3 +318,29 @@ div.load {
 .padding-0{
     padding: 0px !important;
 }
+.sender_p{
+    padding: 8px 18px;
+    border: 1px solid gray;
+    border-radius: 5px !important;
+}
+.message{
+    padding: 15px 35px;
+    background: #91c891;
+    border-radius: 5px !important;
+    color: #2f2c2c;
+}
+.sender{
+    text-align: left;
+}
+.receiver{
+    text-align: right;
+    margin-left: 10%;
+    width: 92%;
+}
+.custom{
+    border: none !important;
+}
+.send-btn{
+    padding: 10px 60px;
+    margin: 10px auto;
+}
