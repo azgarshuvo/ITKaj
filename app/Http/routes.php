@@ -276,14 +276,17 @@ Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']],
 
 
 // route for view/blade file
-Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PayPalController@payWithPaypal',));
+Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PayPalController@payWithPaypal'));
 // route for post request
-Route::post('paypal', array('as' => 'paypal','uses' => 'PayPalController@postPaymentWithpaypal',));
+Route::post('paypal', array('as' => 'paypal','uses' => 'PayPalController@postPaymentWithpaypal'));
 // route for check status responce
-Route::get('paypal', array('as' => 'status','uses' => 'PayPalController@getPaymentStatus',));
+Route::get('paypal', array('as' => 'status','uses' => 'PayPalController@getPaymentStatus'));
 
 
 
-Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe',));
+Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe'));
 
-Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe',));
+Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
+
+Route::get('coming-soon', ['as' => 'comingSoon', 'uses' => 'HomeController@getComingSoonPage']);
+

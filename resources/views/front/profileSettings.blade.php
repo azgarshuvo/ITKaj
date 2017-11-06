@@ -15,7 +15,6 @@ $emps = (Auth::User()->employment);
 @section('content')
 {{--{{dd($countries[17]->name)}}--}}
     <!-- Profile Content -->
-
     <div class="col-md-9">
         <div class="profile-body margin-bottom-20">
             @if(Session::has('success'))
@@ -121,7 +120,7 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->phone_number}}@endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control"  type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->phone_number}}" @endif name="phone">
+                                            <input class="form-control phone"  type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->phone_number}}" @endif name="phone">
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -139,7 +138,7 @@ $emps = (Auth::User()->employment);
                                 </dd>
                                 <hr>
                                 <dt><strong>Country</strong></dt>
-                                
+
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="">
@@ -200,12 +199,12 @@ $emps = (Auth::User()->employment);
                                         </div>--}}
                                         <div class="col-md-6">
                                             <span id="cityEdit">
-                                                <a onclick="changeDropDown('city')" class="pull-right" href="javascript:void(0);">
+                                                <a onclick="changeDropDown('city')" class="pull-right city_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
-                                            <span>
-                                                <a onclick="resetCityDropDown('city')" class="pull-right city hidden" href="javascript:void(0);">
+                                            <span class="city_cancle hidden">
+                                                <a onclick="resetCityDropDown('city')" class="pull-right city" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -354,29 +353,35 @@ $emps = (Auth::User()->employment);
                                     {{--Skill  start--}}
 
                                     <dt><strong>Skill</strong></dt>
+
                                     <dd>
                                         <div class="row">
+
                                             <div class="col-md-8 setText" id="skills">
                                                 @if($userProfile->profile != null && $userProfile->profile != '')
-                                                    @foreach(json_decode($userProfile->profile->skills,true) as $skill)
-                                                        {{$skill}}
+                                                    @if($userProfile->profile->skills != null && $userProfile->profile->skills != '' && json_decode($userProfile->profile->skills) != "")
+                                                        {{--{{dd(json_decode($userProfile->profile->skills))}}--}}
+                                                        @foreach(json_decode($userProfile->profile->skills) as $skill)
+                                                            {{$skill}}
                                                         @endforeach
+                                                    @endif
                                                 @endif
                                             </div>
                                             <div class="col-md-6">
-
                                                 <select id="skill" name="skill[]" multiple  class="form-control margin-bottom-20" style="display:none;">
                                                     @foreach($skills as $skill)
-                                                        @if(in_array($skill->name,json_decode($userProfile->profile->skills)))
-                                                            <option selected value="{{$skill->name}}">{{$skill->name}}</option>
+                                                        @if($userProfile->profile->skills != null && $userProfile->profile->skills != '' && json_decode($userProfile->profile->skills) != "")
+                                                            @if(in_array($skill->name,json_decode($userProfile->profile->skills)))
+                                                                <option selected value="{{$skill->name}}">{{$skill->name}}</option>
+                                                            @endif
                                                         @else
                                                             <option value="{{$skill->name}}">{{$skill->name}}</option>
                                                         @endif
                                                     @endforeach
                                                 </select>
-
                                                 {{--<input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->skills}}" @endif name="skills">--}}
                                             </div>
+
                                             <div class="col-md-6">
                                                 <span>
                                                     <a onclick="changeSkillData('skills')" class="pull-right skills_edit" href="javascript:void(0);">
@@ -624,8 +629,8 @@ $emps = (Auth::User()->employment);
                     </div>
                     <div class="modal-body">
                         <!-- Education Form -->
-                        <form action="{{route('addEdcation')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">  
-                            {{csrf_field()}}          
+                        <form action="{{route('addEdcation')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">
+                            {{csrf_field()}}
                             <fieldset>
                                 <div class="row">
                                     <section class="col col-6">
@@ -645,7 +650,7 @@ $emps = (Auth::User()->employment);
                                         <label class="input">
                                             <input type="text" name="study_area" id="study_area" placeholder="Area of Study">
                                         </label>
-                                    </section>                               
+                                    </section>
                                 </div>
                             </fieldset>
 
@@ -676,7 +681,7 @@ $emps = (Auth::User()->employment);
                                 </section>
                             </fieldset>
                             <footer>
-                                <button type="submit" id="addEducation" class="btn-u">Add</button>                           
+                                <button type="submit" id="addEducation" class="btn-u">Add</button>
                             </footer>
                         </form>
                         <!-- End Education Form -->
@@ -958,8 +963,9 @@ $emps = (Auth::User()->employment);
 @section('script')
     {{--this script use for update password--}}
     <script type="text/javascript">
-
         $(document).ready(function(){
+            $(".phone").numeric();
+
             if($('#userCountryId').val() != null && $('#userCountryId').val() != ''){
                 var Selected_id = $('.country option:selected').val();
                 var Selected_city = parseInt($('#userCityId').val());
@@ -1163,7 +1169,7 @@ $emps = (Auth::User()->employment);
         function changeDropDown(name){
             $("#"+name+"Dropdown").removeAttr('disabled');
             $("."+name).removeClass('hidden');
-           $("#cityEdit").addClass('hidden');
+            $("#cityEdit").addClass('hidden');
         }
 
         /*use for city dropdown reset*/
@@ -1234,6 +1240,16 @@ $emps = (Auth::User()->employment);
             $("#address_text_area").addClass('hidden');
             $("#overview_text_area").addClass('hidden');
 
+            $("#countryDropdown").prop("disabled", true);
+            $(".country_edit").parent().removeClass('hidden');
+            $(".country_cancle").addClass('hidden');
+
+            $("#cityDropdown").prop("disabled", true);
+            $(".city_edit").parent().removeClass('hidden');
+            $(".city_cancle").addClass('hidden');
+
+
+
 
             $("input[type='text']").attr('type', 'hidden');
             $( "div.hidden" ).removeClass('hidden');
@@ -1275,7 +1291,7 @@ $emps = (Auth::User()->employment);
                     //$("#profile_status").html(data);
                     //alert("Data: " + data );
                     $("#message").html(data);
-                    
+
                     $("#institution").val("");
                     $("#degree").val("");
                     $("#study_area").val("");

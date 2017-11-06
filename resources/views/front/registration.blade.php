@@ -190,7 +190,7 @@
             <div class="checkbox">
                 <label>
                     <input name="terms" type="checkbox" @if (Input::old('terms') == 'on') checked="checked" @endif>
-                    I read <a target="_blank" href="javascript:void(0);">Terms and Conditions</a>
+                    I read <a target="_blank" href="{{route('comingSoon')}}">Terms and Conditions</a>
                 </label>
             </div>
             <div class="row">
