@@ -1233,8 +1233,13 @@ $emps = (Auth::User()->employment);
             $("#overview_text_area").each(function(){
                 $(this).parent().parent().find(".setText").text($(this).val());
             });
+
             $("#skill").each(function(){
-                $(this).parent().parent().find(".setText").text($(this).val());
+                if($.trim($(this).val())){
+                    $(this).parent().parent().find(".setText").text($(this).val());
+                }else{
+                    $(this).parent().parent().find(".setText").text('');
+                }
             });
 
             $("#address_text_area").addClass('hidden');
@@ -1255,7 +1260,12 @@ $emps = (Auth::User()->employment);
             $( "div.hidden" ).removeClass('hidden');
             $( ".fa-pencil" ).parent().removeClass('hidden');
             $( ".experience_level" ).addClass('hidden');
-            $( "#experience_level" ).text($("select[name='experience_level']").find('option:selected').text());
+            if($("select[name='experience_level']").find('option:selected').text() == 'Select One'){
+                $( "#experience_level" ).text('');
+            }else{
+                $( "#experience_level" ).text($("select[name='experience_level']").find('option:selected').text());
+            }
+
             $( ".fa-times" ).parent().addClass('hidden');
             $( ".select2" ).addClass('hidden');
         });
