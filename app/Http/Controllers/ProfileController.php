@@ -193,6 +193,7 @@ class ProfileController extends Controller{
     #get ajax request to change password
     public function ChangePassword(Request $request){
 
+//        dd($request);
         $validate = Validator::make($request->all(), [
             'c_password' => 'required|min:6',
             'password' => 'required|string|min:6|confirmed',

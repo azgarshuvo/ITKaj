@@ -53,6 +53,7 @@
         OrderForm.initOrderForm();
 		ReviewForm.initReviewForm();
 		CheckoutForm.initCheckoutForm();
+        Datepicker.initDatepicker()
     });
 </script>
 <!--[if lt IE 9]>
