@@ -483,7 +483,6 @@ $count = 0;
     <script type="text/javascript">
         jQuery(document).ready(function() {
             App.init();
-            App.initParallaxBg();
             RevolutionSlider.initRSfullScreen();
         });
     </script>
