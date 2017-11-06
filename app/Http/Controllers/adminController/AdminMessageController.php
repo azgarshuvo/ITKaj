@@ -2,86 +2,49 @@
 
 namespace App\Http\Controllers\adminController;
 
+use App\User;
 use Illuminate\Http\Request;
-
+use App\Conversion;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use app\Message;
 class AdminMessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private  $userId = 0;
+    public  function __construct()
     {
-        //
+        $this->userId =auth()->user()->id;
+
+    }
+    public function UserList(){
+        $userList = User::where(['user_type'=>"freelancer",'user_type'=>"employer"])->get();
+
+        return view('admin.message.userList',['userList'=>$userList]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function AdminConversion($userId){
+
+        $conversion = Conversion::where(['admin_id'=>$this->userId,'user_id'=>$userId])->first();
+        if (sizeof($conversion)==1){
+            return redirect()->route('admin-getConversion',['conversionId'=>$conversion->id]);
+        }else {
+            if (sizeof(User::where(['id' => $userId])->first()) == 1){
+                $conversionCreate = Conversion::create(['admin_id' => $this->userId, 'user_id' => $userId]);
+                $conversionId = $conversionCreate->id;
+                return redirect()->route('admin-getConversion', ['conversionId' => $conversionId]);
+            }else{
+                return redirect()->route('admin-message');
+            }
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function AdminMessageConversion($conversionId){
+        $userList = User::where(['user_type'=>"freelancer",'user_type'=>"employer"])->get();
+        $conversion = Conversion::with('message')->where(['id'=>$conversionId,'admin_id'=>$this->userId])->orderBy('id', 'asc')->first();
+
+        Message::where(['conversion_id'=>$conversionId,'is_read'=>0,'sender'=>'user'])->update(['is_read'=>1]);
+        return view('admin.message.conversion',['userList'=>$userList,'conversion'=>$conversion]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
