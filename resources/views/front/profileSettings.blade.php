@@ -24,7 +24,7 @@ $emps = (Auth::User()->employment);
                 <ul class="nav nav-justified nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#profile">Edit Profile</a></li>
                     <li><a data-toggle="tab" href="#passwordTab">Change Password</a></li>
-                    <li><a data-toggle="tab" href="#education">Education</a></li>
+                    <li><a data-toggle="tab" href="#education" id="education_tab">Education</a></li>
                     <li><a data-toggle="tab" href="#employment">Employment</a></li>
                 </ul>
                 <div class="tab-content">
@@ -1301,6 +1301,13 @@ $emps = (Auth::User()->employment);
                     $("#current").val("");
                     $("#closeModal").click();
                     $("#loader").removeClass("loading");
+
+//                    window.location.hash = '#education';
+//                    window.location.data(true);
+//                    load();
+//                    $("#education").load();
+//                    location.reload();
+//                    $('a#education_tab').trigger('click');
                 });
         });
     </script>
