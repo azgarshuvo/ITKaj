@@ -105,7 +105,29 @@ class ProfileController extends Controller{
             ]
         );
 
-        echo "<p class='alert alert-success'> Education Add Success</p>";
+        $educationList = Education::where(['user_id' => $this->userId])->get();
+
+        foreach ($educationList as $education) {
+
+            echo '<div class="col-sm-6">
+                                        <div class="projects">
+                                            <h2 class="'.$education->id.'_institution">'.$education->institution.'<a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEducation('.$education->id.')" data-target="#educationEditModal"><i class="fa fa-edit"></i></a>
+<a onclick="return confirm(\'Are you sure to delete?\')" class="btn btn-sm btn-danger" href="http://localhost:8000/user/profile-setup/delete/education/'.$education->id.'" data-toggle="tooltip" title="Job Delete"><i class="fa fa-times"></i></a>
+                                            </h2>
+                                            <ul class="list-unstyled list-inline blog-info-v2">
+
+                                                <li class="'.$education->id.'_startDate"><i class="fa fa-clock-o"></i>'.$education->start_date.'</li>
+
+                                                <li class="'.$education->id.'_endDate"><i class="fa fa-clock-o"></i>'.$education->end_date.'</li>
+                                            </ul>
+                                            <h5 class="'.$education->id.'_degree"><a class="color-dark">'.$education->degree.'</a></h5>
+                                            <h5 class="'.$education->id.'_studyArea"><a class="color-dark"></a>'.$education->area_of_study.'</h5>
+                                            <h5 class="'.$education->id.'_description"><a class="color-dark"></a>'.$education->description.' </h5>
+                                            <br>
+                                        </div>
+                                    </div>';
+
+        }
     }
 
     public function postEducationEdit(){
@@ -127,7 +149,27 @@ class ProfileController extends Controller{
 //                'current'=>Input::get('current')
             ]);
 
-        echo "<p class='alert alert-success'> Education Edit Success</p>";
+//        $educationEditlist = Education::where(['user_id' => $this->userId])->get();
+//        foreach($educationEditlist as $education) {
+//
+//            echo '<div class="col-sm-6">
+//                                        <div class="projects">
+//                                            <h2 class="' . $education->id . '_institution">' . $education->institution . ' <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEducation($education->id)" data-target="#educationEditModal"><i class="fa fa-edit"></i></a>
+//<a onclick="return confirm(\'Are you sure to delete?\')" class="btn btn-sm btn-danger" href="http://localhost:8000/user/profile-setup/delete/education/' . $education->id . '" data-toggle="tooltip" title="Job Delete"><i class="fa fa-times"></i></a>
+//                                            </h2>
+//                                            <ul class="list-unstyled list-inline blog-info-v2">
+//
+//                                                <li class="' . $education->id . '_startDate"><i class="fa fa-clock-o"></i>' . $education->start_date . '</li>
+//
+//                                                <li class="' . $education->id . '_endDate"><i class="fa fa-clock-o"></i>' . $education->end_date . '</li>
+//                                            </ul>
+//                                            <h5 class="' . $education->id . '_degree"><a class="color-dark">' . $education->degree . '</a></h5>
+//                                            <h5 class="' . $education->id . '_studyArea"><a class="color-dark"></a>' . $education->area_of_study . '</h5>
+//                                            <h5 class="' . $education->id . '_description"><a class="color-dark"></a>' . $education->description . ' </h5>
+//                                            <br>
+//                                        </div>
+//                                    </div>';
+//        }
     }
 
     public function postEducationDelete($id)
@@ -158,7 +200,29 @@ class ProfileController extends Controller{
                     'designation' => Input::get('designation'),
                     'current' => Input::get('currentEmpHidden')
                 ]);
-        echo "<p class='alert alert-success'>Employment Added Successfuly</p>";
+
+            $employmentList = Employments::where(['user_id' => $this->userId])->get();
+            foreach($employmentList as $employment){
+            echo '<div class="col-sm-6">
+                                    <div class="projects">
+
+                                        <h2 class="'.$employment->id.'_empCompanyName">' .$employment->company_name . '<a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEmployment('.$employment->id.')" data-target="#employmentEditModal"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEmployment('.$employment->id.')" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
+                                                                                    </h2>
+                                        <ul class="list-unstyled list-inline blog-info-v2">
+
+                                            <li class="'.$employment->id.'_startEmpDate"><i class="fa fa-clock-o"></i>' .$employment->start_date . '</li>
+
+                                            <li class="'.$employment->id.'_endEmpDate"><i class="fa fa-clock-o"></i>' .$employment->finish_date . '</li>
+                                        </ul>
+                                        <h5 class="'.$employment->id.'_empCountry" data-value="4"><a class="color-dark"></a>' .$employment->country . '</h5>
+                                        <h5 class="'.$employment->id.'_empCity" data-value="165"><a class="color-dark"></a>'.$employment->city.'</h5>
+                                        <h5 class="'.$employment->id.'_empPostalCode"<a class="color-dark"></a>'.$employment->postal_code.'</h5>
+                                        <h5 class="'.$employment->id.'_empDesignation"><a class="color-dark"></a>' .$employment->designation . '</h5>
+                                        <br>
+                                    </div>
+                                </div>';
+        }
     }
 
     public function postEmploymentEdit(){
@@ -179,14 +243,58 @@ class ProfileController extends Controller{
                 'finish_date'=>$finishDate,
                 'designation'=>Input::get('designation')
             ]);
-        echo "<p class='alert alert-success'>Employment Edited Successfuly</p>";
-    }
 
-    public function postEmploymentDelete($id)
+//        $employmentEditList = Employments::where(['user_id' => $this->userId])->get();
+//        foreach($employmentEditList as $employment){
+//            echo '<div class="col-sm-6">
+//                                    <div class="projects">
+//
+//                                        <h2 class="'.$employment->id.'_empCompanyName">' .$employment->company_name . '<a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEmployment($employment->id)" data-target="#employmentEditModal"><i class="fa fa-edit"></i></a>
+//                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEmployment($employment->id)" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
+//                                                                                    </h2>
+//                                        <ul class="list-unstyled list-inline blog-info-v2">
+//
+//                                            <li class="'.$employment->id.'_startEmpDate"><i class="fa fa-clock-o"></i>' .$employment->start_date . '</li>
+//
+//                                            <li class="'.$employment->id.'_endEmpDate"><i class="fa fa-clock-o"></i>' .$employment->finish_date . '</li>
+//                                        </ul>
+//                                        <h5 class="'.$employment->id.'_empCountry" data-value="4"><a class="color-dark"></a>' .$employment->country . '</h5>
+//                                        <h5 class="'.$employment->id.'_empCity" data-value="165"><a class="color-dark"></a>'.$employment->city.'</h5>
+//                                        <h5 class="'.$employment->id.'_empPostalCode"<a class="color-dark"></a>'.$employment->postal_code.'</h5>
+//                                        <h5 class="'.$employment->id.'_empDesignation"><a class="color-dark"></a>' .$employment->designation . '</h5>
+//                                        <br>
+//                                    </div>
+//                                </div>';
+//        }
+    }
+    public function postEmploymentDelete()
     {
-        Employments::findOrFail($id)->delete();
-        Session::flash('success', 'Employment deleted successfully!');
-        return redirect()->route('profileSettings');
+        $id = Input::get('id');
+        Employments::find($id)->delete();
+
+//        $employmentEditList = Employments::where(['user_id' => $this->userId])->get();
+//        foreach($employmentEditList as $employment){
+//            echo '<div class="col-sm-6">
+//                                    <div class="projects">
+//
+//                                        <h2 class="'.$employment->id.'_empCompanyName">' .$employment->company_name . '<a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEmployment($employment->id)" data-target="#employmentEditModal"><i class="fa fa-edit"></i></a>
+//                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEmployment($employment->id)" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
+//                                                                                    </h2>
+//                                        <ul class="list-unstyled list-inline blog-info-v2">
+//
+//                                            <li class="'.$employment->id.'_startEmpDate"><i class="fa fa-clock-o"></i>' .$employment->start_date . '</li>
+//
+//                                            <li class="'.$employment->id.'_endEmpDate"><i class="fa fa-clock-o"></i>' .$employment->finish_date . '</li>
+//                                        </ul>
+//                                        <h5 class="'.$employment->id.'_empCountry" data-value="4"><a class="color-dark"></a>' .$employment->country . '</h5>
+//                                        <h5 class="'.$employment->id.'_empCity" data-value="165"><a class="color-dark"></a>'.$employment->city.'</h5>
+//                                        <h5 class="'.$employment->id.'_empPostalCode"<a class="color-dark"></a>'.$employment->postal_code.'</h5>
+//                                        <h5 class="'.$employment->id.'_empDesignation"><a class="color-dark"></a>' .$employment->designation . '</h5>
+//                                        <br>
+//                                    </div>
+//                                </div>';
+//        }
+        echo "<p>successfully deleted</p>";
     }
 
 
