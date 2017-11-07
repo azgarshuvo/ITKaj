@@ -18,7 +18,7 @@ class AdminMessageController extends Controller
 
     }
     public function UserList(){
-        $userList = User::where(['user_type'=>"freelancer",'user_type'=>"employer"])->get();
+        $userList = User::whereIn('user_type',["freelancer","employer"])->get();
 
         return view('admin.message.userList',['userList'=>$userList]);
     }
