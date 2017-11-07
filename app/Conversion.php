@@ -13,4 +13,13 @@ class Conversion extends Model
        // return $this->hasMany('App\Message')->take(6);
     }
 
+    public function UnreadMessage(){
+        return $this->hasMany('App\Message')->where(['is_read'=>0,'sender'=>'user'])->orderBy('id', 'desc');;
+        // return $this->hasMany('App\Message')->take(6);
+    }
+
+    public function getUser(){
+        return $this->belongsTo('App\User','user_id','id');
+    }
+
 }

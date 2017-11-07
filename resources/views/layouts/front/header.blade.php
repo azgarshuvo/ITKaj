@@ -79,10 +79,11 @@
                                 <li><a href="{{route('freelancerSearch')}}" class="dropdown-toggle">Search For Freelancer</a></li>
                                 <!-- End Search For Freelancer -->
                             @endif
-                            <!-- Logout -->
+                            <!-- Message -->
+                            @if(Auth::user()->user_type!="admin")
                                 <li><a href="{{route('message')}}" class="dropdown-toggle">Message</a></li>
-                                <!-- End Logout -->
-
+                                <!-- End Message -->
+                            @endif
                                 <!-- Logout -->
                                 <li><a href="{{route('logout')}}" class="dropdown-toggle">Logout</a></li>
                                 <!-- End Logout -->

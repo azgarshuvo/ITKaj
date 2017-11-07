@@ -17,7 +17,7 @@
         @endif
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>Employeer List</h5>
+            <h5>User List</h5>
             <div class="ibox-tools">
                 <a class="collapse-link">
                     <i class="fa fa-chevron-up"></i>
@@ -36,6 +36,7 @@
         </tr>
         </thead>
           <tbody>
+
           <?php $count =1; ?>
           @foreach($userList as $user)
 

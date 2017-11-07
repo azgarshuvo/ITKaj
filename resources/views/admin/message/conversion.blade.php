@@ -63,7 +63,7 @@
                 var messageBody = '<li class="sender"><p class="message">' + message + '</p></li>';
                 $.ajax({
                     type: 'POST',
-                    url: '{{route('sendUserMessage')}}',
+                    url: '{{route('AdminSendUserMessage')}}',
                     data: {'_token': '<?php echo csrf_token() ?>', 'message': message, 'conversionId': conversionId},
                     success: function (data) {
                         if (!$.trim(data)) {
@@ -98,6 +98,7 @@
         }
         setInterval(function(){
             getMessages('@if(sizeof($conversion)>0){{$conversion->id}}@else 0 @endif');
+
         }, 5000);
     </script>
 @endsection

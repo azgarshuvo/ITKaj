@@ -5164,9 +5164,7 @@ ul{
 .dropzone{
   min-height: 118px !important;
 }
-.footer{
-  display: none;
-}
+
 .sender_p{
   padding: 8px 18px;
   border: 1px solid gray;
@@ -5196,4 +5194,8 @@ ul{
   text-align: right;
   width: 55%;
   margin-right: 45%;
+}
+.notification-alert{
+  margin-left: 0 !important;
+  width: 1000% !important;
 }

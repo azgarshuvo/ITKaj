@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\adminController;
 
+use App\Http\Controllers\BaseControllerAdmin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,7 +11,7 @@ use DB;
 use Session;
 use App\Http\Controllers\Controller;
 
-class SkillCrudController extends Controller
+class SkillCrudController extends BaseControllerAdmin
 {
     public function getSkillAdd(){
         return view('admin.skill.addSkill');

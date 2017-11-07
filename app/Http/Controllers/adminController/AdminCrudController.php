@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\adminController;
 
+use App\Http\Controllers\BaseControllerAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use Session;
 use Input;
 Use Validator;
 
-class AdminCrudController extends Controller
+class AdminCrudController extends BaseControllerAdmin
 {
     /**
      * Display a listing of the resource.

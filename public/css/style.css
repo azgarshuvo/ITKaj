@@ -32,6 +32,9 @@
 .md-margin-top-100{
     margin: 10% auto ;
 }
+.md-padding-top-100{
+    padding-top: 10% ;
+}
 .freelancerMilestoneDoneButton{
     margin-top: -2%;
 }
