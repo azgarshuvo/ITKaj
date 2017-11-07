@@ -77,31 +77,5 @@ class MessageController extends Controller
         }
     }
 
-    #get Admin message
-    public function MessageAdminGet(Request $request){
-        $conversionId = $request->input('conversionId');
-        if ($conversionId!=0){
-            $message =  Message::where(['conversion_id'=>$conversionId,'is_read'=>0,'sender'=>'user'])->get();
-         //   dd($message);
-            if (sizeof($message)>0){
-                foreach ($message as $text){
-                    echo '<li class="receiver"><p class="message">'.$text->message.'</p></li>';
-                }
-                Message::where(['conversion_id'=>$conversionId,'is_read'=>0,'sender'=>'user'])->update(['is_read'=>1]);
-            }else{
-                echo null;
-            }
-        }
-    }
-
-    #send admin message to user
-    public function AdminMessageSend(Request $request){
-        $message = $request->input('message');
-        $conversionId = $request->input('conversionId');
-        $time = date("h:i:sa");
-        $date = date("Y-m-d");
-
-        Message::create(['conversion_id'=>$conversionId,'message'=>$message,'time'=>$time,'date'=>$date,'sender'=>'admin']);
-    }
 
 }
