@@ -7,9 +7,9 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Conversion;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseControllerAdmin;
 
-class AdminMessageController extends Controller
+class AdminMessageController extends BaseControllerAdmin
 {
     private  $userId = 0;
     public  function __construct()
