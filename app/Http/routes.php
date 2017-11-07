@@ -274,6 +274,29 @@ Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']],
 });
 /*Exam Route for freelancer End*/
 
+/*Message Route for user Start*/
+Route::group(['prefix' => 'message','middleware' => ['auth', 'approve','profile']], function (){
+    Route::get('/', ['as' => 'message', 'uses' => 'MessageController@Message']);
+    Route::post('/send-message', ['as' => 'sendUserMessage', 'uses' => 'MessageController@MessageSend']);
+    Route::post('/get-message/{conversionId}', ['as' => 'getUserMessage', 'uses' => 'MessageController@MessageGet']);
+    Route::get('/get-message/{adminId}', ['as' => 'getMessage', 'uses' => 'MessageController@GetMessage']);
+    Route::get('/conversion/{conversionId}', ['as' => 'getConversion', 'uses' => 'MessageController@GetConversionMessage']);
+
+});
+/*Message Route for user End*/
+
+/*Message Route for Admin Start*/
+Route::group(['prefix' => 'admin-message','middleware' => ['auth', 'approve','admin']], function (){
+    Route::get('/', ['as' => 'admin-message', 'uses' => 'adminController\AdminMessageController@UserList']);
+    Route::get('admin-user-message/{userId}', ['as' => 'adminConversion', 'uses' => 'adminController\AdminMessageController@AdminConversion']);
+    Route::get('admin-conversion/{conversionId}', ['as' => 'admin-getConversion', 'uses' => 'adminController\AdminMessageController@AdminMessageConversion']);
+    Route::post('admin-send-message', ['as' => 'sendUserMessage', 'uses' => 'MessageController@AdminMessageSend']);
+    Route::post('admin-message-send', ['as' => 'getAdminMessage', 'uses' => 'MessageController@MessageAdminGet']);
+
+
+});
+/*Message Route for Admin End*/
+
 
 // route for view/blade file
 Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PayPalController@payWithPaypal'));

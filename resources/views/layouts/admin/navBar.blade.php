@@ -89,7 +89,13 @@
                 <ul class="nav nav-second-level">
                     <li><a href="{{route('addExam')}}">Add Exam</a></li>
                     <li><a href="{{route('listExam')}}">Exam List</a></li>
-
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Message</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{route('admin-message')}}">User List</a></li>
+                    {{--<li><a href="{{route('listExam')}}">Exam List</a></li>--}}
                 </ul>
             </li>
         </ul>
