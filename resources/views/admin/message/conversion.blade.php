@@ -63,7 +63,7 @@
                 var messageBody = '<li class="sender"><p class="message">' + message + '</p></li>';
                 $.ajax({
                     type: 'POST',
-                    url: '{{route('sendUserMessage')}}',
+                    url: '{{route('AdminSendUserMessage')}}',
                     data: {'_token': '<?php echo csrf_token() ?>', 'message': message, 'conversionId': conversionId},
                     success: function (data) {
                         if (!$.trim(data)) {
