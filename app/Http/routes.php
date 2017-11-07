@@ -318,3 +318,14 @@ Route::group(['prefix' => 'admin-message','middleware' => ['auth', 'approve','ad
 
 });
 /*Message Route for Admin End*/
+
+/*Notification Route for Admin Start*/
+Route::group(['prefix' => 'notification','middleware' => ['auth', 'approve','admin']], function (){
+
+    Route::post('admin-send-message', ['as' => 'AdminSendGetNotification', 'uses' => 'adminController\AdminMessageController@AdminGetNotification']);
+    Route::post('admin-message-send', ['as' => 'getAdminMessage', 'uses' => 'adminController\AdminMessageController@MessageAdminGet']);
+
+
+});
+/*Notification Route for Admin End*/
+

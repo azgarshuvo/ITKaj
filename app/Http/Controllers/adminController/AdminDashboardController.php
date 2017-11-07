@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\adminController;
 
+use App\Http\Controllers\BaseControllerAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Job;
@@ -19,7 +20,7 @@ use App\Employments;
 use App\Education;
 use Session;
 
-class AdminDashboardController extends Controller{
+class AdminDashboardController extends BaseControllerAdmin {
 
     //Admin
     public function getDashboard(){

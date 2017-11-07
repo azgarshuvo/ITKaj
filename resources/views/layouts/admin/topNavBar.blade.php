@@ -64,42 +64,46 @@
                     </li>
                 </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown notification-status">
+
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    <i class="fa fa-bell"></i>
+                    @if($unreadMessage->count()>0)
+                      <span class="label label-primary">
+
+                            {{$unreadMessage->count()}}
+
+                    </span>
+                    @endif
                 </a>
-                <ul class="dropdown-menu dropdown-alerts">
+                <ul class="dropdown-menu dropdown-alerts notification-alert">
                     <li>
-                        <a href="mailbox.html">
-                            <div>
-                                <i class="fa fa-envelope fa-fw"></i> You have 16 messages
-                                <span class="pull-right text-muted small">4 minutes ago</span>
+                        <a href="{{route('admin-message')}}">
+                            <div class="text-center">
+                                <i class="fa fa-envelope fa-fw"></i> You have {{$unreadMessage->count()}} messages
+                               {{-- <span class="pull-right text-muted small">4 minutes ago</span>--}}
                             </div>
                         </a>
                     </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="profile.html">
-                            <div>
-                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                <span class="pull-right text-muted small">12 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="grid_options.html">
-                            <div>
-                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
+                    @foreach($unreadConversion as $conversion)
+                        @if($conversion->UnreadMessage->count()>0)
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{{route('admin-getConversion',['conversionId'=>$conversion->id])}}">
+                                <div>
+                                    <i class="fa fa-eye-slash"> </i>  {{$conversion->UnreadMessage->count()}} New Message From {{$conversion->getUser->fname}} {{$conversion->getUser->lname}}
+                                    <span class="pull-right text-muted small">{{  $conversion->UnreadMessage[0]->time }}</span>
+                                </div>
+                            </a>
+                        </li>
+                        @endif
+                    @endforeach
+
                     <li class="divider"></li>
                     <li>
                         <div class="text-center link-block">
-                            <a href="notifications.html">
-                                <strong>See All Alerts</strong>
+                            <a href="{{route('admin-message')}}">
+                                <strong>See All Message</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </div>

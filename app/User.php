@@ -37,6 +37,13 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+
+    public function conversion()
+    {
+        return $this->hasMany('App\Conversion','user_id','id');
+    }
+
+
     public function profile(){
         return $this->hasOne('App\UserProfile');
     }

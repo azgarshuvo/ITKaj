@@ -9,4 +9,7 @@ class Message extends Model
     protected $table = 'messages';
     protected $fillable = ['conversion_id','message', 'attachment', 'is_read','sender','time','date'];
 
+    public function getConversion(){
+        return $this->belongsTo('App\Conversion');
+    }
 }

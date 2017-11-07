@@ -4,13 +4,14 @@ namespace App\Http\Controllers\adminController;
 
 use App\Exam;
 use App\ExamSet;
+use App\Http\Controllers\BaseControllerAdmin;
 use App\Question;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ExamController extends Controller
+class ExamController extends BaseControllerAdmin
 {
     #add exam view by admin
     public function ExamAdd(){
