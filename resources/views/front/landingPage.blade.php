@@ -293,7 +293,7 @@ $count = 0;
     </section>
     <!-- End Intro Section -->
     <!--=== Content ===-->
-    <div class="container content" id="category">
+    <div class="container content md-padding-top-100" id="category">
         <!-- Top Categories -->
         <div class="headline"><h2>Categories</h2></div>
         <div class="row category margin-bottom-20">
