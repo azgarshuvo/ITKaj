@@ -546,9 +546,9 @@ $emps = (Auth::User()->employment);
                                     @foreach ($edus as $edu)
                                     <div class="col-sm-6">
                                         <div class="projects">
-                                            <h2 class="{{$edu->id."_institution"}}">@if($edu->institution != null && $edu->institution != ''){{$edu->institution}}@endif
+                                            <h2><span class="{{$edu->id."_institution"}}">@if($edu->institution != null && $edu->institution != ''){{$edu->institution}}@endif</span>
                                                 <a class="btn btn-sm btn-primary" href="#"  data-toggle="modal" onclick="editEducation({{$edu->id}})" data-target="#educationEditModal" ><i class="fa fa-edit"></i></a>
-                                                <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('deleteEducation', $edu->id)}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
+                                                <a class="btn btn-sm btn-danger" href="#"  data-toggle="modal" onclick="deleteEducation({{$edu->id}})" data-target="#confirmEduDelete"><i class="fa fa-times"></i></a>
                                             </h2>
                                             <ul class="list-unstyled list-inline blog-info-v2">
 
@@ -584,9 +584,7 @@ $emps = (Auth::User()->employment);
                                             <a class="btn btn-sm btn-primary" href="#"  data-toggle="modal" onclick="editEmployment({{$emp->id}})" data-target="#employmentEditModal" ><i class="fa fa-edit"></i></a>
                                             <a class="btn btn-sm btn-danger" href="#"  data-toggle="modal" onclick="deleteEmployment({{$emp->id}})" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
                                             {{--<a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('deleteEmployment', $emp->id)}}"  data-toggle="tooltip" title="Employment Delete"><i class="fa fa-times" ></i></a>--}}
-                                        </h2><span>
-
-                                            </span>
+                                        </h2>
                                         <ul class="list-unstyled list-inline blog-info-v2">
 
                                             <li class="{{$emp->id."_startEmpDate"}}"><i class="fa fa-clock-o"></i>@if($emp->start_date != null && $emp->start_date != '') {{$emp->start_date}} @endif</li>
@@ -757,7 +755,8 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input type="checkbox" name="current" id="edit_current">
+                                    <input onclick="disableEditFinishEduDate()" type="checkbox" name="current" id="edit_current">
+                                    <input type="hidden" id="current_edit_hidden" name="current_edit_hidden" value="0">
                                     Current
                                 </section>
                             </fieldset>
@@ -942,7 +941,8 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input type="checkbox" name="current" id="edit_empCurrent">
+                                    <input onclick="disableEditEmpFinishDate()" type="checkbox" name="current" id="edit_empCurrent">
+                                    <input type="hidden" id="current_emp_edit_hidden" name="current_emp_edit_hidden" value="0">
                                     Current
                                 </section>
                             </fieldset>
@@ -960,6 +960,36 @@ $emps = (Auth::User()->employment);
         </div>
     </div>
     {{--Employee Edit Modal End--}}
+
+    {{--Education delete Modal start Here--}}
+    <div class="modal fade" id="confirmEduDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{{route('deleteEducation')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">
+                        {{csrf_field()}}
+                        <input type="hidden" value="0" id="deletedEduId">
+                        <p>You are about to delete one track, this procedure is irreversible.</p>
+                        <p>Do you want to proceed?</p>
+                        <button type="submit" id="deleteEducation" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="closeEduDeleteModal" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--Education delete Modal start Here--}}
+
 
     {{--Employment delete Modal start Here--}}
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -1370,12 +1400,13 @@ $emps = (Auth::User()->employment);
         var start = $("#edit_start").val();
         var finish = $("#edit_finish").val();
         var description = $("#edit_description").val();
+        var current_edu_hiddden = $("#current_edit_hidden").val();
 
         $.ajax({
             type: "post",
             url: "{{route('editEducation')}}",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data: {id:id, institution : institution, degree:degree, study_area:study_area, start:start, finish:finish, description:description},
+            data: {id:id, institution : institution, degree:degree, study_area:study_area, start:start, finish:finish, description:description, current_edu_hiddden:current_edu_hiddden},
             success: function(data){
 
 
@@ -1383,7 +1414,12 @@ $emps = (Auth::User()->employment);
                 $("."+id+"_degree").text(degree);
                 $("."+id+"_studyArea").text(study_area);
                 $("."+id+"_startDate").text(start);
-                $("."+id+"_endDate").text(finish);
+                if(current_edu_hiddden == 0){
+                    $("."+id+"_endDate").text(finish);
+                }
+                else{
+                    $("."+id+"_endDate").text("Current");
+                }
                 $("."+id+"_description").text(description);
 
 
@@ -1395,6 +1431,29 @@ $emps = (Auth::User()->employment);
         });
 
     });
+
+
+        function deleteEducation(eduId) {
+            $("#deletedEduId").val(eduId);
+        }
+        $("#deleteEducation").click(function(e){
+            e.preventDefault();
+            var id = $("#deletedEduId").val();
+            $.ajax({
+                type: "post",
+                url: "{{route('deleteEducation')}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {id:id},
+                success: function(data){
+
+                    $("#employmentMessage").html(data);
+                    $("#closeEduDeleteModal").click();
+                    $("#loader").removeClass("loading");
+                    $("."+id+"_institution").parent().parent().remove();
+                }
+            });
+        });
+
     </script>
 
     {{--Add Emplyment Script--}}
@@ -1500,25 +1559,33 @@ $emps = (Auth::User()->employment);
             var id  = $("#empId").val();
             var company_name = $('#edit_company').val();
             var country = $('#editEmploymentModaleCountryDropdown').val();
+            var countryName = $('#editEmploymentModaleCountryDropdown option:selected').text();
             var city = $('#editEmploymentModaleCityDropdown').val();
+            var cityName = $('#editEmploymentModaleCityDropdown option:selected').text();
             var postal_code = $('#edit_postal_code').val();
             var start_date = $('#edit_start_date').val();
             var finish_date = $('#edit_finish_date').val();
             var designation = $('#edit_designation').val();
+            var current_emp_edit_hidden = $('#current_emp_edit_hidden').val();
 
             $.ajax({
                 type: "post",
                 url: "{{route('editEmployment')}}",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data : { id:id, company_name: company_name, country: country, city: city, postal_code: postal_code, start_date: start_date, finish_date: finish_date, designation: designation},
+                data : { id:id, company_name: company_name, country: country, city: city, postal_code: postal_code, start_date: start_date, finish_date: finish_date, designation: designation, current_emp_edit_hidden:current_emp_edit_hidden},
                 success: function(data){
 
                     $("."+id+"_empCompanyName").text(company_name);
-                    $("."+id+"_empCountry").text(country);
-                    $("."+id+"_empCity").text(city);
+                    $("."+id+"_empCountry").text(countryName);
+                    $("."+id+"_empCity").text(cityName);
                     $("."+id+"_empPostalCode").text(postal_code);
                     $("."+id+"_startEmpDate").text(start_date);
-                    $("."+id+"_endEmpDate").text(finish_date);
+                    if(current_emp_edit_hidden == 0) {
+                        $("." + id + "_endEmpDate").text(finish_date);
+                    }
+                    else{
+                        $("." + id + "_endEmpDate").text("Current");
+                    }
                     $("."+id+"_empDesignation").text(designation);
 
 
@@ -1537,6 +1604,7 @@ $emps = (Auth::User()->employment);
             $("#deletedEmpId").val(empId);
         }
         $("#deleteEmployment").click(function(e){
+            e.preventDefault();
             var id = $("#deletedEmpId").val();
             $.ajax({
                 type: "post",
@@ -1548,6 +1616,7 @@ $emps = (Auth::User()->employment);
                     $("#employmentMessage").html(data);
                     $("#closeEmpDeleteModal").click();
                     $("#loader").removeClass("loading");
+                    $("."+id+"_empCompanyName").parent().parent().remove();
                 }
             });
         });
@@ -1567,6 +1636,19 @@ $emps = (Auth::User()->employment);
             }
         }
 
+        function disableEditEmpFinishDate(){
+            if($("#edit_empCurrent").prop("checked") == true){
+                $("#current_emp_edit_hidden").val(1);
+                $("#edit_finish_date").attr('disabled', 'disabled');
+                $("#edit_finish_date").val('');
+
+            }
+            else if($("#edit_empCurrent").prop("checked") == false){
+                $("#current_emp_edit_hidden").val(0);
+                $("#edit_finish_date").removeAttr("disabled");
+            }
+        }
+
         function disableFinishEduDate(){
             if($("#current").prop("checked") == true){
                 $('#current_hidden').val(1);
@@ -1578,6 +1660,19 @@ $emps = (Auth::User()->employment);
             else if($("#current").prop("checked") == false){
                 $('#current_hidden').val(0);
                 $("#finish").removeAttr("disabled");
+            }
+        }
+
+        function disableEditFinishEduDate(){
+            if($("#edit_current").prop("checked") == true){
+                $('#current_edit_hidden').val(1);
+                $("#edit_finish").attr('disabled', 'disabled');
+                $("#edit_finish").val('');
+
+            }
+            else if($("#edit_current").prop("checked") == false){
+                $('#current_edit_hidden').val(0);
+                $("#edit_finish").removeAttr("disabled");
             }
         }
     </script>

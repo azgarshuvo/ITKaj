@@ -111,18 +111,25 @@ class ProfileController extends Controller{
 
             echo '<div class="col-sm-6">
                                         <div class="projects">
-                                            <h2 class="'.$education->id.'_institution">'.$education->institution.'<a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEducation('.$education->id.')" data-target="#educationEditModal"><i class="fa fa-edit"></i></a>
-<a onclick="return confirm(\'Are you sure to delete?\')" class="btn btn-sm btn-danger" href="http://localhost:8000/user/profile-setup/delete/education/'.$education->id.'" data-toggle="tooltip" title="Job Delete"><i class="fa fa-times"></i></a>
+                                            <h2 class="'.$education->id.'_institution">'.$education->institution.'
+                                                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEducation('.$education->id.')" data-target="#educationEditModal"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEducation('.$education->id.')" data-target="#confirmEduDelete"><i class="fa fa-times"></i></a>
                                             </h2>
                                             <ul class="list-unstyled list-inline blog-info-v2">
 
-                                                <li class="'.$education->id.'_startDate"><i class="fa fa-clock-o"></i>'.$education->start_date.'</li>
+                                                <li class="'.$education->id.'_startDate"><i class="fa fa-clock-o"></i>'.$education->start_date.'</li>';
 
-                                                <li class="'.$education->id.'_endDate"><i class="fa fa-clock-o"></i>'.$education->end_date.'</li>
-                                            </ul>
+                                                echo '<li class="'.$education->id.'_endDate"><i class="fa fa-clock-o"></i>';
+                                                if($education->current==0) {
+                                                    echo $education->end_date;
+                                                }else{
+                                                    echo "Current</li>";
+                                                }
+
+                                            echo '</ul>
                                             <h5 class="'.$education->id.'_degree"><a class="color-dark">'.$education->degree.'</a></h5>
                                             <h5 class="'.$education->id.'_studyArea"><a class="color-dark"></a>'.$education->area_of_study.'</h5>
-                                            <h5 class="'.$education->id.'_description"><a class="color-dark"></a>'.$education->description.' </h5>
+                                            <h5 class="'.$education->id.'_description"><a class="color-dark"></a>'.$education->description.'</h5>
                                             <br>
                                         </div>
                                     </div>';
@@ -146,37 +153,14 @@ class ProfileController extends Controller{
                 'start_date'=>$startDate,
                 'end_date'=>$finishDate,
                 'description'=>Input::get('description'),
-//                'current'=>Input::get('current')
+                'current'=>Input::get('current_edu_hiddden')
             ]);
-
-//        $educationEditlist = Education::where(['user_id' => $this->userId])->get();
-//        foreach($educationEditlist as $education) {
-//
-//            echo '<div class="col-sm-6">
-//                                        <div class="projects">
-//                                            <h2 class="' . $education->id . '_institution">' . $education->institution . ' <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEducation($education->id)" data-target="#educationEditModal"><i class="fa fa-edit"></i></a>
-//<a onclick="return confirm(\'Are you sure to delete?\')" class="btn btn-sm btn-danger" href="http://localhost:8000/user/profile-setup/delete/education/' . $education->id . '" data-toggle="tooltip" title="Job Delete"><i class="fa fa-times"></i></a>
-//                                            </h2>
-//                                            <ul class="list-unstyled list-inline blog-info-v2">
-//
-//                                                <li class="' . $education->id . '_startDate"><i class="fa fa-clock-o"></i>' . $education->start_date . '</li>
-//
-//                                                <li class="' . $education->id . '_endDate"><i class="fa fa-clock-o"></i>' . $education->end_date . '</li>
-//                                            </ul>
-//                                            <h5 class="' . $education->id . '_degree"><a class="color-dark">' . $education->degree . '</a></h5>
-//                                            <h5 class="' . $education->id . '_studyArea"><a class="color-dark"></a>' . $education->area_of_study . '</h5>
-//                                            <h5 class="' . $education->id . '_description"><a class="color-dark"></a>' . $education->description . ' </h5>
-//                                            <br>
-//                                        </div>
-//                                    </div>';
-//        }
     }
 
-    public function postEducationDelete($id)
+    public function postEducationDelete()
     {
+        $id = Input::get('id');
         Education::findOrFail($id)->delete();
-        Session::flash('success', 'Education deleted successfully!');
-        return redirect()->route('profileSettings');
     }
 
     //Employment
@@ -201,23 +185,44 @@ class ProfileController extends Controller{
                     'current' => Input::get('currentEmpHidden')
                 ]);
 
+            $countries = Countries::all();
+            $cities = States::all();
+
             $employmentList = Employments::where(['user_id' => $this->userId])->get();
             foreach($employmentList as $employment){
             echo '<div class="col-sm-6">
                                     <div class="projects">
 
-                                        <h2 class="'.$employment->id.'_empCompanyName">' .$employment->company_name . '<a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEmployment('.$employment->id.')" data-target="#employmentEditModal"><i class="fa fa-edit"></i></a>
+                                        <h2 class="'.$employment->id.'_empCompanyName">' .$employment->company_name . '
+                                            <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEmployment('.$employment->id.')" data-target="#employmentEditModal"><i class="fa fa-edit"></i></a>
                                             <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEmployment('.$employment->id.')" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
-                                                                                    </h2>
+                                        </h2>
                                         <ul class="list-unstyled list-inline blog-info-v2">
 
-                                            <li class="'.$employment->id.'_startEmpDate"><i class="fa fa-clock-o"></i>' .$employment->start_date . '</li>
+                                            <li class="'.$employment->id.'_startEmpDate"><i class="fa fa-clock-o"></i>' .$employment->start_date . '</li>';
 
-                                            <li class="'.$employment->id.'_endEmpDate"><i class="fa fa-clock-o"></i>' .$employment->finish_date . '</li>
-                                        </ul>
-                                        <h5 class="'.$employment->id.'_empCountry" data-value="4"><a class="color-dark"></a>' .$employment->country . '</h5>
-                                        <h5 class="'.$employment->id.'_empCity" data-value="165"><a class="color-dark"></a>'.$employment->city.'</h5>
-                                        <h5 class="'.$employment->id.'_empPostalCode"<a class="color-dark"></a>'.$employment->postal_code.'</h5>
+                                            echo '<li class="'.$employment->id.'_endEmpDate"><i class="fa fa-clock-o"></i>';
+                                            if($employment->current == 0){
+                                                echo $employment->finish_date;
+                                            }
+                                            else{
+                                                echo "Current </li>";
+                                            }
+                                        echo '</ul>
+                                        <h5 class="'.$employment->id.'_empCountry" data-value="4"><a class="color-dark"></a>';
+                                            foreach($countries as $country){
+                                                if($employment->country == $country->id){
+                                                    echo "$country->name </h5>";
+                                                }
+                                            }
+                                        echo '<h5 class="'.$employment->id.'_empCity" data-value="165"><a class="color-dark"></a>';
+                                            foreach($cities as $city){
+                                                if($employment->city == $city->id){
+                                                    echo "$city->name </h5>";
+                                                }
+                                            }
+
+                                        echo '<h5 class="'.$employment->id.'_empPostalCode"<a class="color-dark"></a>'.$employment->postal_code.'</h5>
                                         <h5 class="'.$employment->id.'_empDesignation"><a class="color-dark"></a>' .$employment->designation . '</h5>
                                         <br>
                                     </div>
@@ -241,60 +246,15 @@ class ProfileController extends Controller{
                 'postal_code'=>Input::get('postal_code'),
                 'start_date'=>$startDate,
                 'finish_date'=>$finishDate,
-                'designation'=>Input::get('designation')
+                'designation'=>Input::get('designation'),
+                'current'=>Input::get('current_emp_edit_hidden')
             ]);
 
-//        $employmentEditList = Employments::where(['user_id' => $this->userId])->get();
-//        foreach($employmentEditList as $employment){
-//            echo '<div class="col-sm-6">
-//                                    <div class="projects">
-//
-//                                        <h2 class="'.$employment->id.'_empCompanyName">' .$employment->company_name . '<a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEmployment($employment->id)" data-target="#employmentEditModal"><i class="fa fa-edit"></i></a>
-//                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEmployment($employment->id)" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
-//                                                                                    </h2>
-//                                        <ul class="list-unstyled list-inline blog-info-v2">
-//
-//                                            <li class="'.$employment->id.'_startEmpDate"><i class="fa fa-clock-o"></i>' .$employment->start_date . '</li>
-//
-//                                            <li class="'.$employment->id.'_endEmpDate"><i class="fa fa-clock-o"></i>' .$employment->finish_date . '</li>
-//                                        </ul>
-//                                        <h5 class="'.$employment->id.'_empCountry" data-value="4"><a class="color-dark"></a>' .$employment->country . '</h5>
-//                                        <h5 class="'.$employment->id.'_empCity" data-value="165"><a class="color-dark"></a>'.$employment->city.'</h5>
-//                                        <h5 class="'.$employment->id.'_empPostalCode"<a class="color-dark"></a>'.$employment->postal_code.'</h5>
-//                                        <h5 class="'.$employment->id.'_empDesignation"><a class="color-dark"></a>' .$employment->designation . '</h5>
-//                                        <br>
-//                                    </div>
-//                                </div>';
-//        }
     }
     public function postEmploymentDelete()
     {
         $id = Input::get('id');
         Employments::find($id)->delete();
-
-//        $employmentEditList = Employments::where(['user_id' => $this->userId])->get();
-//        foreach($employmentEditList as $employment){
-//            echo '<div class="col-sm-6">
-//                                    <div class="projects">
-//
-//                                        <h2 class="'.$employment->id.'_empCompanyName">' .$employment->company_name . '<a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEmployment($employment->id)" data-target="#employmentEditModal"><i class="fa fa-edit"></i></a>
-//                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEmployment($employment->id)" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
-//                                                                                    </h2>
-//                                        <ul class="list-unstyled list-inline blog-info-v2">
-//
-//                                            <li class="'.$employment->id.'_startEmpDate"><i class="fa fa-clock-o"></i>' .$employment->start_date . '</li>
-//
-//                                            <li class="'.$employment->id.'_endEmpDate"><i class="fa fa-clock-o"></i>' .$employment->finish_date . '</li>
-//                                        </ul>
-//                                        <h5 class="'.$employment->id.'_empCountry" data-value="4"><a class="color-dark"></a>' .$employment->country . '</h5>
-//                                        <h5 class="'.$employment->id.'_empCity" data-value="165"><a class="color-dark"></a>'.$employment->city.'</h5>
-//                                        <h5 class="'.$employment->id.'_empPostalCode"<a class="color-dark"></a>'.$employment->postal_code.'</h5>
-//                                        <h5 class="'.$employment->id.'_empDesignation"><a class="color-dark"></a>' .$employment->designation . '</h5>
-//                                        <br>
-//                                    </div>
-//                                </div>';
-//        }
-        echo "<p>successfully deleted</p>";
     }
 
 
