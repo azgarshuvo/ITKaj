@@ -221,7 +221,7 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->address}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <textarea name="address" id="address_text_area" style="display: none;"></textarea>
+                                            <textarea name="address" id="address_text_area" style="display: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->address}} @endif</textarea>
                                             {{--<input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->address}}" @endif name="address">--}}
                                         </div>
                                         <div class="col-md-6">
@@ -1086,8 +1086,11 @@ $emps = (Auth::User()->employment);
 
         function resetAdvanceData(name) {
             $('#address_text_area').css({ "display": "none" });
+            var text = $("#"+name).text();
+            var value = $.trim(text);
+            $("input[name="+name+"]").val(value);
+            $("input[name="+name+"]").attr('type', 'hidden');
             $("#"+name).removeClass('hidden');
-
             $("."+name+"_edit").removeClass('hidden');
             $("."+name).addClass('hidden');
         }
@@ -1434,13 +1437,13 @@ $emps = (Auth::User()->employment);
                 $('#current_hidden').val(1);
                 $("#finish").attr('disabled', 'disabled');
                 $("#finish").val('');
-                console.log($('#current_hidden').val());
+
 
             }
             else if($("#current").prop("checked") == false){
                 $('#current_hidden').val(0);
                 $("#finish").removeAttr("disabled");
-                console.log($('#current_hidden').val());
+
             }
         }
     </script>
