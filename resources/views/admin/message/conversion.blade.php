@@ -97,7 +97,7 @@
             });
         }
         setInterval(function(){
-            getMessages('@if(sizeof($conversion)>0){{$conversion->id}}@else 0 @endif');
+            getMessages('@if(sizeof($conversion)>0){{$conversion->id}} @else 0 @endif');
 
         }, 5000);
     </script>

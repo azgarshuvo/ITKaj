@@ -302,6 +302,9 @@ Route::group(['prefix' => 'message','middleware' => ['auth', 'approve','profile'
     Route::get('/get-message/{adminId}', ['as' => 'getMessage', 'uses' => 'MessageController@GetMessage']);
     Route::get('/conversion/{conversionId}', ['as' => 'getConversion', 'uses' => 'MessageController@GetConversionMessage']);
 
+    Route::post('/send-attachment', ['as' => 'sendAttachmentUser', 'uses' => 'MessageController@SendAttachment']);
+    Route::post('/attachment-download', ['as' => 'messageAttachmentDownload', 'uses' => 'MessageController@getAttachmentDownload']);
+
 });
 /*Message Route for user End*/
 

@@ -126,12 +126,6 @@
                 data:{'_token': '<?php echo csrf_token() ?>'},
                 success:function(data){
                    $(".notification-status").html(data);
-                    /*if ($.trim(data)) {
-
-                    }
-                    else {
-                        $("#messageBody").append(data);
-                    }*/
 
                 }
             });

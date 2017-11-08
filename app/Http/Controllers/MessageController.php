@@ -68,13 +68,51 @@ class MessageController extends Controller
 
             if (sizeof($message)>0){
                 foreach ($message as $text){
-                    echo '<li class="sender"><p class="message">'.$text->message.'</p></li>';
+                    if(strlen($text->message)>0){
+                        echo '<li class="sender"><p class="message">'.$text->message.'</p></li>';
+                    }else{
+                        echo '<li class="sender"><p class="message attachmentDownload">'.$text->attachment.'</p></li>';
+                    }
+
                 }
                 Message::where(['conversion_id'=>$conversionId,'is_read'=>0,'sender'=>'admin'])->update(['is_read'=>1]);
             }else{
                 echo null;
             }
         }
+    }
+
+    #send user attachment
+    public function SendAttachment(Request $request){
+        if($request->hasFile('attachment')) {
+            $files = $request->file('attachment');
+            $conversionId = $request->input('conversionId');
+            $time = date("h:i:sa");
+            $date = date("Y-m-d");
+
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+
+                $attachFile = date('His') . $filename;
+
+                $destinationPath = base_path() . '\public\message_attachment';
+
+                $file->move($destinationPath, $attachFile);
+
+                Message::create(['conversion_id'=>$conversionId,'attachment'=>$attachFile,'time'=>$time,'date'=>$date,'sender'=>'user']);
+
+                echo '<li class="receiver"><p class="message attachmentDownload">'. $attachFile.'</p></li>';
+            }
+
+        }
+    }
+
+    #message attachment download
+    public function getAttachmentDownload(Request $request)
+    {
+        $attachment = $request->input('attachment');
+        $file= public_path(). "/message_attachment/".$attachment;
+        return response()->download($file);
     }
 
 

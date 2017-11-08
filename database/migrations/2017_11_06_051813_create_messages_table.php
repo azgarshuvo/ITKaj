@@ -16,7 +16,7 @@ class CreateMessagesTable extends Migration
             $table->increments('id');
             $table->integer('conversion_id');
             $table->string('message');
-            $table->integer('attachment');
+            $table->string('attachment');
             $table->integer('is_read')->default(0);
             $table->enum('sender', ['user', 'admin']);
             $table->string('time');
