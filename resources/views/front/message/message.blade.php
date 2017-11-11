@@ -21,7 +21,7 @@
     </div><!--/breadcrumbs-->
 
     <div class="container content-sm">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="headline-v2"><h2>Admin List</h2></div>
             @if($adminList->count()>0)
             <ul id="adminStatus" class="list-unstyled blog-trending margin-bottom-50">
@@ -34,7 +34,7 @@
             </ul>
             @endif
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
 
             <ul class="list-unstyled" id="messageBody">
                 @if(sizeof($conversion)>0)
