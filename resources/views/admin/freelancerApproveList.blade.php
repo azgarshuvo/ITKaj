@@ -50,10 +50,15 @@
                             <tr class="gradeX">
                                 <td>{{$count++}}</td>
                                 <td>{{$freelancer->fname}}{{$freelancer->lname}}</td>
-                                <td>{{$freelancer->profile->skills}}</td>
+                                <td>
+                                    @foreach(json_decode($freelancer->profile->skills) as $skill)
+                                        {{$skill}}
+                                    @endforeach
+                                </td>
                                 <td>{{$freelancer->profile->professional_title}}</td>
                                 <td class="center">
-                                    <a class="btn btn-sm btn-danger" href="" data-href="{{ route('freelancerApproveDelete', $freelancer->id)}}" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
+                                    <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('freelancerApproveDelete', $freelancer->id)}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
+                                    {{--<a class="btn btn-sm btn-danger" href="" data-href="{{ route('freelancerApproveDelete', $freelancer->id)}}" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times"></i></a>--}}
                                     <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" title="Freelancer Details"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
@@ -61,28 +66,28 @@
                     @endforeach
                     </tbody>
                 </table>
-                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+                {{--<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--}}
+                    {{--<div class="modal-dialog">--}}
+                        {{--<div class="modal-content">--}}
 
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-                            </div>
+                            {{--<div class="modal-header">--}}
+                                {{--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--}}
+                                {{--<h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>--}}
+                            {{--</div>--}}
 
-                            <div class="modal-body">
-                                <p>You are about to delete one track, this procedure is irreversible.</p>
-                                <p>Do you want to proceed?</p>
-                                <p class="debug-url"></p>
-                            </div>
+                            {{--<div class="modal-body">--}}
+                                {{--<p>You are about to delete one track, this procedure is irreversible.</p>--}}
+                                {{--<p>Do you want to proceed?</p>--}}
+                                {{--<p class="debug-url"></p>--}}
+                            {{--</div>--}}
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <a class="btn btn-danger btn-ok">Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            {{--<div class="modal-footer">--}}
+                                {{--<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>--}}
+                                {{--<a class="btn btn-danger btn-ok">Delete</a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
             </div>
         </div>

@@ -67,6 +67,7 @@
 
                                     <h5><strong>Project Type: </strong> @if($jobDetails->type == 1)One time Project @elseif($jobDetails->type == 2) Ongoing @else I don't know @endif </h5>
                                 </div>
+                                @if($contact)
                                 @if(intval($contact[0]->contact_status) != 1 && intval($contact[0]->contact_status) != 2 && intval($contact[0]->contact_status) != 3 && intval($contact[0]->contact_status) != 4)
                                     <div class="col-md-12" id="jobStatus">
                                         @if($jobDetails->approved == 1)
@@ -76,6 +77,7 @@
                                         @endif
                                     </div>
                                 @endif
+
 
                                 @if(intval($contact[0]->contact_status) == 1)
                                     <p class="alert alert-success">Contact End, Project Successfully Done</p>
@@ -91,6 +93,7 @@
                                     <p class="alert alert-success">Project Done Request Deny</p>
                                 @elseif(intval($contact[0]->contact_status) == 2)
                                     <p class="alert alert-success">Project Done Request by Freelancer</p>
+                                @endif
                                 @endif
                             </div>
                         </div>
