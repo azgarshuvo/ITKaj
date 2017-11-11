@@ -12,9 +12,11 @@ use App\Http\Controllers\BaseControllerAdmin;
 class AdminMessageController extends BaseControllerAdmin
 {
     private  $userId = 0;
+
     public  function __construct()
     {
         $this->userId =auth()->user()->id;
+        parent::__construct();
 
     }
     public function UserList(){
@@ -73,6 +75,47 @@ class AdminMessageController extends BaseControllerAdmin
                 echo null;
             }
         }
+    }
+
+    #Admin get Notification
+    public function AdminGetNotification(Request $request){
+        $unreadConversion = Conversion::with(['UnreadMessage','getUser'])->get();
+        $unreadMessage = Message::with('getConversion')->where(['is_read'=>0])->where(['sender'=>'user'])->get();
+
+        echo '<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                    <i class="fa fa-bell"></i>';
+                      echo  '<span class="label label-primary" >'.$unreadMessage->count().'</span ></a><ul class="dropdown-menu dropdown-alerts notification-alert"><li>
+                        <a href="'.route("admin-message").'">
+                            <div class="text-center">
+                                <i class="fa fa-envelope fa-fw"></i> You have '.$unreadMessage->count().'messages
+                              
+                            </div>
+                        </a>
+                    </li>';
+                    foreach($unreadConversion as $conversion) {
+                        if ($conversion->UnreadMessage->count() > 0) {
+                           echo'<li class="divider" ></li >
+                        <li >
+                            <a href = "'.route("admin-getConversion",["conversionId"=>$conversion->id]).'" >
+                                <div >
+                                    <i class="fa fa-eye-slash" > </i >'.$conversion->UnreadMessage->count().' New Message From '.$conversion->getUser->fname.' '.$conversion->getUser->lname.'
+                                    <span class="pull-right text-muted small" >'.$conversion->UnreadMessage[0]->time.'</span >
+                                </div >
+                            </a >
+                        </li >';
+                       }
+                    }
+
+                   echo  '<li class="divider"></li>
+                    <li>
+                        <div class="text-center link-block">
+                            <a href="'.route("admin-message").'">
+                                <strong>See All Message</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </li>
+                    </ul>';
     }
 
 

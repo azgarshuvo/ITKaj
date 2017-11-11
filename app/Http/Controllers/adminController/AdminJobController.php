@@ -5,6 +5,7 @@ namespace App\Http\Controllers\adminController;
 use App\Categories;
 use App\ContactDetails;
 use App\FreelancerSelectedForJob;
+use App\Http\Controllers\BaseControllerAdmin;
 use App\Job;
 use App\JobInterested;
 use App\Milestone;
@@ -18,7 +19,7 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Input;
 
-class AdminJobController extends Controller
+class AdminJobController extends BaseControllerAdmin
 {
     public function getJoblist(){
         $jobList = Job::get();

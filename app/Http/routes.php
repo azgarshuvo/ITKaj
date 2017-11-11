@@ -42,10 +42,10 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
         Route::post('edit/education', ['as'=>'editEducation', 'uses' => 'ProfileController@postEducationEdit']);
-        Route::get('delete/education/{id}', ['as'=>'deleteEducation', 'uses' => 'ProfileController@postEducationDelete']);
+        Route::post('delete/education', ['as'=>'deleteEducation', 'uses' => 'ProfileController@postEducationDelete']);
         Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
         Route::post('edit/employment', ['as'=>'editEmployment', 'uses' => 'ProfileController@postEmploymentEdit']);
-        Route::get('delete/employment/{id}', ['as'=>'deleteEmployment', 'uses' => 'ProfileController@postEmploymentDelete']);
+        Route::post('delete/employment', ['as'=>'deleteEmployment', 'uses' => 'ProfileController@postEmploymentDelete']);
 
     });
 
@@ -318,3 +318,14 @@ Route::group(['prefix' => 'admin-message','middleware' => ['auth', 'approve','ad
 
 });
 /*Message Route for Admin End*/
+
+/*Notification Route for Admin Start*/
+Route::group(['prefix' => 'notification','middleware' => ['auth', 'approve','admin']], function (){
+
+    Route::post('admin-send-message', ['as' => 'AdminSendGetNotification', 'uses' => 'adminController\AdminMessageController@AdminGetNotification']);
+    Route::post('admin-message-send', ['as' => 'getAdminMessage', 'uses' => 'adminController\AdminMessageController@MessageAdminGet']);
+
+
+});
+/*Notification Route for Admin End*/
+
