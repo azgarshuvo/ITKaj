@@ -50,7 +50,7 @@
                     <input type="radio" value="1" name="is_parent" onclick="yesnoCheck(this);" id="yesCheck"> Yes
                   </label>
                   <label class="checkbox-inline">
-                    <input type="radio" value="0" name="is_parent" onclick="yesnoCheck(this);" id="yesCheck"> No
+                    <input type="radio" value="0" name="is_parent" onclick="yesnoCheck(this);" id="noCheck"> No
                   </label>
                 </div>
                 @if(!empty($items))
@@ -58,6 +58,7 @@
                     <label class="col-lg-2 control-label">Parent Category</label>
                     <div class="col-lg-10">
                       <select class="form-control" name="parent_category_id" id="mySelect">
+                          <option selected value="0">Select One</option>
                         @foreach($items as $item)
                         <option value="{{$item->id}}">{{$item->category_name}}</option>
                         @endforeach
@@ -74,4 +75,5 @@
         </div>
     </div>
     </div>
+
 @endsection

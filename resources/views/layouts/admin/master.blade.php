@@ -114,7 +114,18 @@
 <!-- end of dataTables -->
 
 <script>
+
     $(document).ready(function() {
+        $('input[type=radio][name=is_parent]').change(function() {
+            if (this.value == '1') {
+                $("#ifYes").css({'display':'none'});
+            }
+            else if (this.value == '0') {
+                $("#ifYes").css({'display':'block'});
+
+            }
+        });
+
         @if(isset($conversion))
         $("#messageAttachment").change(function(){
             var fd = new FormData();
