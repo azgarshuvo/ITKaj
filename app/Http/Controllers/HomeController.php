@@ -21,4 +21,8 @@ class HomeController extends Controller{
         $projects = Job::orderBy('created_at','desc')->where('approved', 1)->take(6)->get();
         return view('front.landingPage', ['categories' => $categories, 'projects' => $projects, 'employers' => $employers]);
     }
+
+    public function getComingSoonPage(){
+        return view('front.comingSoonPage');
+    }
 }

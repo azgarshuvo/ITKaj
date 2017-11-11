@@ -37,6 +37,13 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+
+    public function conversion()
+    {
+        return $this->hasMany('App\Conversion','user_id','id');
+    }
+
+
     public function profile(){
         return $this->hasOne('App\UserProfile');
     }
@@ -94,5 +101,10 @@ class User extends Model implements AuthenticatableContract,
         return $query->where(['user_type'=>'employer', 'admin_approve' => 0]);
     }
 
+
+    public function examResult()
+    {
+        return $this->hasMany('App\ExamResult','user_id','id');
+    }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\adminController;
 
+use App\Http\Controllers\BaseControllerAdmin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -9,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 
-class AdminLoginController extends Controller
+class AdminLoginController extends BaseControllerAdmin
 {
     protected $auth;
     protected $registrar;

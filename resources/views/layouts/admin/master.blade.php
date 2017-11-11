@@ -115,6 +115,33 @@
 
 <script>
     $(document).ready(function() {
+        getNotification();
+
+        function getNotification(){
+
+            $.ajax({
+                type:'POST',
+                url:'{{route('AdminSendGetNotification')}}',
+
+                data:{'_token': '<?php echo csrf_token() ?>'},
+                success:function(data){
+                   $(".notification-status").html(data);
+                    /*if ($.trim(data)) {
+
+                    }
+                    else {
+                        $("#messageBody").append(data);
+                    }*/
+
+                }
+            });
+
+        }
+
+        setInterval(function(){
+            getNotification();
+        }, 5000);
+
 
         $('.dataTables-example').dataTable({
             responsive: true,

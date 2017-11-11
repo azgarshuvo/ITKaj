@@ -5,6 +5,7 @@ namespace App\Http\Controllers\adminController;
 use App\Categories;
 use App\ContactDetails;
 use App\FreelancerSelectedForJob;
+use App\Http\Controllers\BaseControllerAdmin;
 use App\Job;
 use App\JobInterested;
 use App\Milestone;
@@ -18,7 +19,7 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Input;
 
-class AdminJobController extends Controller
+class AdminJobController extends BaseControllerAdmin
 {
     public function getJoblist(){
         $jobList = Job::get();
@@ -242,13 +243,13 @@ class AdminJobController extends Controller
     /*Admin job approve by post ajax*/
     public function PostJobApprove(Request $request){
         $jobId = $request->input('jobId');
-        Job::where(['id'=>$jobId])->update(['verified'=>1,'approved'=>1]);
+        Job::where(['id'=>$jobId])->update(['approved'=>1]);
     }
 
     /*Admin job disapprove by post ajax*/
     public function PostJobDisapprove(Request $request){
         $jobId = $request->input('jobId');
-        Job::where(['id'=>$jobId])->update(['verified'=>1,'approved'=>0]);
+        Job::where(['id'=>$jobId])->update(['approved'=>0]);
     }
 
     #get freelancer list by dropdown
@@ -407,7 +408,7 @@ class AdminJobController extends Controller
         $files = $image->move(public_path('attach'),$imageName);
         $jobData = Job::where(['id'=>$jobId])->first();
         $att = $jobData->job_attachment;
-       
+
         $attachment = json_decode($att,true);
         array_push($attachment,$imageName);
         $updateAttachment = json_encode($attachment);

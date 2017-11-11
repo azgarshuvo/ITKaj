@@ -42,10 +42,10 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::post('add/education', ['as'=>'addEdcation', 'uses' => 'ProfileController@postEducationAdd']);
         Route::post('edit/education', ['as'=>'editEducation', 'uses' => 'ProfileController@postEducationEdit']);
-        Route::get('delete/education/{id}', ['as'=>'deleteEducation', 'uses' => 'ProfileController@postEducationDelete']);
+        Route::post('delete/education', ['as'=>'deleteEducation', 'uses' => 'ProfileController@postEducationDelete']);
         Route::post('add/employment', ['as'=>'addEmployment', 'uses' => 'ProfileController@postEmploymentAdd']);
         Route::post('edit/employment', ['as'=>'editEmployment', 'uses' => 'ProfileController@postEmploymentEdit']);
-        Route::get('delete/employment/{id}', ['as'=>'deleteEmployment', 'uses' => 'ProfileController@postEmploymentDelete']);
+        Route::post('delete/employment', ['as'=>'deleteEmployment', 'uses' => 'ProfileController@postEmploymentDelete']);
 
     });
 
@@ -122,7 +122,7 @@ Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
     Route::get('employeer/approve/delete/{id}', ['as' =>'employeerApproveDelete', 'uses' => 'adminController\AdminDashboardController@getEmployeerApproveDelete']);
     Route::get('employeer/disapprove/list', ['as' =>'employeerDisapproveList', 'uses' => 'adminController\AdminDashboardController@getEmployeerDisapproveList']);
     Route::get('employeer/disapprove/delete/{id}', ['as' =>'employeerDisapproveDelete', 'uses' => 'adminController\AdminDashboardController@getEmployeerDisapproveDelete']);
-    Route::get('interested/freelancer/details/{freelancerid}', ['as' =>'interestedFreelancerDetails', 'uses' => 'adminController\AdminJobController@getInterestedFreelancerDetails']);
+    //Route::get('interested/freelancer/details/{freelancerid}', ['as' =>'interestedFreelancerDetails', 'uses' => 'adminController\AdminJobController@getInterestedFreelancerDetails']);
 
 
 
@@ -233,37 +233,99 @@ Route::group(['prefix' => 'freelancer','middleware' => ['auth', 'approve']], fun
 });
 
 
+/*Exam Route for admin Start*/
+Route::group(['prefix' => 'exam-admin','middleware' => ['admin', 'approve','profile']], function (){
+    Route::get('add', ['as' => 'addExam', 'uses' => 'adminController\ExamController@ExamAdd']);
+    Route::post('add/execute', ['as' => 'postAddExam', 'uses' => 'adminController\ExamController@PostAddExam']);
+    Route::get('exam-list', ['as' => 'listExam', 'uses' => 'adminController\ExamController@ExamList']);
 
+    Route::post('exam-list', ['as' => 'examUpdate', 'uses' => 'adminController\ExamController@PostExamUpdate']);
+    Route::post('exam-delete', ['as' => 'examDelete', 'uses' => 'adminController\ExamController@PostExamDelete']);
 
+    Route::get('add-question/{examID}', ['as' => 'addQuestion', 'uses' => 'adminController\ExamController@QuestionAdd']);
 
+    Route::get('add-set', ['as' => 'addQuestionSet', 'uses' => 'adminController\ExamController@ExamQuestionSetAdd']);
+    Route::post('post-set', ['as' => 'postQuestion', 'uses' => 'adminController\ExamController@ExamQuestionSet']);
+    Route::post('answer-list', ['as' => 'answerList', 'uses' => 'adminController\ExamController@AnswerList']);
+    Route::get('question-list/{examId}', ['as' => 'questionList', 'uses' => 'adminController\ExamController@QuestionList']);
+    Route::post('update-question', ['as' => 'updateQuestion', 'uses' => 'adminController\ExamController@UpdateQuestion']);
+    Route::post('delete-question', ['as' => 'deleteQuestion', 'uses' => 'adminController\ExamController@DeleteQuestion']);
 
+    //route for question set start
+    Route::get('add-set-question/{examId}', ['as' => 'addQuestionSet', 'uses' => 'adminController\ExamController@GetQuestionSet']);
+    Route::post('add-set-question', ['as' => 'postAddset', 'uses' => 'adminController\ExamController@QuestionSetAdd']);
+    Route::get('set-list/{examId}', ['as' => 'setList', 'uses' => 'adminController\ExamController@QuestionSetList']);
+    Route::post('set-list/', ['as' => 'updateSet', 'uses' => 'adminController\ExamController@UpdateQuestionSet']);
+    Route::post('set-delete', ['as' => 'setDelete', 'uses' => 'adminController\ExamController@DeleteQuestionSet']);
+});
+/*Exam Route for admin End*/
 
+/*Exam Route for freelancer Start*/
+Route::group(['prefix' => 'exam','middleware' => ['auth', 'approve','profile']], function (){
+    Route::get('list', ['as' => 'ExamList', 'uses' => 'TestController@TestList']);
+    Route::get('info/{examId}', ['as' => 'examInfo', 'uses' => 'TestController@TestInfo']);
+    Route::get('exam-start/{examId}', ['as' => 'takeExam', 'uses' => 'TestController@ExamTake']);
+    Route::post('exam-take/{examId}', ['as' => 'questionSubmit', 'uses' => 'TestController@PostExamTaken']);
+    Route::get('exam-take/{examId}', ['as' => 'getExamDetails', 'uses' => 'TestController@GetExamTaken']);
+    Route::get('test-result/', ['as' => 'getTestResult', 'uses' => 'TestController@GetTestResult']);
 
+    Route::get('set-list/{examId}', ['as' => 'setList', 'uses' => 'TestController@GetSetList']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+});
+/*Exam Route for freelancer End*/
 
 
 // route for view/blade file
-Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PayPalController@payWithPaypal',));
+Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PayPalController@payWithPaypal'));
 // route for post request
-Route::post('paypal', array('as' => 'paypal','uses' => 'PayPalController@postPaymentWithpaypal',));
+Route::post('paypal', array('as' => 'paypal','uses' => 'PayPalController@postPaymentWithpaypal'));
 // route for check status responce
-Route::get('paypal', array('as' => 'status','uses' => 'PayPalController@getPaymentStatus',));
+Route::get('paypal', array('as' => 'status','uses' => 'PayPalController@getPaymentStatus'));
 
 
 
-Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe',));
+Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe'));
 
-Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe',));
+Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
+
+Route::get('coming-soon', ['as' => 'comingSoon', 'uses' => 'HomeController@getComingSoonPage']);
+
+
+
+/*Route for message*/
+
+/*Message Route for user Start*/
+Route::group(['prefix' => 'message','middleware' => ['auth', 'approve','profile']], function (){
+    Route::get('/', ['as' => 'message', 'uses' => 'MessageController@Message']);
+    Route::post('/send-message', ['as' => 'sendUserMessage', 'uses' => 'MessageController@MessageSend']);
+    Route::post('/get-message/{conversionId}', ['as' => 'getUserMessage', 'uses' => 'MessageController@MessageGet']);
+    Route::get('/get-message/{adminId}', ['as' => 'getMessage', 'uses' => 'MessageController@GetMessage']);
+    Route::get('/conversion/{conversionId}', ['as' => 'getConversion', 'uses' => 'MessageController@GetConversionMessage']);
+
+});
+/*Message Route for user End*/
+
+/*Message Route for Admin Start*/
+Route::group(['prefix' => 'admin-message','middleware' => ['auth', 'approve','admin']], function (){
+
+    Route::get('/', ['as' => 'admin-message', 'uses' => 'adminController\AdminMessageController@UserList']);
+
+    Route::get('admin-user-message/{userId}', ['as' => 'adminConversion', 'uses' => 'adminController\AdminMessageController@AdminConversion']);
+    Route::get('admin-conversion/{conversionId}', ['as' => 'admin-getConversion', 'uses' => 'adminController\AdminMessageController@AdminMessageConversion']);
+    Route::post('admin-send-message', ['as' => 'AdminSendUserMessage', 'uses' => 'adminController\AdminMessageController@AdminMessageSend']);
+    Route::post('admin-message-send', ['as' => 'getAdminMessage', 'uses' => 'adminController\AdminMessageController@MessageAdminGet']);
+
+
+});
+/*Message Route for Admin End*/
+
+/*Notification Route for Admin Start*/
+Route::group(['prefix' => 'notification','middleware' => ['auth', 'approve','admin']], function (){
+
+    Route::post('admin-send-message', ['as' => 'AdminSendGetNotification', 'uses' => 'adminController\AdminMessageController@AdminGetNotification']);
+    Route::post('admin-message-send', ['as' => 'getAdminMessage', 'uses' => 'adminController\AdminMessageController@MessageAdminGet']);
+
+
+});
+/*Notification Route for Admin End*/
+

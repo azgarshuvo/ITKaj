@@ -71,6 +71,7 @@
                             @if(Auth::user()->user_type=="freelancer")
                                 <!-- Search for Project -->
                                 <li><a href="{{route('jobSearch')}}" class="dropdown-toggle" >Search for Project</a></li>
+                                <li><a href="{{route('ExamList')}}" class="dropdown-toggle" >Test</a></li>
                                 <!-- End Search for Project -->
                             @endif
                             @if(Auth::user()->user_type=="employer")
@@ -78,7 +79,11 @@
                                 <li><a href="{{route('freelancerSearch')}}" class="dropdown-toggle">Search For Freelancer</a></li>
                                 <!-- End Search For Freelancer -->
                             @endif
-
+                            <!-- Message -->
+                            @if(Auth::user()->user_type!="admin")
+                                <li><a href="{{route('message')}}" class="dropdown-toggle">Message</a></li>
+                                <!-- End Message -->
+                            @endif
                                 <!-- Logout -->
                                 <li><a href="{{route('logout')}}" class="dropdown-toggle">Logout</a></li>
                                 <!-- End Logout -->

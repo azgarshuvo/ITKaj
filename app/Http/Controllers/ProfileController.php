@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Job;
 use App\Education;
 use App\Employments;
+use App\Skills;
 use DB;
 use App\User;
 use App\UserProfile;
@@ -36,16 +37,21 @@ class ProfileController extends Controller{
     }
 
     public function getProfileSettings(){
+        $skills = Skills::all();
+//        dd($skills);
         $userProfile = Auth::User();
         $countries = Countries::all();
         $cities = States::all();
-    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities]);
+//        dd($cities);
+    	return view('front.profileSettings',['userProfile'=>$userProfile, 'countries' => $countries , 'cities' => $cities, 'skills'=>$skills]);
     }
 
     public function getMyProfile(){
         $userProfile = User::findUser(Auth::User()->id)->with(['profile', 'education', 'employment'])->first();
+        $countries = Countries::all();
+        $cities = States::all();
 //        dd($userProfile->employment);
-        return view('front.myProfile',['userProfile'=>$userProfile]);
+        return view('front.myProfile',['userProfile'=>$userProfile, 'countries'=>$countries, 'cities'=>$cities]);
     }
 
     public function getProjectsList(){
@@ -93,13 +99,42 @@ class ProfileController extends Controller{
                 'degree' => Input::get('degree'),
                 'area_of_study' => Input::get('study_area'),
                 'start_date' => $startDate,
-               // 'end_date' => $finishDate,
+                'end_date' => $finishDate,
                 'description' => Input::get('description'),
                 'current' => Input::get('currentHidden')
             ]
         );
 
-        echo "<p class='alert alert-success'> Education Add Success</p>";
+        $educationList = Education::where(['user_id' => $this->userId])->get();
+
+        foreach ($educationList as $education) {
+
+            echo '<div class="col-sm-6">
+                                        <div class="projects">
+                                            <h2 class="'.$education->id.'_institution">'.$education->institution.'
+                                                <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEducation('.$education->id.')" data-target="#educationEditModal"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEducation('.$education->id.')" data-target="#confirmEduDelete"><i class="fa fa-times"></i></a>
+                                            </h2>
+                                            <ul class="list-unstyled list-inline blog-info-v2">
+
+                                                <li class="'.$education->id.'_startDate"><i class="fa fa-clock-o"></i>'.$education->start_date.'</li>';
+
+                                                echo '<li class="'.$education->id.'_endDate"><i class="fa fa-clock-o"></i>';
+                                                if($education->current==0) {
+                                                    echo $education->end_date;
+                                                }else{
+                                                    echo "Current</li>";
+                                                }
+
+                                            echo '</ul>
+                                            <h5 class="'.$education->id.'_degree"><a class="color-dark">'.$education->degree.'</a></h5>
+                                            <h5 class="'.$education->id.'_studyArea"><a class="color-dark"></a>'.$education->area_of_study.'</h5>
+                                            <h5 class="'.$education->id.'_description"><a class="color-dark"></a>'.$education->description.'</h5>
+                                            <br>
+                                        </div>
+                                    </div>';
+
+        }
     }
 
     public function postEducationEdit(){
@@ -118,17 +153,14 @@ class ProfileController extends Controller{
                 'start_date'=>$startDate,
                 'end_date'=>$finishDate,
                 'description'=>Input::get('description'),
-//                'current'=>Input::get('current')
+                'current'=>Input::get('current_edu_hiddden')
             ]);
-
-        echo "<p class='alert alert-success'> Education Edit Success</p>";
     }
 
-    public function postEducationDelete($id)
+    public function postEducationDelete()
     {
+        $id = Input::get('id');
         Education::findOrFail($id)->delete();
-        Session::flash('success', 'Education deleted successfully!');
-        return redirect()->route('profileSettings');
     }
 
     //Employment
@@ -140,21 +172,6 @@ class ProfileController extends Controller{
         $originalFinishDate = Input::get('finish_date');
         $finishDate = date("Y-m-d", strtotime($originalFinishDate));
 
-        $currentDate = Input::get('current');
-        if($currentDate == 1) {
-            Employments::Create(
-                [
-                    'user_id' => $this->userId,
-                    'company_name' => Input::get('company_name'),
-                    'country' => Input::get('country'),
-                    'city' => Input::get('city'),
-                    'postal_code' => Input::get('postal_code'),
-                    'start_date' => $startDate,
-                    'designation' => Input::get('designation'),
-                    'current' => $currentDate
-                ]);
-        }
-        else{
             Employments::Create(
                 [
                     'user_id' => $this->userId,
@@ -165,9 +182,52 @@ class ProfileController extends Controller{
                     'start_date' => $startDate,
                     'finish_date' => $finishDate,
                     'designation' => Input::get('designation'),
+                    'current' => Input::get('currentEmpHidden')
                 ]);
+
+            $countries = Countries::all();
+            $cities = States::all();
+
+            $employmentList = Employments::where(['user_id' => $this->userId])->get();
+            foreach($employmentList as $employment){
+            echo '<div class="col-sm-6">
+                                    <div class="projects">
+
+                                        <h2 class="'.$employment->id.'_empCompanyName">' .$employment->company_name . '
+                                            <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" onclick="editEmployment('.$employment->id.')" data-target="#employmentEditModal"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" onclick="deleteEmployment('.$employment->id.')" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
+                                        </h2>
+                                        <ul class="list-unstyled list-inline blog-info-v2">
+
+                                            <li class="'.$employment->id.'_startEmpDate"><i class="fa fa-clock-o"></i>' .$employment->start_date . '</li>';
+
+                                            echo '<li class="'.$employment->id.'_endEmpDate"><i class="fa fa-clock-o"></i>';
+                                            if($employment->current == 0){
+                                                echo $employment->finish_date;
+                                            }
+                                            else{
+                                                echo "Current </li>";
+                                            }
+                                        echo '</ul>
+                                        <h5 class="'.$employment->id.'_empCountry" data-value="4"><a class="color-dark"></a>';
+                                            foreach($countries as $country){
+                                                if($employment->country == $country->id){
+                                                    echo "$country->name </h5>";
+                                                }
+                                            }
+                                        echo '<h5 class="'.$employment->id.'_empCity" data-value="165"><a class="color-dark"></a>';
+                                            foreach($cities as $city){
+                                                if($employment->city == $city->id){
+                                                    echo "$city->name </h5>";
+                                                }
+                                            }
+
+                                        echo '<h5 class="'.$employment->id.'_empPostalCode"<a class="color-dark"></a>'.$employment->postal_code.'</h5>
+                                        <h5 class="'.$employment->id.'_empDesignation"><a class="color-dark"></a>' .$employment->designation . '</h5>
+                                        <br>
+                                    </div>
+                                </div>';
         }
-        echo "<p class='alert alert-success'>Employment Added Successfuly</p>";
     }
 
     public function postEmploymentEdit(){
@@ -186,22 +246,22 @@ class ProfileController extends Controller{
                 'postal_code'=>Input::get('postal_code'),
                 'start_date'=>$startDate,
                 'finish_date'=>$finishDate,
-                'designation'=>Input::get('designation')
+                'designation'=>Input::get('designation'),
+                'current'=>Input::get('current_emp_edit_hidden')
             ]);
-        echo "<p class='alert alert-success'>Employment Edited Successfuly</p>";
-    }
 
-    public function postEmploymentDelete($id)
+    }
+    public function postEmploymentDelete()
     {
-        Employments::findOrFail($id)->delete();
-        Session::flash('success', 'Employment deleted successfully!');
-        return redirect()->route('profileSettings');
+        $id = Input::get('id');
+        Employments::find($id)->delete();
     }
 
 
     #get ajax request to change password
     public function ChangePassword(Request $request){
 
+//        dd($request);
         $validate = Validator::make($request->all(), [
             'c_password' => 'required|min:6',
             'password' => 'required|string|min:6|confirmed',
@@ -277,7 +337,7 @@ class ProfileController extends Controller{
             $username = $request->input('username');
             $phone = $request->input('phone');
             $address = $request->input('address');
-            $skills = $request->input('skills');
+            $skills = json_encode($request->input('skills'));
             $experience_level = $request->input('experience_level');
             $professional_title = $request->input('professional_title');
             $hourly_rate = $request->input('hourly_rate');

@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
 namespace App\Http\Controllers\adminController;
+use App\Http\Controllers\BaseControllerAdmin;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,7 +10,7 @@ use App\User;
 use App\UserProfile;
 use App\Categories;
 use Session;
-class CategoryCrudController extends Controller
+class CategoryCrudController extends BaseControllerAdmin
 {
     /**
      * Display a listing of the resource.

@@ -15,7 +15,6 @@ $emps = (Auth::User()->employment);
 @section('content')
 {{--{{dd($countries[17]->name)}}--}}
     <!-- Profile Content -->
-
     <div class="col-md-9">
         <div class="profile-body margin-bottom-20">
             @if(Session::has('success'))
@@ -121,7 +120,7 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->phone_number}}@endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control"  type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->phone_number}}" @endif name="phone">
+                                            <input class="form-control phone"  type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->phone_number}}" @endif name="phone">
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -139,7 +138,7 @@ $emps = (Auth::User()->employment);
                                 </dd>
                                 <hr>
                                 <dt><strong>Country</strong></dt>
-                                
+
                                 <dd>
                                     <div class="row">
                                         <div  class="col-md-6 setText" id="">
@@ -200,12 +199,12 @@ $emps = (Auth::User()->employment);
                                         </div>--}}
                                         <div class="col-md-6">
                                             <span id="cityEdit">
-                                                <a onclick="changeDropDown('city')" class="pull-right" href="javascript:void(0);">
+                                                <a onclick="changeDropDown('city')" class="pull-right city_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
-                                            <span>
-                                                <a onclick="resetCityDropDown('city')" class="pull-right city hidden" href="javascript:void(0);">
+                                            <span class="city_cancle hidden">
+                                                <a onclick="resetCityDropDown('city')" class="pull-right city" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -223,15 +222,17 @@ $emps = (Auth::User()->employment);
                                         <div class="col-md-6">
                                             <textarea name="address" id="address_text_area" style="display: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->address}} @endif</textarea>
                                             {{--<input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->address}}" @endif name="address">--}}
+                                            <textarea rows="3" cols="70" name="address" id="address_text_area" style="display: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->address}} @endif</textarea>
+
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <a onclick="changeAdvanceData('address')" class="pull-right address_edit" href="javascript:void(0);">
+                                                <a onclick="changeAddressData('address')" class="pull-right address_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetAdvanceData('address')" class="pull-right address hidden" href="javascript:void(0);">
+                                                <a onclick="resetAddressData('address')" class="pull-right address hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -329,16 +330,16 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->professional_overview}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->professional_overview}}" @endif name="professional_overview">
+                                            <textarea rows="3" cols="70" name="professional_overview" id="overview_text_area" style="display: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->professional_overview}} @endif</textarea>
                                         </div>
                                         <div class="col-md-6">
                                             <span>
-                                                <a onclick="changeData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
+                                                <a onclick="changeOverviewData('professional_overview')" class="pull-right professional_overview_edit" href="javascript:void(0);">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             </span>
                                             <span>
-                                                <a onclick="resetData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
+                                                <a onclick="resetOverviewData('professional_overview')" class="pull-right professional_overview hidden" href="javascript:void(0);">
                                                     <i class="fa fa-times fa-lg"></i>
                                                 </a>
                                             </span>
@@ -355,22 +356,43 @@ $emps = (Auth::User()->employment);
                                     {{--Skill  start--}}
 
                                     <dt><strong>Skill</strong></dt>
+
                                     <dd>
                                         <div class="row">
+
                                             <div class="col-md-8 setText" id="skills">
-                                                @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->skills}} @endif
+                                                @if($userProfile->profile != null && $userProfile->profile != '')
+                                                    @if($userProfile->profile->skills != null && $userProfile->profile->skills != '' && json_decode($userProfile->profile->skills) != "")
+                                                        {{--{{dd(json_decode($userProfile->profile->skills))}}--}}
+                                                        @foreach(json_decode($userProfile->profile->skills) as $skill)
+                                                            {{$skill}}
+                                                        @endforeach
+                                                    @endif
+                                                @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->skills}}" @endif name="skills">
+                                                <select id="skill" name="skill[]" multiple  class="form-control margin-bottom-20" style="display:none;">
+                                                    @foreach($skills as $skill)
+                                                        @if($userProfile->profile->skills != null && $userProfile->profile->skills != '' && json_decode($userProfile->profile->skills) != "")
+                                                            @if(in_array($skill->name,json_decode($userProfile->profile->skills)))
+                                                                <option selected value="{{$skill->name}}">{{$skill->name}}</option>
+                                                            @endif
+                                                        @else
+                                                            <option value="{{$skill->name}}">{{$skill->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                {{--<input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile != '') value="{{$userProfile->profile->skills}}" @endif name="skills">--}}
                                             </div>
+
                                             <div class="col-md-6">
                                                 <span>
-                                                    <a onclick="changeData('skills')" class="pull-right skills_edit" href="javascript:void(0);">
+                                                    <a onclick="changeSkillData('skills')" class="pull-right skills_edit" href="javascript:void(0);">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 </span>
                                                 <span>
-                                                    <a onclick="resetData('skills')" class="pull-right skills hidden" href="javascript:void(0);">
+                                                    <a onclick="resetSkillData('skills')" class="pull-right skills hidden" href="javascript:void(0);">
                                                         <i class="fa fa-times fa-lg"></i>
                                                     </a>
                                                 </span>
@@ -523,13 +545,13 @@ $emps = (Auth::User()->employment);
                         <p class="text-center" id="ajax_message"></p>
                         <br>
                             <dl class="dl-horizontal">
-                                <div class="row">
+                                <div id="educationRow" class="row">
                                     @foreach ($edus as $edu)
                                     <div class="col-sm-6">
                                         <div class="projects">
-                                            <h2 class="{{$edu->id."_institution"}}">@if($edu->institution != null && $edu->institution != ''){{$edu->institution}}@endif
+                                            <h2><span class="{{$edu->id."_institution"}}">@if($edu->institution != null && $edu->institution != ''){{$edu->institution}}@endif</span>
                                                 <a class="btn btn-sm btn-primary" href="#"  data-toggle="modal" onclick="editEducation({{$edu->id}})" data-target="#educationEditModal" ><i class="fa fa-edit"></i></a>
-                                                <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('deleteEducation', $edu->id)}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
+                                                <a class="btn btn-sm btn-danger" href="#"  data-toggle="modal" onclick="deleteEducation({{$edu->id}})" data-target="#confirmEduDelete"><i class="fa fa-times"></i></a>
                                             </h2>
                                             <ul class="list-unstyled list-inline blog-info-v2">
 
@@ -556,15 +578,15 @@ $emps = (Auth::User()->employment);
                         <p class="text-center" id="ajax_message"></p>
                         <br>
                         <dl class="dl-horizontal">
-                            <div class="row">
+                            <div id="employmentRow" class="row">
                                 @foreach ($emps as $emp)
                                 <div class="col-sm-6">
                                     <div class="projects">
 
-                                        <h2 class="{{$emp->id."_empCompanyName"}}">@if($emp->company_name != null && $emp->company_name != '') {{$emp->company_name}} @endif
+                                        <h2><span class="{{$emp->id."_empCompanyName"}}">@if($emp->company_name != null && $emp->company_name != '') {{$emp->company_name}} @endif </span>
                                             <a class="btn btn-sm btn-primary" href="#"  data-toggle="modal" onclick="editEmployment({{$emp->id}})" data-target="#employmentEditModal" ><i class="fa fa-edit"></i></a>
-                                            {{--<a class="btn btn-sm btn-danger" href=""  data-toggle="modal" onclick="deleteEmployment({{$emp->id}})" data-target="#confirm-delete"><i class="fa fa-times"></i></a>--}}
-                                            <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('deleteEmployment', $emp->id)}}"  data-toggle="tooltip" title="Employment Delete"><i class="fa fa-times" ></i></a>
+                                            <a class="btn btn-sm btn-danger" href="#"  data-toggle="modal" onclick="deleteEmployment({{$emp->id}})" data-target="#confirm-delete"><i class="fa fa-times"></i></a>
+                                            {{--<a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('deleteEmployment', $emp->id)}}"  data-toggle="tooltip" title="Employment Delete"><i class="fa fa-times" ></i></a>--}}
                                         </h2>
                                         <ul class="list-unstyled list-inline blog-info-v2">
 
@@ -610,8 +632,8 @@ $emps = (Auth::User()->employment);
                     </div>
                     <div class="modal-body">
                         <!-- Education Form -->
-                        <form action="{{route('addEdcation')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">  
-                            {{csrf_field()}}          
+                        <form action="{{route('addEdcation')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">
+                            {{csrf_field()}}
                             <fieldset>
                                 <div class="row">
                                     <section class="col col-6">
@@ -631,7 +653,7 @@ $emps = (Auth::User()->employment);
                                         <label class="input">
                                             <input type="text" name="study_area" id="study_area" placeholder="Area of Study">
                                         </label>
-                                    </section>                               
+                                    </section>
                                 </div>
                             </fieldset>
 
@@ -662,7 +684,7 @@ $emps = (Auth::User()->employment);
                                 </section>
                             </fieldset>
                             <footer>
-                                <button type="submit" id="addEducation" class="btn-u">Add</button>                           
+                                <button type="submit" id="addEducation" class="btn-u">Add</button>
                             </footer>
                         </form>
                         <!-- End Education Form -->
@@ -720,13 +742,13 @@ $emps = (Auth::User()->employment);
                                     <section class="col col-6">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
-                                            <input type="text" name="start" id="edit_start" placeholder="Expected start date">
+                                            <input type="text" name="edit_start" id="edit_start" placeholder="Expected start date">
                                         </label>
                                     </section>
                                     <section class="col col-6">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
-                                            <input type="text" name="finish" id="edit_finish" placeholder="Expected finish date">
+                                            <input type="text" name="edit_finish" id="edit_finish" placeholder="Expected finish date">
                                         </label>
                                     </section>
                                 </div>
@@ -736,7 +758,8 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input type="checkbox" name="current" id="edit_current">
+                                    <input onclick="disableEditFinishEduDate()" type="checkbox" name="current" id="edit_current">
+                                    <input type="hidden" id="current_edit_hidden" name="current_edit_hidden" value="0">
                                     Current
                                 </section>
                             </fieldset>
@@ -828,6 +851,7 @@ $emps = (Auth::User()->employment);
                                 </section>
                                 <section>
                                     <input onclick="disableFinishDate()" type="checkbox" name="current" id="emp_current" >
+                                    <input type="hidden" id="current_emp_hidden" name="current_emp_hidden" value="0">
                                     Current
                                 </section>
                             </fieldset>
@@ -904,13 +928,13 @@ $emps = (Auth::User()->employment);
                                     <section class="col col-6">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
-                                            <input type="text" name="start_date" id="edit_start_date" placeholder="Expected start date">
+                                            <input type="text" name="edit_start_date" id="edit_start_date" placeholder="Expected start date">
                                         </label>
                                     </section>
                                     <section class="col col-6" id="endField">
                                         <label class="input">
                                             <i class="icon-append fa fa-calendar"></i>
-                                            <input type="text" name="finish_date" id="edit_finish_date" placeholder="Expected finish date">
+                                            <input type="text" name="edit_finish_date" id="edit_finish_date" placeholder="Expected finish date">
                                         </label>
                                     </section>
                                 </div>
@@ -920,7 +944,8 @@ $emps = (Auth::User()->employment);
                                     </label>
                                 </section>
                                 <section>
-                                    <input type="checkbox" name="current" id="edit_empCurrent">
+                                    <input onclick="disableEditEmpFinishDate()" type="checkbox" name="current" id="edit_empCurrent">
+                                    <input type="hidden" id="current_emp_edit_hidden" name="current_emp_edit_hidden" value="0">
                                     Current
                                 </section>
                             </fieldset>
@@ -939,12 +964,71 @@ $emps = (Auth::User()->employment);
     </div>
     {{--Employee Edit Modal End--}}
 
+    {{--Education delete Modal start Here--}}
+    <div class="modal fade" id="confirmEduDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{{route('deleteEducation')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">
+                        {{csrf_field()}}
+                        <input type="hidden" value="0" id="deletedEduId">
+                        <p>You are about to delete one track, this procedure is irreversible.</p>
+                        <p>Do you want to proceed?</p>
+                        <button type="submit" id="deleteEducation" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="closeEduDeleteModal" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--Education delete Modal start Here--}}
+
+
+    {{--Employment delete Modal start Here--}}
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form action="{{route('deleteEmployment')}}" method="post" enctype="multipart/form-data" id="sky-form1" class="  sky-form">
+                        {{csrf_field()}}
+                        <input type="hidden" value="0" id="deletedEmpId">
+                        <p>You are about to delete one track, this procedure is irreversible.</p>
+                        <p>Do you want to proceed?</p>
+                        <button type="submit" id="deleteEmployment" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="closeEmpDeleteModal" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--Employment delete Modal end Here--}}
+
 @endsection
 @section('script')
     {{--this script use for update password--}}
     <script type="text/javascript">
-
         $(document).ready(function(){
+            $(".phone").numeric();
+
             if($('#userCountryId').val() != null && $('#userCountryId').val() != ''){
                 var Selected_id = $('.country option:selected').val();
                 var Selected_city = parseInt($('#userCityId').val());
@@ -1060,40 +1144,73 @@ $emps = (Auth::User()->employment);
             //$('input').attr('name', 'yourNewname');
         }
 
-        function changeAdvanceData(name){
-
-            //$('input').attr('name', 'yourNewname');
-
-//            $("input[name="+name+"]").each(function()
-//            {
-//                var textarea = $(document.createElement('textarea'));
-//                textarea.text($(this).val());
-//                $(this).after(textarea).remove();
-//            });
-//
-//            $("."+name+"_edit").addClass('hidden');
-//            $("."+name).removeClass('hidden');
-//            $("#"+name).addClass('hidden');
-
-
+        function changeAddressData(name){
             $('#address_text_area').css({ "display": "inline" });
             $("#"+name).addClass('hidden');
-
             $("."+name+"_edit").addClass('hidden');
             $("."+name).removeClass('hidden');
+            $("#address_text_area").removeClass('hidden');
 
         }
 
-        function resetAdvanceData(name) {
+        function resetAddressData(name) {
             $('#address_text_area').css({ "display": "none" });
             var text = $("#"+name).text();
             var value = $.trim(text);
-            $("input[name="+name+"]").val(value);
-            $("input[name="+name+"]").attr('type', 'hidden');
+            $("#address_text_area").val(value);
+            $("#address_text_area").attr('type', 'hidden');
+
             $("#"+name).removeClass('hidden');
             $("."+name+"_edit").removeClass('hidden');
             $("."+name).addClass('hidden');
         }
+
+        function changeOverviewData(name){
+            $("#overview_text_area").css({"display": "inline"});
+            $("#"+name).addClass('hidden');
+            $("."+name+"_edit").addClass('hidden');
+            $("."+name).removeClass('hidden');
+            $("#overview_text_area").removeClass('hidden');
+
+        }
+
+        function resetAdvanceData(name) {
+            $('#address_text_area').css({"display": "none"});
+            var text = $("#" + name).text();
+            var value = $.trim(text);
+            $("input[name=" + name + "]").val(value);
+            $("input[name=" + name + "]").attr('type', 'hidden');
+            $("#" + name).removeClass('hidden');
+        }
+        function resetOverviewData(name){
+            $("#overview_text_area").css({"display": "none"});
+            var text = $("#"+name).text();
+            var value = $.trim(text);
+            $("#overview_text_area").val(value);
+            $("#overview_text_area").attr('type', 'hidden');
+            $("#"+name).removeClass('hidden');
+            $("."+name+"_edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+        }
+
+        function changeSkillData(name){
+            $("#skill").select2({
+            });
+            $("#skill").css({"display": "inline"});
+            $("#"+name).addClass('hidden');
+            $("."+name+"_edit").addClass('hidden');
+            $("."+name).removeClass('hidden');
+            $("#skill").removeClass('hidden');
+        }
+
+        function resetSkillData(name){
+            $(".select2").css({"display": "none"});
+            $("#skill").attr('type', 'hidden');
+            $("#"+name).removeClass('hidden');
+            $("."+name+"_edit").removeClass('hidden');
+            $("."+name).addClass('hidden');
+        }
+
 
         function resetData(name){
             var text = $("#"+name).text();
@@ -1123,7 +1240,7 @@ $emps = (Auth::User()->employment);
         function changeDropDown(name){
             $("#"+name+"Dropdown").removeAttr('disabled');
             $("."+name).removeClass('hidden');
-           $("#cityEdit").addClass('hidden');
+            $("#cityEdit").addClass('hidden');
         }
 
         /*use for city dropdown reset*/
@@ -1163,14 +1280,14 @@ $emps = (Auth::User()->employment);
                     country: $("#countryDropdown").val(),
                     city: $("#cityDropdown").val(),
                     officePhone: $("input[name=officePhone]").val(),
-                    address: $("input[name=address]").val(),
+                    address: $("#address_text_area").val(),
                     company_name: $("input[name=company_name]").val(),
                     web_address: $("input[name=web_address]").val(),
-                    skills: $("input[name=skills]").val(),
+                    skills: $("#skill").val(),
                     hourly_rate: $("input[name=hourly_rate]").val(),
                     experience_level: $("#experience_level_value").val(),
                     professional_title: $("input[name=professional_title]").val(),
-                    professional_overview: $("input[name=professional_overview]").val()
+                    professional_overview: $("#overview_text_area").val()
                 },
                 function(data, status){
                     $("#profile_status").html(data);
@@ -1180,17 +1297,56 @@ $emps = (Auth::User()->employment);
             $('input[type=text]').each(function(){
                 $(this).parent().parent().find(".setText").text($(this).val());
             });
+            $("#address_text_area").each(function(){
+                $(this).parent().parent().find(".setText").text($(this).val());
+            });
+
+            $("#overview_text_area").each(function(){
+                $(this).parent().parent().find(".setText").text($(this).val());
+            });
+
+            $("#skill").each(function(){
+                if($.trim($(this).val())){
+                    $(this).parent().parent().find(".setText").text($(this).val());
+                }else{
+                    $(this).parent().parent().find(".setText").text('');
+                }
+            });
+
+            $("#address_text_area").addClass('hidden');
+            $("#overview_text_area").addClass('hidden');
+
+            $("#countryDropdown").prop("disabled", true);
+            $(".country_edit").parent().removeClass('hidden');
+            $(".country_cancle").addClass('hidden');
+
+            $("#cityDropdown").prop("disabled", true);
+            $(".city_edit").parent().removeClass('hidden');
+            $(".city_cancle").addClass('hidden');
+
+
+
+
             $("input[type='text']").attr('type', 'hidden');
             $( "div.hidden" ).removeClass('hidden');
             $( ".fa-pencil" ).parent().removeClass('hidden');
             $( ".experience_level" ).addClass('hidden');
-            $( "#experience_level" ).text($("select[name='experience_level']").find('option:selected').text());
+            if($("select[name='experience_level']").find('option:selected').text() == 'Select One'){
+                $( "#experience_level" ).text('');
+            }else{
+                $( "#experience_level" ).text($("select[name='experience_level']").find('option:selected').text());
+            }
+
             $( ".fa-times" ).parent().addClass('hidden');
+            $( ".select2" ).addClass('hidden');
+
         });
+
     </script>
 
     <!-- Add education script -->
     <script type="text/javascript">
+
         $("#addEducation").click(function(e){
             e.preventDefault();
             $("#loader").addClass("loading");
@@ -1202,24 +1358,16 @@ $emps = (Auth::User()->employment);
             var description = $("#description").val();
             var current = $("#current").val();
             var currentHidden = $("#current_hidden").val();
-            $.post("{{route('addEdcation')}}",
-                {
-                    _token: '{{csrf_token()}}',
-                    institution : institution,
-                    degree:degree,
-                    study_area:study_area,
-                    start:start,
-                    finish:finish,
-                    description:description,
-                    current:current,
-                    currentHidden:currentHidden,
-                },
-                function(data, status){
-                    //alert(data);
-                    //$("#profile_status").html(data);
-                    //alert("Data: " + data );
-                    $("#message").html(data);
-                    
+
+            //ajax
+            $.ajax({
+                type: "post",
+                url: "{{route('addEdcation')}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {institution: institution, degree: degree, study_area:study_area, start:start, finish:finish, description:description, current:current, currentHidden:currentHidden},
+                success: function(data){
+                    $("#educationRow").html(data);
+
                     $("#institution").val("");
                     $("#degree").val("");
                     $("#study_area").val("");
@@ -1227,9 +1375,11 @@ $emps = (Auth::User()->employment);
                     $("#finish").val("");
                     $("#description").val("");
                     $("#current").val("");
+
                     $("#closeModal").click();
                     $("#loader").removeClass("loading");
-                });
+                }
+            });
         });
     </script>
 
@@ -1263,30 +1413,65 @@ $emps = (Auth::User()->employment);
         var start = $("#edit_start").val();
         var finish = $("#edit_finish").val();
         var description = $("#edit_description").val();
-        $.post("{{route('editEducation')}}",
-            {
-                _token: '{{csrf_token()}}',
-                id:id,
-                institution : institution,
-                degree:degree,
-                study_area:study_area,
-                start:start,
-                finish:finish,
-                description:description,
-            },
-            function(data, status){
-                //alert(data);
-                //$("#profile_status").html(data);
-                //alert("Data: " + data );
-                $("#message").html(data);
+        var current_edu_hiddden = $("#current_edit_hidden").val();
+
+        $.ajax({
+            type: "post",
+            url: "{{route('editEducation')}}",
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: {id:id, institution : institution, degree:degree, study_area:study_area, start:start, finish:finish, description:description, current_edu_hiddden:current_edu_hiddden},
+            success: function(data){
+
+
+                $("."+id+"_institution").text(institution);
+                $("."+id+"_degree").text(degree);
+                $("."+id+"_studyArea").text(study_area);
+                $("."+id+"_startDate").text(start);
+                if(current_edu_hiddden == 0){
+                    $("."+id+"_endDate").text(finish);
+                }
+                else{
+                    $("."+id+"_endDate").text("Current");
+                }
+                $("."+id+"_description").text(description);
+
+
+//                $("#educationRow").html(data);
+
                 $("#closeEduModal").click();
                 $("#loader").removeClass("loading");
-            });
+            }
+        });
+
     });
+
+
+        function deleteEducation(eduId) {
+            $("#deletedEduId").val(eduId);
+        }
+        $("#deleteEducation").click(function(e){
+            e.preventDefault();
+            var id = $("#deletedEduId").val();
+            $.ajax({
+                type: "post",
+                url: "{{route('deleteEducation')}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {id:id},
+                success: function(data){
+
+                    $("#employmentMessage").html(data);
+                    $("#closeEduDeleteModal").click();
+                    $("#loader").removeClass("loading");
+                    $("."+id+"_institution").parent().parent().remove();
+                }
+            });
+        });
+
     </script>
 
     {{--Add Emplyment Script--}}
     <script type="text/javascript">
+
         $("#addEmployment").click(function(e){
             e.preventDefault();
             $("#loader").addClass("loading");
@@ -1298,33 +1483,28 @@ $emps = (Auth::User()->employment);
             var finish_date = $('#finish_date').val();
             var designation = $('#designation').val();
             var current = $('#emp_current').val();
+            var currentEmpHidden = $('#current_emp_hidden').val();
 
-            $.post("{{route('addEmployment')}}",
-                {
-                    _token: '{{csrf_token()}}',
-                    company_name: company_name,
-                    country: country,
-                    city: city,
-                    postal_code: postal_code,
-                    start_date: start_date,
-                    finish_date: finish_date,
-                    designation: designation,
-                    current: current,
-                },
+            $.ajax({
+                type: "post",
+                url: "{{route('addEmployment')}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {company_name: company_name, country: country, city: city, postal_code: postal_code, start_date: start_date, finish_date: finish_date, designation: designation, current: current, currentEmpHidden: currentEmpHidden},
+                success: function(data){
+                    $("#employmentRow").html(data);
 
-            function(data, status) {
-                $("#employmentMessage").html(data);
+                    $('#company').val("");
+                    $('#country').val("");
+                    $('#city').val("");
+                    $('#postal_code').val("");
+                    $('#start_date').val("");
+                    $('#finish_date').val("");
+                    $('#designation').val("");
+                    $('#closeEmploymentModal').click();
+                    $("#loader").removeClass("loading");
+                }
 
-                $('#company').val("");
-                $('#country').val("");
-                $('#city').val("");
-                $('#postal_code').val("");
-                $('#start_date').val("");
-                $('#finish_date').val("");
-                $('#designation').val("");
-                $('#closeEmploymentModal').click();
-                $("#loader").removeClass("loading");
-            });
+            })
         });
 
     </script>
@@ -1384,8 +1564,6 @@ $emps = (Auth::User()->employment);
                 }
             });
 
-
-
         }
 
         $("#editEmployment").click(function(e){
@@ -1394,41 +1572,93 @@ $emps = (Auth::User()->employment);
             var id  = $("#empId").val();
             var company_name = $('#edit_company').val();
             var country = $('#editEmploymentModaleCountryDropdown').val();
+            var countryName = $('#editEmploymentModaleCountryDropdown option:selected').text();
             var city = $('#editEmploymentModaleCityDropdown').val();
+            var cityName = $('#editEmploymentModaleCityDropdown option:selected').text();
             var postal_code = $('#edit_postal_code').val();
             var start_date = $('#edit_start_date').val();
             var finish_date = $('#edit_finish_date').val();
             var designation = $('#edit_designation').val();
+            var current_emp_edit_hidden = $('#current_emp_edit_hidden').val();
 
-            $.post("{{route('editEmployment')}}",
-                {
-                    _token: '{{csrf_token()}}',
+            $.ajax({
+                type: "post",
+                url: "{{route('editEmployment')}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data : { id:id, company_name: company_name, country: country, city: city, postal_code: postal_code, start_date: start_date, finish_date: finish_date, designation: designation, current_emp_edit_hidden:current_emp_edit_hidden},
+                success: function(data){
 
-                    id:id,
-                    company_name: company_name,
-                    country: country,
-                    city: city,
-                    postal_code: postal_code,
-                    start_date: start_date,
-                    finish_date: finish_date,
-                    designation: designation,
-                },
+                    $("."+id+"_empCompanyName").text(company_name);
+                    $("."+id+"_empCountry").text(countryName);
+                    $("."+id+"_empCity").text(cityName);
+                    $("."+id+"_empPostalCode").text(postal_code);
+                    $("."+id+"_startEmpDate").text(start_date);
+                    if(current_emp_edit_hidden == 0) {
+                        $("." + id + "_endEmpDate").text(finish_date);
+                    }
+                    else{
+                        $("." + id + "_endEmpDate").text("Current");
+                    }
+                    $("."+id+"_empDesignation").text(designation);
 
-                function(data, status) {
-                    $("#employmentMessage").html(data);
+
+                    //$("#employmentRow").html(data);
+
                     $('#closeEmpEditModal').click();
                     $("#loader").removeClass("loading");
-                });
+
+                }
+            })
+
         });
+
+//delete Employment
+        function deleteEmployment(empId) {
+            $("#deletedEmpId").val(empId);
+        }
+        $("#deleteEmployment").click(function(e){
+            e.preventDefault();
+            var id = $("#deletedEmpId").val();
+            $.ajax({
+                type: "post",
+                url: "{{route('deleteEmployment')}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {id:id},
+                success: function(data){
+
+                    $("#employmentMessage").html(data);
+                    $("#closeEmpDeleteModal").click();
+                    $("#loader").removeClass("loading");
+                    $("."+id+"_empCompanyName").parent().parent().remove();
+                }
+            });
+        });
+
+
 
         function disableFinishDate(){
             if($("#emp_current").prop("checked") == true){
+                $("#current_emp_hidden").val(1);
                 $("#finish_date").attr('disabled', 'disabled');
                 $("#finish_date").val('');
 
             }
             else if($("#emp_current").prop("checked") == false){
+                $("#current_emp_hidden").val(0);
                 $("#finish_date").removeAttr("disabled");
+            }
+        }
+
+        function disableEditEmpFinishDate(){
+            if($("#edit_empCurrent").prop("checked") == true){
+                $("#current_emp_edit_hidden").val(1);
+                $("#edit_finish_date").attr('disabled', 'disabled');
+                $("#edit_finish_date").val('');
+
+            }
+            else if($("#edit_empCurrent").prop("checked") == false){
+                $("#current_emp_edit_hidden").val(0);
+                $("#edit_finish_date").removeAttr("disabled");
             }
         }
 
@@ -1443,7 +1673,19 @@ $emps = (Auth::User()->employment);
             else if($("#current").prop("checked") == false){
                 $('#current_hidden').val(0);
                 $("#finish").removeAttr("disabled");
+            }
+        }
 
+        function disableEditFinishEduDate(){
+            if($("#edit_current").prop("checked") == true){
+                $('#current_edit_hidden').val(1);
+                $("#edit_finish").attr('disabled', 'disabled');
+                $("#edit_finish").val('');
+
+            }
+            else if($("#edit_current").prop("checked") == false){
+                $('#current_edit_hidden').val(0);
+                $("#edit_finish").removeAttr("disabled");
             }
         }
     </script>

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\adminController;
 
+use App\Http\Controllers\BaseControllerAdmin;
 use App\Milestone;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-class MilestoneController extends Controller
+class MilestoneController extends BaseControllerAdmin
 {
     /*This is for milestone fund transfer
         In request milestoneId is milestone ID

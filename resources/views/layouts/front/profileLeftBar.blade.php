@@ -61,6 +61,11 @@
         <li class="list-group-item">
             <a href="{{route('profileSettings')}}"><i class="fa fa-cog"></i> Settings</a>
         </li>
+        @if(Auth::User()->user_type == 'freelancer')
+            <li class="list-group-item">
+                <a href="{{route('getTestResult')}}"><i class="fa fa-graduation-cap "></i> Test Result</a>
+            </li>
+        @endif
     </ul>
 
 {{--<div class="panel-heading-v2 overflow-h">--}}

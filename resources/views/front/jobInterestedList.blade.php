@@ -65,9 +65,15 @@
                             @endforeach
                             <td>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <button class="btn btn-danger btn-xs" onclick="deleteInterest({{$interestedJob->id}})"><i class="fa fa-trash-o"></i> Delete</button>
-                                    </div>
+                                    @foreach($interestedList as $interest)
+                                        @if($interest->job_id == $interestedJob->id)
+                                            @if($interest->admin_approve != 1)
+                                                <div class="col-md-6">
+                                                    <button class="btn btn-danger btn-xs" onclick="deleteInterest({{$interestedJob->id}})"><i class="fa fa-trash-o"></i> Delete</button>
+                                                </div>
+                                            @endif
+                                        @endif
+                                    @endforeach
                                     <div class="col-md-4">
                                         <a href="{{route('JobDescription', ['job_number' => $interestedJob->id])}}"><button class="btn btn-info btn-xs"><i class="fa fa-share"></i> View</button></a>
                                     </div>

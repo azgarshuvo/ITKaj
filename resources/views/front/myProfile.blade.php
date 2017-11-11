@@ -44,14 +44,25 @@
 									</ul>
 
 								</div>
-								<div class="col-md-7">
+								<div class="col-md-6">
 									@if($userProfile != null && $userProfile!= "")
-										<h2>{{$userProfile->fname}} {{$userProfile->lname}}</h2>
+										<h2>
+											{{$userProfile->fname}} {{$userProfile->lname}}
+
+										</h2>
+										<hr>
 										<span><strong>Position:</strong> @if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->professional_title}} @endif</span>
 										<hr>
 										<p>@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->professional_overview}} @endif</p>
+
 									@endif
 								</div>
+								<div class="col-md-1">
+									<a href="{{ route('profileSettings')}}">
+										<button type="button"  class="btn-u">Edit Profile</button>
+									</a>
+								</div>
+
 							</div>
 						</div><!--/end row-->
 
@@ -164,8 +175,8 @@
 													<i class="cbp_tmicon rounded-x hidden-xs"></i>
 													<div class="cbp_tmlabel">
 														<h2>{{$employment->company_name	}}</h2>
-														<p>Country : {{$employment->country}}</p>
-														<p>City : {{$employment->city}}</p>
+														<p>Country : @if($employment->country != null && $employment->country != '') @foreach($countries as $country) @if($employment->country == $country->id) {{$country->name}} @endif @endforeach @endif</p>
+														<p>City : @if($employment->city != null && $employment->city != '') @foreach($cities as $city) @if($city->id == $employment->city) {{$city->name}} @endif @endforeach @endif</p>
 													</div>
 												</li>
 											@endforeach
