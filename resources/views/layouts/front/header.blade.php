@@ -81,7 +81,12 @@
                             @endif
                             <!-- Message -->
                             @if(Auth::user()->user_type!="admin")
-                                <li><a href="{{route('message')}}" class="dropdown-toggle">Message</a></li>
+                                <li>
+                                    <a href="{{route('message')}}" class="dropdown-toggle">Message
+                                        <span class="badge badge-blue rounded top-notification">0</span>
+                                    </a>
+
+                                </li>
                                 <!-- End Message -->
                             @endif
                                 <!-- Logout -->

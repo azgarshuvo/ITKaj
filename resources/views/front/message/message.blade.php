@@ -24,7 +24,7 @@
         <div class="col-md-3">
             <div class="headline-v2"><h2>Admin List</h2></div>
             @if($adminList->count()>0)
-            <ul class="list-unstyled blog-trending margin-bottom-50">
+            <ul id="adminStatus" class="list-unstyled blog-trending margin-bottom-50">
                 @foreach($adminList as $admin)
                 <li class="sender_p active-li">
                     <h3><a href="{{route('getMessage',['adminId'=>$admin->id])}}">{{$admin->fname}} {{$admin->lname}}</a></h3>
@@ -75,6 +75,7 @@
 @endsection
 @section('script')
     <script>
+
         function sendMessage(){
             var conversionId = '@if(sizeof($conversion)>0){{$conversion->id}}@endif';
             var message = $("#message").val();
@@ -133,12 +134,13 @@
             alert(file);
         }*/
 
-        $('body').on('click', '.attachmentDownload', function (){
-            var attachment =  $(this).text();
+        /* /!*Download message attachment*!/ */
+         $('body').on('click', '.attachmentDownload', function (){
+             var attachment =  $(this).text();
 
-            $.ajax({
-                type:'POST',
-                url:'{{route('messageAttachmentDownload')}}',
+             $.ajax({
+                 type:'POST',
+                 url:'{{route('messageAttachmentDownload')}}',
 
                 data:{'_token': '<?php echo csrf_token() ?>','attachment':$.trim(attachment)},
                 success:function(data){
@@ -164,7 +166,20 @@
            alert(file);
         });*/
 
+       function getAdminMessageStatus(conversionId){
+           $.ajax({
+               type:'POST',
+               url:'{{route('adminMessageStatus')}}',
+
+               data:{'_token': '<?php echo csrf_token() ?>','conversionId':conversionId},
+               success:function(data){
+                   $("#adminStatus").html(data);
+               }
+           });
+       }
+
         function getMessages(conversionId){
+            getAdminMessageStatus(conversionId);
             $.ajax({
                 type:'POST',
                 url:'{{route('getUserMessage')}}',

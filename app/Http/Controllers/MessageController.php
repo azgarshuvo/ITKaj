@@ -23,8 +23,9 @@ class MessageController extends Controller
     public function Message()
     {
         $adminList = User::where(['user_type'=>"admin"])->get();
+        $unreadConversion = Conversion::with(['UserUnreadMessage','getAdmin'])->get();
         //dd($adminList);
-        return view('front.message.adminlist',['adminList'=>$adminList]);
+        return view('front.message.adminlist',['adminList'=>$adminList,'unreadConversion'=>$unreadConversion]);
     }
 
     #send user message to admin
@@ -113,6 +114,31 @@ class MessageController extends Controller
         $attachment = $request->input('attachment');
         $file= public_path(). "/message_attachment/".$attachment;
         return response()->download($file);
+    }
+
+    #message notification for user
+    public function getNotification(){
+        $unreadMessage = Message::with('getConversion')->where(['is_read'=>0])->where(['sender'=>'admin'])->get();
+        echo $unreadMessage->count();
+    }
+
+    public function getAdminMessageStatus(Request $request){
+        $unreadConversion = Conversion::with(['UserUnreadMessage','getAdmin'])->get();
+        $admin = array();
+
+        foreach ($unreadConversion as $conversion) {
+            if (!in_array($conversion->getAdmin->id, $admin)){
+                array_push($admin,$conversion->getAdmin->id);
+                echo '<li class="sender_p active-li"><h3><a href="' . route('getMessage', ['adminId' => $conversion->getAdmin->id]) . '">' . $conversion->getAdmin->fname . ' ' . $conversion->getAdmin->lname . '<span class="badge badge-dark rounded">' . $conversion->UserUnreadMessage->count() . '</span>
+                                </a>';
+            if ($conversion->UserUnreadMessage->count() > 0) {
+                echo '<span class="pull-right status-time">' . $conversion->UserUnreadMessage[0]->time . '</span>';
+            }
+            echo '</h3></li>';
+        }
+        }
+
+
     }
 
 

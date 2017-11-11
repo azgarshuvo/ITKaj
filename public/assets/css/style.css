@@ -344,3 +344,14 @@ div.load {
     padding: 10px 60px;
     margin: 10px auto;
 }
+.attachmentDownload{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.badge-dark{
+    margin: 5px;
+}
+.status-time{
+    margin-top: 5px;
+
+}

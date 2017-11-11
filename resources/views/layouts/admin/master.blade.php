@@ -115,6 +115,57 @@
 
 <script>
     $(document).ready(function() {
+        @if(isset($conversion))
+        $("#messageAttachment").change(function(){
+            var fd = new FormData();
+
+            var ins = document.getElementById('messageAttachment').files.length;
+            for (var x = 0; x < ins; x++) {
+                fd.append("attachment[]", document.getElementById('messageAttachment').files[x]);
+            }
+            fd.append("_token", '<?php echo csrf_token() ?>');
+            fd.append("conversionId", '@if(sizeof($conversion)>0){{$conversion->id}}@else 0 @endif');
+
+
+            $.ajax({
+                url:'{{ route('sendAttachmentAdmin') }}',
+                type: 'POST',
+                data: fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $("#messageBody").append(data);
+                },
+            });
+        });
+        @endif
+        $(document).on ("click", ".attachmentDownload", function () {
+            var attachment =  $(this).text();
+
+            $.ajax({
+                type:'POST',
+                url:'{{route('messageAttachmentDownload')}}',
+
+                data:{'_token': '<?php echo csrf_token() ?>','attachment':$.trim(attachment)},
+                success:function(data){
+                    var blob = new Blob([data]);
+                    // console.log(blob.size);
+                    var a = document.createElement('a');
+                    a.style = "display: none";
+                    var url = window.URL.createObjectURL(blob);
+                    a.href = url;
+                    a.download = attachment;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+
+                }
+            });
+        });
+
+
         getNotification();
 
         function getNotification(){

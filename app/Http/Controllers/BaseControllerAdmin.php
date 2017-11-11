@@ -17,6 +17,7 @@ class BaseControllerAdmin extends Controller
         //its just a dummy data object.
         $unreadConversion = Conversion::with(['UnreadMessage','getUser'])->get();
         $unreadMessage = Message::with('getConversion')->where(['is_read'=>0])->where(['sender'=>'user'])->get();
+
        // dd($conversion);
 
         // Sharing is caring
