@@ -18,7 +18,7 @@
             <div class="col-md-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Profile Detail</h5>
+                        <h5>Profile Details</h5>
                     </div>
                     <div>
                         <div class="ibox-content no-padding border-left-right text-center">

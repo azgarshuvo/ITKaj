@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+//use Cartalyst\Stripe\Stripe;
 use Illuminate\Routing\Controller;
 
 use App\Http\Requests;
@@ -19,8 +20,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\User;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Stripe\Error\Card;
+use Stripe\Stripe;
 
 class AddMoneyController extends Controller{
 
@@ -41,72 +42,113 @@ class AddMoneyController extends Controller{
         return view('front.visaTestingDemo');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
     public function postPaymentWithStripe(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'card_no' => 'required',
-            'ccExpiryMonth' => 'required',
-            'ccExpiryYear' => 'required',
-            'cvvNumber' => 'required',
-            'amount' => 'required',
-        ]);
+//        dd($request);
+//        $stripe = Stripe::make(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $input = $request->all();
-        if ($validator->passes()) {
-            $input = array_except($input,array('_token'));
-            $stripe = Stripe::make('set here your stripe secret key');
-            try {
-                $token = $stripe->tokens()->create([
-                    'card' => [
-                        'number'    => $request->get('card_no'),
-                        'exp_month' => $request->get('ccExpiryMonth'),
-                        'exp_year'  => $request->get('ccExpiryYear'),
-                        'cvc'       => $request->get('cvvNumber'),
-                    ],
-                ]);
+        // Get the credit card details submitted by the form
+        $token = $_POST['stripeToken'];
 
-                if (!isset($token['id'])) {
-                    Session::put('error','The Stripe Token was not generated correctly');
-                    return redirect()->route('addmoney.paywithstripe');
-                }
+        // Create the charge on Stripe's servers - this will charge the user's card
+        try {
+            $charge = \Stripe\Charge::create(array(
+                "amount" => 1000,
+                "currency" => "usd",
+                "description" => "Example charge",
+                "source" => $token,
+            ));
 
-                $charge = $stripe->charges()->create([
-                    'card' => $token['id'],
-                    'currency' => 'USD',
-                    'amount'   => $request->get('amount'),
-                    'description' => 'Add in wallet',
-                ]);
-
-                if($charge['status'] == 'succeeded') {
-                    /**
-                     * Write Here Your Database insert logic.
-                     */
-                    Session::put('success','Money add successfully in wallet');
-                    return redirect()->route('addmoney.paywithstripe');
-                } else {
-                    Session::put('error','Money not add in wallet!!');
-                    return redirect()->route('addmoney.paywithstripe');
-                }
-
-            } catch (Exception $e) {
-                Session::put('error',$e->getMessage());
+            $paymentid     = $charge->id;
+            $payerid       = $charge->source->id;
+            $status        = $charge->status;
+            // if status="succeeded" do rest of the insert operation start
+            if($status == 'succeeded') {
+                /**
+                 * Write Here Your Database insert logic.
+                 */
+                Session::put('success','Money add successfully in wallet');
                 return redirect()->route('addmoney.paywithstripe');
-            } catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
-                Session::put('error',$e->getMessage());
-                return redirect()->route('addmoney.paywithstripe');
-            } catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
-                Session::put('error',$e->getMessage());
+            } else {
+                Session::put('error','Money not add in wallet!!');
                 return redirect()->route('addmoney.paywithstripe');
             }
-        }
-        Session::put('error','All fields are required!!');
-        return redirect()->route('addmoney.paywithstripe');
-    }
+            // end
+
+        } catch(Stripe_CardError $e) {
+            $e_json = $e->getJsonBody();
+            $error = $e_json['error'];
+            // The card has been declined
+            // redirect back to checkout page
+
+            return Redirect::to('/')
+                ->with_input()
+                ->with('card_errors', $error);
+		}
+
+
+
+
+/*--------------------------------------------------*/
+//        $validator = Validator::make($request->all(), [
+//            'card_no' => 'required',
+//            'ccExpiryMonth' => 'required',
+//            'ccExpiryYear' => 'required',
+//            'cvvNumber' => 'required',
+//            'amount' => 'required',
+//        ]);
+//
+//        $input = $request->all();
+//        if ($validator->passes()) {
+//            $input = array_except($input,array('_token'));
+//            $stripe = Stripe::make(env('STRIPE_SECRET'));
+//            try {
+//                $token = $stripe->tokens()->create([
+//                    'card' => [
+//                        'number'    => $request->get('card_no'),
+//                        'exp_month' => $request->get('ccExpiryMonth'),
+//                        'exp_year'  => $request->get('ccExpiryYear'),
+//                        'cvc'       => $request->get('cvvNumber'),
+//                    ],
+//                ]);
+//
+//                if (!isset($token['id'])) {
+//                    Session::put('error','The Stripe Token was not generated correctly');
+//                    return redirect()->route('addmoney.paywithstripe');
+//                }
+//
+//                $charge = $stripe->charges()->create([
+//                    'card' => $token['id'],
+//                    'currency' => 'USD',
+//                    'amount'   => $request->get('amount'),
+//                    'description' => 'Add in wallet',
+//                ]);
+//
+//                if($charge['status'] == 'succeeded') {
+//                    /**
+//                     * Write Here Your Database insert logic.
+//                     */
+//                    Session::put('success','Money add successfully in wallet');
+//                    return redirect()->route('addmoney.paywithstripe');
+//                } else {
+//                    Session::put('error','Money not add in wallet!!');
+//                    return redirect()->route('addmoney.paywithstripe');
+//                }
+//
+//            } catch (Exception $e) {
+//                Session::put('error',$e->getMessage());
+//                return redirect()->route('addmoney.paywithstripe');
+//            } catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+//                Session::put('error',$e->getMessage());
+//                return redirect()->route('addmoney.paywithstripe');
+//            } catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+//                Session::put('error',$e->getMessage());
+//                return redirect()->route('addmoney.paywithstripe');
+//            }
+//        }
+//        Session::put('error','All fields are required!!');
+//        return redirect()->route('addmoney.paywithstripe');
+}
 }

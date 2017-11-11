@@ -193,5 +193,17 @@
         </div>
 
     </div>
+    <form action="{{route('addmoney.stripe')}}" method="POST">
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_mrOdSPnbMrMSrwd9OcXazfww"
+                data-amount="2000"
+                data-name="Demo Site"
+                data-description="2 widgets"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto">
+        </script>
+    </form>
 @endsection
 

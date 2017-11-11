@@ -287,7 +287,9 @@
                                                 <td></td>
                                             @endif
                                             <td><button onclick="getInterFreelancer({{$freelancer->id}})" type="button" class="btn btn-info btn-xs" name="addButton"><i class="fa fa-plus"></i> Add</button>
-                                                <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
+                                                <a href="{{ route('my_profile_view', $freelancer->id)}}">
+                                                    <button type="button" class="btn btn-success btn-xs" name="showButton"><i class="fa fa-share"></i> Show</button>
+                                                </a>
                                             </td>
                                         </tr>
                                         @endforeach
