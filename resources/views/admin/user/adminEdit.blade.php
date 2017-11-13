@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Password</label>
-                    <div class="col-lg-10"><input type="password" name="password" value="{{$users->password}}" placeholder="Password" class="form-control"></div>
+                    <div class="col-lg-10"><input type="password" name="password" value="" placeholder="Password" class="form-control"></div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Admin User Type</label>
@@ -67,27 +67,27 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Phone Number</label>
-                    <div class="col-lg-10"><input type="text" name="phone_number" value="{{$usersProfile->phone_number}}" placeholder="Phone Number" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="phone_number" value="@if($usersProfile != null && $usersProfile != ""){{$usersProfile->phone_number}}@endif" placeholder="Phone Number" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Country</label>
-                    <div class="col-lg-10"><input type="text" name="country" value="{{$usersProfile->country}}" placeholder="Country" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="country" value="@if($usersProfile != null && $usersProfile != ""){{$usersProfile->country}}@endif" placeholder="Country" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">City</label>
-                    <div class="col-lg-10"><input type="text" name="city" value="{{$usersProfile->city}}" placeholder="City" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="city" value="@if($usersProfile != null && $usersProfile != ""){{$usersProfile->city}}@endif" placeholder="City" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Post Code</label>
-                    <div class="col-lg-10"><input type="text" name="postcode" value="{{$usersProfile->postcode}}" placeholder="Post Code" class="form-control">
+                    <div class="col-lg-10"><input type="text" name="postcode" value="@if($usersProfile != null && $usersProfile != ""){{$usersProfile->postcode}}@endif" placeholder="Post Code" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Address</label>
-                    <div class="col-lg-10"><textarea type="text" name="address" value="" placeholder="Address" class="form-control">{{$usersProfile->address}}</textarea>
+                    <div class="col-lg-10"><textarea type="text" name="address" value="" placeholder="Address" class="form-control">@if($usersProfile != null && $usersProfile != ""){{$usersProfile->address}}@endif</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -95,7 +95,7 @@
                     <div class="col-lg-10 ">
                       <div class="picture-container">
                         <div class="picture">
-                            <img src="{{ asset('uploads/admin/' . $usersProfile->img_path) }}" class="picture-src" id="output_image"/>
+                            <img src="@if($usersProfile != null && $usersProfile != ""){{ asset('uploads/admin/' . $usersProfile->img_path) }}@endif" class="picture-src" id="output_image"/>
                             <input type="file" name='image' accept="image/*" onchange="preview_image(event)">
                         </div>
                       </div>

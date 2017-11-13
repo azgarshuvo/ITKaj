@@ -38,6 +38,11 @@
 .freelancerMilestoneDoneButton{
     margin-top: -2%;
 }
-div.DTTT_container{
-    display:none;
+div.DTTT_container {
+    display: none;
+}
+
+#payWithPaypalButton{
+    margin-bottom: 5%;
+
 }
