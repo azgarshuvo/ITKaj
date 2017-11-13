@@ -73,7 +73,7 @@
                         <tr>
                             <th class="text-center">SL</th>
                             <th class="text-center">Title</th>
-                            <th class="text-center">Description</th>
+                            {{--<th class="text-center">Description</th>--}}
                             <th class="text-center">Dead Line</th>
                             <th class="text-center">Fund</th>
                             <th class="text-center">Status</th>
@@ -87,15 +87,26 @@
                             <tr class="milestoneRow_{{$milestones->id}}">
                                 <td class="text-center">{{$i++}}</td>
                                 <td class="text-center milstoneTitle{{$milestones->id}}">{{$milestones->milestone_title}}</td>
-                                <td class="text-cente milestoneDescription{{$milestones->id}}">{{$milestones->milestone_description}}</td>
+                                {{--<td class="text-cente milestoneDescription{{$milestones->id}}">{{$milestones->milestone_description}}</td>--}}
                                 <td class="text-center date-format milestoneDeadline{{$milestones->id}}">{{$milestones->deadline}}</td>
                                 <td class="text-center melestoneFund{{$milestones->id}}">{{$milestones->fund_release}}</td>
                                 <td class="text-center {{$milestones->id."_release_status"}}">
                                     @if($milestones->status==0)
                                         <button onclick="releaseFund({{$milestones->id.",".$milestones->fund_release.",". $milestone->job_id}})"
-                                                type="button" class="btn btn-success btn-xs" name="showButton"><i
-                                                    class="fa fa-share"></i>Release
+                                                type="button" class="btn-u rounded btn-u-dark-blue" name="showButton" id="payWithPaypalButton">Pay With Paypal
                                         </button>
+                                        <form action="{{route('addmoney.stripe', [$milestones->fund_release, $milestones->id, $milestone->job_id])}}" method="POST">
+                                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                            <script
+                                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                    data-key="pk_test_mrOdSPnbMrMSrwd9OcXazfww"
+                                                    data-amount="{{$milestones->fund_release}}00"
+                                                    data-name="ItKaj"
+                                                    data-description="Mile Stone Payment"
+                                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                    data-locale="auto">
+                                            </script>
+                                        </form>
                                     @elseif($milestones->status==1)
                                         <span class="bg-color-blue padding-5-8">Released</span>
                                     @elseif($milestones->status==2)

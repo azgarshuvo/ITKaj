@@ -286,7 +286,7 @@ Route::get('paypal', array('as' => 'status','uses' => 'PayPalController@getPayme
 
 Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe'));
 
-Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
+Route::post('addmoney/stripe/{amount}/{milestoneId}/{milestoneJobId}', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
 
 Route::get('coming-soon', ['as' => 'comingSoon', 'uses' => 'HomeController@getComingSoonPage']);
 
