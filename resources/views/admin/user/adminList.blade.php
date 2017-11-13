@@ -11,11 +11,15 @@
 @section('title', 'Add Admin')
 
 @section('content')
+    <div style="margin-left: 85%;">
+        <input type="button" value="Print Preview" class="btn btn-sm btn-info" onclick="PrintPreview()"/>
+        <input type="button" value="Print" class="btn btn-sm btn-primary" onclick="PrintDoc()"/>
+    </div>
     <div class="wrapper wrapper-content">
       @if(Session::has('success'))
       <div class="alert alert-success">{{ Session::get('success') }}</div>
       @endif
-      <div class="ibox float-e-margins">
+      <div class="ibox float-e-margins" id="printarea">
         <!-- admin list -->
         @if(!empty($users))
         <div class="ibox-title">
@@ -35,7 +39,7 @@
                   <th>Admin Type</th>
                   <th>Created Date</th>
                   <th>Updated Date</th>
-                  <th>Action</th>
+                  <th class="hd">Action</th>
               </tr>
             </thead>
             <tbody>

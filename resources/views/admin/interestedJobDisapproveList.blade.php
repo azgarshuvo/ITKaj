@@ -11,11 +11,15 @@
 @section('title', 'Interested Job List')
 
 @section('content')
+    <div style="margin-left: 85%;">
+        <input type="button" value="Print Preview" class="btn btn-sm btn-info" onclick="PrintPreview()"/>
+        <input type="button" value="Print" class="btn btn-sm btn-primary" onclick="PrintDoc()"/>
+    </div>
     <div class="wrapper wrapper-content">
         @if(Session::has('success'))
             <div class="alert alert-success">{{ Session::get('success') }}</div>
         @endif
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins" id="printarea">
             <div class="ibox-title">
                 <h5>Interested Job Disapprove List</h5>
                 <div class="ibox-tools">

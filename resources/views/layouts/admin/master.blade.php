@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin | @yield('title')</title>
 
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link href="{{asset('admin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('admin/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
 
@@ -241,6 +242,31 @@
     }
 </script>
 
+
+{{--code for print--}}
+<script type="text/javascript">
+    /*--This JavaScript method for Print command--*/
+    function PrintDoc(){
+        var toPrint = document.getElementById('printarea');
+        var popupWin = window.open('', '_blank', 'width=800,height=500,location=no,left=200px');
+        popupWin.document.open();
+        popupWin.document.write('<html><title>::Preview::</title><link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}"" media="screen"/></head><body onload="window.print()">');
+        popupWin.document.write('<style>.center,.hd, .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate, .paging_simple_numbers{display:none;}</style><link rel="stylesheet" href="{{asset('admin/css/bootstrap.min.css')}}">'+toPrint.innerHTML);
+        popupWin.document.write('</html>');
+        popupWin.document.close();
+    }
+
+    /*--This JavaScript method for Print Preview command--*/
+    function PrintPreview(){
+        var toPrint = document.getElementById('printarea');
+        var popupWin = window.open('', '_blank', 'width=800,height=500,location=no,left=200px');
+        popupWin.document.open();
+        popupWin.document.write('<html><title>::Print Preview::</title><link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}"" media="screen"/></head><body">');
+        popupWin.document.write('<style>.center,.hd, .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate, .paging_simple_numbers{ display:none;}</style><link rel="stylesheet" href="{{asset('admin/css/bootstrap.min.css')}}">'+toPrint.innerHTML);
+        popupWin.document.write('</html>');
+        popupWin.document.close();
+    }
+</script>
 </body>
 </html>
 

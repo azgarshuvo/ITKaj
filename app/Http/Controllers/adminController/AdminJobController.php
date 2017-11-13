@@ -36,10 +36,12 @@ class AdminJobController extends BaseControllerAdmin
         $interestFreelancer = array();
 
         $cat = Categories::find($jobDetails->category_id);
-        if($cat->is_parent == 0){
-            $parentCategory = Categories::find($cat->parent_category_id);
-            array_push($category, $parentCategory);
-            array_push($category, $cat);
+        if($cat) {
+            if ($cat->is_parent == 0) {
+                $parentCategory = Categories::find($cat->parent_category_id);
+                array_push($category, $parentCategory);
+                array_push($category, $cat);
+            }
         }
 
         $interestedList = JobInterested::select('user_id')->where(['job_id'=>$id])->get();
