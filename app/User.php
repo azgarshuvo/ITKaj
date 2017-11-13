@@ -107,4 +107,7 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\ExamResult','user_id','id');
     }
 
+
+
+
 }

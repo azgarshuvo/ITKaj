@@ -302,6 +302,10 @@ Route::group(['prefix' => 'message','middleware' => ['auth', 'approve','profile'
     Route::get('/get-message/{adminId}', ['as' => 'getMessage', 'uses' => 'MessageController@GetMessage']);
     Route::get('/conversion/{conversionId}', ['as' => 'getConversion', 'uses' => 'MessageController@GetConversionMessage']);
 
+    Route::post('/send-attachment', ['as' => 'sendAttachmentUser', 'uses' => 'MessageController@SendAttachment']);
+    Route::post('/attachment-download', ['as' => 'messageAttachmentDownload', 'uses' => 'MessageController@getAttachmentDownload']);
+    Route::post('/message-status', ['as' => 'adminMessageStatus', 'uses' => 'MessageController@getAdminMessageStatus']);
+
 });
 /*Message Route for user End*/
 
@@ -314,7 +318,8 @@ Route::group(['prefix' => 'admin-message','middleware' => ['auth', 'approve','ad
     Route::get('admin-conversion/{conversionId}', ['as' => 'admin-getConversion', 'uses' => 'adminController\AdminMessageController@AdminMessageConversion']);
     Route::post('admin-send-message', ['as' => 'AdminSendUserMessage', 'uses' => 'adminController\AdminMessageController@AdminMessageSend']);
     Route::post('admin-message-send', ['as' => 'getAdminMessage', 'uses' => 'adminController\AdminMessageController@MessageAdminGet']);
-
+    Route::post('/attachment-admin-download', ['as' => 'messageAttachmentAdminDownload', 'uses' => 'adminController\AdminMessageController@getAttachmentDownload']);
+    Route::post('/send-attachment-admin', ['as' => 'sendAttachmentAdmin', 'uses' => 'adminController\AdminMessageController@MessageAdminAttachment']);
 
 });
 /*Message Route for Admin End*/
@@ -328,4 +333,13 @@ Route::group(['prefix' => 'notification','middleware' => ['auth', 'approve','adm
 
 });
 /*Notification Route for Admin End*/
+
+
+/*Notification Route for User Start*/
+Route::group(['prefix' => 'notification','middleware' => ['auth', 'approve']], function (){
+
+    Route::post('user-get-notification', ['as' => 'GetNotification', 'uses' => 'MessageController@getNotification']);
+
+});
+/*Notification Route for User End*/
 

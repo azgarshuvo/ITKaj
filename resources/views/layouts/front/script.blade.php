@@ -6,6 +6,33 @@
  * Time: 5:07 PM
  */
 ?>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        getUserNotification();
+        getAdminMessageStatus(0);
+    });
+
+
+    setInterval(function(){
+        getUserNotification();
+    }, 5000);
+
+    function getUserNotification(){
+
+        $.ajax({
+            type:'POST',
+            url:'{{route('GetNotification')}}',
+
+            data:{'_token': '<?php echo csrf_token() ?>'},
+            success:function(data){
+                $(".top-notification").html(data);
+            }
+        });
+
+    }
+</script>
+
 <!-- JS Global Compulsory -->
 <script type="text/javascript" src="{{asset('assets/js/jquery.redirect.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/jquery.session.js')}}"></script>
@@ -60,6 +87,8 @@
 <script src="{{asset('assets/plugins/respond.js')}}"></script>
 <script src="{{asset('assets/plugins/html5shiv.js')}}"></script>
 <script src="{{asset('assets/plugins/placeholder-IE-fixes.js')}}"></script>
+
+
 <![endif]-->
 
 

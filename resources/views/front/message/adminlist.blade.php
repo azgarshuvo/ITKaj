@@ -23,13 +23,26 @@
     <div class="container content-sm">
         <div class="col-md-6 col-md-offset-3">
             <div class="headline-v2"><h2>Admin List</h2></div>
-            @if($adminList->count()>0)
+            @if($unreadConversion->count()>0)
+                <?php $admin =array(); ?>
                 <ul class="list-unstyled blog-trending margin-bottom-50">
-                    @foreach($adminList as $admin)
+                    @foreach($unreadConversion as $conversion)
+                        @if(!in_array($conversion->getAdmin->id,$admin))
+                        <?php array_push($admin,$conversion->getAdmin->id) ;?>
+
                         <li class="sender_p active-li">
-                            <h3><a href="{{route('getMessage',['adminId'=>$admin->id])}}">{{$admin->fname}} {{$admin->lname}}</a></h3>
+                            <h3>
+                                <a href="{{route('getMessage',['adminId'=>$conversion->getAdmin->id])}}">
+                                    {{$conversion->getAdmin->fname}} {{$conversion->getAdmin->lname}}
+                                    <span class="badge badge-dark rounded">{{$conversion->UserUnreadMessage->count()}}</span>
+                                </a>
+                                @if($conversion->UserUnreadMessage->count()>0)
+                                    <span class="pull-right">{{$conversion->UserUnreadMessage[0]->time}}</span>
+                                @endif
+                            </h3>
                             {{-- <small>23 Jan, 2015</small>--}}
                         </li>
+                        @endif
                     @endforeach
                 </ul>
             @endif
