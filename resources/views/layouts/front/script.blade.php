@@ -10,7 +10,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         getUserNotification();
-        getAdminMessageStatus(0);
+
     });
 
 

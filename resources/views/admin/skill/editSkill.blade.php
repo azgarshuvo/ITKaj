@@ -56,6 +56,9 @@
                         <div class="col-lg-offset-2 col-lg-2">
                             <button class="btn btn-sm btn-primary" type="submit">Submit</button>
                         </div>
+                        <div class="col-lg-offset-6 col-lg-2">
+                            <a href="{{route('skillList')}}" class="btn btn-sm btn-success">Back</a>
+                        </div>
                     </div>
                 </form>
             </div>
