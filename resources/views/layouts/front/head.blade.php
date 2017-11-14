@@ -69,4 +69,5 @@
 <!-- CSS Customization -->
 <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
+<link rel="stylesheet" href="{{asset('css/chatPopUp.css')}}">
 <script type="text/javascript" src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>

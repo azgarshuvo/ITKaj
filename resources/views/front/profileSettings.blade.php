@@ -7,6 +7,7 @@
  */
 $edus = (Auth::User()->education);
 $emps = (Auth::User()->employment);
+
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -81,6 +82,7 @@ $emps = (Auth::User()->employment);
                                         </div>
                                     </div>
                                 </dd>
+
                                 <hr>
                                 <dt><strong>User Name </strong></dt>
                                 <dd>
@@ -104,6 +106,7 @@ $emps = (Auth::User()->employment);
                                     </div>
                                 </dd>
                                 <hr>
+
                                 <dt><strong>Email Address </strong></dt>
                                 <dd>
                                     <div class="row">
@@ -137,6 +140,7 @@ $emps = (Auth::User()->employment);
                                     </div>
                                 </dd>
                                 <hr>
+
                                 <dt><strong>Country</strong></dt>
 
                                 <dd>
@@ -182,6 +186,7 @@ $emps = (Auth::User()->employment);
                                         </div>
                                     </div>
                                 </dd>
+
                                 <hr>
                                 <dt><strong>City</strong></dt>
                                 <dd>
@@ -238,7 +243,8 @@ $emps = (Auth::User()->employment);
 
                                 </dd>
                                 <hr>
-                                @if($userProfile->user_type=="employer")
+                                {{--{{dd($userProfile->user_type)}}--}}
+                                @if($userProfile->user_type == "employer")
                                     <dt><strong>Company Name </strong></dt>
                                     <dd>
                                         <div class="row">
@@ -264,7 +270,6 @@ $emps = (Auth::User()->employment);
 
                                     </dd>
                                     <hr>
-
                                     <dt><strong>Company Web Address </strong></dt>
                                     <dd>
                                         <div class="row">
@@ -370,11 +375,13 @@ $emps = (Auth::User()->employment);
                                             <div class="col-md-6">
                                                 <select id="skill" name="skill[]" multiple  class="form-control margin-bottom-20" style="display:none;">
                                                     @foreach($skills as $skill)
-                                                        @if($userProfile->profile->skills != null && $userProfile->profile->skills != '' && json_decode($userProfile->profile->skills) != "")
-                                                            @if(in_array($skill->name,json_decode($userProfile->profile->skills)))
-                                                                <option selected value="{{$skill->name}}">{{$skill->name}}</option>
-                                                            @endif
-                                                        @else
+                                                        @if($userProfile->profile != null && $userProfile->profile != "")
+                                                            @if($userProfile->profile->skills != null && $userProfile->profile->skills != '' && json_decode($userProfile->profile->skills) != "")
+                                                                @if(in_array($skill->name,json_decode($userProfile->profile->skills)))
+                                                                    <option selected value="{{$skill->name}}">{{$skill->name}}</option>
+                                                                @endif
+                                                            @else
+                                                        @endif
                                                             <option value="{{$skill->name}}">{{$skill->name}}</option>
                                                         @endif
                                                     @endforeach
