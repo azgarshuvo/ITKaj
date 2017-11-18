@@ -32,7 +32,7 @@
 
                         <li class="sender_p active-li">
                             <h3>
-                                <a href="{{route('getMessage',['adminId'=>$conversion->getAdmin->id])}}">
+                                <a href="javascript:void(0);" class="addClass" onclick="getMessage({{$conversion->getAdmin->id}})">
                                     {{$conversion->getAdmin->fname}} {{$conversion->getAdmin->lname}}
                                     <span class="badge badge-dark rounded">{{$conversion->UserUnreadMessage->count()}}</span>
                                 </a>
@@ -47,7 +47,25 @@
                 </ul>
             @endif
         </div>
-
     </div>
 @endsection
+<input type="hidden" value="{{route('getMessage')}}" id="messageGetURL">
+@section('script')
+    <script>
+        function getMessage(adminId){
+            $('.qnimate').addClass('popup-box-on');
+            var URL = $('#messageGetURL').val();
+            $.ajax({
+                method: "GET",
+                url: URL,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: {adminId:adminId},
+                success: function(data){
+                    $('#qnimate').html(data);
+//                   console.log(data);
+                }
+            });
+        }
 
+    </script>
+@endsection

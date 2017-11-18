@@ -299,7 +299,7 @@ Route::group(['prefix' => 'message','middleware' => ['auth', 'approve','profile'
     Route::get('/', ['as' => 'message', 'uses' => 'MessageController@Message']);
     Route::post('/send-message', ['as' => 'sendUserMessage', 'uses' => 'MessageController@MessageSend']);
     Route::post('/get-message/{conversionId}', ['as' => 'getUserMessage', 'uses' => 'MessageController@MessageGet']);
-    Route::get('/get-message/{adminId}', ['as' => 'getMessage', 'uses' => 'MessageController@GetMessage']);
+    Route::any('/get-message', ['as' => 'getMessage', 'uses' => 'MessageController@GetMessage']);
     Route::get('/conversion/{conversionId}', ['as' => 'getConversion', 'uses' => 'MessageController@GetConversionMessage']);
 
     Route::post('/send-attachment', ['as' => 'sendAttachmentUser', 'uses' => 'MessageController@SendAttachment']);
