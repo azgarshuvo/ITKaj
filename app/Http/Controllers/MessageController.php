@@ -23,8 +23,9 @@ class MessageController extends Controller
     public function Message()
     {
         $adminList = User::where(['user_type'=>"admin"])->get();
+        $unreadConversion = Conversion::with(['UserUnreadMessage','getAdmin'])->get();
         //dd($adminList);
-        return view('front.message.adminlist',['adminList'=>$adminList]);
+        return view('front.message.adminlist',['adminList'=>$adminList,'unreadConversion'=>$unreadConversion]);
     }
 
     #send user message to admin
@@ -68,13 +69,76 @@ class MessageController extends Controller
 
             if (sizeof($message)>0){
                 foreach ($message as $text){
-                    echo '<li class="sender"><p class="message">'.$text->message.'</p></li>';
+                    if(strlen($text->message)>0){
+                        echo '<li class="sender"><p class="message">'.$text->message.'</p></li>';
+                    }else{
+                        echo '<li class="sender"><p class="message attachmentDownload">'.$text->attachment.'</p></li>';
+                    }
+
                 }
                 Message::where(['conversion_id'=>$conversionId,'is_read'=>0,'sender'=>'admin'])->update(['is_read'=>1]);
             }else{
                 echo null;
             }
         }
+    }
+
+    #send user attachment
+    public function SendAttachment(Request $request){
+        if($request->hasFile('attachment')) {
+            $files = $request->file('attachment');
+            $conversionId = $request->input('conversionId');
+            $time = date("h:i:sa");
+            $date = date("Y-m-d");
+
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+
+                $attachFile = date('His') . $filename;
+
+                $destinationPath = base_path() . '\public\message_attachment';
+
+                $file->move($destinationPath, $attachFile);
+
+                Message::create(['conversion_id'=>$conversionId,'attachment'=>$attachFile,'time'=>$time,'date'=>$date,'sender'=>'user']);
+
+                echo '<li class="receiver"><p class="message attachmentDownload">'. $attachFile.'</p></li>';
+            }
+
+        }
+    }
+
+    #message attachment download
+    public function getAttachmentDownload(Request $request)
+    {
+        $attachment = $request->input('attachment');
+        $file= public_path(). "/message_attachment/".$attachment;
+        return response()->download($file);
+    }
+
+    #message notification for user
+    public function getNotification(){
+        $unreadMessage = Message::with('getConversion')->where(['is_read'=>0])->where(['sender'=>'admin'])->get();
+        echo $unreadMessage->count();
+    }
+
+    public function getAdminMessageStatus(Request $request){
+        $unreadConversion = Conversion::with(['UserUnreadMessage','getAdmin'])->get();
+        $admin = array();
+
+        foreach ($unreadConversion as $conversion) {
+            if (!in_array($conversion->getAdmin->id, $admin)){
+                array_push($admin,$conversion->getAdmin->id);
+                echo '<li class="sender_p active-li"><h3><a href="' . route('getMessage', ['adminId' => $conversion->getAdmin->id]) . '">' . $conversion->getAdmin->fname . ' ' . $conversion->getAdmin->lname . '<span class="badge badge-dark rounded">' . $conversion->UserUnreadMessage->count() . '</span>
+                                </a>';
+            if ($conversion->UserUnreadMessage->count() > 0) {
+                echo '<span class="pull-right status-time">' . $conversion->UserUnreadMessage[0]->time . '</span>';
+            }
+            echo '</h3></li>';
+        }
+        }
+
+
     }
 
 

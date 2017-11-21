@@ -31,10 +31,17 @@
                             @if($conversion->message)
                                 @foreach($conversion->message as $message)
                                     @if($message->sender == "admin")
-                                        <li class="sender"><p class="message">{{$message->message}}</p></li>
-
+                                        @if(strlen($message->message)>0)
+                                            <li class="sender"><p class="message">{{$message->message}}</p></li>
+                                        @else
+                                            <li class="sender"><p class="message attachmentDownload"><u>{{$message->attachment}}</u></p></li>
+                                        @endif
                                     @else
-                                        <li class="receiver"><p class="message">{{$message->message}}</p></li>
+                                        @if(strlen($message->message)>0)
+                                            <li class="receiver"><p class="message">{{$message->message}}</p></li>
+                                        @else
+                                            <li class="receiver"><p class="message attachmentDownload"><u>{{$message->attachment}}</u></p></li>
+                                        @endif
                                     @endif
                                 @endforeach
                             @endif
@@ -46,7 +53,9 @@
                             <span class="textarea ">
                                 <textarea class="form-control" id="message" rows="3"></textarea>
                             </span>
+                            <span onclick="clickFileType()" class="glyphicon glyphicon-paperclip btn"></span>
                             <button onclick="sendMessage()" type="button" class="btn btn-success send-btn">Send</button>
+                            <input name="attachment[]" class="hidden" type="file" id="messageAttachment" multiple="multiple">
                         </form>
                     </section>
 
@@ -54,6 +63,12 @@
         </div>
     </div>
     <script>
+
+        function clickFileType(){
+            $("#messageAttachment").click();
+        }
+
+
         function sendMessage(){
             var conversionId = '@if(sizeof($conversion)>0){{$conversion->id}}@endif';
             var message = $("#message").val();
@@ -79,6 +94,7 @@
             }
         }
 
+
         function getMessages(conversionId){
             $.ajax({
                 type:'POST',
@@ -97,8 +113,9 @@
             });
         }
         setInterval(function(){
-            getMessages('@if(sizeof($conversion)>0){{$conversion->id}}@else 0 @endif');
+            getMessages('@if(sizeof($conversion)>0){{$conversion->id}} @else 0 @endif');
 
         }, 5000);
     </script>
+
 @endsection
