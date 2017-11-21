@@ -8,6 +8,7 @@
 $edus = (Auth::User()->education);
 $emps = (Auth::User()->employment);
 
+//dd($userProfile->is_complete);
 ?>
 @extends('layouts.front.profileMaster')
 
@@ -20,6 +21,9 @@ $emps = (Auth::User()->employment);
         <div class="profile-body margin-bottom-20">
             @if(Session::has('success'))
                 <div class="alert alert-success">{{ Session::get('success') }}</div>
+            @endif
+            @if($userProfile->is_complete != 1)
+                <div class="alert alert-warning">Please Complete Your Profile to Gain Full Access</div>
             @endif
             <div class="tab-v1">
                 <ul class="nav nav-justified nav-tabs">
@@ -225,7 +229,7 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->address}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <textarea rows="3" cols="70" name="address" id="address_text_area" style="display: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->address}} @endif</textarea>
+                                            <textarea rows="3" cols="70" name="address" id="address_text_area" style="display: none; resize: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->address}} @endif</textarea>
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -332,7 +336,8 @@ $emps = (Auth::User()->employment);
                                             @if($userProfile->profile != null && $userProfile->profile != ''){{$userProfile->profile->professional_overview}} @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <textarea rows="3" cols="70" name="professional_overview" id="overview_text_area" style="display: none;">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->professional_overview}} @endif</textarea>
+                                            <textarea rows="3" cols="70" name="professional_overview" id="overview_text_area" style="display: none; resize: none;
+">@if($userProfile->profile != null && $userProfile->profile != '') {{$userProfile->profile->professional_overview}} @endif</textarea>
                                         </div>
                                         <div class="col-md-6">
                                             <span>
@@ -408,14 +413,14 @@ $emps = (Auth::User()->employment);
                                     {{--Skill  end--}}
 
                                     {{--Hourly rate start--}}
-                                    <dt><strong>Hourly Rate</strong></dt>
+                                    <dt><strong>Hourly Rate <i class="fa fa-usd" aria-hidden="true"></i></strong></dt>
                                     <dd>
                                         <div class="row">
                                             <div class="col-md-8 setText" id="hourly_rate">
                                                 @if($userProfile->profile != null && $userProfile->profile ){{$userProfile->profile->hourly_rate}} @endif
                                             </div>
                                             <div class="col-md-6">
-                                                <input class="form-control" type="hidden" @if($userProfile->profile != null && $userProfile->profile ) value="{{$userProfile->profile->hourly_rate}}"  @endif name="hourly_rate">
+                                                <input class="form-control" id="hourlyRate" type="hidden" @if($userProfile->profile != null && $userProfile->profile ) value="{{$userProfile->profile->hourly_rate}}"  @endif name="hourly_rate">
                                             </div>
                                             <div class="col-md-6">
                                                 <span>
@@ -733,7 +738,7 @@ $emps = (Auth::User()->employment);
                                 </div>
 
                                 <div class="row">
-                                    <section class="col col-6">
+                                    <section class="col-md-12">
                                         <label class="input">
                                             <input type="text" name="study_area" id="edit_study_area" placeholder="Area of Study">
                                         </label>
@@ -768,13 +773,12 @@ $emps = (Auth::User()->employment);
                                 </section>
                             </fieldset>
                             <footer>
-                                <button type="submit" id="editEducation" class="btn-u">Edit</button>
+                                <button type="submit" id="editEducation" class="btn-u">Save</button>
+                                <button type="button" id="closeEduModal" class="btn-u btn-u-default" data-dismiss="modal">Close</button>
                             </footer>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" id="closeEduModal" class="btn-u btn-u-default" data-dismiss="modal">Close</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -1032,7 +1036,7 @@ $emps = (Auth::User()->employment);
     <script type="text/javascript">
         $(document).ready(function(){
             $(".phone").numeric();
-
+            $("#hourlyRate").numeric();
             if($('#userCountryId').val() != null && $('#userCountryId').val() != ''){
                 var Selected_id = $('.country option:selected').val();
                 var Selected_city = parseInt($('#userCityId').val());
@@ -1062,6 +1066,7 @@ $emps = (Auth::User()->employment);
         });
 
         $(".country").change(function() {
+            changeDropDown('city');
             var Selected_id = $('.country option:selected').val();
             var Cities = JSON.parse($('#userCities').val());
             $("select.cityOptions").html("<option value=\"\">Select One</option>");

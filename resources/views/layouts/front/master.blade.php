@@ -13,7 +13,7 @@
     @include('layouts.front.head')
 </head>
 <body class="header-fixed header-fixed-space">
-
+<marquee id="adminMessage">This text will scroll from right to left </marquee>
 <div class="wrapper">
     @include('layouts.front.header')
     @yield('content')

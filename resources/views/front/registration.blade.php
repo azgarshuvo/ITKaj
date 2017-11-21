@@ -179,11 +179,13 @@
 
             <div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input name="password" type="password" class="form-control" placeholder="Password">
+                <input name="password" type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" placeholder="Password">
+                <span class="passwordHint">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</span>
             </div>
             <div class="input-group margin-bottom-30">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm Password">
+                <input name="password_confirmation" id="password_confirmation" type="password" class="form-control" placeholder="Confirm Password">
+                <span class="passwordConfirmHint">Confirm password mismatch</span>
             </div>
             <hr>
 
@@ -195,7 +197,7 @@
             </div>
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <button type="submit" class="btn-u btn-block">Register</button>
+                    <button type="submit" id="submit" class="btn-u btn-block">Register</button>
                 </div>
             </div>
         </form>
@@ -228,6 +230,60 @@
         fade: 1000,
         duration: 7000
     });
+
+
+    var $password = $('#password');
+    var $confirmPassword = $('#password_confirmation');
+
+    // Hide hints by default on load
+    $("form span.passwordHint").hide();
+    $("form span.passwordConfirmHint").hide();
+
+    // Check if entered password meets requirements (True or False)
+    function isPasswordValid() {
+        return $password.val().length > 8;
+    }
+
+    // Check if password fields match (True or False)
+    function arePasswordsMatching() {
+        return $password.val() === $confirmPassword.val();
+    }
+
+    // Check if passwords are both valid and matching (True or False)
+    function canSubmit() {
+        return isPasswordValid() && arePasswordsMatching();
+    }
+
+    // Hide hint if password valid, show if not valid
+    function passwordEvent() {
+        if ( isPasswordValid() ) {
+            $password.next().hide();
+        } else {
+            $password.next().show();
+        }
+    }
+
+    // Hide hint if both password fields match, show if fields do not match
+    function passwordConfirmation() {
+        if ( arePasswordsMatching() ) {
+            $confirmPassword.next().hide();
+        } else {
+            $confirmPassword.next().show();
+        }
+    }
+
+    // Enable submit button when passwords are both valid and matching
+    function enableSubmit() {
+        $("#submit").prop("disabled", !canSubmit() );
+    }
+
+    $password.focus(passwordEvent).keyup(passwordEvent).keyup(passwordConfirmation).keyup(enableSubmit);
+
+    $confirmPassword.focus(passwordConfirmation).keyup(passwordConfirmation).keyup(enableSubmit);
+
+    enableSubmit();
+
+
 </script>
 <!--[if lt IE 9]>
 <script src="{{asset('assets/plugins/respond.js')}}"></script>

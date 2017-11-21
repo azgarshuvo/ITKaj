@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\adminController;
 
+use App\AdminMessage;
 use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 use App\Conversion;
 
 use App\Http\Controllers\BaseControllerAdmin;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Validator;
 
 class AdminMessageController extends BaseControllerAdmin
 {
@@ -158,6 +162,43 @@ class AdminMessageController extends BaseControllerAdmin
 
     }
 
+    public function getAdminMessageForAllUsers(){
+        return view('admin.adminMessage');
+    }
+    public function postAdminMessageForAllUsers(Request $request){
+        $validator = Validator::make($request->all(), [
+            'message' => 'required',
+            '_token' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('adminMessageForAllUsers')->with('fail', 'Message Send to Fail');
+        }
+        if(Input::get('is_live') == 'on'){
+            $live = 1;
+        }else{
+            $live = 0;
+        }
 
+        $message = new AdminMessage();
 
+        $message->message = Input::get('message');
+        $message->is_live = $live;
+        $message->user_id = Auth::User()->id;
+        if($message->save()){
+            return redirect()->route('adminMessageForAllUsers')->with('success', 'Message Send to All Users');
+        }else{
+            return redirect()->route('adminMessageForAllUsers')->with('fail', 'Message Send to Fail');
+        }
+
+    }
+
+    public function getAdminMessageForAllUsersList(){
+        $messages = AdminMessage::all();
+        return view('admin.adminMessageList', ['messages' => $messages]);
+    }
+
+    public function getAdminMessageForAllUsersEdit($id){
+        $message = AdminMessage::find($id);
+        return view('admin.adminMessageEdit', ['message'=>$message]);
+    }
 }

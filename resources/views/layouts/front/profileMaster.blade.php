@@ -12,7 +12,8 @@
 <head>
     @include('layouts.front.head')
 </head>
-<body class="">
+<body class="header-fixed header-fixed-space">
+<marquee id="adminMessage">This text will scroll from right to left </marquee>
 <div id="loader"></div>
 <div class="wrapper">
 

@@ -31,7 +31,7 @@
     {{--chosen--}}
     <link href="{{asset('admin/css/plugins/chosen/chosen.css')}}" rel="stylesheet">
 
-
+    <link href="{{asset('admin/css/plugins/switchery/switchery.css')}}" rel="stylesheet">
 
     {{--DropZone--}}
     <link href="{{asset('admin/css/plugins/dropzone/dropzone2.css')}}" rel="stylesheet">
@@ -113,7 +113,8 @@
 <script src="{{asset('admin/js/plugins/dataTables/dataTables.responsive.js')}}"></script>
 <script src="{{asset('admin/js/plugins/dataTables/dataTables.tableTools.min.js')}}"></script>
 <!-- end of dataTables -->
-
+<!-- Switchery -->
+<script src="{{asset('admin/js/plugins/switchery/switchery.js')}}"></script>
 <script>
 
     $(document).ready(function() {
@@ -240,6 +241,14 @@
     for (var selector in config) {
         $(selector).chosen(config[selector]);
     }
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+
+    var elem_2 = document.querySelector('.js-switch_2');
+    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+    var elem_3 = document.querySelector('.js-switch_3');
+    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 </script>
 
 
