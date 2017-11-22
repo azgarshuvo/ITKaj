@@ -73,7 +73,10 @@ class AdminCrudController extends BaseControllerAdmin
       $user->email = Input::get('email');
       $user->user_type = "admin";
       $user->admin_user_type = Input::get('admin_user_type');
-      $user->password = Input::get('password');
+      $user->password = \Hash::make(Input::get('password'));
+      $user->verified = 1;
+      $user->is_complete = 1;
+      $user->admin_approve = 1;
       $user->save();
 
       $profile = new UserProfile();
@@ -154,7 +157,7 @@ class AdminCrudController extends BaseControllerAdmin
         $username = $request->input('username');
         $email = $request->input('email');
         $admin_user_type = $request->input('admin_user_type');
-        $password = $request->input('password');
+        $password = \Hash::make($request->input('password'));
         $phone_number = $request->input('phone_number');
         $address = $request->input('address');
         $country = $request->input('country');

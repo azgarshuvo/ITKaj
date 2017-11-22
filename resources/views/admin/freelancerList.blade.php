@@ -5,17 +5,26 @@
  * Date: 09-Oct-17
  * Time: 5:57 PM
  */
+//dd($freelancerList);
+//        foreach ($freelancerList as $freelancer){
+//            echo( $freelancer);
+//        }
+//        dd();
 ?>
 @extends('layouts.admin.master')
 
 @section('title', 'Freelancer List')
 
 @section('content')
+    <div style="margin-left: 85%;">
+        <input type="button" value="Print Preview" class="btn btn-sm btn-info" onclick="PrintPreview()"/>
+        <input type="button" value="Print" class="btn btn-sm btn-primary" onclick="PrintDoc()"/>
+    </div>
     <div class="wrapper wrapper-content">
         @if(Session::has('success'))
             <div class="alert alert-success">{{ Session::get('success') }}</div>
         @endif
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins" id="printarea">
             <div class="ibox-title">
                 <h5>Freelancer List</h5>
                 <div class="ibox-tools">
@@ -32,20 +41,24 @@
                         <th>Full Name</th>
                         <th>Skill</th>
                         <th>Professional Title</th>
-                        <th>Action</th>
+                        <th class="hd">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php $count=1; ?>
                     @foreach($freelancerList as $freelancer)
+
                         @if($freelancer->profile != null && $freelancer->profile != "")
+
                             <tr class="gradeX">
                                 <td>{{$count++}}</td>
                                 <td>{{$freelancer->fname}}{{$freelancer->lname}}</td>
                                 <td>
-                                    @foreach(json_decode($freelancer->profile->skills) as $skill)
-                                        {{$skill}}
-                                    @endforeach
+                                    @if(json_decode($freelancer->profile->skills) != null && json_decode($freelancer->profile->skills) != "")
+                                        @foreach(json_decode($freelancer->profile->skills) as $skill)
+                                            {{$skill}}
+                                        @endforeach
+                                    @endif
                                 </td>
                                 <td>{{$freelancer->profile->professional_title}}</td>
                                 <td class="center">
@@ -58,30 +71,6 @@
                     @endforeach
                     </tbody>
                 </table>
-
-                {{--<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--}}
-                    {{--<div class="modal-dialog">--}}
-                        {{--<div class="modal-content">--}}
-
-                            {{--<div class="modal-header">--}}
-                                {{--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--}}
-                                {{--<h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>--}}
-                            {{--</div>--}}
-
-                            {{--<div class="modal-body">--}}
-                                {{--<p>You are about to delete one track, this procedure is irreversible.</p>--}}
-                                {{--<p>Do you want to proceed?</p>--}}
-                                {{--<p class="debug-url"></p>--}}
-                            {{--</div>--}}
-
-                            {{--<div class="modal-footer">--}}
-                                {{--<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>--}}
-                                {{--<a class="btn btn-danger btn-ok">Delete</a>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
             </div>
         </div>
     </div>

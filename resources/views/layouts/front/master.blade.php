@@ -19,7 +19,10 @@
     @yield('content')
     @include('layouts.front.footer')
     @include('layouts.front.script')
+    @include('messaging.chatPopUp')
     @yield('script')
+
+
 </div>
 </body>
 </html>

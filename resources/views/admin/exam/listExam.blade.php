@@ -11,12 +11,16 @@
 @section('title', 'View Exam List')
 
 @section('content')
+    <div style="margin-left: 85%;">
+        <input type="button" value="Print Preview" class="btn btn-sm btn-info" onclick="PrintPreview()"/>
+        <input type="button" value="Print" class="btn btn-sm btn-primary" onclick="PrintDoc()"/>
+    </div>
     <div class="wrapper wrapper-content">
         <div class="message_show"></div>
         @if(Session::has('success'))
             <div class="alert alert-success">{{ Session::get('success') }}</div>
         @endif
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins" id="printarea">
             <!-- Exam list -->
             @if(!empty($examList))
                 <div class="ibox-title">
@@ -34,7 +38,7 @@
                             <th>SL No.</th>
                             <th>Exam Name</th>
                             <th>Description</th>
-                            <th>Action</th>
+                            <th class="hd">Action</th>
                         </tr>
                         </thead>
                         <tbody>

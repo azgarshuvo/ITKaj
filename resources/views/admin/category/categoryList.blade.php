@@ -11,11 +11,15 @@
 @section('title', 'Add Admin')
 
 @section('content')
+    <div style="margin-left: 85%;">
+        <input type="button" value="Print Preview" class="btn btn-sm btn-info" onclick="PrintPreview()"/>
+        <input type="button" value="Print" class="btn btn-sm btn-primary" onclick="PrintDoc()"/>
+    </div>
     <div class="wrapper wrapper-content">
       @if(Session::has('success'))
       <div class="alert alert-success">{{ Session::get('success') }}</div>
       @endif
-      <div class="ibox">
+      <div class="ibox" id="printarea">
         <div class="ibox-title">
             <h5>Category List</h5>
             <div class="ibox-tools">
@@ -32,7 +36,7 @@
             <th>SL No.</th>
             <th>Category</th>
             <th>Sub Category</th>
-            <th>Action</th>
+            <th class="hd">Action</th>
         </tr>
         </thead>
           <tbody>
@@ -47,13 +51,13 @@
                 <table class="table table-striped table-bordered table-hover table-responsive">
                   <tr>
                     <th>Name</th>
-                    <th>Action</th>
+                    <th class="hd">Action</th>
                   </tr>
                   <?php $sub_category = App\Categories::where('parent_category_id', $pc->id)->where('is_parent', 0)->orderBy('category_name')->get(); ?>
                   @foreach($sub_category as $sc)
                   <tr>
                     <td>{{$sc->category_name}}</td>
-                    <td>
+                    <td class="center">
                       <a class="btn btn-sm btn-primary" href="{{ route('categoryEdit', $sc->id)}}"  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
                       {{--<a class="btn btn-sm btn-danger" href="" data-href="{{ route('categoryDelete', $sc->id)}}"  data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-times"></i></a>--}}
                         <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{ route('categoryDelete', $sc->id)}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>

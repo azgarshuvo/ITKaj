@@ -38,23 +38,23 @@
 
             <ul class="list-unstyled" id="messageBody">
                 @if(sizeof($conversion)>0)
-                @if($conversion->message)
-                    @foreach($conversion->message as $message)
-                        @if($message->sender == "admin")
-                            @if(strlen($message->message)>0)
-                            <li class="sender"><p class="message">{{$message->message}}</p></li>
-                            @else
+                    @if($conversion->message)
+                        @foreach($conversion->message as $message)
+                            @if($message->sender == "admin")
+                                @if(strlen($message->message)>0)
+                                    <li class="sender"><p class="message">{{$message->message}}</p></li>
+                                @else
                                     <li class="sender"><p class="message attachmentDownload">{{$message->attachment}}</p></li>
-                            @endif
-                        @else
-                            @if(strlen($message->message)>0)
-                                <li class="receiver"><p class="message">{{$message->message}}</p></li>
+                                @endif
                             @else
-                                <li class="receiver"><p class="message attachmentDownload">{{$message->attachment}}</p></li>
+                                @if(strlen($message->message)>0)
+                                    <li class="receiver"><p class="message">{{$message->message}}</p></li>
+                                @else
+                                    <li class="receiver"><p class="message attachmentDownload">{{$message->attachment}}</p></li>
+                                @endif
                             @endif
-                        @endif
-                    @endforeach
-                @endif
+                        @endforeach
+                    @endif
                 @endif
                 <a class="hidden" id="download_data"></a>
             </ul>
@@ -75,6 +75,9 @@
 @endsection
 @section('script')
     <script>
+        $(document).ready(function() {
+            getAdminMessageStatus(0);
+        });
 
         function sendMessage(){
             var conversionId = '@if(sizeof($conversion)>0){{$conversion->id}}@endif';

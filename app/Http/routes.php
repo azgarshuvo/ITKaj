@@ -218,7 +218,7 @@ Route::group(['prefix' => 'job','middleware' => ['auth', 'approve','profile']], 
 
 
 Route::get('email/confirmation', ['as' => 'sendToken', 'uses' => 'RegistrationController@EmailToken']);
-Route::get('email-confirmation-notification', ['as' => 'verifyEmail', 'uses' => 'RegistrationController@EmailConfirmation','middleware' => 'auth']);
+Route::get('email-confirmation-notification', ['as' => 'verifyEmail', 'uses' => 'RegistrationController@EmailConfirmation']);
 Route::get('email-confirmation-success', ['as' => 'verifyEmailSuccess', 'uses' => 'RegistrationController@EmailConfirmationSuccess']);
 Route::get('email-confirmation-fail', ['as' => 'verifyEmailFail', 'uses' => 'RegistrationController@EmailConfirmationFail']);
 
@@ -286,7 +286,7 @@ Route::get('paypal', array('as' => 'status','uses' => 'PayPalController@getPayme
 
 Route::get('addmoney/stripe', array('as' => 'addmoney.paywithstripe','uses' => 'AddMoneyController@payWithStripe'));
 
-Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
+Route::post('addmoney/stripe/{amount}/{milestoneId}/{milestoneJobId}', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
 
 Route::get('coming-soon', ['as' => 'comingSoon', 'uses' => 'HomeController@getComingSoonPage']);
 
@@ -299,7 +299,7 @@ Route::group(['prefix' => 'message','middleware' => ['auth', 'approve','profile'
     Route::get('/', ['as' => 'message', 'uses' => 'MessageController@Message']);
     Route::post('/send-message', ['as' => 'sendUserMessage', 'uses' => 'MessageController@MessageSend']);
     Route::post('/get-message/{conversionId}', ['as' => 'getUserMessage', 'uses' => 'MessageController@MessageGet']);
-    Route::get('/get-message/{adminId}', ['as' => 'getMessage', 'uses' => 'MessageController@GetMessage']);
+    Route::any('/get-message', ['as' => 'getMessage', 'uses' => 'MessageController@GetMessage']);
     Route::get('/conversion/{conversionId}', ['as' => 'getConversion', 'uses' => 'MessageController@GetConversionMessage']);
 
     Route::post('/send-attachment', ['as' => 'sendAttachmentUser', 'uses' => 'MessageController@SendAttachment']);

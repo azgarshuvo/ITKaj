@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
 
 class MessageController extends Controller
 {
@@ -38,7 +39,8 @@ class MessageController extends Controller
     }
 
     #get message by user id
-    public function GetMessage($adminId){
+    public function GetMessage(){
+        $adminId =  Input::get('adminId');
         $conversion = Conversion::where(['admin_id'=>$adminId,'user_id'=>$this->userId])->first();
         if (sizeof($conversion)==1){
             return redirect()->route('getConversion',['conversionId'=>$conversion->id]);
@@ -56,9 +58,13 @@ class MessageController extends Controller
     public function GetConversionMessage($conversionId){
         $adminList = User::where(['user_type'=>"admin"])->get();
         $conversion = Conversion::with('message')->where(['id'=>$conversionId,'user_id'=>$this->userId])->orderBy('id', 'asc')->first();
-
+//        dd($conversion);
+        $admin = User::find($conversion->admin_id);
+//dd($admin);
         Message::where(['conversion_id'=>$conversionId,'is_read'=>0,'sender'=>'admin'])->update(['is_read'=>1]);
-        return view('front.message.message',['adminList'=>$adminList,'conversion'=>$conversion]);
+//        return (['adminList'=>$adminList, 'conversion' =>$conversion]);
+//        return view('front.message.message',['adminList'=>$adminList,'conversion'=>$conversion]);
+        return view('messaging.messageBody',['adminList'=>$adminList,'conversion'=>$conversion, 'admin' => $admin]);
     }
 
     #get user message
@@ -70,9 +76,11 @@ class MessageController extends Controller
             if (sizeof($message)>0){
                 foreach ($message as $text){
                     if(strlen($text->message)>0){
-                        echo '<li class="sender"><p class="message">'.$text->message.'</p></li>';
+//                        echo '<li class="sender"><p class="message">'.$text->message.'</p></li>';
+                        echo '<div class="direct-chat-msg"> <div class="direct-chat-text message">'.$text->message.'</div> <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">'.$text->time.'</span> </div> </div>';
                     }else{
-                        echo '<li class="sender"><p class="message attachmentDownload">'.$text->attachment.'</p></li>';
+//                        echo '<li class="sender"><p class="message attachmentDownload">'.$text->attachment.'</p></li>';
+                        echo '<div class="direct-chat-msg"> <div class="direct-chat-text message">'.$text->attachment.'</div> <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-left">'.$text->time.'</span> </div> </div>';
                     }
 
                 }
@@ -102,7 +110,8 @@ class MessageController extends Controller
 
                 Message::create(['conversion_id'=>$conversionId,'attachment'=>$attachFile,'time'=>$time,'date'=>$date,'sender'=>'user']);
 
-                echo '<li class="receiver"><p class="message attachmentDownload">'. $attachFile.'</p></li>';
+//                echo '<li class="receiver"><p class="message attachmentDownload">'. $attachFile.'</p></li>';
+                echo '<div class="direct-chat-msg"> <div class="direct-chat-text message attachmentDownload">'. $attachFile.'</div> <div class="direct-chat-info clearfix"> <span class="direct-chat-timestamp pull-right"></span> </div> </div>';
             }
 
         }

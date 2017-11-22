@@ -11,11 +11,15 @@
 @section('title', 'View Approve Job List')
 
 @section('content')
+    <div style="margin-left: 85%;">
+        <input type="button" value="Print Preview" class="btn btn-sm btn-info" onclick="PrintPreview()"/>
+        <input type="button" value="Print" class="btn btn-sm btn-primary" onclick="PrintDoc()"/>
+    </div>
     <div class="wrapper wrapper-content">
         @if(Session::has('success'))
             <div class="alert alert-success">{{ Session::get('success') }}</div>
         @endif
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins" id="printarea">
             <!-- Job list -->
             @if(!empty($jobList))
                 <div class="ibox-title">
@@ -34,7 +38,7 @@
                             <th>Job Title</th>
                             <th>Description</th>
                             <th>Category</th>
-                            <th>Action</th>
+                            <th class="hd">Action</th>
                         </tr>
                         </thead>
                         <tbody>

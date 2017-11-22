@@ -10,10 +10,13 @@ namespace App\Http\Controllers;
 
 
 //use Cartalyst\Stripe\Stripe;
+use App\Milestone;
+use App\StripePayment;
 use Illuminate\Routing\Controller;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Session;
@@ -43,37 +46,61 @@ class AddMoneyController extends Controller{
     }
 
 
-    public function postPaymentWithStripe(Request $request)
+    public function postPaymentWithStripe($amount, $milestoneId, $milestoneJobId)
     {
 //        dd($request);
 //        $stripe = Stripe::make(env('STRIPE_SECRET'));
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
+//        dd($id);
         // Get the credit card details submitted by the form
         $token = $_POST['stripeToken'];
-
+        $email = $_POST['stripeEmail'];
         // Create the charge on Stripe's servers - this will charge the user's card
         try {
             $charge = \Stripe\Charge::create(array(
-                "amount" => 1000,
+                "amount" => $amount."00",
                 "currency" => "usd",
-                "description" => "Example charge",
+                "description" => "Milestone Release Charge",
                 "source" => $token,
             ));
 
             $paymentid     = $charge->id;
             $payerid       = $charge->source->id;
             $status        = $charge->status;
+            $total         = $amount;
+            $currency      = $charge->currency;
             // if status="succeeded" do rest of the insert operation start
             if($status == 'succeeded') {
                 /**
                  * Write Here Your Database insert logic.
                  */
-                Session::put('success','Money add successfully in wallet');
-                return redirect()->route('addmoney.paywithstripe');
+                $stripePayment = new StripePayment();
+
+                $stripePayment->payment_id = $paymentid;
+                $stripePayment->payer_id = $payerid;
+                $stripePayment->status = $status;
+                $stripePayment->email = $email;
+                $stripePayment->total = $total;
+                $stripePayment->currency = $currency;
+                $stripePayment->user_id = Auth::User()->id;
+                if($stripePayment->save()){
+                    $milestone = Milestone::find($milestoneId);
+//                    dd($milestone);
+                    if($milestone != null && $milestone!= ""){
+                        $milestone->status = 1;
+                        if($milestone->update()){
+                            Session::put('success','Payment Success');
+                            return redirect()->route('setupMilestone',[$milestoneJobId]);
+                        }
+                    }
+                }
+                Session::put('error','Payment Fail!!');
+                return redirect()->route('setupMilestone',[$milestoneJobId]);
+
             } else {
-                Session::put('error','Money not add in wallet!!');
-                return redirect()->route('addmoney.paywithstripe');
+                Session::put('error','Payment Fail!!');
+                return redirect()->route('setupMilestone',[$milestoneJobId]);
             }
             // end
 
@@ -86,69 +113,6 @@ class AddMoneyController extends Controller{
             return Redirect::to('/')
                 ->with_input()
                 ->with('card_errors', $error);
-		}
-
-
-
-
-/*--------------------------------------------------*/
-//        $validator = Validator::make($request->all(), [
-//            'card_no' => 'required',
-//            'ccExpiryMonth' => 'required',
-//            'ccExpiryYear' => 'required',
-//            'cvvNumber' => 'required',
-//            'amount' => 'required',
-//        ]);
-//
-//        $input = $request->all();
-//        if ($validator->passes()) {
-//            $input = array_except($input,array('_token'));
-//            $stripe = Stripe::make(env('STRIPE_SECRET'));
-//            try {
-//                $token = $stripe->tokens()->create([
-//                    'card' => [
-//                        'number'    => $request->get('card_no'),
-//                        'exp_month' => $request->get('ccExpiryMonth'),
-//                        'exp_year'  => $request->get('ccExpiryYear'),
-//                        'cvc'       => $request->get('cvvNumber'),
-//                    ],
-//                ]);
-//
-//                if (!isset($token['id'])) {
-//                    Session::put('error','The Stripe Token was not generated correctly');
-//                    return redirect()->route('addmoney.paywithstripe');
-//                }
-//
-//                $charge = $stripe->charges()->create([
-//                    'card' => $token['id'],
-//                    'currency' => 'USD',
-//                    'amount'   => $request->get('amount'),
-//                    'description' => 'Add in wallet',
-//                ]);
-//
-//                if($charge['status'] == 'succeeded') {
-//                    /**
-//                     * Write Here Your Database insert logic.
-//                     */
-//                    Session::put('success','Money add successfully in wallet');
-//                    return redirect()->route('addmoney.paywithstripe');
-//                } else {
-//                    Session::put('error','Money not add in wallet!!');
-//                    return redirect()->route('addmoney.paywithstripe');
-//                }
-//
-//            } catch (Exception $e) {
-//                Session::put('error',$e->getMessage());
-//                return redirect()->route('addmoney.paywithstripe');
-//            } catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
-//                Session::put('error',$e->getMessage());
-//                return redirect()->route('addmoney.paywithstripe');
-//            } catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
-//                Session::put('error',$e->getMessage());
-//                return redirect()->route('addmoney.paywithstripe');
-//            }
-//        }
-//        Session::put('error','All fields are required!!');
-//        return redirect()->route('addmoney.paywithstripe');
-}
+        }
+    }
 }

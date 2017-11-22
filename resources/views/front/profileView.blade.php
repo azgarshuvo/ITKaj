@@ -15,7 +15,7 @@
         <div class="breadcrumbs">
             <div class="container">
                 <h1 class="pull-left">Profile View</h1>
-                
+
             </div>
         </div>
 
@@ -63,7 +63,7 @@
                             @endif
                             <hr>
 
-                            <h3>Skills</h3>                           
+                            <h3>Skills</h3>
                             <ul class="list-unstyled">
                                 <li><i class="fa fa-check color-green"></i> PHP</li>
                                 <li><i class="fa fa-check color-green"></i> Javascript</li>
@@ -102,6 +102,6 @@
             </div>
         </div>
         <!--=== End Job Description ===-->
-       
+
         <!--=== End Job Description ===-->
- @endsection       
+ @endsection

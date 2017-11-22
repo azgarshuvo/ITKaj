@@ -95,6 +95,9 @@ $count = 0;
                                 <li>
                                     <a href="{{route('jobSearch')}}" class="dropdown-toggle" >Search for Project</a>
                                 </li>
+                                <li>
+                                    <a href="{{route('ExamList')}}" class="dropdown-toggle" >Test</a>
+                                </li>
                                 <!-- End Search for Project -->
                         @endif
                         @if(Auth::user()->user_type=="employer")
@@ -103,6 +106,16 @@ $count = 0;
                                     <a href="{{route('freelancerSearch')}}" class="dropdown-toggle">Search For Freelancer</a>
                                 </li>
                                 <!-- End Search For Freelancer -->
+                        @endif
+                        <!-- Message -->
+                        @if(Auth::user()->user_type!="admin")
+                            <li>
+                                <a href="{{route('message')}}" class="dropdown-toggle">Message
+                                    <span class="badge badge-blue rounded top-notification">0</span>
+                                </a>
+
+                            </li>
+                            <!-- End Message -->
                         @endif
 
                         <!-- Logout -->
