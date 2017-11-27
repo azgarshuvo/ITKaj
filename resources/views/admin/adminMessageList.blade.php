@@ -30,7 +30,7 @@
                     <tr>
                         <th>Message</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th class="hd" >Action</th>
                     </tr>
                     </thead>
                     <tbody>
