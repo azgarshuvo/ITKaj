@@ -14,7 +14,7 @@ class AdminMessage extends Migration
     {
         Schema::create('admin_message', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('message');
+            $table->text('message');
             $table->boolean('is_live');
             $table->integer('user_id');
             $table->timestamps();

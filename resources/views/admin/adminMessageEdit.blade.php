@@ -25,7 +25,7 @@
                         <h5>Message to All Users</h5>
                     </div>
                     <div class="ibox-content">
-                        <form method="post" class="form-horizontal" action="{{route('adminMessageForAllUsersPost')}}">
+                        <form method="post" class="form-horizontal" action="{{route('adminMessageForAllUsersUpdate', $message->id)}}">
                             <input type="hidden" value="{{csrf_token()}}" name="_token">
                             <div class="form-group"><label class="col-sm-2 control-label">Message to Users</label>
 

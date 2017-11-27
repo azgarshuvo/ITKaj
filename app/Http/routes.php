@@ -74,6 +74,7 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::get('admin/login', ['as' =>'adminLogin', 'uses' => 'adminController\AdminLoginController@getLoginView']);
 Route::get('admin/login/execute', ['as' =>'adminPostLogin', 'uses' => 'adminController\AdminLoginController@postLogin']);
+
 Route::group(['prefix' => 'admin','middleware' => 'admin'], function (){
     Route::get('dashboard', ['as' =>'dashboard', 'uses' => 'adminController\AdminDashboardController@getDashboard']);
 
@@ -326,7 +327,9 @@ Route::group(['prefix' => 'admin-message','middleware' => ['auth', 'approve','ad
     Route::get('/for-all-users', ['as' => 'adminMessageForAllUsers', 'uses' => 'adminController\AdminMessageController@getAdminMessageForAllUsers']);
     Route::post('/for-all-users', ['as' => 'adminMessageForAllUsersPost', 'uses' => 'adminController\AdminMessageController@postAdminMessageForAllUsers']);
     Route::get('/for-all-users/list', ['as' => 'adminMessageForAllUsersList', 'uses' => 'adminController\AdminMessageController@getAdminMessageForAllUsersList']);
-    Route::get('/for-all-users/{id}', ['as' => 'adminMessageForAllUsersEdit', 'uses' => 'adminController\AdminMessageController@getAdminMessageForAllUsersEdit']);
+    Route::get('/for-all-users/edit/{id}', ['as' => 'adminMessageForAllUsersEdit', 'uses' => 'adminController\AdminMessageController@getAdminMessageForAllUsersEdit']);
+    Route::post('/for-all-users/update/{id}', ['as' => 'adminMessageForAllUsersUpdate', 'uses' => 'adminController\AdminMessageController@postAdminMessageForAllUsersEdit']);
+    Route::get('/for-all-users/delete/{id}', ['as' => 'adminMessageForAllUsersDelete', 'uses' => 'adminController\AdminMessageController@postAdminMessageForAllUsersDelete']);
 
 });
 /*Message Route for Admin End*/
