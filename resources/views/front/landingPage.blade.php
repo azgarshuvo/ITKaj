@@ -53,6 +53,7 @@ $count = 0;
 <div class="wrapper">
     <!--=== Header ===-->
     <nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
+
         <div class="container">
             <div class="menu-container page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -173,8 +174,8 @@ $count = 0;
                              data-endeasing="Power1.easeIn"
                              data-captionhidden="off"
                              style="z-index: 6">
-                            Lorem Ipsum is simply dummy text of the printing <br>
-                            and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                            Get a professional solution at ITKAJ.<br>
+                            We are here to guide you to make your work easy
                         </div>
 
                         <!-- LAYER -->
@@ -224,8 +225,8 @@ $count = 0;
                              data-endeasing="Power1.easeIn"
                              data-captionhidden="off"
                              style="z-index: 6">
-                            Lorem Ipsum is simply dummy text of the printing <br>
-                            and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                            Get a professional solution at ITKAJ.<br>
+                            We are here to guide you to make your work easy
                         </div>
 
                         <!-- LAYER -->
@@ -276,8 +277,8 @@ $count = 0;
                              data-endeasing="Power1.easeIn"
                              data-captionhidden="off"
                              style="z-index: 6">
-                            Lorem Ipsum is simply dummy text of the printing <br>
-                            and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                            Get a professional solution at ITKAJ.<br>
+                            We are here to guide you to make your work easy
                         </div>
 
                         <!-- LAYER -->
@@ -483,6 +484,7 @@ $count = 0;
     <script type="text/javascript" src="{{asset('assets/plugins/bootstrap-3.3.7/js/bootstrap.min.js')}}"></script>
 
     <!-- JS Implementing Plugins -->
+    <script type="text/javascript" src="{{asset('assets/plugins/jquery.easing.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/plugins/back-to-top.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js')}}"></script>

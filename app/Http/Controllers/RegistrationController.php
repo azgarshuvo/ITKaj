@@ -40,7 +40,14 @@ class RegistrationController extends Controller{
                 'email' => 'required|email|unique:users|string',
                 'user_type' => 'required|string',
                 'terms' => 'required',
-                'password' => 'required|string|min:6|confirmed',
+//                'password' => 'required|regex:/(^([a-zA-z]+)(\d+)?$)/u\'|string|min:8|confirmed',
+                'password' => array(
+                    'required',
+                    'regex:/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/',
+                    'string',
+                    'min:8',
+                    'confirmed'
+                ),
             ],[
                 'fname.required'    =>"First Name is required",
                 'lname.required'    =>"Last Name is required",
@@ -49,7 +56,7 @@ class RegistrationController extends Controller{
                 'email.unique'    =>"The email has all ready been taken",
                 'terms.required'    =>"Terms and Conditions must be accepted",
                 'password.required'    =>"Password is required",
-                'password.min'    =>"Password length must be at least 6",
+                'password.min'    =>"Password length must be at least 8",
                 'password.confirmed'    =>"Password confirm doesn't match",
                 'user_type.required'    =>"Select an user type",
             ]);

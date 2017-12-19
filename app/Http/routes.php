@@ -321,6 +321,13 @@ Route::group(['prefix' => 'admin-message','middleware' => ['auth', 'approve','ad
     Route::post('/attachment-admin-download', ['as' => 'messageAttachmentAdminDownload', 'uses' => 'adminController\AdminMessageController@getAttachmentDownload']);
     Route::post('/send-attachment-admin', ['as' => 'sendAttachmentAdmin', 'uses' => 'adminController\AdminMessageController@MessageAdminAttachment']);
 
+    /*Admin message to all user using marquee*/
+
+    Route::get('/for-all-users', ['as' => 'adminMessageForAllUsers', 'uses' => 'adminController\AdminMessageController@getAdminMessageForAllUsers']);
+    Route::post('/for-all-users', ['as' => 'adminMessageForAllUsersPost', 'uses' => 'adminController\AdminMessageController@postAdminMessageForAllUsers']);
+    Route::get('/for-all-users/list', ['as' => 'adminMessageForAllUsersList', 'uses' => 'adminController\AdminMessageController@getAdminMessageForAllUsersList']);
+    Route::get('/for-all-users/{id}', ['as' => 'adminMessageForAllUsersEdit', 'uses' => 'adminController\AdminMessageController@getAdminMessageForAllUsersEdit']);
+
 });
 /*Message Route for Admin End*/
 

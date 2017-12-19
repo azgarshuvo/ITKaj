@@ -90,6 +90,14 @@
                     {{--<li><a href="{{route('listExam')}}">Exam List</a></li>--}}
                 </ul>
             </li>
+
+            <li>
+                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">Message to All Users</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{route('adminMessageForAllUsers')}}">Message</a></li>
+                    <li><a href="{{route('adminMessageForAllUsersList')}}">message List</a></li>
+                </ul>
+            </li>
         </ul>
 
     </div>
