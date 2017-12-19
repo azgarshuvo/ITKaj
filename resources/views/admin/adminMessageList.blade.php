@@ -30,7 +30,7 @@
                     <tr>
                         <th>Message</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th class="hd" >Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,7 +46,7 @@
                             </td>
                             <td class="center">
                                 <a class="btn btn-sm btn-primary"  href="{{route('adminMessageForAllUsersEdit', [$message->id])}}"  data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger" href=""  data-toggle="tooltip" title="Delete"><i class="fa fa-times" ></i></a>
+                                <a onclick="return confirm('Are you sure to delete?')" class="btn btn-sm btn-danger" href="{{route('adminMessageForAllUsersDelete', [$message->id])}}"  data-toggle="tooltip" title="Job Delete"><i class="fa fa-times" ></i></a>
                             </td>
                         </tr>
                     @endforeach

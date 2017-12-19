@@ -201,4 +201,32 @@ class AdminMessageController extends BaseControllerAdmin
         $message = AdminMessage::find($id);
         return view('admin.adminMessageEdit', ['message'=>$message]);
     }
+
+    public function postAdminMessageForAllUsersEdit($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'message' => 'required',
+            '_token' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->route('adminMessageForAllUsers')->with('fail', 'Message Update Failed');
+        }
+        if(Input::get('is_live') == 'on'){
+            $live = 1;
+        }else{
+            $live = 0;
+        }
+
+        $message = AdminMessage::find($id);
+        $message->message = Input::get('message');
+        $message->is_live = $live;
+        $message->user_id = Auth::User()->id;
+        $message->save();
+        return redirect()->route('adminMessageForAllUsersList')->with('success', 'Message Updated Successfully');
+
+    }
+    public function postAdminMessageForAllUsersDelete($id){
+        AdminMessage::find($id)->delete();
+        return redirect()->route('adminMessageForAllUsersList')->with('success', 'Message Deleted Successfully');
+
+    }
 }
