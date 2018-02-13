@@ -1,0 +1,36 @@
+{
+    "name": "cartalyst/stripe-laravel",
+    "description": "Laravel 5 integration for the Cartalyst Stripe package.",
+    "keywords": [
+        "php",
+        "cartalyst",
+        "laravel",
+        "stripe"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Cartalyst LLC",
+            "email": "help@cartalyst.com",
+            "homepage": "https://cartalyst.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.0.*|5.1.*",
+        "cartalyst/stripe": "1.0.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+        "psr-4": { "Cartalyst\\Stripe\\Laravel\\": "src/" }
+    },
+    "extra": {
+        "component": "implementation",
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    },
+    "minimum-stability": "stable"
+}
